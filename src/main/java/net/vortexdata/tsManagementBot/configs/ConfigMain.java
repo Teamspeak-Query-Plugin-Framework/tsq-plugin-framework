@@ -10,8 +10,11 @@ public class ConfigMain extends ConfigField implements Config {
 
 
     public ConfigMain() {
-        super("configs/main.properties");
-        // Default Values
+        super("configs//main.properties");
+        // Creating HashMaps
+        defaultValues = new HashMap<String, String>();
+        values = new HashMap<String, String>();
+        // Setting Default Values
         defaultValues.put("serverAddress", "127.0.0.1");
         defaultValues.put("queryPort", "10011");
         defaultValues.put("queryUser", "admin");

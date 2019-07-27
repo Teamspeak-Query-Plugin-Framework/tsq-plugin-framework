@@ -17,6 +17,18 @@ public class InstallConfig {
         Properties prop = new Properties();
         prop.putAll(defaultValues);
 
+        // Create directory
+        String[] pathSplit = path.split("//");
+        String directory = "";
+        for (int i = 0; i < pathSplit.length - 1; i++)
+            directory += pathSplit[i];
+
+        try {
+            Files.createDirectory(Paths.get(directory));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         File newFile = new File(path);
         try {
             FileOutputStream fileOut = new FileOutputStream(newFile);
