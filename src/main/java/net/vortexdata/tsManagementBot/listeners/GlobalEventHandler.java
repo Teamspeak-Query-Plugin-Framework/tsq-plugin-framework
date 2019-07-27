@@ -1,8 +1,8 @@
-package net.vortexdata.TsManagementBot.Listeners;
+package net.vortexdata.tsManagementBot.listeners;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.*;
-import net.vortexdata.TsManagementBot.Main;
+import net.vortexdata.tsManagementBot.Main;
 
 public class GlobalEventHandler implements TS3Listener {
 
