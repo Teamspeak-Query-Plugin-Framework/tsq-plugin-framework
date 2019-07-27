@@ -3,11 +3,12 @@ package net.vortexdata.tsManagementBot;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
+import com.github.theholywaffle.teamspeak3.api.*;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.configs.*;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
+import org.apache.log4j.*;
+import org.apache.log4j.lf5.LogLevel;
 
 public class Main {
 
@@ -17,12 +18,31 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].contains("-debug")) {
+                logger.setLevel(Level.DEBUG);
+            }
+        }
+
         _instance = new Main();
         _instance.init();
     }
 
     private void init() {
 
+        // Copy Header
+        System.out.println("|| =============================================== ||");
+        System.out.println("|| Copyright (C) 2018 - 2019 VortexdataNET         ||");
+        System.out.println("|| https://projects.vortexdata.net/tsservermanager ||");
+        System.out.println("|| =============================================== ||");
+        System.out.println("");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // Ignore
+        }
+        System.out.println("Loading libraries... Please wait.");
         logger.info("Initializing... Please wait.");
 
         // Load main config
