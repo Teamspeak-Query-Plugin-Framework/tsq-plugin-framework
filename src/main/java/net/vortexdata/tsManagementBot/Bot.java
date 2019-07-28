@@ -5,8 +5,7 @@ import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
-import net.vortexdata.tsManagementBot.commands.CommandHelp;
-import net.vortexdata.tsManagementBot.commands.CommandInterface;
+import net.vortexdata.tsManagementBot.commands.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
 import net.vortexdata.tsManagementBot.console.ConsoleHandler;
 import net.vortexdata.tsManagementBot.installers.*;
@@ -121,12 +120,15 @@ public class Bot {
 
         _consoleHandler = new ConsoleHandler();
         _consoleHandler.registerCommand(new CommandHelp());
+        _consoleHandler.registerCommand(new CommandStop());
 
     }
 
     public void shutdown() {
         logger.info("Unloading plugins...");
         _manager.disableAll();
+        logger.info("Successfully unloaded plugins.");
+        logger.info("Shutting down... Bye!");
         System.exit(0);
     }
 
