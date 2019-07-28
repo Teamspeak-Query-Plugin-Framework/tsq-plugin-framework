@@ -20,6 +20,7 @@ public class Bot {
 
     public static void main(String[] args) {
 
+        BasicConfigurator.configure();
         for (int i = 0; i < args.length; i++) {
             if (args[i].contains("-debug")) {
                 logger.setLevel(Level.DEBUG);
