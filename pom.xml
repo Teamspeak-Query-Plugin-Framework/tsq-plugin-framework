@@ -6,7 +6,11 @@
 
     <groupId>Vortexdata_TS-Management-Bot</groupId>
     <artifactId>Vortexdata_TS-Management-Bot</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>TS-Bot_PluginAPI</module>
+    </modules>
 
 
     <dependencies>

@@ -5,9 +5,12 @@ import net.vortexdata.tsManagementBot.Bot;
 
 public abstract class PluginInterface {
 
+    private EventHandler eventHandler;
 
-    abstract boolean onEnable();
-    abstract boolean onDisable();
-    abstract Bot getBot();
+    abstract public EventHandler getEventHandler();
+    abstract public void setEventHandler(EventHandler handler);
+    abstract public boolean onEnable(Bot bot);
+    abstract public boolean onDisable();
+
 
 }

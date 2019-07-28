@@ -1,5 +1,7 @@
 package net.vortexdata.tsManagementBot.modules;
 
+import net.vortexdata.tsManagementBot.Bot;
+
 import java.io.File;
 
 import java.net.URL;
@@ -10,14 +12,21 @@ import java.util.List;
 
 public class PluginManager {
 
-    private List<PluginInterface> loadedplugins = new ArrayList<PluginInterface>();
+    private Bot _bot;
+
+    public PluginManager(Bot bot) {
+        _bot = bot;
+    }
+
+    private static List<PluginInterface> loadedplugins = new ArrayList<PluginInterface>();
 
     public void enableAll(){
         File[] files = new File("plugins").listFiles();
         for(File f : files)
             loadPlugin(f);
         for(PluginInterface pi : loadedplugins)
-            pi.onEnable();
+            pi.onEnable(_bot);
+
     }
     public void disableAll(){
         for(PluginInterface pi : loadedplugins)
@@ -27,7 +36,7 @@ public class PluginManager {
 
     public void loadPlugin(File file) {
         try {
-            String main = "Bot";
+            String main = "PluginMain";
             URL[] urls = { new URL("jar:file:" + file.getPath()+"!/") };
             Class cl = new URLClassLoader(urls).loadClass(main);
             Class[] interfaces = cl.getInterfaces();
@@ -50,4 +59,9 @@ public class PluginManager {
             e.printStackTrace();
         }
     }
+
+    public static List<PluginInterface> getLoadedplugins() {
+        return loadedplugins;
+    }
+
 }

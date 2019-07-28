@@ -3,6 +3,7 @@ package net.vortexdata.tsManagementBot;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
+import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
 import net.vortexdata.tsManagementBot.installers.*;
@@ -119,5 +120,10 @@ public class Bot {
 
     public Logger getLogger() {
         return logger;
+    }
+
+    public void addEventHandler(TS3Listener listener) {
+        _api.addTS3Listeners(listener);
+
     }
 }
