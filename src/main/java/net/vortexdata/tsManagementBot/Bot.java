@@ -48,7 +48,7 @@ public class Bot {
         System.out.println("Loading libraries... Please wait.");
         logger.info("Initializing... Please wait.");
 
-        PluginManager manager = new PluginManager();
+        PluginManager manager = new PluginManager(this);
         manager.enableAll();
 
 
