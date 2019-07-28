@@ -5,7 +5,9 @@ import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
+import net.vortexdata.tsManagementBot.commands.CommandHelp;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
+import net.vortexdata.tsManagementBot.console.ConsoleHandler;
 import net.vortexdata.tsManagementBot.installers.*;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import net.vortexdata.tsManagementBot.modules.PluginManager;
@@ -111,6 +113,10 @@ public class Bot {
         manager.enableAll();
 
         logger.info("Boot process finished.");
+
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.registerCommand(new CommandHelp());
+
     }
 
 
@@ -120,6 +126,10 @@ public class Bot {
 
     public Logger getLogger() {
         return logger;
+    }
+
+    public static Bot getBot() {
+        return _instance;
     }
 
     public void addEventHandler(TS3Listener listener) {

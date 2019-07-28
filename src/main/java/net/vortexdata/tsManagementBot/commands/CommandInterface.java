@@ -2,6 +2,11 @@ package net.vortexdata.tsManagementBot.commands;
 
 public interface CommandInterface {
 
-    public void runCommand(String params);
+    String name = null;
+
+    void gotCalled(String[] args);
+    String getName();
+
+
 
 }
