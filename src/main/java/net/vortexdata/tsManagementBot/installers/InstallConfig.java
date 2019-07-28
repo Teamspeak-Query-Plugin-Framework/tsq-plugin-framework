@@ -26,7 +26,7 @@ public class InstallConfig {
         File configFile = new File(path);
         configFile.getParentFile().mkdirs();
         try {
-            FileOutputStream fileOut = new FileOutputStream(configFile);
+            FileOutputStream fileOut = new FileOutputStream(configFile, false);
 
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             Date date = new Date();

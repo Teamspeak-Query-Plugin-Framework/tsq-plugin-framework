@@ -17,7 +17,7 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
-
+        clientJoinEvent.getClientId();
     }
 
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {

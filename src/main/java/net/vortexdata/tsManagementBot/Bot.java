@@ -5,6 +5,7 @@ import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
+import net.vortexdata.tsManagementBot.installers.*;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import net.vortexdata.tsManagementBot.modules.PluginManager;
 import org.apache.log4j.*;
@@ -21,6 +22,8 @@ public class Bot {
         for (int i = 0; i < args.length; i++) {
             if (args[i].contains("-debug")) {
                 logger.setLevel(Level.DEBUG);
+            } else if (args[i].contains("-setup")) {
+                InstallWizzard installWizzard = new InstallWizzard();
             }
         }
 
@@ -99,10 +102,14 @@ public class Bot {
             System.exit(0);
         }
 
-
-        _api.sendServerMessage("Online");
+        logger.debug("Trying to register events...");
         _api.registerAllEvents();
         _api.addTS3Listeners(new GlobalEventHandler(this));
+
+        // Load modules
+
+
+        logger.info("Boot process finished.");
     }
 
 
