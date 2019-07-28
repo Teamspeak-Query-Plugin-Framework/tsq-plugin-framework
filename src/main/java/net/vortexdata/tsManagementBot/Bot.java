@@ -78,7 +78,7 @@ public class Bot {
             logger.debug("Trying to sign into query...");
             _api.login(configMain.getProperty("queryUser"), configMain.getProperty("queryPassword"));
             logger.info("Successfully signed into query.");
-        } catch (TS3ConnectionFailedException e) {
+        } catch (Exception e) {
             logger.error("Failed to sign into query, dumping error information.", e);
             System.exit(0);
         }
