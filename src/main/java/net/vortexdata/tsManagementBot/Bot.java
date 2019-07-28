@@ -26,6 +26,7 @@ public class Bot {
                 logger.setLevel(Level.DEBUG);
             } else if (args[i].contains("-setup")) {
                 InstallWizzard installWizzard = new InstallWizzard();
+                installWizzard.init();
             }
         }
 
@@ -35,7 +36,7 @@ public class Bot {
 
     private void init() {
 
-        // Copy Header
+        // Display Copy Header & wait 1 seconds
         System.out.println("|| =============================================== ||");
         System.out.println("|| Copyright (C) 2018 - 2019 VortexdataNET         ||");
         System.out.println("|| https://projects.vortexdata.net/tsservermanager ||");
@@ -48,11 +49,6 @@ public class Bot {
         }
         System.out.println("Loading libraries... Please wait.");
         logger.info("Initializing... Please wait.");
-
-        PluginManager manager = new PluginManager(this);
-        manager.enableAll();
-
-
 
         // Load main config
         ConfigMain configMain = new ConfigMain();
@@ -110,6 +106,8 @@ public class Bot {
 
         // Load modules
 
+        PluginManager manager = new PluginManager(this);
+        manager.enableAll();
 
         logger.info("Boot process finished.");
     }

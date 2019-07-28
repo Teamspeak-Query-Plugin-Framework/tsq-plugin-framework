@@ -14,12 +14,13 @@ public class InstallWizzard {
     }
 
     public void init() {
+        values = new HashMap<String, String>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("You've started the program in setup mode.");
         System.out.println("-----------------------------------------");
         System.out.println("The address of your server can be an IP address or domain (e.g. 'vortexdata.net' or '127.0.0.1'). If your Teamspeak server runs on the same system as the bot, your can enter '127.0.0.1'.");
         System.out.print("Your servers address: ");
-        String paramServerAddress = scanner.nextLine();
+        values.put("serverAddress", scanner.nextLine());
 
         boolean isVirtualIdValid = false;
         do {
@@ -29,6 +30,7 @@ public class InstallWizzard {
 
             try {
                 int paramVirtualServerId = Integer.parseInt(paramVirtualServerIdString);
+                values.put("virtualServer", paramVirtualServerIdString);
                 isVirtualIdValid = true;
             } catch (Exception e) {
                 System.out.println("\nInvalid input!");
@@ -43,6 +45,7 @@ public class InstallWizzard {
 
             try {
                 int paramQueryPort = Integer.parseInt(paramQueryPortString);
+                values.put("queryPort", paramQueryPortString);
                 isPortValid = true;
             } catch (Exception e) {
                 System.out.println("\nInvalid input!");
@@ -51,15 +54,18 @@ public class InstallWizzard {
 
         System.out.println("\nQuery user is used to log into query. Default 'serveradmin'.");
         System.out.print("Query user: ");
-        String paramQueryUser = scanner.nextLine();
+        values.put("queryUser", scanner.nextLine());
 
         System.out.println("\nQuery password is used to log into query. Default value is generated on first successful launch of your Teamspeak server.");
         System.out.print("Query password: ");
-        String paramQueryPassword = scanner.nextLine();
+        values.put("queryPassword", scanner.nextLine());
 
         System.out.println("\nThe bots nickname will be displayed in chat tabs etc.");
         System.out.print("Bot nickname: ");
-        String paramBotNickname = scanner.nextLine();
+        values.put("botNickname", scanner.nextLine());
+
+        InstallConfig installConfig = new InstallConfig();
+        installConfig.create("configs/main.properties", values);
     }
 
 }
