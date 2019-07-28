@@ -28,7 +28,7 @@ public class ConsoleHandler implements Runnable {
     public void run() {
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
+        scanner.useDelimiter(System.getProperty("line.separator"));
         String line;
         String[] data;
         while (true) {
