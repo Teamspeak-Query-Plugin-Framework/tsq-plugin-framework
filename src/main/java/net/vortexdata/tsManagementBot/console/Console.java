@@ -6,4 +6,8 @@ public class Console {
 
     }
 
+    public void evaluateCommand() {
+
+    }
+
 }
