@@ -30,8 +30,12 @@ public class PluginManager {
 
     }
     public void disableAll(){
-        for(PluginInterface pi : loadedplugins)
+        for(PluginInterface pi : loadedplugins) {
             pi.onDisable();
+            loadedplugins.remove(pi);
+        }
+
+
     }
 
 
@@ -39,23 +43,16 @@ public class PluginManager {
         try {
             String main = "PluginMain";
             URL[] urls = { new URL("jar:file:" + file.getPath()+"!/") };
-            Class cl = new URLClassLoader(urls).loadClass(main);
-            Class[] interfaces = cl.getInterfaces();
+            URLClassLoader loader = new URLClassLoader(urls);
+            Class cl = loader.loadClass(main);
 
-            boolean isplugin = false;
-            for (int y = 0; y < interfaces.length && !isplugin; y++) {
-                System.out.println(interfaces[y].getName());
-
-                if (interfaces[y].getName().equals("net.vortexdata.tsManagementBot.modules.PluginInterface"))
-                    isplugin = true;
-            }
+            if(cl == null) return;
 
 
-            if (isplugin) {
-                PluginInterface plugin = (PluginInterface) cl.newInstance();
-                loadedplugins.add(plugin);
+            PluginInterface plugin = (PluginInterface) cl.newInstance();
+            loadedplugins.add(plugin);
 
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
