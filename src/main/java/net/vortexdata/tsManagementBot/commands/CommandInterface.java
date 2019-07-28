@@ -2,6 +2,6 @@ package net.vortexdata.tsManagementBot.commands;
 
 public interface CommandInterface {
 
-    private String
+    public void runCommand(String params);
 
 }
