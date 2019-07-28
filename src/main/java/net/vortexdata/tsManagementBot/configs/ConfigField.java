@@ -1,6 +1,7 @@
 package net.vortexdata.tsManagementBot.configs;
 
-import java.util.*;
+
+import java.util.HashMap;
 
 public class ConfigField {
 

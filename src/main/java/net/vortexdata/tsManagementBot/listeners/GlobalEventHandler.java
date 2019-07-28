@@ -2,14 +2,14 @@ package net.vortexdata.tsManagementBot.listeners;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.*;
-import net.vortexdata.tsManagementBot.Main;
+import net.vortexdata.tsManagementBot.Bot;
 
 public class GlobalEventHandler implements TS3Listener {
 
     private TS3Api _api;
 
-    public GlobalEventHandler(Main main) {
-        _api = main.getApi();
+    public GlobalEventHandler(Bot bot) {
+        _api = bot.getApi();
     }
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {

@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.vortexdata.tsManagementBot.Main</mainClass>
+                            <mainClass>net.vortexdata.tsManagementBot.Bot</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

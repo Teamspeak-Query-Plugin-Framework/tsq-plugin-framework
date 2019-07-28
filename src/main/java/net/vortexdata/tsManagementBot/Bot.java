@@ -6,11 +6,12 @@ import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
+import net.vortexdata.tsManagementBot.modules.PluginManager;
 import org.apache.log4j.*;
 
-public class Main {
+public class Bot {
 
-    private static Main _instance;
+    private static Bot _instance;
     private TS3Api _api;
     private static final Logger logger = LogManager.getRootLogger();
 
@@ -23,7 +24,7 @@ public class Main {
             }
         }
 
-        _instance = new Main();
+        _instance = new Bot();
         _instance.init();
     }
 
@@ -43,11 +44,16 @@ public class Main {
         System.out.println("Loading libraries... Please wait.");
         logger.info("Initializing... Please wait.");
 
+        PluginManager manager = new PluginManager();
+        manager.enableAll();
+
+
+
         // Load main config
         ConfigMain configMain = new ConfigMain();
         logger.debug("Loading main config...");
         configMain.load();
-        logger.debug("Main config loaded.");
+        logger.debug("Bot config loaded.");
 
         // Create config
         final TS3Config config = new TS3Config();

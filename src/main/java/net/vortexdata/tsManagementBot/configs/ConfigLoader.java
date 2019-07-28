@@ -1,8 +1,11 @@
 package net.vortexdata.tsManagementBot.configs;
 
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.Set;
 
 public class ConfigLoader {
 
