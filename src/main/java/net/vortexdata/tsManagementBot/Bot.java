@@ -106,6 +106,7 @@ public class Bot {
 
         // Load modules
 
+        logger.info("Boot process finished.");
         PluginManager manager = new PluginManager(this);
         manager.enableAll();
 
@@ -123,6 +124,5 @@ public class Bot {
 
     public void addEventHandler(TS3Listener listener) {
         _api.addTS3Listeners(listener);
-
     }
 }
