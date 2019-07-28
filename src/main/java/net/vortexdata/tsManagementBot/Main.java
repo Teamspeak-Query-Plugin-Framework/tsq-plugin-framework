@@ -93,10 +93,14 @@ public class Main {
             System.exit(0);
         }
 
-
-        _api.sendServerMessage("Online");
+        logger.debug("Trying to register events...");
         _api.registerAllEvents();
         _api.addTS3Listeners(new GlobalEventHandler(this));
+
+        // Load modules
+
+
+        logger.info("Boot process finished.");
     }
 
 
