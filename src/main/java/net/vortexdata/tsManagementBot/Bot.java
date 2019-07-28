@@ -33,7 +33,7 @@ public class Bot {
     }
 
     private void init() {
-
+        BasicConfigurator.configure();
         // Copy Header
         System.out.println("|| =============================================== ||");
         System.out.println("|| Copyright (C) 2018 - 2019 VortexdataNET         ||");

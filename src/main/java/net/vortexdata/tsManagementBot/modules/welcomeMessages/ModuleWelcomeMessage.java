@@ -7,8 +7,8 @@ public class ModuleWelcomeMessage implements Runnable {
 
     private TS3Api _api;
 
-    public ModuleWelcomeMessage(Main main) {
-        _api = main.getApi();
+    public ModuleWelcomeMessage(Bot bot) {
+        _api = bot.getApi();
     }
 
     public void run() {

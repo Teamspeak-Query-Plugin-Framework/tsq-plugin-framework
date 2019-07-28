@@ -22,6 +22,7 @@ public class PluginManager {
 
     public void enableAll(){
         File[] files = new File("plugins").listFiles();
+        if (files == null) return;
         for(File f : files)
             loadPlugin(f);
         for(PluginInterface pi : loadedplugins)
