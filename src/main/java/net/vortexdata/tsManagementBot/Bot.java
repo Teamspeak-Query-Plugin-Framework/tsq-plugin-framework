@@ -36,7 +36,7 @@ public class Bot {
 
     private void init() {
 
-        // Copy Header
+        // Display Copy Header & wait 1 seconds
         System.out.println("|| =============================================== ||");
         System.out.println("|| Copyright (C) 2018 - 2019 VortexdataNET         ||");
         System.out.println("|| https://projects.vortexdata.net/tsservermanager ||");
