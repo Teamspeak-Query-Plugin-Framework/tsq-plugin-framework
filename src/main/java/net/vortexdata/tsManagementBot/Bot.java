@@ -26,6 +26,7 @@ public class Bot {
                 logger.setLevel(Level.DEBUG);
             } else if (args[i].contains("-setup")) {
                 InstallWizzard installWizzard = new InstallWizzard();
+                installWizzard.init();
             }
         }
 
