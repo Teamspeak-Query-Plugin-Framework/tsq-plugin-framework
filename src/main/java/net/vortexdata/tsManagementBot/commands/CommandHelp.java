@@ -6,9 +6,6 @@ import java.util.Arrays;
 
 public class CommandHelp implements CommandInterface {
 
-
-
-
     @Override
     public String getHelpMessage() {
         return "You want help for help? That's kinda genius :)";

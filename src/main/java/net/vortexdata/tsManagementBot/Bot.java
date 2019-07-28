@@ -111,9 +111,11 @@ public class Bot {
 
         // Load modules
 
-        logger.info("Boot process finished.");
+        logger.debug("Initializing plugin controller...");
         _manager = new PluginManager(this);
+        logger.info("Enabling plugins...");
         _manager.enableAll();
+        logger.info("Successfully loaded plugins.");
 
         logger.info("Boot process finished.");
 
@@ -123,6 +125,7 @@ public class Bot {
     }
 
     public void shutdown() {
+        logger.info("Unloading plugins...");
         _manager.disableAll();
         System.exit(0);
     }
