@@ -19,6 +19,7 @@ public class Bot {
     private static Bot _instance;
     private TS3Api _api;
     private ConsoleHandler _consoleHandler;
+    private PluginManager _manager;
     private static final Logger logger = LogManager.getRootLogger();
 
 
@@ -111,8 +112,8 @@ public class Bot {
         // Load modules
 
         logger.info("Boot process finished.");
-        PluginManager manager = new PluginManager(this);
-        manager.enableAll();
+        _manager = new PluginManager(this);
+        _manager.enableAll();
 
         logger.info("Boot process finished.");
 
@@ -122,7 +123,8 @@ public class Bot {
     }
 
     public void shutdown() {
-
+        _manager.disableAll();
+        System.exit(0);
     }
 
     public ConsoleHandler getConsoleHandler() {
