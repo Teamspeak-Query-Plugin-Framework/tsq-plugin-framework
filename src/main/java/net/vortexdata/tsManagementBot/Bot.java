@@ -50,11 +50,6 @@ public class Bot {
         System.out.println("Loading libraries... Please wait.");
         logger.info("Initializing... Please wait.");
 
-        PluginManager manager = new PluginManager(this);
-        manager.enableAll();
-
-
-
         // Load main config
         ConfigMain configMain = new ConfigMain();
         logger.debug("Loading main config...");
@@ -111,6 +106,8 @@ public class Bot {
 
         // Load modules
 
+        PluginManager manager = new PluginManager(this);
+        manager.enableAll();
 
         logger.info("Boot process finished.");
     }
