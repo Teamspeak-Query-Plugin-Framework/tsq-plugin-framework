@@ -3,12 +3,10 @@ package net.vortexdata.tsManagementBot;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
-import com.github.theholywaffle.teamspeak3.api.*;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
-import net.vortexdata.tsManagementBot.configs.*;
+import net.vortexdata.tsManagementBot.configs.ConfigMain;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import org.apache.log4j.*;
-import org.apache.log4j.lf5.LogLevel;
 
 public class Main {
 
@@ -105,6 +103,7 @@ public class Main {
     public TS3Api getApi() {
         return _api;
     }
+
     public Logger getLogger() {
         return logger;
     }

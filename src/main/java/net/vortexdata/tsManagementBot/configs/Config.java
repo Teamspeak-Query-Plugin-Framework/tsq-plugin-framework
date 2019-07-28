@@ -4,12 +4,12 @@ import java.util.*;
 
 public interface Config {
 
-    public void load();
+    void load();
 
-    public HashMap<String, String> getValues();
+    HashMap<String, String> getValues();
 
-    public HashMap<String, String> getDefaultValues();
+    HashMap<String, String> getDefaultValues();
 
-    public String getPath();
+    String getPath();
 
 }

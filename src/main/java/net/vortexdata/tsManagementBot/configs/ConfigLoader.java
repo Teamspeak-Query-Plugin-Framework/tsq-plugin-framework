@@ -1,6 +1,5 @@
 package net.vortexdata.tsManagementBot.configs;
 
-import net.vortexdata.tsManagementBot.installers.*;
 
 import java.io.*;
 import java.util.*;
@@ -23,7 +22,7 @@ public class ConfigLoader {
                 // Load all keys & values
                 Set<Object> keys = prop.keySet();
                 for (Object k : keys) {
-                    values.put((String)k, prop.getProperty((String)k));
+                    values.put((String) k, prop.getProperty((String) k));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
