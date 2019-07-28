@@ -25,6 +25,10 @@ public class ConsoleHandler implements Runnable {
     public void registerCommand(CommandInterface cmd) {
         commands.add(cmd);
     }
+
+    public List<CommandInterface> getCommands() {
+        return Collections.unmodifiableList(commands);
+    }
     public void run() {
 
         Scanner scanner = new Scanner(System.in);

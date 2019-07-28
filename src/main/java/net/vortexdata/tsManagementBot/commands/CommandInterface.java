@@ -2,8 +2,8 @@ package net.vortexdata.tsManagementBot.commands;
 
 public interface CommandInterface {
 
-    String name = null;
 
+    String getHelpMessage();
     void gotCalled(String[] args);
     String getName();
 
