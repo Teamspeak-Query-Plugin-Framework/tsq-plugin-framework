@@ -5,6 +5,7 @@ import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
+import net.vortexdata.tsManagementBot.installers.*;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import org.apache.log4j.*;
 
@@ -20,6 +21,8 @@ public class Main {
         for (int i = 0; i < args.length; i++) {
             if (args[i].contains("-debug")) {
                 logger.setLevel(Level.DEBUG);
+            } else if (args[i].contains("-setup")) {
+                InstallWizzard installWizzard = new InstallWizzard();
             }
         }
 
