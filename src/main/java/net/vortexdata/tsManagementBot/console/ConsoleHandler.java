@@ -37,13 +37,15 @@ public class ConsoleHandler implements Runnable {
         System.out.println("------------------------------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
+        scanner.useDelimiter(System.getProperty("line.separator"));
+        //scanner.useDelimiter("\n");
         String line;
         String[] data;
         while (true) {
             System.out.print("admin@> ");
             line = scanner.next();
             data = line.split(" ");
+            System.out.println(line);
 
             if (data.length > 0 || !data[0].isEmpty()) {
                 boolean commandExists = false;
