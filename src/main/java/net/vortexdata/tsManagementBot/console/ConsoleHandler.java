@@ -7,7 +7,7 @@ import java.util.*;
 public class ConsoleHandler implements Runnable {
 
     private Thread thread;
-    private ArrayList<CommandInterface> commands = new ArrayList<CommandInterface>();
+    private List<CommandInterface> commands = Collections.synchronizedList(new ArrayList<CommandInterface>());
     private static boolean running = false;
     public ConsoleHandler() {
         thread = new Thread(this);
@@ -22,8 +22,12 @@ public class ConsoleHandler implements Runnable {
     }
 
 
-    public void registerCommand(CommandInterface cmd) {
+    public boolean registerCommand(CommandInterface cmd) {
+        for(CommandInterface c : commands)
+            if(c.getName().equalsIgnoreCase(cmd.getName())) return false;
+
         commands.add(cmd);
+        return true;
     }
 
     public List<CommandInterface> getCommands() {
@@ -53,6 +57,7 @@ public class ConsoleHandler implements Runnable {
                     if (cmd.getName().equalsIgnoreCase(data[0])) {
                         cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
                         commandExists = true;
+                        break;
                     }
                 }
                 if (!commandExists) {
