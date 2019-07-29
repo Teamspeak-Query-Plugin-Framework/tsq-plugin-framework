@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class PluginManager {
         _bot = bot;
     }
 
-    private static List<PluginInterface> loadedplugins = new ArrayList<PluginInterface>();
+    private static List<PluginInterface> loadedplugins = Collections.synchronizedList(new ArrayList<PluginInterface>());
 
     public void enableAll(){
         File[] files = new File("plugins").listFiles();
