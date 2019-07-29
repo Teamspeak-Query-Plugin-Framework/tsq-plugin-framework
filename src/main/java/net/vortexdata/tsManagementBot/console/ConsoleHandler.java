@@ -49,7 +49,6 @@ public class ConsoleHandler implements Runnable {
             System.out.print("admin@> ");
             line = scanner.next();
             data = line.split(" ");
-            System.out.println(line);
 
             if (data.length > 0 || !data[0].isEmpty()) {
                 boolean commandExists = false;
