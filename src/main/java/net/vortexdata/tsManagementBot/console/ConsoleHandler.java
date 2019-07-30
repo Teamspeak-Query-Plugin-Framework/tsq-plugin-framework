@@ -13,11 +13,11 @@ public class ConsoleHandler implements Runnable {
         thread = new Thread(this);
         if(running) return;
         running = true;
-        start();
+
 
     }
 
-    private void start() {
+    public void start() {
         thread.start();
     }
 

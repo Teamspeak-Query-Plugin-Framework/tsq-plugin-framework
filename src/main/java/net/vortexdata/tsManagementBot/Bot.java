@@ -130,7 +130,7 @@ public class Bot {
         logger.printToConsole("Successfully loaded plugins.");
 
         logger.printToConsole("Boot process finished.");
-
+        _consoleHandler.start();
 
 
     }
