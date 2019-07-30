@@ -57,6 +57,7 @@ public class PluginManager {
 
             PluginContainer pc = new PluginContainer(plugin, name);
             plugin.setContainer(pc);
+            plugin.setBot(_bot);
             loadedplugins.add(pc);
 
 

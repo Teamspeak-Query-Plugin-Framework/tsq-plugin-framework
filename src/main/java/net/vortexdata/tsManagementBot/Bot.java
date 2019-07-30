@@ -7,11 +7,13 @@ import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.exception.*;
 import net.vortexdata.tsManagementBot.commands.*;
 import net.vortexdata.tsManagementBot.configs.ConfigMain;
+import net.vortexdata.tsManagementBot.console.BotLogger;
 import net.vortexdata.tsManagementBot.console.ConsoleHandler;
 import net.vortexdata.tsManagementBot.installers.*;
 import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import net.vortexdata.tsManagementBot.modules.PluginManager;
 import org.apache.log4j.*;
+
 
 public class Bot {
 
@@ -19,15 +21,16 @@ public class Bot {
     private TS3Api _api;
     private ConsoleHandler _consoleHandler;
     private PluginManager _manager;
-    private static final Logger logger = LogManager.getRootLogger();
+    private net.vortexdata.tsManagementBot.console.Logger logger;
+    private static final Logger rootLogger = LogManager.getRootLogger();
 
 
     public static void main(String[] args) {
 
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].contains("-debug")) {
-                logger.setLevel(Level.DEBUG);
+            if (args[i].contains("-printDebug")) {
+                rootLogger.setLevel(Level.DEBUG);
             } else if (args[i].contains("-setup")) {
                 InstallWizzard installWizzard = new InstallWizzard();
                 installWizzard.init();
@@ -51,84 +54,87 @@ public class Bot {
         } catch (InterruptedException e) {
             // Ignore
         }
+        logger = new BotLogger(this);
+        
+        
         System.out.println("Loading libraries... Please wait.");
-        logger.info("Initializing... Please wait.");
+        logger.printToConsole("Initializing... Please wait.");
 
         // Load main config
         ConfigMain configMain = new ConfigMain();
-        logger.debug("Loading main config...");
+        logger.printDebug("Loading main config...");
         configMain.load();
-        logger.debug("Bot config loaded.");
+        logger.printDebug("Bot config loaded.");
 
         // Create config
         final TS3Config config = new TS3Config();
-        logger.debug("Trying to set server address...");
+        logger.printDebug("Trying to set server address...");
         config.setHost(configMain.getProperty("serverAddress"));
-        logger.debug("Server address set.");
+        logger.printDebug("Server address set.");
         // Create query
         final TS3Query query = new TS3Query(config);
-        logger.debug("Trying to connect to server...");
+        logger.printDebug("Trying to connect to server...");
         try {
             query.connect();
         } catch (Exception e) {
-            logger.error("Connection to server failed, dumping error information.", e);
+            logger.printError("Connection to server failed, dumping printError printToConsolermation.", e);
             System.exit(0);
         }
-        logger.info("Successfully established connection to server.");
+        logger.printToConsole("Successfully established connection to server.");
         _api = query.getApi();
         try {
-            logger.debug("Trying to sign into query...");
+            logger.printDebug("Trying to sign into query...");
             _api.login(configMain.getProperty("queryUser"), configMain.getProperty("queryPassword"));
-            logger.info("Successfully signed into query.");
+            logger.printToConsole("Successfully signed into query.");
         } catch (Exception e) {
-            logger.error("Failed to sign into query, dumping error information.", e);
+            logger.printError("Failed to sign into query, dumping printError printToConsolermation.", e);
             System.exit(0);
         }
 
         // Select virtual host
-        logger.debug("Trying to select virtual server...");
+        logger.printDebug("Trying to select virtual server...");
         try {
             _api.selectVirtualServerById(Integer.parseInt(configMain.getProperty("virtualServer")));
-            logger.info("Successfully selected virtual server.");
+            logger.printToConsole("Successfully selected virtual server.");
         } catch (Exception e) {
-            logger.error("Failed to select virtual server, dumping error details.", e);
+            logger.printError("Failed to select virtual server, dumping printError details.", e);
             System.exit(0);
         }
 
         try {
-            logger.debug("Trying to set nickname...");
+            logger.printDebug("Trying to set nickname...");
             _api.setNickname(configMain.getProperty("botNickname"));
-            logger.debug("Successfully set nickname.");
+            logger.printDebug("Successfully set nickname.");
         } catch (Exception e) {
-            logger.error("Failed to set nickname, dumping error details.", e);
+            logger.printError("Failed to set nickname, dumping printError details.", e);
             System.exit(0);
         }
 
-        logger.debug("Trying to register events...");
+        logger.printDebug("Trying to register events...");
         _api.registerAllEvents();
         _api.addTS3Listeners(new GlobalEventHandler(this));
 
         // Load modules
 
-        logger.debug("Initializing plugin controller...");
+        logger.printDebug("Initializing plugin controller...");
         _manager = new PluginManager(this);
-        logger.info("Enabling plugins...");
+        logger.printToConsole("Enabling plugins...");
         _manager.enableAll();
-        logger.info("Successfully loaded plugins.");
+        logger.printToConsole("Successfully loaded plugins.");
 
-        logger.info("Boot process finished.");
+        logger.printToConsole("Boot process finished.");
 
         _consoleHandler = new ConsoleHandler();
-        _consoleHandler.registerCommand(new CommandHelp());
-        _consoleHandler.registerCommand(new CommandStop());
+        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
+        _consoleHandler.registerCommand(new CommandStop(logger, this));
 
     }
 
     public void shutdown() {
-        logger.info("Unloading plugins...");
+        logger.printToConsole("Unloading plugins...");
         _manager.disableAll();
-        logger.info("Successfully unloaded plugins.");
-        logger.info("Shutting down... Bye!");
+        logger.printToConsole("Successfully unloaded plugins.");
+        logger.printToConsole("Shutting down... Bye!");
         System.exit(0);
     }
 
@@ -140,13 +146,14 @@ public class Bot {
         return _api;
     }
 
-    public Logger getLogger() {
+    public net.vortexdata.tsManagementBot.console.Logger getLogger() {
         return logger;
     }
-
-    public static Bot getBot() {
-        return _instance;
+    public Logger getRootLogger() {
+        return rootLogger;
     }
+
+
 
     public void addEventHandler(TS3Listener listener) {
         _api.addTS3Listeners(listener);

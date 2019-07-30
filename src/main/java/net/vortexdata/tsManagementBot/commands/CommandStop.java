@@ -1,8 +1,16 @@
 package net.vortexdata.tsManagementBot.commands;
 
 import net.vortexdata.tsManagementBot.*;
+import net.vortexdata.tsManagementBot.console.Logger;
 
-public class CommandStop implements CommandInterface {
+public class CommandStop extends CommandInterface {
+
+    private Bot _bot;
+
+    public CommandStop(Logger logger, Bot bot) {
+        super(logger);
+        _bot = bot;
+    }
 
     @Override
     public String getHelpMessage() {
@@ -10,8 +18,7 @@ public class CommandStop implements CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args) {
-        Bot.getBot().shutdown();
+    public void gotCalled(String[] args) {_bot.shutdown();
     }
 
     @Override

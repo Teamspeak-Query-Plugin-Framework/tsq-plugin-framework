@@ -1,10 +1,19 @@
 package net.vortexdata.tsManagementBot.commands;
 
 import net.vortexdata.tsManagementBot.Bot;
+import net.vortexdata.tsManagementBot.console.ConsoleHandler;
+import net.vortexdata.tsManagementBot.console.Logger;
 
 import java.util.Arrays;
 
-public class CommandHelp implements CommandInterface {
+public class CommandHelp extends CommandInterface {
+
+    private ConsoleHandler _handler;
+
+    public CommandHelp(Logger logger, ConsoleHandler handler) {
+        super(logger);
+        _handler = handler;
+    }
 
     @Override
     public String getHelpMessage() {
@@ -14,9 +23,9 @@ public class CommandHelp implements CommandInterface {
     public void gotCalled(String[] args) {
 
         if(args.length > 0)
-        for (CommandInterface cmd : Bot.getBot().getConsoleHandler().getCommands()) {
+        for (CommandInterface cmd : _handler.getCommands()) {
             if (cmd.getName().equalsIgnoreCase(args[0])) {
-                Bot.getBot().getLogger().info(cmd.getHelpMessage());
+                getLogger().printToConsole(cmd.getHelpMessage());
                 return;
             }
         }
