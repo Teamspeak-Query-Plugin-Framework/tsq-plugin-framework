@@ -12,7 +12,7 @@ A java-based plugin hook for Teamspeak 3 servers.
 ### Prerequisites
 
 #### Cross-Platform
-- Java 1.8 or newer
+- Java 8 or newer
 
 #### Windows
 No additional software required.
