@@ -39,11 +39,7 @@ No additional software required.
    
 ### Installation
 
-- **Step 1**
-   Copy "tsq-plugin-hook.jar" to a folder you want the directory structer to be generated in.
-   
-- **Step 2**
-   Create a startup script. Here are some examples for different operating systems and some things you should consider.
+   Copy "tsq-plugin-hook.jar" to a folder you want the directory structer to be generated in. Then create a startup script. Here are some examples for different operating systems and some things you should consider.
    
    #### Windows
    
