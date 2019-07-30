@@ -37,7 +37,7 @@ No additional software required.
    
 - **Option 2 (Compile own version):**
 
-   Clone the latest stable version of the source code and run it trough our compiler. It should output a file named "tsq-plugin-hook.jar".
+   Clone the latest stable version of the source code and run it trough our compiler. It should output a file named "tsq-plugin-framework.jar".
    
 ### Installation
 
@@ -49,8 +49,8 @@ No additional software required.
    
    ```
    @echo off
-   TITLE Teamspeak Query Plugin Hook
-   java -jar tsq-plugin-hook.jar -debug
+   TITLE Teamspeak Query Plugin Framework
+   java -jar tsq-plugin-framework.jar -debug
    PAUSE
    ```
 
@@ -59,7 +59,7 @@ No additional software required.
    Create a file ending with '.sh' (_touch launch.sh_), copy and paste the code below. If required, assign required permissions (chmod 755 launch.sh).
    
    ```
-   java -jar tsq-plugin-hook.jar -debug
+   java -jar tsq-plugin-framework.jar -debug
    ```
    
    Now, create a new screen session:
@@ -68,7 +68,7 @@ No additional software required.
    screen -S session_name
    ```
    
-   > ⚠️ **Important**: If you run the hook outside a screen session, it will terminate as soon as you disconnect from the terminal. Also, although it not really being an issue, it is recommended not to run the script as root user.
+   > ⚠️ **Important**: If you run the framework outside a screen session, it will terminate as soon as you disconnect from the terminal. Also, although it not really being an issue, it is recommended not to run the script as root user.
    
    Once you've created the session, it should automaticall be attached. Now run the launch script:
    
@@ -76,4 +76,4 @@ No additional software required.
    ./launch.sh
    ```
    
-   The hook will generate its directory structure and terminate after completion. Navigate to to the main properties file and adjust it to fit your servers prefferences. Once complete, run the script again (be sure you're runnning it using a screen session) and wait for the boot process to complete.
+   The framework will generate its directory structure and terminate after completion. Navigate to to the main properties file and adjust it to fit your servers prefferences. Once complete, run the script again (be sure you're runnning it using a screen session) and wait for the boot process to complete.
