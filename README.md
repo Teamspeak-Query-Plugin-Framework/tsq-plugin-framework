@@ -1,4 +1,5 @@
 # Teamspeak Query Plugin Framework
+**Current Version:** _0.0.1 (unstable - not tested)_
 
 A java-based plugin framework for Teamspeak 3 servers.
 
