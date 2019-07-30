@@ -56,7 +56,13 @@ No additional software required.
 
    #### Linux
    
-   Create a file ending with '.sh' (_touch launch.sh_), copy and paste the code below. If required, assign required permissions (chmod 755 launch.sh)
+   Create a file ending with '.sh' (_touch launch.sh_), copy and paste the code below. If required, assign required permissions (chmod 755 launch.sh).
+   
+   > **Important**: If you run the hook outside a screen session, it will terminate as soon as you disconnect from thr terminal.
+   
+   Although not really being an issue, it is recommended to not run the script as root.
+   
+   
    
    ```
    @echo off
