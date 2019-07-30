@@ -50,7 +50,7 @@ public class ConsoleHandler implements Runnable {
             line = scanner.next();
             data = line.split(" ");
 
-            if (data.length > 0 || !data[0].isEmpty()) {
+            if (data.length > 0 && !data[0].isEmpty()) {
                 boolean commandExists = false;
                 for (CommandInterface cmd : commands) {
                     if (cmd.getName().equalsIgnoreCase(data[0])) {
