@@ -18,7 +18,7 @@ A java-based plugin hook for Teamspeak 3 servers.
 No additional software required.
 
 #### Linux
-- **GNU Screen**:
+- **GNU Screen**\
    Insall using commands below
    ```
    apt-get install screen
