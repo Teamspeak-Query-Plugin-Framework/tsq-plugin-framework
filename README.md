@@ -9,6 +9,10 @@ A java-based plugin hook for Teamspeak 3 servers.
 
 ## Getting Started
 
+### Prerequisites
+
+In order to run this hook, you need a Java runtime of version 1.8 or newer.
+
 ### Download
 - **Option 1 (Standalone Jar)**
    Download the latest release from [our website](https://projects.vortexdata.net/tsq-plugin-hook). This ensures you are running a stable release and avoid bugs carried over from phase-one development.
