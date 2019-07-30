@@ -14,6 +14,9 @@ import net.vortexdata.tsManagementBot.listeners.GlobalEventHandler;
 import net.vortexdata.tsManagementBot.modules.PluginManager;
 import org.apache.log4j.*;
 
+import java.text.*;
+import java.util.*;
+
 
 public class Bot {
 
@@ -25,6 +28,11 @@ public class Bot {
 
     private static final Logger rootLogger = LogManager.getRootLogger();
 
+    static {
+        // Custom Property for Logger File Appender
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        System.setProperty("current.date.time", dateFormat.format(new Date()));
+    }
 
     public static void main(String[] args) {
 
