@@ -37,7 +37,7 @@ public class ConsoleHandler implements Runnable {
 
         System.out.println("------------------------------------------------------------");
         System.out.println("Vortexbot Terminal | Copyright (C) 2018 - 2019 VortexdataNET");
-        System.out.println("Vortexbot comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law.");
+        System.out.println("Vortexbot comes with ABSOLUTELY NO WARRANTY, to the extent \npermitted by applicable law.");
         System.out.println("------------------------------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
