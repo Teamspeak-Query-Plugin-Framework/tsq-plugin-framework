@@ -27,4 +27,10 @@ In order to run this hook, you need a Java runtime of version 1.8 or newer.
 - **Step 2**
    Create a startup script. Here are some examples for different operating systems and some things you should consider.
    
-   - On Windows
+   - **On Windows**
+   ```
+   @echo off
+   TITLE Teamspeak Query Plugin Hook
+   java -jar tsq-plugin-hook.jar -setup -debug
+   PAUSE
+   ```
