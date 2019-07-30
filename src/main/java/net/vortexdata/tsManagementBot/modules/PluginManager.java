@@ -33,8 +33,8 @@ public class PluginManager {
     public void disableAll(){
         for(PluginInterface pi : loadedplugins) {
             pi.onDisable();
-            loadedplugins.remove(pi);
         }
+        loadedplugins.clear();
 
 
     }
