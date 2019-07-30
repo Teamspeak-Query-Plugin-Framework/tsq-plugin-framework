@@ -1,4 +1,4 @@
-# Teamspeak Query Plugin Hook
+# Teamspeak Query Plugin Framework
 
 A java-based plugin hook for Teamspeak 3 servers.
 
