@@ -1,6 +1,6 @@
 # Teamspeak Query Plugin Framework
 
-A java-based plugin hook for Teamspeak 3 servers.
+A java-based plugin framework for Teamspeak 3 servers.
 
 ## Features
 - Setup wizard for easy-to-use installation
@@ -13,6 +13,7 @@ A java-based plugin hook for Teamspeak 3 servers.
 
 #### Cross-Platform
 - Java 8 or newer
+- Teamspeak 3/5 server with query access
 
 #### Windows
 No additional software required.
@@ -39,7 +40,8 @@ No additional software required.
    
 ### Installation
 
-   Copy "tsq-plugin-hook.jar" to a folder you want the directory structer to be generated in. Then create a startup script. Here are some examples for different operating systems and some things you should consider.
+   Copy "tsq-plugin-framework.jar" 
+   t a folder you want the directory structer to be generated in. Then create a startup script. Here are some examples for different operating systems and some things you should consider.
    
    #### Windows
    
