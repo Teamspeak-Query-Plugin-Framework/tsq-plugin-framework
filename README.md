@@ -12,19 +12,16 @@ A java-based plugin hook for Teamspeak 3 servers.
 ### Prerequisites
 
 #### Cross-Platform
-In order to run this hook, you need a Java runtime of version 1.8 or newer.
+- Java 1.8 or newer
 
 #### Windows
 No additional software required.
 
 #### Linux
 - **GNU Screen**:
-   Insall 
+   Insall using commands below
    ```
-   @echo off
-   TITLE Teamspeak Query Plugin Hook
-   java -jar tsq-plugin-hook.jar -setup -debug
-   PAUSE
+   apt-get install screen
    ```
 
 #### OSX
