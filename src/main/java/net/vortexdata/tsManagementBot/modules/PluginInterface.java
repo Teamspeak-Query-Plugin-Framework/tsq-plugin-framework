@@ -4,7 +4,6 @@ package net.vortexdata.tsManagementBot.modules;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import net.vortexdata.tsManagementBot.Bot;
 import net.vortexdata.tsManagementBot.commands.CommandInterface;
-import net.vortexdata.tsManagementBot.console.Logger;
 
 public abstract class PluginInterface extends EventHandler {
 
@@ -38,8 +37,8 @@ public abstract class PluginInterface extends EventHandler {
         _bot.getConsoleHandler().registerCommand(cmd);
     }
     
-    protected Logger getLogger() {
-        return _bot.getLogger();
+    protected PluginLogger getLogger() {
+        return _container.getLogger();
     }
 
     abstract public void onEnable();

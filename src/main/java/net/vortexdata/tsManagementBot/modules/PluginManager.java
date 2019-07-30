@@ -51,19 +51,23 @@ public class PluginManager {
 
 
             PluginInterface plugin = (PluginInterface) cl.newInstance();
-            if(plugin == null) return;
+            if(plugin == null) throw new Exception("Error no instance found");
             String name = plugin.getName();
-            if(name == null || name.length() < 1) return;
+            if(name == null || name.length() < 1) throw new Exception("Invalid Name");
 
             PluginContainer pc = new PluginContainer(plugin, name);
+            pc.initLogger(_bot);
             plugin.setContainer(pc);
             plugin.setBot(_bot);
             loadedplugins.add(pc);
 
+            _bot.getLogger().printToConsole("Successfully loaded "+pc.getPluginName());
+
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            _bot.getLogger().printToConsole(file.getName() + " not loaded!!");
+            _bot.getLogger().printDebug(file.getPath() + "not loaded!! "+e.getMessage());
         }
     }
 

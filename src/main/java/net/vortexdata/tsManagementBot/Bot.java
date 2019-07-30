@@ -22,6 +22,7 @@ public class Bot {
     private ConsoleHandler _consoleHandler;
     private PluginManager _manager;
     private net.vortexdata.tsManagementBot.console.Logger logger;
+
     private static final Logger rootLogger = LogManager.getRootLogger();
 
 
@@ -114,6 +115,12 @@ public class Bot {
         _api.registerAllEvents();
         _api.addTS3Listeners(new GlobalEventHandler(this));
 
+
+        _consoleHandler = new ConsoleHandler();
+        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
+        _consoleHandler.registerCommand(new CommandStop(logger, this));
+
+
         // Load modules
 
         logger.printDebug("Initializing plugin controller...");
@@ -124,9 +131,7 @@ public class Bot {
 
         logger.printToConsole("Boot process finished.");
 
-        _consoleHandler = new ConsoleHandler();
-        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
-        _consoleHandler.registerCommand(new CommandStop(logger, this));
+
 
     }
 
