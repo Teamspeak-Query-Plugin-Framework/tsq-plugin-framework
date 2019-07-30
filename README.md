@@ -10,5 +10,5 @@ A java-based plugin hook for Teamspeak 3 servers.
 ## Getting Started
 
 ### Download
-- Option 1 (Standalone Jar)
-Download the latest release 
+- **Option 1 (Standalone Jar)**
+   Download the latest release from our website. This ensures you are running a stable release and avoid bugs carried over from phase-one development.
