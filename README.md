@@ -20,7 +20,7 @@ No additional software required.
 #### Linux
 - **GNU Screen**
 
-   Insall using commands below
+   Install using commands below
    
    ```
    apt-get install screen
