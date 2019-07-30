@@ -33,15 +33,15 @@ No additional software required.
 ### Download
 - **Option 1 (Standalone Jar):**
 
-   Download the latest release from [our website](https://projects.vortexdata.net/tsq-plugin-hook). This ensures you are running a stable version and avoid bugs carried over from building stage.
+   Download the latest release from [our website](https://projects.vortexdata.net/tsq-plugin-framework). This ensures you are running a stable version and avoid bugs carried over from building stage.
+   
 - **Option 2 (Compile own version):**
 
    Clone the latest stable version of the source code and run it trough our compiler. It should output a file named "tsq-plugin-hook.jar".
    
 ### Installation
 
-   Copy "tsq-plugin-framework.jar" 
-   t a folder you want the directory structer to be generated in. Then create a startup script. Here are some examples for different operating systems and some things you should consider.
+   Copy "tsq-plugin-framework.jar" to a folder you want the directory structure to get generated in. Then create a startup script. Here are some examples for different operating systems.
    
    #### Windows
    
