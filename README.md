@@ -66,7 +66,7 @@ No additional software required.
    screen -S session_name
    ```
    
-   > **Important**: If you run the hook outside a screen session, it will terminate as soon as you disconnect from the terminal. Also, although it not really being an issue, it is recommended not to run the script as root user.
+   > ⚠️ **Important**: If you run the hook outside a screen session, it will terminate as soon as you disconnect from the terminal. Also, although it not really being an issue, it is recommended not to run the script as root user.
    
    Once you've created the session, it should automaticall be attached. Now run the launch script:
    
