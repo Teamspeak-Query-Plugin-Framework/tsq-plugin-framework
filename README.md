@@ -13,4 +13,14 @@ A java-based plugin hook for Teamspeak 3 servers.
 - **Option 1 (Standalone Jar)**
    Download the latest release from [our website](https://projects.vortexdata.net/tsq-plugin-hook). This ensures you are running a stable release and avoid bugs carried over from phase-one development.
 - **Option 2 (Compile own version)**
-   Clone the latest stable version of the source code and run it trough our compiler. It should output a Jar file named "tsq-plugin-hook"
+   Clone the latest stable version of the source code and run it trough our compiler. It should output a Jar file named "tsq-plugin-hook".
+   
+### Installation
+
+- **Step 1**
+   Copy "tsq-plugin-hook.jar" to a folder you want the directory structer to be generated in.
+   
+- **Step 2**
+   Create a startup script. Here are some examples for different operating systems and some things you should consider.
+   
+   - On Windows
