@@ -11,7 +11,24 @@ A java-based plugin hook for Teamspeak 3 servers.
 
 ### Prerequisites
 
+#### Cross-Platform
 In order to run this hook, you need a Java runtime of version 1.8 or newer.
+
+#### Windows
+No additional software required.
+
+#### Linux
+- **GNU Screen**:
+   Insall 
+   ```
+   @echo off
+   TITLE Teamspeak Query Plugin Hook
+   java -jar tsq-plugin-hook.jar -setup -debug
+   PAUSE
+   ```
+
+#### OSX
+No additional software required.
 
 ### Download
 - **Option 1 (Standalone Jar):**
@@ -27,7 +44,21 @@ In order to run this hook, you need a Java runtime of version 1.8 or newer.
 - **Step 2**
    Create a startup script. Here are some examples for different operating systems and some things you should consider.
    
-   #### On Windows
+   #### Windows
+   
+   Create a file ending with '.bat', copy and paste the code below, then run the script.
+   
+   ```
+   @echo off
+   TITLE Teamspeak Query Plugin Hook
+   java -jar tsq-plugin-hook.jar -setup -debug
+   PAUSE
+   ```
+
+   #### Linux
+   
+   Create a file ending with '.sh' (_touch launch.sh_), copy and paste the code below. If required, assign required permissions (chmod 755 launch.sh)
+   
    ```
    @echo off
    TITLE Teamspeak Query Plugin Hook
