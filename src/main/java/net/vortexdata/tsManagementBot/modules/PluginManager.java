@@ -19,20 +19,20 @@ public class PluginManager {
         _bot = bot;
     }
 
-    private static List<PluginInterface> loadedplugins = Collections.synchronizedList(new ArrayList<PluginInterface>());
+    private static List<PluginContainer> loadedplugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
 
     public void enableAll(){
         File[] files = new File("plugins").listFiles();
         if (files == null) return;
         for(File f : files)
             loadPlugin(f);
-        for(PluginInterface pi : loadedplugins)
-            pi.onEnable(_bot);
+        for(PluginContainer pc : loadedplugins)
+            pc.getPluginInterface().onEnable();
 
     }
     public void disableAll(){
-        for(PluginInterface pi : loadedplugins) {
-            pi.onDisable();
+        for(PluginContainer pc : loadedplugins) {
+            pc.getPluginInterface().onDisable();
         }
         loadedplugins.clear();
 
@@ -51,7 +51,14 @@ public class PluginManager {
 
 
             PluginInterface plugin = (PluginInterface) cl.newInstance();
-            loadedplugins.add(plugin);
+            if(plugin == null) return;
+            String name = plugin.getName();
+            if(name == null || name.length() < 1) return;
+
+            PluginContainer pc = new PluginContainer(plugin, name);
+            plugin.setContainer(pc);
+            loadedplugins.add(pc);
+
 
 
         } catch (Exception e) {
@@ -59,7 +66,7 @@ public class PluginManager {
         }
     }
 
-    public static List<PluginInterface> getLoadedplugins() {
+    public static List<PluginContainer> getLoadedplugins() {
         return loadedplugins;
     }
 

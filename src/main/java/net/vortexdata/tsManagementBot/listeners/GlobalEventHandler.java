@@ -3,7 +3,7 @@ package net.vortexdata.tsManagementBot.listeners;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.*;
 import net.vortexdata.tsManagementBot.Bot;
-import net.vortexdata.tsManagementBot.modules.PluginInterface;
+import net.vortexdata.tsManagementBot.modules.PluginContainer;
 import net.vortexdata.tsManagementBot.modules.PluginManager;
 
 public class GlobalEventHandler implements TS3Listener {
@@ -15,74 +15,74 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onTextMessage(textMessageEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onTextMessage(textMessageEvent);
         }
     }
 
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onClientJoin(clientJoinEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onClientJoin(clientJoinEvent);
         }
     }
 
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onClientLeave(clientLeaveEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onClientLeave(clientLeaveEvent);
         }
     }
 
     public void onServerEdit(ServerEditedEvent serverEditedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onServerEdit(serverEditedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onServerEdit(serverEditedEvent);
         }
     }
 
     public void onChannelEdit(ChannelEditedEvent channelEditedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelEdit(channelEditedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelEdit(channelEditedEvent);
         }
     }
 
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent channelDescriptionEditedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelDescriptionChanged(channelDescriptionEditedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelDescriptionChanged(channelDescriptionEditedEvent);
         }
     }
 
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onClientMoved(clientMovedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onClientMoved(clientMovedEvent);
         }
     }
 
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelCreate(channelCreateEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelCreate(channelCreateEvent);
         }
     }
 
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelDeleted(channelDeletedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelDeleted(channelDeletedEvent);
         }
     }
 
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelMoved(channelMovedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelMoved(channelMovedEvent);
         }
     }
 
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onChannelPasswordChanged(channelPasswordChangedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onChannelPasswordChanged(channelPasswordChangedEvent);
         }
     }
 
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
-        for (PluginInterface pl : PluginManager.getLoadedplugins()) {
-            pl.getEventHandler().onPrivilegeKeyUsed(privilegeKeyUsedEvent);
+        for (PluginContainer pl : PluginManager.getLoadedplugins()) {
+            pl.getPluginInterface().onPrivilegeKeyUsed(privilegeKeyUsedEvent);
         }
     }
 }
