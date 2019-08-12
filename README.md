@@ -5,7 +5,7 @@ A java-based plugin framework for Teamspeak 3 servers.
 ## Features
 - Setup wizard for easy-to-use installation
 - Detailed log files and console output
-- Can be configured to automaticall reconnect to query after connectivity problems
+- Plugin API to add more features to your Teamspeak server
 
 ## Getting Started
 
