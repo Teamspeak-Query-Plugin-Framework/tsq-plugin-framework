@@ -33,7 +33,7 @@ public class PluginConfig {
                 data = line.split(":");
                 if(data.length < 2) continue;
                 key = data[0];
-                value = String.join(":", Arrays.copyOfRange(data, 0, data.length-1));
+                value = String.join(":", Arrays.copyOfRange(data, 1, data.length));
                 entries.put(key, value);
             }
 
@@ -45,11 +45,18 @@ public class PluginConfig {
 
 
     public void setValue(String key, String value) {
-        entries.put(key, value);
+        if(entries.containsKey(key)) {
+            entries.replace(key, value);
+        } else {
+            entries.put(key,value);
+        }
+
     }
 
     public void setDefault(String key, String value) {
-        if(!containsKey(key)) setValue(key, value);
+        if(!containsKey(key)) {
+            setValue(key, value);
+        }
     }
 
     public boolean containsKey(String key) {
@@ -67,13 +74,14 @@ public class PluginConfig {
 
     public void saveAll() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(configDir));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(configDir, false));
             for(String key : entries.keySet()) {
                 if(key.contains(":")) {
                     writer.close();
                     throw new InvalidConfigPropertyKey("Key must not contain ':'");
                 }
                 writer.write(key+":"+entries.get(key) + "\n");
+
             }
             writer.flush();
             writer.close();

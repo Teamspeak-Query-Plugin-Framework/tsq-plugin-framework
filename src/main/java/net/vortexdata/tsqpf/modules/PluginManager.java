@@ -2,8 +2,10 @@ package net.vortexdata.tsqpf.modules;
 
 import net.vortexdata.tsqpf.Framework;
 
+import java.io.Console;
 import java.io.File;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class PluginManager {
 
     public void enableAll(){
         File[] files = new File("plugins").listFiles();
+
         if (files == null) return;
         for(File f : files)
             loadPlugin(f);
@@ -42,6 +45,7 @@ public class PluginManager {
 
     public void loadPlugin(File file) {
         try {
+            if(file.isDirectory()) return;
             String main = "PluginMain";
             URL[] urls = { new URL("jar:file:" + file.getPath()+"!/") };
             URLClassLoader loader = new URLClassLoader(urls);
@@ -51,9 +55,9 @@ public class PluginManager {
 
 
             PluginInterface plugin = (PluginInterface) cl.newInstance();
-            if(plugin == null) throw new Exception("Error no instance found");
+            if(plugin == null) throw new Error("Error no instance found");
             String name = plugin.getName();
-            if(name == null || name.length() < 1) throw new Exception("Invalid Name");
+            if(name == null || name.length() < 1) throw new Error("Invalid Name");
 
             PluginContainer pc = new PluginContainer(plugin, name);
             pc.initLogger(_Framework);
@@ -63,11 +67,10 @@ public class PluginManager {
 
             _Framework.getLogger().printInfo("Successfully loaded "+pc.getPluginName());
 
-
-
         } catch (Exception e) {
             _Framework.getLogger().printInfo(file.getName() + " not loaded!!");
-            _Framework.getLogger().printDebug(file.getPath() + "not loaded!! "+e.getMessage());
+            _Framework.getLogger().printDebug(file.getPath() + " not loaded!! "+e.getMessage());
+
         }
     }
 

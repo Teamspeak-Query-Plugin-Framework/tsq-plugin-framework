@@ -46,7 +46,7 @@ public class Framework {
 
         // Display Copy Header & wait 1 seconds
         System.out.println("|| ==================================================== ||");
-        System.out.println("|| Teamspeak Query Plugin Framework | Version 0.0.1     ||");
+        System.out.println("|| Teamspeak Query Plugin Framework                     ||");
         System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
         System.out.println("||                                                      ||");
         System.out.println("|| Support: support@vortexdata.net                      ||");
