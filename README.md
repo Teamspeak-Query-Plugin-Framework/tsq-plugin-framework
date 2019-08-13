@@ -31,13 +31,8 @@ No additional software required.
 No additional software required.
 
 ### Download
-- **Option 1 (Standalone Jar):**
 
-   Download the latest release from [our website](https://projects.vortexdata.net/tsq-plugin-framework). This ensures you are running a stable version and avoid bugs carried over from building stage.
-   
-- **Option 2 (Compile own version):**
-
-   Clone the latest stable version of the source code and run it trough our compiler. It should output a file named "tsq-plugin-framework.jar".
+   Download the latest stable release [here](https://github.com/Vortexdata/tsq-plugin-framework/releases) and extract "net.vortexdata.tsqpf-X.X.X-jar-with-dependencies.jar" from the "dist" folder.
    
 ### Installation
 
