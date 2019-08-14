@@ -9,7 +9,7 @@ public class ConfigMain extends ConfigField implements Config {
 
 
     public ConfigMain() {
-        super("configs\\main.properties");
+        super("configs//main.properties");
         // Creating HashMaps
         defaultValues = new HashMap<String, String>();
         values = new HashMap<String, String>();
