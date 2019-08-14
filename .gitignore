@@ -1,4 +1,4 @@
-configs/
-logs/
-target/
-out/
+/configs/
+/logs/
+/target/
+/out/
