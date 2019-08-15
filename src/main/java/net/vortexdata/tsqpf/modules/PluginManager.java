@@ -65,11 +65,10 @@ public class PluginManager {
             plugin.setBot(_Framework);
             loadedplugins.add(pc);
 
-            _Framework.getLogger().printInfo("Successfully loaded "+pc.getPluginName());
+            _Framework.getLogger().printInfo("Plugin "+pc.getPluginName()+" successfully loaded and initialized.");
 
         } catch (Exception e) {
-            _Framework.getLogger().printInfo(file.getName() + " not loaded!!");
-            _Framework.getLogger().printDebug(file.getPath() + " not loaded!! "+e.getMessage());
+            _Framework.getLogger().printInfo("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin development setup. Dumping error details: " + e.getMessage());
 
         }
     }
