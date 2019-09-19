@@ -9,15 +9,18 @@ import net.vortexdata.tsqpf.modules.PluginManager;
 public class GlobalEventHandler implements TS3Listener {
 
     private TS3Api _api;
+    private Framework _framework;
 
-    public GlobalEventHandler(Framework Framework) {
-        _api = Framework.getApi();
+    public GlobalEventHandler(Framework framework) {
+        _framework = framework;
+        _api = framework.getApi();
     }
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {
         for (PluginContainer pl : PluginManager.getLoadedplugins()) {
             pl.getPluginInterface().onTextMessage(textMessageEvent);
         }
+        _framework.getChatCommandListener().newMessage(textMessageEvent);
     }
 
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {

@@ -9,6 +9,7 @@ import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.installers.*;
+import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.*;
 import org.apache.log4j.*;
@@ -22,6 +23,7 @@ public class Framework {
     private static Framework _instance;
     private TS3Api _api;
     private ConsoleHandler _consoleHandler;
+    private ChatCommandListener _ChatCommandListener;
     private PluginManager _manager;
     private net.vortexdata.tsqpf.console.Logger logger;
 
@@ -123,6 +125,8 @@ public class Framework {
             System.exit(0);
         }
 
+        _ChatCommandListener = new ChatCommandListener(this);
+
         logger.printDebug("Trying to register global events...");
         _api.registerAllEvents();
         _api.addTS3Listeners(new GlobalEventHandler(this));
@@ -164,6 +168,9 @@ public class Framework {
 
     public ConsoleHandler getConsoleHandler() {
         return _consoleHandler;
+    }
+    public ChatCommandListener getChatCommandListener() {
+        return _ChatCommandListener;
     }
 
     public TS3Api getApi() {
