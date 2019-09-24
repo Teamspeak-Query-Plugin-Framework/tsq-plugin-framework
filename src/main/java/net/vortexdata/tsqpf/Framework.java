@@ -108,6 +108,17 @@ public class Framework {
         // Create query
         logger.printDebug("Trying to connect to server...");
         final TS3Query query = connect(configMain, new TS3Query(config));
+        try {
+            query.connect();
+        } catch (Exception e) {
+            logger.printError("Connection to server failed, dumping error details: ", e);
+            System.exit(0);
+        }
+
+        // Connect
+        connect(configMain, query);
+
+        logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
         _consoleHandler = new ConsoleHandler();
@@ -144,13 +155,6 @@ public class Framework {
     }
 
     public TS3Query connect(ConfigMain configMain, TS3Query query) {
-        try {
-            query.connect();
-        } catch (Exception e) {
-            logger.printError("Connection to server failed, dumping error details: ", e);
-            System.exit(0);
-        }
-        logger.printInfo("Successfully established connection to server.");
         _api = query.getApi();
         try {
             logger.printDebug("Trying to sign into query...");
