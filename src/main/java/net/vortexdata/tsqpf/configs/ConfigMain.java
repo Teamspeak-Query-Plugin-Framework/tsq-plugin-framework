@@ -20,6 +20,7 @@ public class ConfigMain extends ConfigField implements Config {
         defaultValues.put("queryPassword", "password");
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
+        defaultValues.put("reconnectStrategy", "exponentialBackoff");
     }
 
     public boolean load() {
