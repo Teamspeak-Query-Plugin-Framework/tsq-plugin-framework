@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public interface Config {
 
-    void load();
+    boolean load();
 
     HashMap<String, String> getValues();
 

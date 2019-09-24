@@ -80,7 +80,11 @@ public class Framework {
         // Load main config
         ConfigMain configMain = new ConfigMain();
         logger.printDebug("Loading main config...");
-        configMain.load();
+        boolean didConfigExist = configMain.load();
+        if (!didConfigExist) {
+            logger.printWarn("Could not find config file, therefor create a new one. Please review and adjust its values to avoid any issues.");
+            shutdown();
+        }
         logger.printDebug("Main config loaded.");
 
         // Create config

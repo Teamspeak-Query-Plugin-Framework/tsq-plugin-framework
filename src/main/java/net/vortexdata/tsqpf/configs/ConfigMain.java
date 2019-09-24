@@ -22,13 +22,15 @@ public class ConfigMain extends ConfigField implements Config {
         defaultValues.put("clientNickname", "TSQP Framework");
     }
 
-    public void load() {
+    public boolean load() {
         ConfigLoader cLoader = new ConfigLoader();
         values = cLoader.load(path);
         if (values.size() < defaultValues.size()) {
             InstallConfig iConfig = new InstallConfig();
             iConfig.create(path, defaultValues);
+            return false;
         }
+        return true;
     }
 
     public String getProperty(String key) {
