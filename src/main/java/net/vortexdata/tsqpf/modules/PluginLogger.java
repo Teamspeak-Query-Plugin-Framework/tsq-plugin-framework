@@ -23,6 +23,11 @@ public class PluginLogger extends Logger {
     }
 
     @Override
+    public void printWarn(String message) {
+        super.printWarn("["+_container.getPluginName()+"] " +message);
+    }
+
+    @Override
     public void printInfo(String message) {
         super.printInfo("["+_container.getPluginName()+"] " +message);
     }
