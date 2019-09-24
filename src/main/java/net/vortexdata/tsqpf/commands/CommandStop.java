@@ -19,7 +19,7 @@ public class CommandStop extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args) {
-        _Framework.shutdown();
+        _Framework.shutdown(true);
     }
 
     @Override

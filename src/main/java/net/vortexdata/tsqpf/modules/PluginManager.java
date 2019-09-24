@@ -24,6 +24,10 @@ public class PluginManager {
     private static List<PluginContainer> loadedplugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
 
     public void enableAll(){
+        File pluginDirectory = new File("plugins");
+        if (!pluginDirectory.isDirectory() || !pluginDirectory.exists())
+            pluginDirectory.mkdirs();
+
         File[] files = new File("plugins").listFiles();
 
         if (files == null) return;
