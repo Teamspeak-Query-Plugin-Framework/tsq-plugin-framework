@@ -83,7 +83,7 @@ public class Framework {
         boolean didConfigExist = configMain.load();
         if (!didConfigExist) {
             logger.printWarn("Could not find config file, therefor create a new one. Please review and adjust its values to avoid any issues.");
-            shutdown();
+            shutdown(false);
         }
         logger.printDebug("Main config loaded.");
 
@@ -148,10 +148,11 @@ public class Framework {
 
     }
 
-    public void shutdown() {
+    public void shutdown(boolean isManagerEnabled) {
         logger.printInfo("Shutting down for system halt.");
         logger.printInfo("Unloading plugins...");
-        _manager.disableAll();
+        if (isManagerEnabled)
+            _manager.disableAll();
         logger.printInfo("Successfully unloaded plugins.");
         logger.printInfo("Ending framework logging...");
         System.exit(0);
