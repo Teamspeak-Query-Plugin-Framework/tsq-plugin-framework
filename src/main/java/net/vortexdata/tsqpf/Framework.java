@@ -4,6 +4,8 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
+import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
+import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
@@ -86,9 +88,62 @@ public class Framework {
         logger.printDebug("Trying to assign server address...");
         config.setHost(configMain.getProperty("serverAddress"));
         logger.printDebug("Server address set.");
+        // Set Reconnect Strategy
+        config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+        config.setConnectionHandler(new ConnectionHandler() {
+
+            @Override
+            public void onConnect(TS3Query ts3Query) {
+                _api = ts3Query.getApi();
+                connect(configMain, ts3Query);
+            }
+
+            @Override
+            public void onDisconnect(TS3Query ts3Query) {
+                // Nothing
+            }
+
+        });
+
         // Create query
-        final TS3Query query = new TS3Query(config);
         logger.printDebug("Trying to connect to server...");
+        final TS3Query query = connect(configMain, new TS3Query(config));
+
+        logger.printDebug("Initializing console handler...");
+        _consoleHandler = new ConsoleHandler();
+        logger.printDebug("Console handler loaded.");
+        logger.printDebug("Registering console commands...");
+        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
+        _consoleHandler.registerCommand(new CommandStop(logger, this));
+        logger.printDebug("Console handler and console commands successfully initialized and registered.");
+
+
+        // Load modules
+
+        logger.printDebug("Initializing plugin controller...");
+        _manager = new PluginManager(this);
+        logger.printDebug("Loading and enabling plugins...");
+        _manager.enableAll();
+        logger.printDebug("Successfully loaded plugins.");
+        bootHandler.setBootEndTime();
+
+        logger.printInfo("Boot process finished.");
+        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
+
+        _consoleHandler.start();
+
+    }
+
+    public void shutdown() {
+        logger.printInfo("Shutting down for system halt.");
+        logger.printInfo("Unloading plugins...");
+        _manager.disableAll();
+        logger.printInfo("Successfully unloaded plugins.");
+        logger.printInfo("Ending framework logging...");
+        System.exit(0);
+    }
+
+    public TS3Query connect(ConfigMain configMain, TS3Query query) {
         try {
             query.connect();
         } catch (Exception e) {
@@ -132,38 +187,7 @@ public class Framework {
         _api.addTS3Listeners(new GlobalEventHandler(this));
         logger.printDebug("Successfully registered global events.");
 
-        logger.printDebug("Initializing console handler...");
-        _consoleHandler = new ConsoleHandler();
-        logger.printDebug("Console handler loaded.");
-        logger.printDebug("Registering console commands...");
-        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
-        _consoleHandler.registerCommand(new CommandStop(logger, this));
-        logger.printDebug("Console handler and console commands successfully initialized and registered.");
-
-
-        // Load modules
-
-        logger.printDebug("Initializing plugin controller...");
-        _manager = new PluginManager(this);
-        logger.printDebug("Loading and enabling plugins...");
-        _manager.enableAll();
-        logger.printDebug("Successfully loaded plugins.");
-        bootHandler.setBootEndTime();
-
-        logger.printInfo("Boot process finished.");
-        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
-
-        _consoleHandler.start();
-
-    }
-
-    public void shutdown() {
-        logger.printInfo("Shutting down for system halt.");
-        logger.printInfo("Unloading plugins...");
-        _manager.disableAll();
-        logger.printInfo("Successfully unloaded plugins.");
-        logger.printInfo("Ending framework logging...");
-        System.exit(0);
+        return query;
     }
 
     public ConsoleHandler getConsoleHandler() {
