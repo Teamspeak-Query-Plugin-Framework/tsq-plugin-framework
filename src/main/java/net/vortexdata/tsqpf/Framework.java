@@ -107,16 +107,15 @@ public class Framework {
 
         // Create query
         logger.printDebug("Trying to connect to server...");
-        final TS3Query query = connect(configMain, new TS3Query(config));
+
+        final TS3Query query = new TS3Query(config);
+
         try {
             query.connect();
         } catch (Exception e) {
             logger.printError("Connection to server failed, dumping error details: ", e);
             System.exit(0);
         }
-
-        // Connect
-        connect(configMain, query);
 
         logger.printInfo("Successfully established connection to server.");
 
