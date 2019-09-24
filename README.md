@@ -3,9 +3,12 @@
 A java-based plugin framework for Teamspeak 3 servers.
 
 ## Features
+- Plugin API to add more features to your Teamspeak server
+- Plugin cross-talk
+- Reconnect strategies
+- Easy plugin development
 - Setup wizard for easy-to-use installation
 - Detailed log files and console output
-- Plugin API to add more features to your Teamspeak server
 
 ## Getting Started
 
@@ -72,3 +75,12 @@ No additional software required.
    ```
    
    The framework will generate its directory structure and terminate after completion. Navigate to to the main properties file and adjust it to fit your servers prefferences. Once complete, run the script again (be sure you're runnning it using a screen session) and wait for the boot process to complete.
+   
+## Installing Plugins
+
+   Here's a list of all official TSQPF plugins developed by us. Contrary to community made plugins, these are verified and tested by VortexdataNET, meaning they are running stable and are safe to use.
+   
+   - RollingBanner (https://github.com/Vortexdata/tsqpf-plugin-rollingbanner)
+   - WelcomeMessage (https://github.com/Vortexdata/tsqpf-plugin-welcomemessage)
+   - PrivateChannel (https://github.com/Vortexdata/tsqpf-plugin-privatechannel)
+   - Analytics (N/A)
