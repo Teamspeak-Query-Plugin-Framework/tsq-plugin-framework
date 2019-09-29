@@ -31,14 +31,18 @@ public class ChatCommandListener {
             return;
         }
 
-
+        boolean commandFound = false;
         for (String prefix : commandList.keySet()) {
             if(msg.getMessage().startsWith(prefix)) {
+                commandFound = true;
                 for (ChatCommandInterface cmd : commandList.get(prefix)) {
                     cmd.gotCalled(msg);
                 }
             }
         }
+
+        if (!commandFound)
+            _api.sendPrivateMessage(msg.getInvokerId(), "Command not found.");
     }
 
     private HashMap<String, ArrayList<ChatCommandInterface>> commandList = new HashMap<>();
