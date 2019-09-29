@@ -23,12 +23,17 @@ public class ChatCommandListener {
     public void newMessage(TextMessageEvent msg) {
 
         if(commandList.size() == 0) return;
+
+        // Send TSQPF Info
+        if (msg.getMessage().startsWith("!info")) {
+            _api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
+            _api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
+            return;
+        }
+
+
         for (String prefix : commandList.keySet()) {
-            // Send TSQPF Info
-            if (msg.getMessage().startsWith("!info")) {
-                _api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
-                _api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
-            } else if(msg.getMessage().startsWith(prefix)) {
+            if(msg.getMessage().startsWith(prefix)) {
                 for (ChatCommandInterface cmd : commandList.get(prefix)) {
                     cmd.gotCalled(msg);
                 }
