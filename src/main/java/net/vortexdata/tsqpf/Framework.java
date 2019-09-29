@@ -92,6 +92,7 @@ public class Framework {
         logger.printDebug("Trying to assign server address...");
         config.setHost(configMain.getProperty("serverAddress"));
         logger.printDebug("Server address set.");
+
         // Set Reconnect Strategy
         config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
         config.setConnectionHandler(new ConnectionHandler() {

@@ -24,7 +24,11 @@ public class ChatCommandListener {
 
         if(commandList.size() == 0) return;
         for (String prefix : commandList.keySet()) {
-            if(msg.getMessage().startsWith(prefix)) {
+            // Send TSQPF Info
+            if (msg.getMessage().startsWith("!info")) {
+                _api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
+                _api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
+            } else if(msg.getMessage().startsWith(prefix)) {
                 for (ChatCommandInterface cmd : commandList.get(prefix)) {
                     cmd.gotCalled(msg);
                 }
