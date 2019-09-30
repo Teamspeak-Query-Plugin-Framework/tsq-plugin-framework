@@ -1,7 +1,6 @@
 package net.vortexdata.tsqpf.configs;
 
 import net.vortexdata.tsqpf.installers.*;
-
 import java.util.HashMap;
 
 
