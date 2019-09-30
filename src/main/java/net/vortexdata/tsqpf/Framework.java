@@ -94,7 +94,23 @@ public class Framework {
         logger.printDebug("Server address set.");
 
         // Set Reconnect Strategy
-        config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+        logger.printDebug("Trying to set reconnect strategy...");
+        String reconnectStrategy = configMain.getProperty("reconnectStrategy");
+        if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") ||reconnectStrategy.isEmpty()) {
+            config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+        } else if (reconnectStrategy.equalsIgnoreCase("disconnect")) {
+            config.setReconnectStrategy(ReconnectStrategy.disconnect());
+        } else if (reconnectStrategy.equalsIgnoreCase("linearBackoff")) {
+            config.setReconnectStrategy(ReconnectStrategy.linearBackoff());
+        } else if (reconnectStrategy.equalsIgnoreCase("userControlled")) {
+            logger.printWarn("UserControlled reconnect strategy is currently not supported, reverting to disconnect. You will have to manually restart the framework after a timeout.");
+            config.setReconnectStrategy(ReconnectStrategy.disconnect());
+        } else {
+            logger.printWarn("Could not identify reconnect strategy " + reconnectStrategy + ", falling back to exponentialBackoff.");
+            config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+        }
+        logger.printDebug("Reconnect strategy set.");
+
         config.setConnectionHandler(new ConnectionHandler() {
 
             @Override
