@@ -21,6 +21,7 @@ public class ConfigMain extends ConfigField implements Config {
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
         defaultValues.put("reconnectStrategy", "exponentialBackoff");
+        defaultValues.put("messageChatCommandNotFound", "Unknown command.");
     }
 
     public boolean load() {
