@@ -189,7 +189,7 @@ public class Framework {
             System.exit(0);
         }
 
-        _ChatCommandListener = new ChatCommandListener(this);
+        _ChatCommandListener = new ChatCommandListener(this, configMain);
 
         logger.printDebug("Trying to register global events...");
         _api.registerAllEvents();
