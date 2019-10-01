@@ -9,9 +9,21 @@
 
     <version>2.0.0-preview</version>
 
-
+    <name>My Resources Plugin Practice Project</name>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <dependencies>
+
         <dependency>
             <groupId>com.github.theholywaffle</groupId>
             <artifactId>teamspeak3-api</artifactId>

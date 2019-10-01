@@ -16,10 +16,18 @@ import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.*;
 import org.apache.log4j.*;
 
+import java.awt.*;
+import java.io.*;
 import java.text.*;
 import java.util.*;
 
-
+/**
+ * Copyright (C) VortexdataNET - All Rights Reserved
+ * Unauthorized redistribution of this software, via any medium is prohibited!
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @author Michael Wiesinger (michael@vortexdata.net)
+ */
 public class Framework {
 
     private static Framework _instance;
