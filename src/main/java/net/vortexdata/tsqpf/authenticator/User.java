@@ -2,6 +2,12 @@ package net.vortexdata.tsqpf.authenticator;
 
 import java.util.HashMap;
 
+/**
+ * Represents a users account
+ *
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class User {
 
     private UserGroup group;
