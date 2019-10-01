@@ -2,6 +2,10 @@ package net.vortexdata.tsqpf.modules;
 
 import com.github.theholywaffle.teamspeak3.api.event.*;
 
+/**
+ * @author Michael Wiesinger
+ * @since 1.0.0
+ */
 public abstract class EventHandler{
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {

@@ -12,6 +12,13 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Trigger and manager for Teamspeak chat commands.
+ *
+ * @author Michael Wiesinger
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class ChatCommandListener {
 
     private ConfigMain config;
@@ -23,6 +30,10 @@ public class ChatCommandListener {
         _api = Framework.getApi();
     }
 
+    /**
+     * Activated when the Framework receives a new private message.
+     * @param msg       The events object
+     */
     public void newMessage(TextMessageEvent msg) {
 
         if(commandList.size() == 0) return;
@@ -49,6 +60,12 @@ public class ChatCommandListener {
     }
 
     private HashMap<String, ArrayList<ChatCommandInterface>> commandList = new HashMap<>();
+
+    /**
+     * Registers and enables a new command.
+     * @param cmd           Instance of command class
+     * @param prefix        How the command is referenced (eg !help)
+     */
     public void registerNewCommand(ChatCommandInterface cmd, String prefix) {
         ArrayList<ChatCommandInterface> cmds;
 
