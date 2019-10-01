@@ -44,6 +44,11 @@ public class UserManager {
         try {
             bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd"));
             br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
+
+            while (br.readLine() != null && !br.readLine().isEmpty()) {
+                String serializedUser = br.readLine();
+            }
+
         } catch (IOException e) {
             logger.printError("Failed to open userdata file, dumping details: ");
         } finally {
@@ -89,6 +94,21 @@ public class UserManager {
         }
 
         return success;
+    }
+
+    private User getUser(String serializedUser) {
+
+        String[] args = serializedUser.split(";");
+
+        HashMap<String, String> info = new HashMap<>();
+        info.put("telephone", args[4]);
+        info.put("country", args[6]);
+        info.put("fullName", args[3]);
+        info.put("address", args[5]);
+
+
+
+        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info);
     }
 
 }
