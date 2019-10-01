@@ -1,0 +1,9 @@
+net.vortexdata.tsqpf
+net.vortexdata.tsqpf.authenticator
+net.vortexdata.tsqpf.commands
+net.vortexdata.tsqpf.configs
+net.vortexdata.tsqpf.console
+net.vortexdata.tsqpf.exceptions
+net.vortexdata.tsqpf.installers
+net.vortexdata.tsqpf.listeners
+net.vortexdata.tsqpf.modules
