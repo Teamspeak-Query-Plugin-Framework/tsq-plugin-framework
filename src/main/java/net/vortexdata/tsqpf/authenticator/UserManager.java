@@ -71,6 +71,13 @@ public class UserManager {
         return "";
     }
 
+    /**
+     * Edit a user entry in userdata
+     *
+     * @param previousUsername      The previous username before any changes where done
+     * @param newUser               New user object overriding old user data
+     * @return                      true if user was edited successfully.
+     */
     private boolean editUser(String previousUsername, User newUser) {
         boolean success = false;
         logger.printDebug("Trying to override userdata...");
@@ -128,6 +135,12 @@ public class UserManager {
 
     }
 
+    /**
+     * Saves a new user. DO NOT USE TWO TIMES WITH SAME USER!!
+     *
+     * @param user      Saves a user to user data
+     * @return          true if saved successfully
+     */
     private boolean saveUser(User user) {
         boolean success = false;
         logger.printDebug("Trying to save userdata...");
@@ -153,6 +166,12 @@ public class UserManager {
         return success;
     }
 
+    /**
+     * Returns a user object from a serialized user string
+     *
+     * @param serializedUser      Serialized user string
+     * @return                    User object from serialized string
+     */
     private User getUserFromSerializedString(String serializedUser) {
         String[] args = serializedUser.split(";");
 
@@ -165,6 +184,12 @@ public class UserManager {
         return new User(args[0], args[1], UserGroup.valueOf(args[2]), info, args[7]);
     }
 
+    /**
+     * Returns serialized save data from user data
+     *
+     * @param username      Username required to find entry
+     * @return              Serialized data from user data
+     */
     private String loadUserSerializedData(String username) throws UserNotFoundException {
         String serializedString = "default";
         BufferedReader br = null;
@@ -206,6 +231,12 @@ public class UserManager {
         return serializedString;
     }
 
+    /**
+     * Returns a user object from user data identified by only the username
+     *
+     * @param username      Username required to find entry
+     * @return              User object from database
+     */
     private User getUser(String username) throws UserNotFoundException {
         return getUserFromSerializedString(loadUserSerializedData(username));
     }
