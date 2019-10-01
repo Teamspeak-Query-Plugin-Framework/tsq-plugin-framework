@@ -6,6 +6,13 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Plugins config class
+ *
+ * @author Michael Wiesinger
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class PluginConfig {
 
     File configDir;
@@ -18,6 +25,9 @@ public class PluginConfig {
         readAll();
     }
 
+    /**
+     * Loads a plugins config values.
+     */
     public void readAll() {
         try {
             if (!configDir.exists()) {
@@ -43,7 +53,9 @@ public class PluginConfig {
 
     }
 
-
+    /**
+     * Set a plugins config value
+     */
     public void setValue(String key, String value) {
         if(entries.containsKey(key)) {
             entries.replace(key, value);
@@ -53,12 +65,24 @@ public class PluginConfig {
 
     }
 
+    /**
+     * Set a plugins default values
+     *
+     * @param key       The values key
+     * @param value     The config value
+     */
     public void setDefault(String key, String value) {
         if(!containsKey(key)) {
             setValue(key, value);
         }
     }
 
+    /**
+     * Tests if a key exists
+     *
+     * @param key       The key
+     * @return          True if key exists
+     */
     public boolean containsKey(String key) {
         return entries.containsKey(key);
     }
