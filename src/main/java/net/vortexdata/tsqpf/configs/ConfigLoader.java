@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * Loads configs, will be moved and combined with createConfig.
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class ConfigLoader {
 
     public HashMap<String, String> load(String path) {

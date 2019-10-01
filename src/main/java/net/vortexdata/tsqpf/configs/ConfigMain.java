@@ -3,7 +3,12 @@ package net.vortexdata.tsqpf.configs;
 import net.vortexdata.tsqpf.installers.*;
 import java.util.HashMap;
 
-
+/**
+ * ConfigMain class
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class ConfigMain extends ConfigField implements Config {
 
 
@@ -23,6 +28,10 @@ public class ConfigMain extends ConfigField implements Config {
         defaultValues.put("messageChatCommandNotFound", "Unknown command.");
     }
 
+    /**
+     * Loads the configs file.
+     * @return  true if default value count and loaded value count are equal
+     */
     public boolean load() {
         ConfigLoader cLoader = new ConfigLoader();
         values = cLoader.load(path);
@@ -34,6 +43,11 @@ public class ConfigMain extends ConfigField implements Config {
         return true;
     }
 
+    /**
+     * Returns a config value
+     * @param key   Key of value
+     * @return      Desired value of key
+     */
     public String getProperty(String key) {
         return values.get(key);
     }
