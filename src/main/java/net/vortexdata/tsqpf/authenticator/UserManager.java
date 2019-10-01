@@ -161,6 +161,7 @@ public class UserManager {
     }
 
     private String loadUserSerializedData(String username) {
+        String serializedString;
         BufferedReader br = null;
 
         try {
@@ -170,6 +171,12 @@ public class UserManager {
             while (line != null && !line.isEmpty()) {
                 line = br.readLine();
                 if (line != null && !line.isEmpty()) {
+
+                    String[] args = line.split(";");
+                    if (args[0].equalsIgnoreCase(username)) {
+                        serializedString = line;
+                        break;
+                    }
 
                 }
             }
@@ -187,10 +194,12 @@ public class UserManager {
                 }
             }
         }
+
+        return serializedString;
     }
 
     private User getUser() {
-
+        return new User();
     }
 
 }
