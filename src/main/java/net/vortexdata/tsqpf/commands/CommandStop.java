@@ -3,6 +3,12 @@ package net.vortexdata.tsqpf.commands;
 import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.console.Logger;
 
+/**
+ * Shuts down the framework
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class CommandStop extends CommandInterface {
 
     private Framework _Framework;
