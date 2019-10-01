@@ -6,6 +6,12 @@ import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.modules.PluginContainer;
 import net.vortexdata.tsqpf.modules.PluginManager;
 
+/**
+ * Listens for all global Teamspeak events.
+ *
+ * @author Michael Wiesinger
+ * @since 1.0.0
+ */
 public class GlobalEventHandler implements TS3Listener {
 
     private TS3Api _api;
