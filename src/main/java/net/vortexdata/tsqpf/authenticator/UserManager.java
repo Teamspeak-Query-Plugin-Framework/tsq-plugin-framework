@@ -1,5 +1,7 @@
 package net.vortexdata.tsqpf.authenticator;
 
+import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
+import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.modules.PluginLogger;
 import sun.awt.image.BufferedImageDevice;
 
@@ -16,27 +18,56 @@ public class UserManager {
         this.logger = logger;
     }
 
-    public User authenticate(String username, String password) {
+    /**
+     * Returns a user if username and password are correct.
+     *
+     * @param username                      The users username / unique identifier
+     * @param password                      The users password
+     * @return                              A valid user
+     */
+    public User authenticate(String username, String password) throws InvalidCredentialsException {
 
         // Try to get and validate login request
 
-        return new User(username, password, UserGroup.ROOT, new HashMap<>());
+
+
+        return new User(username, password, UserGroup.ROOT, new HashMap<>(), "Test");
     }
 
-    public boolean removeUser() {
+    /**
+     * Removes a user from userdata file
+     *
+     * @param username      The users username / unique identifier
+     * @return              true if successfully removed
+     */
+    public boolean removeUser(String username) {
         return false;
     }
 
-    public boolean createUser(String username, String password, UserGroup group) {
+    /**
+     * Creates a new user and saves it to userdata file
+     *
+     * @param username      The users username / unique identifier
+     * @param password      Plain text password
+     * @param group         The users group
+     * @return              true if successfully created
+     */
+    public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
         return false;
     }
 
-    private String getHashedPassword() {
+    /**
+     * Hashes a plain text password
+     *
+     * @param plainTextPassword      A plain text password
+     * @return                       A hashed password
+     */
+    private String getHashedPassword(String plainTextPassword, String salt) {
         return "";
     }
 
     private boolean editUser(String previousUsername, User newUser) {
-        boolean success;
+        boolean success = false;
         logger.printDebug("Trying to override userdata...");
         BufferedWriter bw = null;
         BufferedReader br = null;
@@ -61,6 +92,7 @@ public class UserManager {
                 if (split[0].equalsIgnoreCase(previousUsername)) {
 
                     bw.write(newUser.serialize() + "\n");
+                    success = true;
 
                 } else {
                     bw.write(serializedString + "\n");
@@ -86,6 +118,8 @@ public class UserManager {
                 }
             }
         }
+
+        return success;
 
     }
 
@@ -114,7 +148,7 @@ public class UserManager {
         return success;
     }
 
-    private User getUser(String serializedUser) {
+    private User getUserFromSerializedString(String serializedUser) {
         String[] args = serializedUser.split(";");
 
         HashMap<String, String> info = new HashMap<>();
@@ -123,7 +157,40 @@ public class UserManager {
         info.put("fullName", args[3]);
         info.put("address", args[5]);
 
-        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info);
+        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info, args[7]);
+    }
+
+    private String loadUserSerializedData(String username) {
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
+
+            String line = "init";
+            while (line != null && !line.isEmpty()) {
+                line = br.readLine();
+                if (line != null && !line.isEmpty()) {
+
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            logger.printDebug("Failed to open userdata file, dumping details: " + e.getMessage());
+        } catch (IOException e) {
+            logger.printDebug("Failed to read line from user data, dumping details: " + e.getMessage());
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.printError("Failed to close BufferedReader, dumping details: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    private User getUser() {
+
     }
 
 }
