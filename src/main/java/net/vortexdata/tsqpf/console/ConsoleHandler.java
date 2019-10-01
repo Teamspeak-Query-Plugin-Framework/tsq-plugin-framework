@@ -4,6 +4,13 @@ import net.vortexdata.tsqpf.commands.CommandInterface;
 
 import java.util.*;
 
+/**
+ * Manages user console interactions.
+ *
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
+ * @since 1.0.0
+ */
 public class ConsoleHandler implements Runnable {
 
     private Thread thread;
@@ -17,11 +24,18 @@ public class ConsoleHandler implements Runnable {
 
     }
 
+    /**
+     * Starts the console handler.
+     */
     public void start() {
         thread.start();
     }
 
-
+    /**
+     * Registers a console command.
+     * @param cmd       Class of command to register
+     * @return          True if command was successfully registerd
+     */
     public boolean registerCommand(CommandInterface cmd) {
         for(CommandInterface c : commands)
             if(c.getName().equalsIgnoreCase(cmd.getName())) return false;
@@ -33,6 +47,10 @@ public class ConsoleHandler implements Runnable {
     public List<CommandInterface> getCommands() {
         return Collections.unmodifiableList(commands);
     }
+
+    /**
+     * Starts the console UI.
+     */
     public void run() {
 
         System.out.println("-----------------------------------------------------------------------------------");
