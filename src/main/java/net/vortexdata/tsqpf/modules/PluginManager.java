@@ -2,10 +2,8 @@ package net.vortexdata.tsqpf.modules;
 
 import net.vortexdata.tsqpf.Framework;
 
-import java.io.Console;
 import java.io.File;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -80,7 +78,7 @@ public class PluginManager {
             PluginContainer pc = new PluginContainer(plugin, name);
             pc.initLogger(_Framework);
             plugin.setContainer(pc);
-            plugin.setBot(_Framework);
+            plugin.setFramework(_Framework);
             loadedplugins.add(pc);
 
             _Framework.getLogger().printInfo("Plugin "+pc.getPluginName()+" successfully loaded and initialized.");
