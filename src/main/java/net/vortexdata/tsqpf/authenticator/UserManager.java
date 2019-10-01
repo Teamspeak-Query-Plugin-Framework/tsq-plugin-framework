@@ -2,6 +2,7 @@ package net.vortexdata.tsqpf.authenticator;
 
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
+import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 import net.vortexdata.tsqpf.modules.PluginLogger;
 import sun.awt.image.BufferedImageDevice;
 
@@ -160,8 +161,8 @@ public class UserManager {
         return new User(args[0], args[1], UserGroup.valueOf(args[2]), info, args[7]);
     }
 
-    private String loadUserSerializedData(String username) {
-        String serializedString;
+    private String loadUserSerializedData(String username) throws UserNotFoundException {
+        String serializedString = "default";
         BufferedReader br = null;
 
         try {
@@ -195,11 +196,14 @@ public class UserManager {
             }
         }
 
+        if (serializedString.equals("default"))
+            throw new UserNotFoundException();
+
         return serializedString;
     }
 
-    private User getUser() {
-        return new User();
+    private User getUser(String username) throws UserNotFoundException {
+        return getUserFromSerializedString(loadUserSerializedData(username));
     }
 
 }
