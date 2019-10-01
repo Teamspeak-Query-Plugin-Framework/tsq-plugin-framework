@@ -4,6 +4,12 @@ import net.vortexdata.tsqpf.configs.*;
 
 import java.util.*;
 
+/**
+ * Simple user interface to assist users in configuring the framework.
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class InstallWizzard {
 
     private HashMap<String, String> values;
@@ -13,6 +19,9 @@ public class InstallWizzard {
         values = cMain.getDefaultValues();
     }
 
+    /**
+     * Call the interface
+     */
     public void init() {
         values = new HashMap<String, String>();
         Scanner scanner = new Scanner(System.in);
