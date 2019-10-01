@@ -11,8 +11,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * Creates, edits and manages config files.
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class InstallConfig {
 
+    /**
+     * Creates a new config file at the desired path.
+     *
+     * @param path              Desired path of new config file
+     * @param defaultValues     The configs default values
+     * @return                  true if creation was successful
+     */
     public boolean create(String path, HashMap<String, String> defaultValues) {
         // Purge if file remains
         File file = new File(path);
