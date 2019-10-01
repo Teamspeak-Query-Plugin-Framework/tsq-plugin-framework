@@ -11,6 +11,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Manages all users and database
+ *
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class UserManager {
 
     private ArrayList<User> users;
