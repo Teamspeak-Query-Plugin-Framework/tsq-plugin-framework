@@ -3,6 +3,13 @@ package net.vortexdata.tsqpf.commands;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.Logger;
 
+/**
+ * Displays help on console
+ *
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
+ * @since 1.0.0
+ */
 public class CommandHelp extends CommandInterface {
 
     private ConsoleHandler _handler;
@@ -12,9 +19,10 @@ public class CommandHelp extends CommandInterface {
         _handler = handler;
     }
 
+
     @Override
     public String getHelpMessage() {
-        return "You want help for help? That's kinda genius :)";
+        return "You need help with help? That's kinda genius :)";
     }
 
     public void gotCalled(String[] args) {
