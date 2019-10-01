@@ -12,7 +12,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Loads, unloads and manages all plugins in the plugin directory.
+ *
+ * @author Michael Wiesinger
+ * @since 1.0.0
+ */
 public class PluginManager {
 
     private Framework _Framework;
@@ -23,6 +28,9 @@ public class PluginManager {
 
     private static List<PluginContainer> loadedplugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
 
+    /**
+     * Runs through the plugin directory and tries to load and enable all plugins.
+     */
     public void enableAll(){
         File pluginDirectory = new File("plugins");
         if (!pluginDirectory.isDirectory() || !pluginDirectory.exists())
@@ -37,6 +45,10 @@ public class PluginManager {
             pc.getPluginInterface().onEnable();
 
     }
+
+    /**
+     * Unloads all loaded plugins and disables them, preparing for save shutdown.
+     */
     public void disableAll(){
         for(PluginContainer pc : loadedplugins) {
             pc.getPluginInterface().onDisable();
@@ -46,7 +58,9 @@ public class PluginManager {
 
     }
 
-
+    /**
+     * Loads a specific plugin and tries to enable it.
+     */
     public void loadPlugin(File file) {
         try {
             if(file.isDirectory()) return;
@@ -77,6 +91,11 @@ public class PluginManager {
         }
     }
 
+    /**
+     * Returns a list of all loaded plugins
+     *
+     * @return      List of all loaded plugins
+     */
     public static List<PluginContainer> getLoadedplugins() {
         return loadedplugins;
     }
