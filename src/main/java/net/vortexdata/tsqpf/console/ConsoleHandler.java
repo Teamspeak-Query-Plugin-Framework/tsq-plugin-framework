@@ -1,10 +1,14 @@
 package net.vortexdata.tsqpf.console;
 
 import net.vortexdata.tsqpf.authenticator.Authenticator;
+import net.vortexdata.tsqpf.authenticator.User;
+import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.CommandInterface;
+import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.RootLogger;
 
+import javax.print.attribute.standard.JobOriginatingUserName;
 import java.util.*;
 
 /**
@@ -16,6 +20,8 @@ import java.util.*;
  */
 public class ConsoleHandler implements Runnable {
 
+    private UserManager userManager;
+    private User currentUser;
     private org.apache.log4j.Logger rootLogger;
     private Level logLevel;
     private boolean active;
@@ -34,6 +40,7 @@ public class ConsoleHandler implements Runnable {
         active = true;
         this.rootLogger = rootLogger;
         this.logLevel = logLevel;
+        this.userManager = new UserManager(this.logger);
     }
 
     /**
@@ -60,16 +67,17 @@ public class ConsoleHandler implements Runnable {
         return Collections.unmodifiableList(commands);
     }
 
-    public boolean login() {
+    public String[] login() {
+        String[] values = new String[2];
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         clearScreen();
         System.out.println("Authentication required, please sign in to proceed.");
         System.out.print("Username: ");
-        String username = scanner.nextLine();
+        values[0] = scanner.nextLine();
         System.out.print("Password: ");
-        String password = scanner.nextLine();
-        return authenticator.authenticate(username, password);
+        values[1] = scanner.nextLine();
+        return values;
     }
 
     /**
@@ -94,9 +102,16 @@ public class ConsoleHandler implements Runnable {
             // Get new Session
             do {
 
-                sessionActive = login();
-                if (!sessionActive)
+                String[] values = login();
+                if (values[0].isEmpty() || values[1].isEmpty() || values[0].contains(" ") || values[1].contains(" "))
                     System.out.println("Username or password are incorrect, please try again.");
+                else {
+                    try {
+                        userManager.authenticate(values[0], values[1]);
+                    } catch (InvalidCredentialsException e) {
+                        System.out.println("Username or password are incorrect, please try again.");
+                    }
+                }
 
             } while (!sessionActive);
             System.out.println("Successfully logged in!");
