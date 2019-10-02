@@ -77,6 +77,7 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
+        logger.printDebug("Starting console handler... Setting console log level to off.");
         rootLogger.setLevel(Level.OFF);
         do {
             // Command Line
@@ -121,7 +122,7 @@ public class ConsoleHandler implements Runnable {
             }
         } while (active);
         rootLogger.setLevel(Level.DEBUG);
-        logger.printDebug("Stopping console handler...");
+        logger.printDebug("Stopping console handler... Setting console log level to debug.");
 
     }
 
