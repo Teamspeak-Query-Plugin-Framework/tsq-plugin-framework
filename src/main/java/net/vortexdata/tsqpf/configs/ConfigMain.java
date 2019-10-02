@@ -1,6 +1,7 @@
 package net.vortexdata.tsqpf.configs;
 
-import net.vortexdata.tsqpf.installers.*;
+import net.vortexdata.tsqpf.installers.InstallConfig;
+
 import java.util.HashMap;
 
 /**
@@ -30,7 +31,8 @@ public class ConfigMain extends ConfigField implements Config {
 
     /**
      * Loads the configs file.
-     * @return  true if default value count and loaded value count are equal
+     *
+     * @return true if default value count and loaded value count are equal
      */
     public boolean load() {
         ConfigLoader cLoader = new ConfigLoader();
@@ -45,8 +47,9 @@ public class ConfigMain extends ConfigField implements Config {
 
     /**
      * Returns a config value
-     * @param key   Key of value
-     * @return      Desired value of key
+     *
+     * @param key Key of value
+     * @return Desired value of key
      */
     public String getProperty(String key) {
         return values.get(key);
