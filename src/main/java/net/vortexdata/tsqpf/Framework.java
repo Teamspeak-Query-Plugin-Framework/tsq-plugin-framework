@@ -174,10 +174,12 @@ public class Framework {
 
     public void shutdown(boolean isManagerEnabled) {
         logger.printInfo("Shutting down for system halt.");
+        logger.printDebug("Shutting down console handler...");
+        consoleHandler.shutdown();
         logger.printInfo("Unloading plugins...");
         if (isManagerEnabled)
             pluginManager.disableAll();
-        logger.printInfo("Successfully unloaded plugins.");
+        logger.printInfo("Successfully unloaded plugins and disabled console handler.");
         logger.printInfo("Ending framework logging...");
         System.exit(0);
     }

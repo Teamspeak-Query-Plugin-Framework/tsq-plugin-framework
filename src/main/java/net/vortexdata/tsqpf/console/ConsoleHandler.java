@@ -147,7 +147,7 @@ public class ConsoleHandler implements Runnable {
             System.out.println("");
     }
 
-    private void shutdown() {
+    public void shutdown() {
         active = false;
     }
 
