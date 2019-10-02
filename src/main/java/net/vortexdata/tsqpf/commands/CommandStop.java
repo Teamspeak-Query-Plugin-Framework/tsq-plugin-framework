@@ -1,6 +1,6 @@
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
@@ -11,11 +11,11 @@ import net.vortexdata.tsqpf.console.Logger;
  */
 public class CommandStop extends CommandInterface {
 
-    private Framework _Framework;
+    private Framework framework;
 
     public CommandStop(Logger logger, Framework Framework) {
         super(logger);
-        _Framework = Framework;
+        framework = Framework;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class CommandStop extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args) {
-        _Framework.shutdown(true);
+        framework.shutdown(true);
     }
 
     @Override

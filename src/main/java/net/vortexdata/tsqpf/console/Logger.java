@@ -4,32 +4,34 @@ import net.vortexdata.tsqpf.Framework;
 
 public abstract class Logger {
 
-    private Framework _Framework;
+    private Framework framework;
 
     public Logger(Framework Framework) {
-        _Framework = Framework;
+        framework = Framework;
     }
 
     public void printInfo(String message) {
-        _Framework.getRootLogger().info(message);
+        framework.getRootLogger().info(message);
     }
 
     public void printDebug(String message) {
-        _Framework.getRootLogger().debug(message);
+        framework.getRootLogger().debug(message);
     }
 
     public void printError(String message, Exception e) {
-        _Framework.getRootLogger().error(message, e);
+        framework.getRootLogger().error(message, e);
     }
+
     public void printError(String message) {
-        _Framework.getRootLogger().error(message);
+        framework.getRootLogger().error(message);
     }
 
     public void printWarn(String message, Exception e) {
-        _Framework.getRootLogger().warn(message, e);
+        framework.getRootLogger().warn(message, e);
     }
+
     public void printWarn(String message) {
-        _Framework.getRootLogger().warn(message);
+        framework.getRootLogger().warn(message);
     }
 
 }

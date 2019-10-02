@@ -22,9 +22,9 @@ public class InstallConfig {
     /**
      * Creates a new config file at the desired path.
      *
-     * @param path              Desired path of new config file
-     * @param defaultValues     The configs default values
-     * @return                  true if creation was successful
+     * @param path          Desired path of new config file
+     * @param defaultValues The configs default values
+     * @return true if creation was successful
      */
     public boolean create(String path, HashMap<String, String> defaultValues) {
         // Purge if file remains

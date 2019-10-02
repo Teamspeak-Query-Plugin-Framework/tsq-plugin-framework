@@ -12,50 +12,50 @@ import net.vortexdata.tsqpf.console.Logger;
  */
 public class PluginLogger extends Logger {
 
-    private PluginContainer _container;
+    private PluginContainer pluginContainer;
 
     public PluginLogger(Framework Framework, PluginContainer container) {
         super(Framework);
-        _container = container;
+        pluginContainer = container;
     }
 
     /**
      * Logs a message to console or log file on debug level.
      *
-     * @param message       Message that gets logged to console or log file.
+     * @param message Message that gets logged to console or log file.
      */
     @Override
     public void printDebug(String message) {
-        super.printDebug("["+_container.getPluginName()+"] " +message);
+        super.printDebug("[" + pluginContainer.getPluginName() + "] " + message);
     }
 
     /**
      * Logs a message to console or log file on error level.
      *
-     * @param message       Message that gets logged to console or log file.
+     * @param message Message that gets logged to console or log file.
      */
     @Override
     public void printError(String message) {
-        super.printError("["+_container.getPluginName()+"] " +message);
+        super.printError("[" + pluginContainer.getPluginName() + "] " + message);
     }
 
     /**
      * Logs a message to console or log file on warning level.
      *
-     * @param message       Message that gets logged to console or log file.
+     * @param message Message that gets logged to console or log file.
      */
     @Override
     public void printWarn(String message) {
-        super.printWarn("["+_container.getPluginName()+"] " +message);
+        super.printWarn("[" + pluginContainer.getPluginName() + "] " + message);
     }
 
     /**
      * Logs a message to console or log file on info level.
      *
-     * @param message       Message that gets logged to console or log file.
+     * @param message Message that gets logged to console or log file.
      */
     @Override
     public void printInfo(String message) {
-        super.printInfo("["+_container.getPluginName()+"] " +message);
+        super.printInfo("[" + pluginContainer.getPluginName() + "] " + message);
     }
 }

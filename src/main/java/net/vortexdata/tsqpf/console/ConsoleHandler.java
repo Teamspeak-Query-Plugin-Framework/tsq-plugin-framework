@@ -3,7 +3,6 @@ package net.vortexdata.tsqpf.console;
 import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import org.apache.log4j.Level;
-import org.apache.log4j.spi.RootLogger;
 
 import java.util.*;
 
@@ -28,7 +27,7 @@ public class ConsoleHandler implements Runnable {
     public ConsoleHandler(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel) {
         this.logger = logger;
         thread = new Thread(this);
-        if(running) return;
+        if (running) return;
         running = true;
         authenticator = new Authenticator(logger);
         active = true;
@@ -45,12 +44,13 @@ public class ConsoleHandler implements Runnable {
 
     /**
      * Registers a console command.
-     * @param cmd       Class of command to register
-     * @return          True if command was successfully registerd
+     *
+     * @param cmd Class of command to register
+     * @return True if command was successfully registerd
      */
     public boolean registerCommand(CommandInterface cmd) {
-        for(CommandInterface c : commands)
-            if(c.getName().equalsIgnoreCase(cmd.getName())) return false;
+        for (CommandInterface c : commands)
+            if (c.getName().equalsIgnoreCase(cmd.getName())) return false;
 
         commands.add(cmd);
         return true;
