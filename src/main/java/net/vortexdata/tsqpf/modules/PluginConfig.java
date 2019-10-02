@@ -17,8 +17,9 @@ public class PluginConfig {
 
     File configDir;
     private HashMap<String, String> entries;
+
     public PluginConfig(String name) {
-        configDir = new File("plugins//" + name+"//plugin.conf");
+        configDir = new File("plugins//" + name + "//plugin.conf");
         configDir.getParentFile().mkdirs();
 
         entries = new HashMap<String, String>();
@@ -39,9 +40,9 @@ public class PluginConfig {
             String[] data;
             String key;
             String value;
-            while ((line = reader.readLine()) != null)  {
+            while ((line = reader.readLine()) != null) {
                 data = line.split(":");
-                if(data.length < 2) continue;
+                if (data.length < 2) continue;
                 key = data[0];
                 value = String.join(":", Arrays.copyOfRange(data, 1, data.length));
                 entries.put(key, value);
@@ -57,10 +58,10 @@ public class PluginConfig {
      * Set a plugins config value
      */
     public void setValue(String key, String value) {
-        if(entries.containsKey(key)) {
+        if (entries.containsKey(key)) {
             entries.replace(key, value);
         } else {
-            entries.put(key,value);
+            entries.put(key, value);
         }
 
     }
@@ -68,11 +69,11 @@ public class PluginConfig {
     /**
      * Set a plugins default values
      *
-     * @param key       The values key
-     * @param value     The config value
+     * @param key   The values key
+     * @param value The config value
      */
     public void setDefault(String key, String value) {
-        if(!containsKey(key)) {
+        if (!containsKey(key)) {
             setValue(key, value);
         }
     }
@@ -80,8 +81,8 @@ public class PluginConfig {
     /**
      * Tests if a key exists
      *
-     * @param key       The key
-     * @return          True if key exists
+     * @param key The key
+     * @return True if key exists
      */
     public boolean containsKey(String key) {
         return entries.containsKey(key);
@@ -99,12 +100,12 @@ public class PluginConfig {
     public void saveAll() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(configDir, false));
-            for(String key : entries.keySet()) {
-                if(key.contains(":")) {
+            for (String key : entries.keySet()) {
+                if (key.contains(":")) {
                     writer.close();
                     throw new InvalidConfigPropertyKey("Key must not contain ':'");
                 }
-                writer.write(key+":"+entries.get(key) + "\n");
+                writer.write(key + ":" + entries.get(key) + "\n");
 
             }
             writer.flush();

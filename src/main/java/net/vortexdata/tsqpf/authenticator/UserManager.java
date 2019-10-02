@@ -1,11 +1,9 @@
 package net.vortexdata.tsqpf.authenticator;
 
-import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
-import net.vortexdata.tsqpf.modules.PluginLogger;
-import sun.awt.image.BufferedImageDevice;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,18 +18,18 @@ import java.util.HashMap;
 public class UserManager {
 
     private ArrayList<User> users;
-    private FrameworkLogger logger;
+    private Logger logger;
 
-    public UserManager(FrameworkLogger logger) {
+    public UserManager(Logger logger) {
         this.logger = logger;
     }
 
     /**
      * Returns a user if username and password are correct.
      *
-     * @param username                      The users username / unique identifier
-     * @param password                      The users password
-     * @return                              A valid user
+     * @param username The users username / unique identifier
+     * @param password The users password
+     * @return A valid user
      */
     public User authenticate(String username, String password) throws InvalidCredentialsException {
 
@@ -48,8 +46,8 @@ public class UserManager {
     /**
      * Removes a user from userdata file
      *
-     * @param username      The users username / unique identifier
-     * @return              true if successfully removed
+     * @param username The users username / unique identifier
+     * @return true if successfully removed
      */
     public boolean removeUser(String username) {
         return false;
@@ -58,10 +56,10 @@ public class UserManager {
     /**
      * Creates a new user and saves it to userdata file
      *
-     * @param username      The users username / unique identifier
-     * @param password      Plain text password
-     * @param group         The users group
-     * @return              true if successfully created
+     * @param username The users username / unique identifier
+     * @param password Plain text password
+     * @param group    The users group
+     * @return true if successfully created
      */
     public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
         return false;
@@ -70,8 +68,8 @@ public class UserManager {
     /**
      * Hashes a plain text password
      *
-     * @param plainTextPassword      A plain text password
-     * @return                       A hashed password
+     * @param plainTextPassword A plain text password
+     * @return A hashed password
      */
     private String getHashedPassword(String plainTextPassword, String salt) {
         return "";
@@ -80,9 +78,9 @@ public class UserManager {
     /**
      * Edit a user entry in userdata
      *
-     * @param previousUsername      The previous username before any changes where done
-     * @param newUser               New user object overriding old user data
-     * @return                      true if user was edited successfully.
+     * @param previousUsername The previous username before any changes where done
+     * @param newUser          New user object overriding old user data
+     * @return true if user was edited successfully.
      */
     private boolean editUser(String previousUsername, User newUser) {
         boolean success = false;
@@ -144,8 +142,8 @@ public class UserManager {
     /**
      * Saves a new user. DO NOT USE TWO TIMES WITH SAME USER!!
      *
-     * @param user      Saves a user to user data
-     * @return          true if saved successfully
+     * @param user Saves a user to user data
+     * @return true if saved successfully
      */
     private boolean saveUser(User user) {
         boolean success = false;
@@ -175,8 +173,8 @@ public class UserManager {
     /**
      * Returns a user object from a serialized user string
      *
-     * @param serializedUser      Serialized user string
-     * @return                    User object from serialized string
+     * @param serializedUser Serialized user string
+     * @return User object from serialized string
      */
     private User getUserFromSerializedString(String serializedUser) {
         String[] args = serializedUser.split(";");
@@ -193,8 +191,8 @@ public class UserManager {
     /**
      * Returns serialized save data from user data
      *
-     * @param username      Username required to find entry
-     * @return              Serialized data from user data
+     * @param username Username required to find entry
+     * @return Serialized data from user data
      */
     private String loadUserSerializedData(String username) throws UserNotFoundException {
         String serializedString = "default";
@@ -240,8 +238,8 @@ public class UserManager {
     /**
      * Returns a user object from user data identified by only the username
      *
-     * @param username      Username required to find entry
-     * @return              User object from database
+     * @param username Username required to find entry
+     * @return User object from database
      */
     private User getUser(String username) throws UserNotFoundException {
         return getUserFromSerializedString(loadUserSerializedData(username));

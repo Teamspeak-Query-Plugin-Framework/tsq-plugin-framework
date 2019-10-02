@@ -1,8 +1,9 @@
 package net.vortexdata.tsqpf.installers;
 
-import net.vortexdata.tsqpf.configs.*;
+import net.vortexdata.tsqpf.configs.ConfigMain;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Simple user interface to assist users in configuring the framework.

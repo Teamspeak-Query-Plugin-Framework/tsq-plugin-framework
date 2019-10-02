@@ -10,19 +10,20 @@ import net.vortexdata.tsqpf.console.Logger;
  */
 public abstract class CommandInterface {
 
-    private Logger _logger;
+    private Logger logger;
 
     public CommandInterface(Logger logger) {
-        _logger = logger;
+        this.logger = logger;
     }
 
     protected Logger getLogger() {
-        return _logger;
+        return logger;
     }
 
     /**
      * This message is shown with the help command.
-     * @return      Desired help message.
+     *
+     * @return Desired help message.
      */
     abstract public String getHelpMessage();
 
@@ -33,7 +34,8 @@ public abstract class CommandInterface {
 
     /**
      * This method is run when the user runs the command.
-     * @return          Prefix of the command.
+     *
+     * @return Prefix of the command.
      */
     abstract public String getName();
 }

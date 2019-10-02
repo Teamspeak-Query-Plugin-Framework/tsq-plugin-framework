@@ -1,6 +1,6 @@
 package net.vortexdata.tsqpf.authenticator;
 
-import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 
 /**
@@ -11,9 +11,10 @@ import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
  */
 public class Authenticator {
 
-    private FrameworkLogger logger;
+    private Logger logger;
     UserManager userManager;
-    public Authenticator(FrameworkLogger logger) {
+
+    public Authenticator(Logger logger) {
         this.logger = logger;
         userManager = new UserManager(this.logger);
     }
@@ -21,9 +22,9 @@ public class Authenticator {
     /**
      * Returns true if login attempt is successful
      *
-     * @param username                      The users username / unique identifier
-     * @param password                      The users password in plain text
-     * @return                              true if username and password are correct
+     * @param username The users username / unique identifier
+     * @param password The users password in plain text
+     * @return true if username and password are correct
      */
     public boolean authenticate(String username, String password) {
         try {

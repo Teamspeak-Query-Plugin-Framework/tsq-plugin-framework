@@ -10,52 +10,52 @@ import net.vortexdata.tsqpf.Framework;
  */
 public class PluginContainer {
 
-    private PluginInterface _pluginInterface;
-    private String _pluginName;
-    private PluginLogger _logger;
-    private PluginConfig _pluginConfig;
+    private PluginInterface pluginInterface;
+    private String pluginName;
+    private PluginLogger pluginLogger;
+    private PluginConfig pluginConfig;
 
     public PluginContainer(PluginInterface pluginInterface, String pluginName) {
-        _pluginInterface = pluginInterface;
-        _pluginName = pluginName;
-        _pluginConfig = new PluginConfig(_pluginName);
+        this.pluginInterface = pluginInterface;
+        this.pluginName = pluginName;
+        pluginConfig = new PluginConfig(this.pluginName);
     }
 
     /**
      * Initializes the plugins logger class
      *
-     * @param _Framework            The Frameworks main class
+     * @param _Framework The Frameworks main class
      */
     public void initLogger(Framework _Framework) {
-        if(_logger != null) return;
-        _logger = new PluginLogger(_Framework, this);
+        if (pluginLogger != null) return;
+        pluginLogger = new PluginLogger(_Framework, this);
     }
 
     /**
      * Returns the plugin interface
      */
     public PluginInterface getPluginInterface() {
-        return _pluginInterface;
+        return pluginInterface;
     }
 
     /**
      * Returns the plugins name
      */
     public String getPluginName() {
-        return _pluginName;
+        return pluginName;
     }
 
     /**
      * Returns the plugins logger
      */
     public PluginLogger getLogger() {
-        return _logger;
+        return pluginLogger;
     }
 
     /**
      * Returns the plugins config
      */
     public PluginConfig getPluginConfig() {
-        return _pluginConfig;
+        return pluginConfig;
     }
 }

@@ -6,20 +6,19 @@ import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
-import net.vortexdata.tsqpf.commands.*;
+import net.vortexdata.tsqpf.commands.CommandHelp;
+import net.vortexdata.tsqpf.commands.CommandStop;
 import net.vortexdata.tsqpf.configs.ConfigMain;
-import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
-import net.vortexdata.tsqpf.installers.*;
+import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.installers.InstallWizzard;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
-import net.vortexdata.tsqpf.modules.*;
-import org.apache.log4j.*;
-
-import java.awt.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import net.vortexdata.tsqpf.modules.BootHandler;
+import net.vortexdata.tsqpf.modules.PluginManager;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * Copyright (C) VortexdataNET - All Rights Reserved
@@ -30,14 +29,13 @@ import java.util.*;
  */
 public class Framework {
 
-    private static Framework _instance;
-    private TS3Api _api;
-    private ConsoleHandler _consoleHandler;
-    private ChatCommandListener _ChatCommandListener;
-    private PluginManager _manager;
-    private net.vortexdata.tsqpf.console.Logger logger;
-
     private static final Logger rootLogger = LogManager.getRootLogger();
+    private static Framework instance;
+    private TS3Api api;
+    private ConsoleHandler consoleHandler;
+    private ChatCommandListener chatCommandListener;
+    private PluginManager pluginManager;
+    private net.vortexdata.tsqpf.console.Logger logger;
 
     public static void main(String[] args) {
 
@@ -50,8 +48,8 @@ public class Framework {
             }
         }
 
-        _instance = new Framework();
-        _instance.init();
+        instance = new Framework();
+        instance.init();
     }
 
     private void init() {
@@ -66,7 +64,7 @@ public class Framework {
         System.out.println("|| Publisher: VortexdataNET                             ||");
         System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
         System.out.println("|| ==================================================== ||");
-        System.out.println("");
+        System.out.println();
 
         // Sleep for 1 second
         try {
@@ -104,7 +102,7 @@ public class Framework {
         // Set Reconnect Strategy
         logger.printDebug("Trying to set reconnect strategy...");
         String reconnectStrategy = configMain.getProperty("reconnectStrategy");
-        if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") ||reconnectStrategy.isEmpty()) {
+        if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
             config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
         } else if (reconnectStrategy.equalsIgnoreCase("disconnect")) {
             config.setReconnectStrategy(ReconnectStrategy.disconnect());
@@ -123,7 +121,7 @@ public class Framework {
 
             @Override
             public void onConnect(TS3Query ts3Query) {
-                _api = ts3Query.getApi();
+                api = ts3Query.getApi();
                 connect(configMain, ts3Query);
             }
 
@@ -149,45 +147,48 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        _consoleHandler = new ConsoleHandler();
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
-        _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
-        _consoleHandler.registerCommand(new CommandStop(logger, this));
+        consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
+        consoleHandler.registerCommand(new CommandStop(logger, this));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
 
         // Load modules
 
         logger.printDebug("Initializing plugin controller...");
-        _manager = new PluginManager(this);
+        pluginManager = new PluginManager(this);
         logger.printDebug("Loading and enabling plugins...");
-        _manager.enableAll();
+        pluginManager.enableAll();
         logger.printDebug("Successfully loaded plugins.");
         bootHandler.setBootEndTime();
 
         logger.printInfo("Boot process finished.");
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
 
-        _consoleHandler.start();
+        rootLogger.setLevel(Level.OFF);
+        consoleHandler.start();
 
     }
 
     public void shutdown(boolean isManagerEnabled) {
         logger.printInfo("Shutting down for system halt.");
+        logger.printDebug("Shutting down console handler...");
+        consoleHandler.shutdown();
         logger.printInfo("Unloading plugins...");
         if (isManagerEnabled)
-            _manager.disableAll();
-        logger.printInfo("Successfully unloaded plugins.");
+            pluginManager.disableAll();
+        logger.printInfo("Successfully unloaded plugins and disabled console handler.");
         logger.printInfo("Ending framework logging...");
         System.exit(0);
     }
 
     public TS3Query connect(ConfigMain configMain, TS3Query query) {
-        _api = query.getApi();
+        api = query.getApi();
         try {
             logger.printDebug("Trying to sign into query...");
-            _api.login(configMain.getProperty("queryUser"), configMain.getProperty("queryPassword"));
+            api.login(configMain.getProperty("queryUser"), configMain.getProperty("queryPassword"));
             logger.printInfo("Successfully signed into query.");
         } catch (Exception e) {
             logger.printError("Failed to sign into query, dumping error details: ", e);
@@ -197,7 +198,7 @@ public class Framework {
         // Select virtual host
         logger.printDebug("Trying to select virtual server...");
         try {
-            _api.selectVirtualServerById(Integer.parseInt(configMain.getProperty("virtualServerId")));
+            api.selectVirtualServerById(Integer.parseInt(configMain.getProperty("virtualServerId")));
             logger.printInfo("Successfully selected virtual server.");
         } catch (Exception e) {
             logger.printError("Failed to select virtual server, dumping error details: ", e);
@@ -206,44 +207,45 @@ public class Framework {
 
         try {
             logger.printDebug("Trying to assign nickname...");
-            _api.setNickname(configMain.getProperty("clientNickname"));
+            api.setNickname(configMain.getProperty("clientNickname"));
             logger.printDebug("Successfully set nickname.");
         } catch (Exception e) {
             logger.printError("Failed to set nickname, dumping error details: ", e);
             System.exit(0);
         }
 
-        _ChatCommandListener = new ChatCommandListener(this, configMain);
+        chatCommandListener = new ChatCommandListener(this, configMain);
 
         logger.printDebug("Trying to register global events...");
-        _api.registerAllEvents();
-        _api.addTS3Listeners(new GlobalEventHandler(this));
+        api.registerAllEvents();
+        api.addTS3Listeners(new GlobalEventHandler(this));
         logger.printDebug("Successfully registered global events.");
 
         return query;
     }
 
     public ConsoleHandler getConsoleHandler() {
-        return _consoleHandler;
+        return consoleHandler;
     }
+
     public ChatCommandListener getChatCommandListener() {
-        return _ChatCommandListener;
+        return chatCommandListener;
     }
 
     public TS3Api getApi() {
-        return _api;
+        return api;
     }
 
     public net.vortexdata.tsqpf.console.Logger getLogger() {
         return logger;
     }
+
     public Logger getRootLogger() {
         return rootLogger;
     }
 
 
-
     public void addEventHandler(TS3Listener listener) {
-        _api.addTS3Listeners(listener);
+        api.addTS3Listeners(listener);
     }
 }
