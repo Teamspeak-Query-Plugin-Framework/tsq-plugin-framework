@@ -4,7 +4,7 @@ import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.CommandInterface;
-import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
+import net.vortexdata.tsqpf.exceptions.*;
 import org.apache.log4j.Level;
 
 import javax.print.attribute.standard.JobOriginatingUserName;
@@ -85,7 +85,11 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
-        currentUser = authenticator.
+        try {
+            currentUser = userManager.getUser("default");
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
 
         boolean sessionActive = true;
         Scanner scanner = new Scanner(System.in);
