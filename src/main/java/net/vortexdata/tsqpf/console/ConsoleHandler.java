@@ -107,7 +107,8 @@ public class ConsoleHandler implements Runnable {
                     System.out.println("Username or password are incorrect, please try again.");
                 else {
                     try {
-                        userManager.authenticate(values[0], values[1]);
+                        currentUser = userManager.authenticate(values[0], values[1]);
+                        sessionActive = true;
                     } catch (InvalidCredentialsException e) {
                         System.out.println("Username or password are incorrect, please try again.");
                     }
@@ -117,7 +118,7 @@ public class ConsoleHandler implements Runnable {
             System.out.println("Successfully logged in!");
 
             while (sessionActive) {
-                System.out.print("admin@> ");
+                System.out.print(currentUser.getUsername() + "@local> ");
                 line = scanner.next();
                 data = line.split(" ");
 
