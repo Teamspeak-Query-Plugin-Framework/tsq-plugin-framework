@@ -149,7 +149,7 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        _consoleHandler = new ConsoleHandler();
+        _consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
         _consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
@@ -169,6 +169,7 @@ public class Framework {
         logger.printInfo("Boot process finished.");
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
 
+        rootLogger.setLevel(Level.OFF);
         _consoleHandler.start();
 
     }

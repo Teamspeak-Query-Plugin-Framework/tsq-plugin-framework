@@ -1,6 +1,7 @@
 package net.vortexdata.tsqpf.authenticator;
 
 import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
@@ -20,9 +21,9 @@ import java.util.HashMap;
 public class UserManager {
 
     private ArrayList<User> users;
-    private FrameworkLogger logger;
+    private Logger logger;
 
-    public UserManager(FrameworkLogger logger) {
+    public UserManager(Logger logger) {
         this.logger = logger;
     }
 

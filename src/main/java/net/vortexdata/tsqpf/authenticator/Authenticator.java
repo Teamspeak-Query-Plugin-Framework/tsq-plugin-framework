@@ -1,6 +1,7 @@
 package net.vortexdata.tsqpf.authenticator;
 
 import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 
 /**
@@ -11,9 +12,9 @@ import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
  */
 public class Authenticator {
 
-    private FrameworkLogger logger;
+    private Logger logger;
     UserManager userManager;
-    public Authenticator(FrameworkLogger logger) {
+    public Authenticator(Logger logger) {
         this.logger = logger;
         userManager = new UserManager(this.logger);
     }
