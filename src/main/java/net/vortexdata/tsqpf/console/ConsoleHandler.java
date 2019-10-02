@@ -85,63 +85,42 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
+        currentUser = authenticator.
+
+        boolean sessionActive = true;
+        Scanner scanner = new Scanner(System.in);
+        String line = "";
+        String[] data;
+
         logger.printDebug("Starting console handler... Setting console log level to off.");
         rootLogger.setLevel(Level.OFF);
-        do {
-            // Command Line
-            Scanner scanner = new Scanner(System.in);
-            scanner.useDelimiter(System.getProperty("line.separator"));
-            //scanner.useDelimiter("\n");
-            String line;
-            String[] data;
 
+        while (sessionActive) {
+            System.out.print(currentUser.getUsername() + "@local> ");
+            line = scanner.next();
+            data = line.split(" ");
 
-            boolean sessionActive = false;
-            clearScreen();
-
-            // Get new Session
-            do {
-
-                String[] values = login();
-                if (values[0].isEmpty() || values[1].isEmpty() || values[0].contains(" ") || values[1].contains(" "))
-                    System.out.println("Username or password are incorrect, please try again.");
-                else {
-                    try {
-                        currentUser = userManager.authenticate(values[0], values[1]);
-                        sessionActive = true;
-                    } catch (InvalidCredentialsException e) {
-                        System.out.println("Username or password are incorrect, please try again.");
+            if (data.length > 0 && !data[0].isEmpty()) {
+                boolean commandExists = false;
+                for (CommandInterface cmd : commands) {
+                    if (cmd.getName().equalsIgnoreCase(data[0])) {
+                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                        commandExists = true;
+                        break;
                     }
                 }
-
-            } while (!sessionActive);
-            System.out.println("Successfully logged in!");
-
-            while (sessionActive) {
-                System.out.print(currentUser.getUsername() + "@local> ");
-                line = scanner.next();
-                data = line.split(" ");
-
-                if (data.length > 0 && !data[0].isEmpty()) {
-                    boolean commandExists = false;
-                    for (CommandInterface cmd : commands) {
-                        if (cmd.getName().equalsIgnoreCase(data[0])) {
-                            cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
-                            commandExists = true;
-                            break;
-                        }
-                    }
-                    if (!commandExists) {
-                        System.out.println(data[0] + ": command not found");
-                    }
+                if (!commandExists) {
+                    System.out.println(data[0] + ": command not found");
                 }
             }
-        } while (active);
+        }
+
         rootLogger.setLevel(Level.DEBUG);
         logger.printDebug("Stopping console handler... Setting console log level to debug.");
 
     }
 
+    @Deprecated
     private void clearScreen() {
         try {
             final String os = System.getProperty("os.name");

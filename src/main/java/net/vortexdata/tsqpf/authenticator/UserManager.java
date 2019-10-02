@@ -241,7 +241,7 @@ public class UserManager {
      * @param username Username required to find entry
      * @return User object from database
      */
-    private User getUser(String username) throws UserNotFoundException {
+    public User getUser(String username) throws UserNotFoundException {
         return getUserFromSerializedString(loadUserSerializedData(username));
     }
 
