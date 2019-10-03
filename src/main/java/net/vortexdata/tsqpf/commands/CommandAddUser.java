@@ -27,6 +27,7 @@ public class CommandAddUser extends CommandInterface {
 
         UserGroup newGroup;
         Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
         System.out.print("Enter new username: ");
         String username = scanner.nextLine();
         if (username.contains(" ") || username.isEmpty()) {

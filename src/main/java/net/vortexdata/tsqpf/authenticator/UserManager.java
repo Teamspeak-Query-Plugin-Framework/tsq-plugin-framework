@@ -70,7 +70,7 @@ public class UserManager {
 
         boolean success = false;
 
-        User newUser = new User(username, password, group);
+        User newUser = new User(username, hashedPassword, group);
         saveUser(newUser);
 
         users.add(newUser);
