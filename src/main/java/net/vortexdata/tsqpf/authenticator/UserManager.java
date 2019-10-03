@@ -4,16 +4,11 @@ import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
-import net.vortexdata.tsqpf.remoteShell.HashUtils;
+import net.vortexdata.tsqpf.utils.HashUtils;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 /**

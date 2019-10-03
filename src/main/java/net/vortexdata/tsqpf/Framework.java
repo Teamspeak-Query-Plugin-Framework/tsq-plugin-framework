@@ -185,7 +185,10 @@ public class Framework {
     public void shutdown(boolean isManagerEnabled) {
         logger.printInfo("Shutting down for system halt.");
         logger.printDebug("Shutting down console handler...");
-        consoleHandler.shutdown();
+        if (consoleHandler != null)
+            consoleHandler.shutdown();
+        else
+            logger.printDebug("Console handler was not initialized, there was not needed to be unloaded.");
         logger.printInfo("Unloading plugins...");
         if (isManagerEnabled)
             pluginManager.disableAll();
@@ -256,7 +259,6 @@ public class Framework {
     public Logger getRootLogger() {
         return rootLogger;
     }
-
 
     public void addEventHandler(TS3Listener listener) {
         api.addTS3Listeners(listener);
