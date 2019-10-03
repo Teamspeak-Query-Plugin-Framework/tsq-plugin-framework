@@ -275,7 +275,7 @@ public class UserManager {
         String generatedString = new String(array, Charset.forName("UTF-8"));
 
         try {
-            createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT);
+            createUser("root", "testpassword", UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
             logger.printDebug("Exporting root user info to file...");
             logger.printWarn("Print root user info to file is not supported in this build.");
