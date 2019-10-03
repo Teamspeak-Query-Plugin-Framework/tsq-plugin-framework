@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.remoteShell;
+package net.vortexdata.tsqpf.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
