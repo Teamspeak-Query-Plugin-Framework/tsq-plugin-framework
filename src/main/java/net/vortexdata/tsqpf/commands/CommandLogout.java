@@ -25,7 +25,7 @@ public class CommandLogout extends CommandInterface {
 
     @Override
     public String getName() {
-        return null;
+        return "logout";
     }
 
 }
