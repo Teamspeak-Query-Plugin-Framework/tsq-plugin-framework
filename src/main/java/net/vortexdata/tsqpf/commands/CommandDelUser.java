@@ -19,7 +19,16 @@ public class CommandDelUser extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args) {
-
+        if (args.length == 1) {
+            System.out.println("Please specify a username.");
+            return;
+        } else {
+            boolean success = userManager.deleteUser(args[1]);
+            if (success)
+                System.out.println("User " + args[1] + " deleted.");
+            else
+                System.out.println("User " + args[1] + " does not exist.");
+        }
     }
 
     @Override
