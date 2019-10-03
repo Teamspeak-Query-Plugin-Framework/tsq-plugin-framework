@@ -111,7 +111,8 @@ public class ConsoleHandler implements Runnable {
 
         while (sessionActive) {
             System.out.print(currentUser.getUsername() + "@local> ");
-            line = scanner.next();
+
+            line = scanner.nextLine();
             data = line.split(" ");
             String commandPrefix = data[0];
 

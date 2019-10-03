@@ -30,10 +30,12 @@ public class CommandHelp extends CommandInterface {
         if (args.length > 0) {
             for (CommandInterface cmd : consoleHandler.getCommands()) {
                 if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    getLogger().printInfo(cmd.getHelpMessage());
+                    System.out.println(cmd.getHelpMessage());
                     return;
                 }
             }
+        } else if (args.length > 1) {
+            System.out.println("Incremented help is not supported in this build.");
         } else {
             for (CommandInterface command : consoleHandler.getCommands()) {
                 System.out.println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
