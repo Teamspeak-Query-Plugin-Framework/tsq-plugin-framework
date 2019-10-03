@@ -302,7 +302,7 @@ public class UserManager {
             info.put("telephone", "N/A");
             info.put("address", "N/A");
             info.put("country", "N/A");
-            createUser("root", generatedString, UserGroup.ROOT, info);
+            createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT, info);
             logger.printDebug("New root user successfully generated.");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");

@@ -39,4 +39,8 @@ public class User {
         return info.get(key);
     }
 
+    public String getPassword() {
+        return password;
+    }
+
 }

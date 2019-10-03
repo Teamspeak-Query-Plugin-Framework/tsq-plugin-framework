@@ -87,6 +87,7 @@ public class ConsoleHandler implements Runnable {
         userManager.reloadUsers();
         boolean sessionActive = true;
         Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
         String line = "";
         String[] data;
 
@@ -102,7 +103,10 @@ public class ConsoleHandler implements Runnable {
         do {
             String[] values = login();
             try {
-                userManager.authenticate(values[0], values[1]);
+                User loginAt = userManager.authenticate(values[0], values[1]);
+                if (loginAt.getPassword().equals(userManager.getPasswordHash(values[1]))) {
+                    currentUser = loginAt;
+                }
             } catch (InvalidCredentialsException e) {
                 System.out.println("Invalid username or password, please try again.");
             }
