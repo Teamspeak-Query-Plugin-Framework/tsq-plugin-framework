@@ -33,7 +33,7 @@ public class User {
     }
 
     public String serialize() {
-        return this.username + ";" + this.password + ";" + this.group.toString() + ";" + this.info.get("fullName") + ";" + this.info.get("telephone") + ";" + this.info.get("address") + ";" + this.info.get("country") + ";" + salt + ";";
+        return this.username + ";" + this.password + ";" + this.group.toString() + ";" + this.info.get("fullName") + ";" + this.info.get("telephone") + ";" + this.info.get("address") + ";" + this.info.get("country") + ";";
     }
 
     public String getInfo(String key) {

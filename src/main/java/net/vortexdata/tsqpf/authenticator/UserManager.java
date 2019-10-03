@@ -6,6 +6,7 @@ import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -66,10 +67,13 @@ public class UserManager {
      * @param group    The users group
      * @return true if successfully created
      */
-    public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
+    public boolean createUser(String username, String password, UserGroup group, HashMap<String, String> info) throws UserAlreadyExistingException {
         String hashedPassword = getPasswordHash(password);
 
+        boolean success = false;
 
+        User newUser = getUserFromSerializedString(username + ";" + password + ";" + group.toString() + ";" + info.get("fullName") + ";" + info.get("telephone") + ";" + info.get("address") + ";" + info.get("country") + ";");
+        saveUser(newUser);
 
         return false;
     }
@@ -281,17 +285,44 @@ public class UserManager {
         }
     }
 
-    public boolean generatorRootUser() {
+    public String generateRootUser() {
         byte[] array = new byte[10];
         new Random().nextBytes(array);
         String generatedString = new String(array, Charset.forName("UTF-8"));
 
         try {
-            createUser("root", generatedString, UserGroup.ROOT);
+            HashMap<String, String> info = new HashMap<>();
+            info.put("fullName", "Root User");
+            info.put("telephone", "N/A");
+            info.put("address", "N/A");
+            info.put("country", "N/A");
+            createUser("root", generatedString, UserGroup.ROOT, info);
+            logger.printDebug("New root user successfully generated.");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");
         }
 
+        return generatedString;
+
+    }
+
+    public boolean loadUsers() {
+
+        users = null;
+        users = new ArrayList<>();
+
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
+            users.add(getUserFromSerializedString(br.readLine()));
+        } catch (FileNotFoundException e) {
+            logger.printError("Could not load users from user data.");
+        } catch (IOException e) {
+            logger.printError("Failed to fetch line from user data.");
+        }
+
+        return true;
     }
 
 }
