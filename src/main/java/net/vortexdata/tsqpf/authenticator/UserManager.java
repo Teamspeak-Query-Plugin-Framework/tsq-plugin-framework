@@ -308,35 +308,33 @@ public class UserManager {
                     oldLines.add(line);
                 }
             }
-            br.close();
-            br = null;
+
+            try {
+                br.close();
+                br = null;
+            } catch (Exception e) {
+                logger.printError("Failed to close BufferedReader: " + e.getMessage());
+            }
 
             bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             for (String serializedString : oldLines) {
                 String[] split = serializedString.split(";");
                 if (!split[0].equalsIgnoreCase(username)) {
                     bw.write(serializedString + "\n");
+                } else {
+                    success = true;
                 }
             }
 
-            success = true;
-
         } catch (IOException e) {
             logger.printError("Failed to open userdata file, dumping details: ");
+            success = false;
         } finally {
             if (bw != null) {
                 try {
                     bw.close();
                 } catch (IOException e) {
                     logger.printError("Failed to close BufferedWriter, dumping details: " + e.getMessage());
-                }
-            }
-
-            if (bw != null) {
-                try {
-                    br.close();
-                } catch (Exception e) {
-                    logger.printError("Failed to close BufferedReader, dumping details: " + e.getMessage());
                 }
             }
         }
