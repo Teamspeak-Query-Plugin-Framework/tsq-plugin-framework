@@ -167,7 +167,6 @@ public class Framework {
         logger.printInfo("Boot process finished.");
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
 
-        rootLogger.setLevel(Level.OFF);
         consoleHandler.start();
 
     }
