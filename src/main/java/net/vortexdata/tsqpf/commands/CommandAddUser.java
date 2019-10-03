@@ -38,7 +38,7 @@ public class CommandAddUser extends CommandInterface {
         String password = scanner.nextLine();
         System.out.print("Re-type new password: ");
         String retypePassword = scanner.nextLine();
-        if (password.equals(retypePassword)) {
+        if (!password.equals(retypePassword)) {
             System.out.println("Passwords don't match, please try again.");
             return;
         }
