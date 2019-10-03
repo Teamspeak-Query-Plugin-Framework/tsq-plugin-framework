@@ -55,6 +55,7 @@ public class CommandAddUser extends CommandInterface {
 
         try {
             userManager.createUser(username, password, newGroup);
+            System.out.println("New user created.");
         } catch (UserAlreadyExistingException e) {
             System.out.println("Fatal: User " + username + " already exists.");
             return;
