@@ -91,8 +91,10 @@ public class ConsoleHandler implements Runnable {
         String[] data;
 
         logger.printDebug("Looking for root user account...");
-        if (userManager.doesRootUserExist())
+        if (!userManager.doesRootUserExist())
             userManager.generateRootUser();
+        else
+            logger.printDebug("Root user found, skipping creation...");
 
         logger.printDebug("Starting console handler... Setting console log level to off.");
         rootLogger.setLevel(Level.OFF);
