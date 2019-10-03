@@ -328,7 +328,14 @@ public class UserManager {
                     users.add(getUserFromSerializedString(currentLine));
             }
         } catch (FileNotFoundException e) {
-            logger.printError("Could not load users from user data.");
+            logger.printError("Could not find user data, creating new file...");
+            File databaseFile = new File("sys//users//userdata.tsqpfd");
+            databaseFile.mkdirs();
+            try {
+                databaseFile.createNewFile();
+            } catch (IOException ex) {
+                logger.printError("Failed to create user data file. Please check your systems permissions.");
+            }
         } catch (IOException e) {
             logger.printError("Failed to fetch line from user data.");
         } finally {
