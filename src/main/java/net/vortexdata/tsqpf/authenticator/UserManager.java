@@ -315,6 +315,8 @@ public class UserManager {
                 }
             }
 
+            success = true;
+
         } catch (IOException e) {
             logger.printError("Failed to open userdata file, dumping details: ");
         } finally {
