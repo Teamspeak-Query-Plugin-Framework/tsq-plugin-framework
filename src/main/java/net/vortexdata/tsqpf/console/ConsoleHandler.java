@@ -121,6 +121,7 @@ public class ConsoleHandler implements Runnable {
                     if (cmd.getName().equalsIgnoreCase(data[0])) {
                         if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
                             cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                            commandExists = true;
                             break;
                         } else {
                             System.out.println("Permission denied.");
