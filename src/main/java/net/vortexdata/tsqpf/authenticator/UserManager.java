@@ -277,6 +277,8 @@ public class UserManager {
         try {
             createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
+            logger.printDebug("Exporting root user info to file...");
+            logger.printWarn("Print root user info to file is not supported in this build.");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");
         }
