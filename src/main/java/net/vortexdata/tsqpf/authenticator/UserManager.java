@@ -65,17 +65,11 @@ public class UserManager {
      * @return true if successfully created
      */
     public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
-        return false;
-    }
+        String hashedPassword = getPasswordHash(password);
 
-    /**
-     * Hashes a plain text password
-     *
-     * @param plainTextPassword A plain text password
-     * @return A hashed password
-     */
-    private String getHashedPassword(String plainTextPassword, String salt) {
-        return "";
+
+
+        return false;
     }
 
     /**
@@ -92,7 +86,7 @@ public class UserManager {
         BufferedReader br = null;
 
         try {
-            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd"));
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
 
             ArrayList<String> oldLines = new ArrayList<>();
@@ -248,6 +242,13 @@ public class UserManager {
         return getUserFromSerializedString(loadUserSerializedData(username));
     }
 
+
+    /**
+     * Hashes a plain text password
+     *
+     * @param text A plain text password
+     * @return A hashed password
+     */
     public String getPasswordHash(String text) {
 
         MessageDigest digest = null;
@@ -267,6 +268,19 @@ public class UserManager {
         }
         return hexString.toString();
 
+    }
+
+    public boolean doesRootUserExist() {
+        try {
+            getUser("root");
+            return true;
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
+    public boolean generatorRootUser() {
+        createUser()
     }
 
 }
