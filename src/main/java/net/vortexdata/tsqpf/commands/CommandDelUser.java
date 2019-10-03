@@ -24,11 +24,11 @@ public class CommandDelUser extends CommandInterface {
             System.out.println("Please specify a username.");
             return;
         } else {
-            boolean success = userManager.deleteUser(args[1]);
+            boolean success = userManager.deleteUser(args[0]);
             if (success)
-                System.out.println("User " + args[1] + " deleted.");
+                System.out.println("User " + args[0] + " deleted.");
             else
-                System.out.println("User " + args[1] + " does not exist.");
+                System.out.println("User " + args[0] + " does not exist.");
         }
     }
 
