@@ -330,7 +330,7 @@ public class UserManager {
         } catch (FileNotFoundException e) {
             logger.printError("Could not find user data, creating new file...");
             File databaseFile = new File("sys//users//userdata.tsqpfd");
-            databaseFile.mkdirs();
+            databaseFile.getParentFile().mkdirs();
             try {
                 databaseFile.createNewFile();
             } catch (IOException ex) {
