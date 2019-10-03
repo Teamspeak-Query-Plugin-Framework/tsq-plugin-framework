@@ -108,8 +108,10 @@ public class Session implements Runnable {
         String base64 = (String) message.get("data");
         byte[] dataBytes = Base64.getDecoder().decode(base64);
         String data = new String(Objects.requireNonNull(CipherUtils.decrypt(dataBytes, token.getBytes(ConnectionListener.charset))));
+        System.out.println(data);
         JSONObject msg = (JSONObject)(new JSONParser()).parse(data);
-        System.out.println(message.get("command"));
+        System.out.println(msg.get("command"));
+        Framework.getInstance().getConsoleHandler().processInput((String)msg.get("command"), user);
     }
 
     private void makeHandshake(JSONObject message) {

@@ -81,6 +81,33 @@ public class ConsoleHandler implements Runnable {
     /**
      * Starts the console UI.
      */
+
+
+    public void processInput(String line, User user) {
+
+        String[] data = line.split(" ");
+        String commandPrefix = data[0];
+
+        if (data.length > 0 && !data[0].isEmpty()) {
+            boolean commandExists = false;
+            for (CommandInterface cmd : commands) {
+                if (cmd.getName().equalsIgnoreCase(data[0])) {
+                    if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
+                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                        commandExists = true;
+                        break;
+                    } else {
+                        System.out.println("Permission denied.");
+                    }
+                    commandExists = true;
+                }
+            }
+            if (!commandExists) {
+                System.out.println(commandPrefix + ": command not found");
+            }
+        }
+    }
+
     public void run() {
 
         userManager.reloadUsers();
@@ -112,27 +139,7 @@ public class ConsoleHandler implements Runnable {
                 System.out.print(currentUser.getUsername() + "@local> ");
 
                 line = scanner.nextLine();
-                data = line.split(" ");
-                String commandPrefix = data[0];
-
-                if (data.length > 0 && !data[0].isEmpty()) {
-                    boolean commandExists = false;
-                    for (CommandInterface cmd : commands) {
-                        if (cmd.getName().equalsIgnoreCase(data[0])) {
-                            if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
-                                cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
-                                commandExists = true;
-                                break;
-                            } else {
-                                System.out.println("Permission denied.");
-                            }
-                            commandExists = true;
-                        }
-                    }
-                    if (!commandExists) {
-                        System.out.println(commandPrefix + ": command not found");
-                    }
-                }
+                processInput(line, currentUser);
             }
         } while (active);
 
