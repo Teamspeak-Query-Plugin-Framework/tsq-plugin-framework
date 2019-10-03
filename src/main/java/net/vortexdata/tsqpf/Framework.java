@@ -158,6 +158,8 @@ public class Framework {
         consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
+        connectionListener = new ConnectionListener(logger);
+
 
         // Load modules
 
@@ -168,10 +170,15 @@ public class Framework {
         logger.printDebug("Successfully loaded plugins.");
         bootHandler.setBootEndTime();
 
+
+
+
+
         logger.printInfo("Boot process finished.");
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
 
         consoleHandler.start();
+        connectionListener.start();
 
     }
 
@@ -224,8 +231,7 @@ public class Framework {
         api.addTS3Listeners(new GlobalEventHandler(this));
         logger.printDebug("Successfully registered global events.");
 
-        connectionListener = new ConnectionListener(logger);
-        connectionListener.start();
+
 
 
         return query;
@@ -254,5 +260,9 @@ public class Framework {
 
     public void addEventHandler(TS3Listener listener) {
         api.addTS3Listeners(listener);
+    }
+
+    public static Framework getInstance() {
+        return instance;
     }
 }

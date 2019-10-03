@@ -1,5 +1,9 @@
 package net.vortexdata.tsqpf.remoteShell;
 
+import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.authenticator.Authenticator;
+import net.vortexdata.tsqpf.authenticator.UserManager;
+import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -7,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import java.net.Socket;
 import java.util.Objects;
 
@@ -45,7 +50,7 @@ public class Session implements Runnable {
                 messages = data.split("<EOM>");
                 data = messages[messages.length-1];
                 for (int i = 0; i < messages.length-1; i++) {
-                    System.out.println(messages[i]);
+                    processMessage(messages[i]);
                 }
             }
         } catch (IOException e) {
@@ -57,13 +62,28 @@ public class Session implements Runnable {
         try {
             JSONObject message = (JSONObject)(new JSONParser()).parse(msg);
             String type = (String) message.get("type");
-            System.out.println(type);
 
+            switch (type) {
+                case "handshake":
+                    makeHandshake(message);
+                    break;
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
+
+    private void makeHandshake(JSONObject message) {
+        UserManager manager = Framework.getInstance().getConsoleHandler().getUserManager();
+
+        try {
+            manager.getUser((String) message.get("username"));
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     @Override
