@@ -20,7 +20,7 @@ public class CommandDelUser extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args) {
-        if (args.length == 1) {
+        if (args.length == 0) {
             System.out.println("Please specify a username.");
             return;
         } else {
