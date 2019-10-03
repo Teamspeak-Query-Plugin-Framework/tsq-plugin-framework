@@ -83,6 +83,7 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
+        userManager.reloadUsers();
         boolean sessionActive = true;
         Scanner scanner = new Scanner(System.in);
         String line = "";

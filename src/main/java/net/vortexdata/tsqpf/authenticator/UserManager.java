@@ -75,6 +75,8 @@ public class UserManager {
         User newUser = getUserFromSerializedString(username + ";" + password + ";" + group.toString() + ";" + info.get("fullName") + ";" + info.get("telephone") + ";" + info.get("address") + ";" + info.get("country") + ";");
         saveUser(newUser);
 
+        users.add(newUser);
+
         return false;
     }
 
@@ -138,6 +140,8 @@ public class UserManager {
             }
         }
 
+        reloadUsers();
+
         return success;
 
     }
@@ -169,6 +173,8 @@ public class UserManager {
                 }
             }
         }
+
+        reloadUsers();
 
         return success;
     }
@@ -306,8 +312,9 @@ public class UserManager {
 
     }
 
-    public boolean loadUsers() {
+    public boolean reloadUsers() {
 
+        String currentLine = "init";
         users = null;
         users = new ArrayList<>();
 
@@ -315,11 +322,23 @@ public class UserManager {
 
         try {
             br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
-            users.add(getUserFromSerializedString(br.readLine()));
+            while (currentLine != null && !currentLine.isEmpty()) {
+                currentLine = br.readLine();
+                if (currentLine != null && !currentLine.isEmpty())
+                    users.add(getUserFromSerializedString(currentLine));
+            }
         } catch (FileNotFoundException e) {
             logger.printError("Could not load users from user data.");
         } catch (IOException e) {
             logger.printError("Failed to fetch line from user data.");
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.printError("Failed to close BufferedReader after loading users from database.");
+                }
+            }
         }
 
         return true;
