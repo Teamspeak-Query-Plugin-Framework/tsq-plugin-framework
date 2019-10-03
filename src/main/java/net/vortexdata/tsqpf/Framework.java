@@ -151,7 +151,7 @@ public class Framework {
         consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
-        consoleHandler.registerCommand(new CommandHelp(logger, getConsoleHandler()));
+        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
         consoleHandler.registerCommand(new CommandStop(logger, this));
         consoleHandler.registerCommand(new CommandClear(logger));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");

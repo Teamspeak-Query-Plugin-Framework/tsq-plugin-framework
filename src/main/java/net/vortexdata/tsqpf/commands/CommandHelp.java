@@ -27,16 +27,18 @@ public class CommandHelp extends CommandInterface {
 
     public void gotCalled(String[] args) {
 
-        if (args.length > 0)
+        if (args.length > 0) {
             for (CommandInterface cmd : consoleHandler.getCommands()) {
                 if (cmd.getName().equalsIgnoreCase(args[0])) {
                     getLogger().printInfo(cmd.getHelpMessage());
                     return;
                 }
             }
-
-        System.out.println("help \t\t\t\t\t Displays a list of all commands.");
-        System.out.println("stop \t\t\t\t\t Shuts down the bot.");
+        } else {
+            for (CommandInterface command : consoleHandler.getCommands()) {
+                System.out.println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
+            }
+        }
 
     }
 
