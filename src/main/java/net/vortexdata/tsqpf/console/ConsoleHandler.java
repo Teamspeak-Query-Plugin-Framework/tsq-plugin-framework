@@ -97,6 +97,7 @@ public class ConsoleHandler implements Runnable {
         logger.printDebug("Starting console handler... Setting console log level to off.");
         rootLogger.setLevel(Level.OFF);
 
+        System.out.println("Authentication required, please sign in.");
         do {
             String[] values = login();
             try {
