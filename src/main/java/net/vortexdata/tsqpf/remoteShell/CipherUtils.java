@@ -47,6 +47,7 @@ public class CipherUtils {
             createMessageDigest(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+
             return cipher.doFinal(data);
         } catch (NoSuchPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException e) {
             e.printStackTrace();

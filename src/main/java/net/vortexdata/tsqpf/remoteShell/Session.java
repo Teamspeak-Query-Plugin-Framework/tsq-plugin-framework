@@ -1,5 +1,6 @@
 package net.vortexdata.tsqpf.remoteShell;
 
+
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
@@ -15,6 +16,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Objects;
 
 public class Session implements Runnable {
@@ -26,6 +29,7 @@ public class Session implements Runnable {
     private Thread thread;
     private ConnectionListener listener;
     private User user = null;
+    private String token = null;
 
 
     public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
@@ -72,12 +76,20 @@ public class Session implements Runnable {
 
     private void processMessage(String msg) {
         try {
+            msg = msg.trim();
+
             JSONObject message = (JSONObject)(new JSONParser()).parse(msg);
             String type = (String) message.get("type");
 
             switch (type) {
                 case "handshake":
                     makeHandshake(message);
+                    break;
+                case "data":
+                    unpackData(message);
+                    break;
+                default:
+                    System.out.println(message.toJSONString());
                     break;
             }
         } catch (ParseException e) {
@@ -86,16 +98,31 @@ public class Session implements Runnable {
     }
 
 
+    private boolean isLoggedIn() {
+        return user != null && token != null;
+    }
+
+    private void unpackData(JSONObject message) throws ParseException {
+
+        System.out.println(message.get("data"));
+        String base64 = (String) message.get("data");
+        byte[] dataBytes = Base64.getDecoder().decode(base64);
+        String data = new String(Objects.requireNonNull(CipherUtils.decrypt(dataBytes, token.getBytes(ConnectionListener.charset))));
+        JSONObject msg = (JSONObject)(new JSONParser()).parse(data);
+        System.out.println(message.get("command"));
+    }
+
     private void makeHandshake(JSONObject message) {
         UserManager manager = Framework.getInstance().getConsoleHandler().getUserManager();
 
         try {
             User user = manager.getUser((String) message.get("username"));
             String pw = user.getPassword();
-            String token = HashUtils.sha_256(pw+id);
+            token = HashUtils.sha_256(pw+id);
             if (token.equals((String)message.get("verify"))) {
                 this.user = user;
                 Framework.getInstance().getLogger().printInfo(user.getUsername()+ " logged in");
+
                 return;
             } else {
                 thread.interrupt();

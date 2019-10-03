@@ -19,7 +19,7 @@ public class ConfigLoader {
 
         HashMap<String, String> values = new HashMap<String, String>();
         File file = new File(path);
-        // Test if config exists
+        // net.vortexdata.tsqpf.Test if config exists
         if (!file.exists()) {
             // Return empty map if config is empty.
             return values;
