@@ -5,6 +5,7 @@ import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
+import net.vortexdata.tsqpf.utils.HashUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
