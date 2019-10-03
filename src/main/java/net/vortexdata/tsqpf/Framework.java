@@ -6,10 +6,7 @@ import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
-import net.vortexdata.tsqpf.commands.CommandClear;
-import net.vortexdata.tsqpf.commands.CommandHelp;
-import net.vortexdata.tsqpf.commands.CommandLogout;
-import net.vortexdata.tsqpf.commands.CommandStop;
+import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
@@ -18,6 +15,7 @@ import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.BootHandler;
 import net.vortexdata.tsqpf.modules.PluginManager;
+import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -38,6 +36,7 @@ public class Framework {
     private ChatCommandListener chatCommandListener;
     private PluginManager pluginManager;
     private net.vortexdata.tsqpf.console.Logger logger;
+    private ConnectionListener connectionListener;
 
     public static void main(String[] args) {
 
@@ -224,6 +223,10 @@ public class Framework {
         api.registerAllEvents();
         api.addTS3Listeners(new GlobalEventHandler(this));
         logger.printDebug("Successfully registered global events.");
+
+        connectionListener = new ConnectionListener(logger);
+        connectionListener.start();
+
 
         return query;
     }
