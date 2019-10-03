@@ -24,6 +24,10 @@ public class CommandDelUser extends CommandInterface {
             System.out.println("Please specify a username.");
             return;
         } else {
+            if (args[0].equalsIgnoreCase("ROOT")) {
+                System.out.println("Root user can not be deleted.");
+                return;
+            }
             boolean success = userManager.deleteUser(args[0]);
             if (success)
                 System.out.println("User " + args[0] + " deleted.");
