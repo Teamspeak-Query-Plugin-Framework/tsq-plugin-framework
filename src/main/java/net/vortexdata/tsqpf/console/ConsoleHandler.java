@@ -84,19 +84,18 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
+        userManager.reloadUsers();
+        Scanner scanner = new Scanner(System.in);
+        String line = "";
+        String[] data;
+
+        logger.printDebug("Looking for root user account...");
+        if (!userManager.doesRootUserExist())
+            userManager.generateRootUser();
+        else
+            logger.printDebug("Root user found, skipping creation...");
+
         do {
-            userManager.reloadUsers();
-            boolean sessionActive = true;
-            Scanner scanner = new Scanner(System.in);
-            String line = "";
-            String[] data;
-
-            logger.printDebug("Looking for root user account...");
-            if (!userManager.doesRootUserExist())
-                userManager.generateRootUser();
-            else
-                logger.printDebug("Root user found, skipping creation...");
-
             do {
                 String[] values = login();
                 try {
