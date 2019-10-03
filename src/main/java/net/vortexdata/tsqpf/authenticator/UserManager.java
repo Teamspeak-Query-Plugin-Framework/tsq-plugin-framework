@@ -70,6 +70,13 @@ public class UserManager {
 
         boolean success = false;
 
+        try {
+            loadUserSerializedData(username);
+            throw new UserAlreadyExistingException();
+        } catch (UserNotFoundException e) {
+            // continue
+        }
+
         User newUser = new User(username, hashedPassword, group);
         saveUser(newUser);
 

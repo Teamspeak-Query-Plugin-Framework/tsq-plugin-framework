@@ -52,7 +52,7 @@ public class CommandAddUser extends CommandInterface {
         else if (group.equalsIgnoreCase("GUEST"))
             newGroup = UserGroup.GUEST;
         else {
-            System.out.print(group + " does not match any of the available groups, please try again.");
+            System.out.println(group + " does not match any of the available groups, please try again.");
             return;
         }
 
