@@ -92,7 +92,6 @@ public class UserManager {
         BufferedReader br = null;
 
         try {
-            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
 
             ArrayList<String> oldLines = new ArrayList<>();
@@ -106,6 +105,7 @@ public class UserManager {
             br.close();
             br = null;
 
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             for (String serializedString : oldLines) {
                 String[] split = serializedString.split(";");
                 if (split[0].equalsIgnoreCase(previousUsername)) {
@@ -285,6 +285,59 @@ public class UserManager {
 
         return generatedString;
 
+    }
+
+    public boolean deleteUser(String username) {
+        boolean success = false;
+        logger.printDebug("Trying to delete user...");
+        BufferedWriter bw = null;
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
+
+            ArrayList<String> oldLines = new ArrayList<>();
+            String line = "init";
+            while (!line.isEmpty() && !line.equalsIgnoreCase("")) {
+                line = br.readLine();
+                if (!line.equalsIgnoreCase("")) {
+                    oldLines.add(line);
+                }
+            }
+            br.close();
+            br = null;
+
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
+            for (String serializedString : oldLines) {
+                String[] split = serializedString.split(";");
+                if (!split[0].equalsIgnoreCase(username)) {
+                    bw.write(serializedString + "\n");
+                }
+            }
+
+        } catch (IOException e) {
+            logger.printError("Failed to open userdata file, dumping details: ");
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    logger.printError("Failed to close BufferedWriter, dumping details: " + e.getMessage());
+                }
+            }
+
+            if (bw != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.printError("Failed to close BufferedReader, dumping details: " + e.getMessage());
+                }
+            }
+        }
+
+        reloadUsers();
+
+        return success;
     }
 
     public boolean reloadUsers() {
