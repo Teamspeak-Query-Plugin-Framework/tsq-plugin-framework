@@ -14,7 +14,7 @@ public class CommandDelUser extends CommandInterface {
 
     @Override
     public String getHelpMessage() {
-        return null;
+        return "Deletes a user";
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CommandDelUser extends CommandInterface {
 
     @Override
     public String getName() {
-        return null;
+        return "deluser";
     }
 
 }
