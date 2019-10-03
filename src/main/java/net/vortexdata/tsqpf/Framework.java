@@ -257,7 +257,6 @@ public class Framework {
         return rootLogger;
     }
 
-
     public void addEventHandler(TS3Listener listener) {
         api.addTS3Listeners(listener);
     }
