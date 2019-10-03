@@ -7,9 +7,9 @@ public class CommandDelUser extends CommandInterface {
 
     UserManager userManager;
 
-    public CommandDelUser(Logger logger, UserManager userManager) {
+    public CommandDelUser(Logger logger, ConsoleHandler consoleHandler) {
         super(logger);
-        this.userManager = userManager;
+        this.userManager = consoleHandler.getUserManager();
     }
 
     @Override
