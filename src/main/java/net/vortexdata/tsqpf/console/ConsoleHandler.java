@@ -84,60 +84,59 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
-        userManager.reloadUsers();
-        boolean sessionActive = true;
-        Scanner scanner = new Scanner(System.in);
-        String line = "";
-        String[] data;
-
-        logger.printDebug("Looking for root user account...");
-        if (!userManager.doesRootUserExist())
-            userManager.generateRootUser();
-        else
-            logger.printDebug("Root user found, skipping creation...");
-
         do {
-            String[] values = login();
-            try {
-                User loginAt = userManager.authenticate(values[0], values[1]);
-                if (loginAt.getPassword().equals(userManager.getPasswordHash(values[1]))) {
-                    currentUser = loginAt;
+            userManager.reloadUsers();
+            boolean sessionActive = true;
+            Scanner scanner = new Scanner(System.in);
+            String line = "";
+            String[] data;
+
+            logger.printDebug("Looking for root user account...");
+            if (!userManager.doesRootUserExist())
+                userManager.generateRootUser();
+            else
+                logger.printDebug("Root user found, skipping creation...");
+
+            do {
+                String[] values = login();
+                try {
+                    User loginAt = userManager.authenticate(values[0], values[1]);
+                    if (loginAt.getPassword().equals(userManager.getPasswordHash(values[1]))) {
+                        currentUser = loginAt;
+                    }
+                } catch (InvalidCredentialsException e) {
+                    System.out.println("Invalid username or password, please try again.");
                 }
-            } catch (InvalidCredentialsException e) {
-                System.out.println("Invalid username or password, please try again.");
-            }
-        } while (currentUser == null);
-        System.out.println("Sign in approved.");
+            } while (currentUser == null);
+            System.out.println("Sign in approved.");
 
-        while (currentUser != null) {
-            System.out.print(currentUser.getUsername() + "@local> ");
+            while (currentUser != null) {
+                System.out.print(currentUser.getUsername() + "@local> ");
 
-            line = scanner.nextLine();
-            data = line.split(" ");
-            String commandPrefix = data[0];
+                line = scanner.nextLine();
+                data = line.split(" ");
+                String commandPrefix = data[0];
 
-            if (data.length > 0 && !data[0].isEmpty()) {
-                boolean commandExists = false;
-                for (CommandInterface cmd : commands) {
-                    if (cmd.getName().equalsIgnoreCase(data[0])) {
-                        if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
-                            cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                if (data.length > 0 && !data[0].isEmpty()) {
+                    boolean commandExists = false;
+                    for (CommandInterface cmd : commands) {
+                        if (cmd.getName().equalsIgnoreCase(data[0])) {
+                            if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
+                                cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                                commandExists = true;
+                                break;
+                            } else {
+                                System.out.println("Permission denied.");
+                            }
                             commandExists = true;
-                            break;
-                        } else {
-                            System.out.println("Permission denied.");
                         }
-                        commandExists = true;
+                    }
+                    if (!commandExists) {
+                        System.out.println(commandPrefix + ": command not found");
                     }
                 }
-                if (!commandExists) {
-                    System.out.println(commandPrefix + ": command not found");
-                }
             }
-        }
-
-        rootLogger.setLevel(Level.DEBUG);
-        logger.printDebug("Stopping console handler... Setting console log level to debug.");
+        } while (active);
 
     }
 
