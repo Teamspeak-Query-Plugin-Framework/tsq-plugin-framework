@@ -6,11 +6,13 @@ import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Manages all users and database
@@ -280,7 +282,16 @@ public class UserManager {
     }
 
     public boolean generatorRootUser() {
-        createUser()
+        byte[] array = new byte[10];
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-8"));
+
+        try {
+            createUser("root", generatedString, UserGroup.ROOT);
+        } catch (UserAlreadyExistingException e) {
+            logger.printError("Root user already exists.");
+        }
+
     }
 
 }
