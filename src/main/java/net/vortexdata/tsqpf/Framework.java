@@ -156,6 +156,7 @@ public class Framework {
         consoleHandler.registerCommand(new CommandClear(logger));
         consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
         consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         connectionListener = new ConnectionListener(logger);

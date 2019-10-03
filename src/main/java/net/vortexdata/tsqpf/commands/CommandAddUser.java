@@ -15,6 +15,8 @@ public class CommandAddUser extends CommandInterface {
     public CommandAddUser(Logger logger, ConsoleHandler consoleHandler) {
         super(logger);
         this.userManager = consoleHandler.getUserManager();
+        groups.add(UserGroup.ROOT);
+        groups.add(UserGroup.ADMINISTRATOR);
     }
 
     @Override
@@ -27,6 +29,7 @@ public class CommandAddUser extends CommandInterface {
 
         UserGroup newGroup;
         Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
         System.out.print("Enter new username: ");
         String username = scanner.nextLine();
         if (username.contains(" ") || username.isEmpty()) {
@@ -35,9 +38,9 @@ public class CommandAddUser extends CommandInterface {
         }
         System.out.print("Enter new password: ");
         String password = scanner.nextLine();
-        System.out.println("Re-type new password: ");
+        System.out.print("Re-type new password: ");
         String retypePassword = scanner.nextLine();
-        if (password.equals(retypePassword)) {
+        if (!password.equals(retypePassword)) {
             System.out.println("Passwords don't match, please try again.");
             return;
         }
@@ -49,12 +52,13 @@ public class CommandAddUser extends CommandInterface {
         else if (group.equalsIgnoreCase("GUEST"))
             newGroup = UserGroup.GUEST;
         else {
-            System.out.print(group + " does not match any of the available groups, please try again.");
+            System.out.println(group + " does not match any of the available groups, please try again.");
             return;
         }
 
         try {
             userManager.createUser(username, password, newGroup);
+            System.out.println("New user created.");
         } catch (UserAlreadyExistingException e) {
             System.out.println("Fatal: User " + username + " already exists.");
             return;

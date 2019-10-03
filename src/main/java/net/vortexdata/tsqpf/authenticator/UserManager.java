@@ -70,7 +70,14 @@ public class UserManager {
 
         boolean success = false;
 
-        User newUser = new User(username, password, group);
+        try {
+            loadUserSerializedData(username);
+            throw new UserAlreadyExistingException();
+        } catch (UserNotFoundException e) {
+            // continue
+        }
+
+        User newUser = new User(username, hashedPassword, group);
         saveUser(newUser);
 
         users.add(newUser);
@@ -92,7 +99,6 @@ public class UserManager {
         BufferedReader br = null;
 
         try {
-            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
 
             ArrayList<String> oldLines = new ArrayList<>();
@@ -106,6 +112,7 @@ public class UserManager {
             br.close();
             br = null;
 
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
             for (String serializedString : oldLines) {
                 String[] split = serializedString.split(";");
                 if (split[0].equalsIgnoreCase(previousUsername)) {
@@ -155,7 +162,7 @@ public class UserManager {
         logger.printDebug("Trying to save userdata...");
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd"));
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", true));
             bw.write(user.serialize() + "\n");
             logger.printDebug("User data saved.");
             success = true;
@@ -275,14 +282,73 @@ public class UserManager {
         String generatedString = new String(array, Charset.forName("UTF-8"));
 
         try {
-            createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT);
+            createUser("root", "testpassword", UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
+            logger.printDebug("Exporting root user info to file...");
+            logger.printWarn("Print root user info to file is not supported in this build.");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");
         }
 
         return generatedString;
 
+    }
+
+    public boolean deleteUser(String username) {
+
+        if (username.equalsIgnoreCase("ROOT"))
+            return false;
+
+        boolean success = false;
+        logger.printDebug("Trying to delete user...");
+        BufferedWriter bw = null;
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader("sys//users//userdata.tsqpfd"));
+
+            ArrayList<String> oldLines = new ArrayList<>();
+            String line = "init";
+            while (line != null && !line.isEmpty() && !line.equalsIgnoreCase("")) {
+                line = br.readLine();
+                if (line != null && !line.equalsIgnoreCase("")) {
+                    oldLines.add(line);
+                }
+            }
+
+            try {
+                br.close();
+                br = null;
+            } catch (Exception e) {
+                logger.printError("Failed to close BufferedReader: " + e.getMessage());
+            }
+
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", false));
+            for (String serializedString : oldLines) {
+                String[] split = serializedString.split(";");
+                if (!split[0].equalsIgnoreCase(username)) {
+                    bw.write(serializedString + "\n");
+                } else {
+                    success = true;
+                }
+            }
+
+        } catch (IOException e) {
+            logger.printError("Failed to open userdata file, dumping details: ");
+            success = false;
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    logger.printError("Failed to close BufferedWriter, dumping details: " + e.getMessage());
+                }
+            }
+        }
+
+        reloadUsers();
+
+        return success;
     }
 
     public boolean reloadUsers() {
