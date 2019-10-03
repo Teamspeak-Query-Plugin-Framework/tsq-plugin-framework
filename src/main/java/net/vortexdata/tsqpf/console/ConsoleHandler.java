@@ -4,6 +4,7 @@ import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.CommandInterface;
+import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import org.apache.log4j.Level;
 
 import java.util.*;
@@ -89,11 +90,22 @@ public class ConsoleHandler implements Runnable {
         String line = "";
         String[] data;
 
+        logger.printDebug("Looking for root user account...");
         if (userManager.doesRootUserExist())
             userManager.generateRootUser();
 
         logger.printDebug("Starting console handler... Setting console log level to off.");
         rootLogger.setLevel(Level.OFF);
+
+        do {
+            String[] values = login();
+            try {
+                userManager.authenticate(values[0], values[1]);
+            } catch (InvalidCredentialsException e) {
+                System.out.println("Invalid username or password, please try again.");
+            }
+        } while (currentUser == null);
+        System.out.println("Sign in approved.");
 
         while (sessionActive) {
             System.out.print(currentUser.getUsername() + "@local> ");
