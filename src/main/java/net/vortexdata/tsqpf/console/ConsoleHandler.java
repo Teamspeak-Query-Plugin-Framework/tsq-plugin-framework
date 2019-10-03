@@ -1,6 +1,5 @@
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.CommandInterface;
@@ -24,7 +23,6 @@ public class ConsoleHandler implements Runnable {
     private Level logLevel;
     private boolean active;
     private Logger logger;
-    private Authenticator authenticator;
     private Thread thread;
     private List<CommandInterface> commands = Collections.synchronizedList(new ArrayList<CommandInterface>());
     private static boolean running = false;
@@ -34,7 +32,6 @@ public class ConsoleHandler implements Runnable {
         thread = new Thread(this);
         if (running) return;
         running = true;
-        authenticator = new Authenticator(logger);
         active = true;
         this.rootLogger = rootLogger;
         this.logLevel = logLevel;

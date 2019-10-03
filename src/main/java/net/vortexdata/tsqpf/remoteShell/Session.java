@@ -2,7 +2,6 @@ package net.vortexdata.tsqpf.remoteShell;
 
 
 import net.vortexdata.tsqpf.Framework;
-import net.vortexdata.tsqpf.authenticator.Authenticator;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
@@ -16,7 +15,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 
