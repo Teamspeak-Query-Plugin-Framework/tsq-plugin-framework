@@ -8,6 +8,6 @@ package net.vortexdata.tsqpf.authenticator;
  */
 public enum UserGroup {
 
-    ROOT, ADMINISTRATOR;
+    ROOT, ADMINISTRATOR, GUEST;
 
 }

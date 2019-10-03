@@ -162,4 +162,8 @@ public class ConsoleHandler implements Runnable {
         currentUser = null;
     }
 
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
 }
