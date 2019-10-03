@@ -10,6 +10,7 @@ public class CommandDelUser extends CommandInterface {
     public CommandDelUser(Logger logger, ConsoleHandler consoleHandler) {
         super(logger);
         this.userManager = consoleHandler.getUserManager();
+        groups.add(UserGroup.ROOT);
     }
 
     @Override

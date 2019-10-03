@@ -15,6 +15,8 @@ public class CommandAddUser extends CommandInterface {
     public CommandAddUser(Logger logger, ConsoleHandler consoleHandler) {
         super(logger);
         this.userManager = consoleHandler.getUserManager();
+        groups.add(UserGroup.ROOT);
+        groups.add(UserGroup.ADMINISTRATOR);
     }
 
     @Override
