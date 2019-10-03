@@ -106,6 +106,8 @@ public class ConsoleHandler implements Runnable {
                             cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
                             commandExists = true;
                             break;
+                        } else {
+                            System.out.println("Permission denied.");
                         }
                     }
                 }
