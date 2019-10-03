@@ -109,7 +109,7 @@ public class ConsoleHandler implements Runnable {
         } while (currentUser == null);
         System.out.println("Sign in approved.");
 
-        while (sessionActive) {
+        while (currentUser != null) {
             System.out.print(currentUser.getUsername() + "@local> ");
 
             line = scanner.nextLine();
@@ -158,6 +158,10 @@ public class ConsoleHandler implements Runnable {
 
     public void shutdown() {
         active = false;
+    }
+
+    public void logout() {
+        currentUser = null;
     }
 
 }

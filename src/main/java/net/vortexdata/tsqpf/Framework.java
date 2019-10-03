@@ -8,6 +8,7 @@ import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
 import net.vortexdata.tsqpf.commands.CommandClear;
 import net.vortexdata.tsqpf.commands.CommandHelp;
+import net.vortexdata.tsqpf.commands.CommandLogout;
 import net.vortexdata.tsqpf.commands.CommandStop;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
@@ -154,6 +155,7 @@ public class Framework {
         consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
         consoleHandler.registerCommand(new CommandStop(logger, this));
         consoleHandler.registerCommand(new CommandClear(logger));
+        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
 
