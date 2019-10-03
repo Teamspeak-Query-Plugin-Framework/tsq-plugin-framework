@@ -25,6 +25,10 @@ public abstract class CommandInterface {
         return logger;
     }
 
+    public int getGroupRange() {
+        return groups.size();
+    }
+
     /**
      * This message is shown with the help command.
      *
