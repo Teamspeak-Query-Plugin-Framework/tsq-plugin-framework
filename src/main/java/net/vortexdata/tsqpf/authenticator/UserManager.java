@@ -194,7 +194,7 @@ public class UserManager {
         info.put("fullName", args[3]);
         info.put("address", args[5]);
 
-        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info, args[7]);
+        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info);
     }
 
     /**

@@ -13,11 +13,10 @@ public class User {
     private UserGroup group;
     private String username;
     private String password;
-    private String salt;
 
     HashMap<String, String> info = new HashMap<>();
 
-    public User(String username, String password, UserGroup group, HashMap<String, String> info, String salt) {
+    public User(String username, String password, UserGroup group, HashMap<String, String> info) {
         this.username = username;
         this.password = password;
         this.group = group;
