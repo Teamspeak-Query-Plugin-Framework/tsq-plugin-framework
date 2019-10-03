@@ -288,6 +288,10 @@ public class UserManager {
     }
 
     public boolean deleteUser(String username) {
+
+        if (username.equalsIgnoreCase("ROOT"))
+            return false;
+
         boolean success = false;
         logger.printDebug("Trying to delete user...");
         BufferedWriter bw = null;
@@ -298,9 +302,9 @@ public class UserManager {
 
             ArrayList<String> oldLines = new ArrayList<>();
             String line = "init";
-            while (!line.isEmpty() && !line.equalsIgnoreCase("")) {
+            while (line != null && !line.isEmpty() && !line.equalsIgnoreCase("")) {
                 line = br.readLine();
-                if (!line.equalsIgnoreCase("")) {
+                if (line != null && !line.equalsIgnoreCase("")) {
                     oldLines.add(line);
                 }
             }
