@@ -163,20 +163,11 @@ public class Framework {
 
 
         // Load modules
-
-        logger.printDebug("Initializing plugin controller...");
-        pluginManager = new PluginManager(this);
-        logger.printDebug("Loading and enabling plugins...");
-        pluginManager.enableAll();
-        logger.printDebug("Successfully loaded plugins.");
         bootHandler.setBootEndTime();
-
-
-
-
-
         logger.printInfo("Boot process finished.");
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
+
+
 
         consoleHandler.start();
         connectionListener.start();
@@ -236,6 +227,11 @@ public class Framework {
         logger.printDebug("Successfully registered global events.");
 
 
+        logger.printDebug("Initializing plugin controller...");
+        pluginManager = new PluginManager(this);
+        logger.printDebug("Loading and enabling plugins...");
+        pluginManager.enableAll();
+        logger.printDebug("Successfully loaded plugins.");
 
 
         return query;
