@@ -5,7 +5,8 @@ import java.util.HashMap;
 /**
  * Represents a users account
  *
- * @author Sandro Kierner, Michael Wiesinger
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
  * @since 2.0.0
  */
 public class User {

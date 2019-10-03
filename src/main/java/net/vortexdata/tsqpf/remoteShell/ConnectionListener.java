@@ -1,6 +1,7 @@
 package net.vortexdata.tsqpf.remoteShell;
 
 import net.vortexdata.tsqpf.console.Logger;
+import org.json.simple.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -8,6 +9,9 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.UUID;
 
 public class ConnectionListener implements Runnable {
 
@@ -47,9 +51,21 @@ public class ConnectionListener implements Runnable {
                 break;
             }
             Socket socket = listener.accept();
+
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-            outputStream.write("Hallo".getBytes(Charset.forName("UTF-8")));
+            JSONObject handshake = new JSONObject();
+            SecureRandom random = new SecureRandom();
+            byte[] bytes = new byte[32];
+            random.nextBytes(bytes);
+            String id = Base64.getEncoder().encodeToString(bytes);
+            handshake.put("type", "handshake");
+            handshake.put("sessionId", id);
+
+
+            outputStream.write(handshake.toJSONString().getBytes(Charset.forName("UTF-8")));
+            outputStream.write(0x0D0A);
+            outputStream.flush();
             socket.close();
 
         }

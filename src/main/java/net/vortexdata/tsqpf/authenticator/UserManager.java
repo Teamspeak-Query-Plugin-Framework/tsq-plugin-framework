@@ -18,7 +18,8 @@ import java.util.Random;
 /**
  * Manages all users and database
  *
- * @author Sandro Kierner, Michael Wiesinger
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
  * @since 2.0.0
  */
 public class UserManager {
