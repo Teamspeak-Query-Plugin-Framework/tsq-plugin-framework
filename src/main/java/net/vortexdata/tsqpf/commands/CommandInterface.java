@@ -1,6 +1,9 @@
 package net.vortexdata.tsqpf.commands;
 
+import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.console.Logger;
+
+import java.util.ArrayList;
 
 /**
  * Interface for Commands
@@ -10,6 +13,7 @@ import net.vortexdata.tsqpf.console.Logger;
  */
 public abstract class CommandInterface {
 
+    private ArrayList<UserGroup> groups;
     private Logger logger;
 
     public CommandInterface(Logger logger) {
@@ -38,4 +42,12 @@ public abstract class CommandInterface {
      * @return Prefix of the command.
      */
     abstract public String getName();
+
+    public boolean isGroupRequirementMet(UserGroup group) {
+        for (UserGroup currentRequiredGroup : groups) {
+            if (group == currentRequiredGroup)
+                return true;
+        }
+        return false;
+    }
 }

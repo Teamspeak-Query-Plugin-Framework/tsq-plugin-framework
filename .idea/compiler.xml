@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tsq-plugin-framework-dev" />
         <module name="Vortexdata" />
-        <module name="Ts-Management-Bot" />
         <module name="tsq-plugin-framework" />
+        <module name="Ts-Management-Bot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

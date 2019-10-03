@@ -85,12 +85,6 @@ public class ConsoleHandler implements Runnable {
      */
     public void run() {
 
-        try {
-            currentUser = userManager.getUser("default");
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-
         boolean sessionActive = true;
         Scanner scanner = new Scanner(System.in);
         String line = "";
