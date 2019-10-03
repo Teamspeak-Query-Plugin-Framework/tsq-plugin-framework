@@ -96,9 +96,6 @@ public class ConsoleHandler implements Runnable {
         else
             logger.printDebug("Root user found, skipping creation...");
 
-        logger.printDebug("Starting console handler... Setting console log level to off.");
-        rootLogger.setLevel(Level.OFF);
-
         do {
             String[] values = login();
             try {
