@@ -70,7 +70,6 @@ public class ConsoleHandler implements Runnable {
         String[] values = new String[2];
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
-        clearScreen();
         System.out.println("Authentication required, please sign in to proceed.");
         System.out.print("Username: ");
         values[0] = scanner.nextLine();
