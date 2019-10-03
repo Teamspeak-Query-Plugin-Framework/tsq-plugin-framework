@@ -2,6 +2,7 @@ package net.vortexdata.tsqpf.remoteShell;
 
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.authenticator.Authenticator;
+import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 import org.json.simple.JSONObject;
@@ -23,6 +24,8 @@ public class Session implements Runnable {
     private OutputStream outputStream;
     private Thread thread;
     private ConnectionListener listener;
+    private User user = null;
+
 
     public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
         this.id = id;
@@ -43,7 +46,7 @@ public class Session implements Runnable {
         try {
             String data = "";
             String[] messages;
-            while (true) {
+            while (!thread.isInterrupted()) {
                 byte[] buffer = new byte[32];
                 int recBytes = inputStream.read(buffer);
                 data += new String(buffer, ConnectionListener.charset);
@@ -55,6 +58,14 @@ public class Session implements Runnable {
             }
         } catch (IOException e) {
             listener.connectionDropped(this);
+        } finally {
+            try {
+                socket.close();
+                inputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -78,7 +89,17 @@ public class Session implements Runnable {
         UserManager manager = Framework.getInstance().getConsoleHandler().getUserManager();
 
         try {
-            manager.getUser((String) message.get("username"));
+            User user = manager.getUser((String) message.get("username"));
+            String pw = user.getPassword();
+            String token = HashUtils.sha_256(pw+id);
+            if (token.equals((String)message.get("verify"))) {
+                this.user = user;
+                Framework.getInstance().getLogger().printInfo(user.getUsername()+ " logged in");
+                return;
+            } else {
+                thread.interrupt();
+                return;
+            }
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
