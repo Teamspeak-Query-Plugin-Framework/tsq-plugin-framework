@@ -155,7 +155,7 @@ public class UserManager {
         logger.printDebug("Trying to save userdata...");
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd"));
+            bw = new BufferedWriter(new FileWriter("sys//users//userdata.tsqpfd", true));
             bw.write(user.serialize() + "\n");
             logger.printDebug("User data saved.");
             success = true;
