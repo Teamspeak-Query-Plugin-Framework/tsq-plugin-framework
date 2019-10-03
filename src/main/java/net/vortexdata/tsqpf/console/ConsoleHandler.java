@@ -102,9 +102,11 @@ public class ConsoleHandler implements Runnable {
                 boolean commandExists = false;
                 for (CommandInterface cmd : commands) {
                     if (cmd.getName().equalsIgnoreCase(data[0])) {
-                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
-                        commandExists = true;
-                        break;
+                        if (cmd.isGroupRequirementMet(currentUser.getGroup())) {
+                            cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                            commandExists = true;
+                            break;
+                        }
                     }
                 }
                 if (!commandExists) {
