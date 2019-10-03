@@ -4,6 +4,7 @@ import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
+import net.vortexdata.tsqpf.remoteShell.HashUtils;
 
 import java.io.*;
 import java.lang.reflect.Array;
@@ -260,22 +261,7 @@ public class UserManager {
      */
     public String getPasswordHash(String text) {
 
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] encodedString = digest.digest(
-                text.getBytes(StandardCharsets.UTF_8));
-
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < encodedString.length; i++) {
-            String hex = Integer.toHexString(0xff & encodedString[i]);
-            if(hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
+        return HashUtils.sha_256(text);
 
     }
 

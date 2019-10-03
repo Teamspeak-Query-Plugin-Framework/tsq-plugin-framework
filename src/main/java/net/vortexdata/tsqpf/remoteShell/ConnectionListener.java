@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -18,6 +19,8 @@ public class ConnectionListener implements Runnable {
     private Logger logger;
     private boolean running = false;
     private Thread thread;
+    private ArrayList<Session> sessions = new ArrayList<>();
+    public static final Charset charset = Charset.forName("UTF-8");
 
 
     public ConnectionListener(Logger logger) {
@@ -36,6 +39,9 @@ public class ConnectionListener implements Runnable {
         thread.interrupt();
     }
 
+    public void connectionDropped(Session session){
+        sessions.remove(session);
+    }
 
     @Override
     public void run() {
@@ -63,10 +69,13 @@ public class ConnectionListener implements Runnable {
             handshake.put("sessionId", id);
 
 
-            outputStream.write(handshake.toJSONString().getBytes(Charset.forName("UTF-8")));
-            outputStream.write(0x0D0A);
+            outputStream.write(handshake.toJSONString().getBytes(charset));
+            outputStream.write("<EOM>".getBytes(charset));
             outputStream.flush();
-            socket.close();
+            sessions.add(new Session(id, socket, inputStream, outputStream, this));
+
+
+
 
         }
         } catch (Exception e) {
