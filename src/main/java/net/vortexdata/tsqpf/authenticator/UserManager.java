@@ -18,15 +18,16 @@ import java.util.Random;
 /**
  * Manages all users and database
  *
- * @author Sandro Kierner
+ * @author Sandro Kierner, Michael Wiesinger
  * @since 2.0.0
  */
 public class UserManager {
 
-    private ArrayList<User> users;
+    private static ArrayList<User> users;
     private Logger logger;
 
     public UserManager(Logger logger) {
+
         this.logger = logger;
     }
 
@@ -67,12 +68,12 @@ public class UserManager {
      * @param group    The users group
      * @return true if successfully created
      */
-    public boolean createUser(String username, String password, UserGroup group, HashMap<String, String> info) throws UserAlreadyExistingException {
+    public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
         String hashedPassword = getPasswordHash(password);
 
         boolean success = false;
 
-        User newUser = getUserFromSerializedString(username + ";" + password + ";" + group.toString() + ";" + info.get("fullName") + ";" + info.get("telephone") + ";" + info.get("address") + ";" + info.get("country") + ";");
+        User newUser = new User(username, password, group);
         saveUser(newUser);
 
         users.add(newUser);
@@ -186,15 +187,10 @@ public class UserManager {
      * @return User object from serialized string
      */
     private User getUserFromSerializedString(String serializedUser) {
-        String[] args = serializedUser.split(";");
+        String[] args = serializedUser.split(User.CSV_SEPARATOR);
+        if (args.length != 3) return null;
 
-        HashMap<String, String> info = new HashMap<>();
-        info.put("telephone", args[4]);
-        info.put("country", args[6]);
-        info.put("fullName", args[3]);
-        info.put("address", args[5]);
-
-        return new User(args[0], args[1], UserGroup.valueOf(args[2]), info);
+        return new User(args[0], args[1], UserGroup.valueOf(args[2]));
     }
 
     /**
@@ -297,12 +293,7 @@ public class UserManager {
         String generatedString = new String(array, Charset.forName("UTF-8"));
 
         try {
-            HashMap<String, String> info = new HashMap<>();
-            info.put("fullName", "Root User");
-            info.put("telephone", "N/A");
-            info.put("address", "N/A");
-            info.put("country", "N/A");
-            createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT, info);
+            createUser("root", getPasswordHash("testpassword"), UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");

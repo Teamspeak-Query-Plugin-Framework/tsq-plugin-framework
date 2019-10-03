@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Represents a users account
  *
- * @author Sandro Kierner
+ * @author Sandro Kierner, Michael Wiesinger
  * @since 2.0.0
  */
 public class User {
@@ -13,14 +13,13 @@ public class User {
     private UserGroup group;
     private String username;
     private String password;
+    public static final String CSV_SEPARATOR = ";";
 
-    HashMap<String, String> info = new HashMap<>();
 
-    public User(String username, String password, UserGroup group, HashMap<String, String> info) {
+    public User(String username, String password, UserGroup group) {
         this.username = username;
         this.password = password;
         this.group = group;
-        this.info = info;
     }
 
     public UserGroup getGroup() {
@@ -32,11 +31,13 @@ public class User {
     }
 
     public String serialize() {
-        return this.username + ";" + this.password + ";" + this.group.toString() + ";" + this.info.get("fullName") + ";" + this.info.get("telephone") + ";" + this.info.get("address") + ";" + this.info.get("country") + ";";
-    }
-
-    public String getInfo(String key) {
-        return info.get(key);
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(username);
+        buffer.append(CSV_SEPARATOR);
+        buffer.append(password);
+        buffer.append(CSV_SEPARATOR);
+        buffer.append(group.toString());
+        return buffer.toString();
     }
 
     public String getPassword() {
