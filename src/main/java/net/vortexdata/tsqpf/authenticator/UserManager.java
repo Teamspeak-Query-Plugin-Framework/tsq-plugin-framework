@@ -335,7 +335,7 @@ public class UserManager {
             if (bw != null) {
                 try {
                     br.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     logger.printError("Failed to close BufferedReader, dumping details: " + e.getMessage());
                 }
             }
