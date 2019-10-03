@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public abstract class CommandInterface {
 
-    private ArrayList<UserGroup> groups;
+    protected ArrayList<UserGroup> groups;
     private Logger logger;
 
     public CommandInterface(Logger logger) {
+        groups = new ArrayList<>();
         this.logger = logger;
     }
 

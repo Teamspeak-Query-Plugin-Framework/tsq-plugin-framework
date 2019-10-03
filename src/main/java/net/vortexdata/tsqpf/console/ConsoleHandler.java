@@ -87,7 +87,6 @@ public class ConsoleHandler implements Runnable {
         userManager.reloadUsers();
         boolean sessionActive = true;
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
         String line = "";
         String[] data;
 
@@ -117,6 +116,7 @@ public class ConsoleHandler implements Runnable {
             System.out.print(currentUser.getUsername() + "@local> ");
             line = scanner.next();
             data = line.split(" ");
+            String commandPrefix = data[0];
 
             if (data.length > 0 && !data[0].isEmpty()) {
                 boolean commandExists = false;
@@ -132,7 +132,7 @@ public class ConsoleHandler implements Runnable {
                     }
                 }
                 if (!commandExists) {
-                    System.out.println(data[0] + ": command not found");
+                    System.out.println(commandPrefix + ": command not found");
                 }
             }
         }
