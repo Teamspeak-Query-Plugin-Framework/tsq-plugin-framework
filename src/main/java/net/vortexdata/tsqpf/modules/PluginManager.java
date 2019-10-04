@@ -29,6 +29,7 @@ public class PluginManager {
      * Runs through the plugin directory and tries to load and enable all plugins.
      */
     public void enableAll() {
+
         File pluginDirectory = new File("plugins");
         if (!pluginDirectory.isDirectory() || !pluginDirectory.exists())
             pluginDirectory.mkdirs();
@@ -46,13 +47,14 @@ public class PluginManager {
     /**
      * Unloads all loaded plugins and disables them, preparing for save shutdown.
      */
+
+
     public void disableAll() {
         for (PluginContainer pc : loadedPlugins) {
             pc.getPluginInterface().onDisable();
+            pc = null;
         }
         loadedPlugins.clear();
-
-
     }
 
     /**
