@@ -17,12 +17,12 @@ public abstract class CommandInterface {
 
     protected ArrayList<UserGroup> groups;
     private Logger logger;
-    protected VirtualTerminal terminal;
 
-    public CommandInterface(Logger logger, VirtualTerminal terminal) {
+
+    public CommandInterface(Logger logger) {
         groups = new ArrayList<>();
         this.logger = logger;
-        this.terminal = terminal;
+
     }
 
     protected Logger getLogger() {
@@ -43,7 +43,7 @@ public abstract class CommandInterface {
     /**
      * This method is run when the user runs the command.
      */
-    abstract public void gotCalled(String[] args);
+    abstract public void gotCalled(String[] args, VirtualTerminal terminal);
 
     /**
      * This method is run when the user runs the command.

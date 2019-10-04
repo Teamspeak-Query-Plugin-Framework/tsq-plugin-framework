@@ -13,8 +13,8 @@ public class CommandAddUser extends CommandInterface {
 
     private UserManager userManager;
 
-    public CommandAddUser(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
-        super(logger, terminal);
+    public CommandAddUser(Logger logger, ConsoleHandler consoleHandler) {
+        super(logger);
         this.userManager = consoleHandler.getUserManager();
         groups.add(UserGroup.ROOT);
         groups.add(UserGroup.ADMINISTRATOR);
@@ -26,7 +26,7 @@ public class CommandAddUser extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args) {
+    public void gotCalled(String[] args, VirtualTerminal terminal) {
 
         UserGroup newGroup;
         Scanner scanner = new Scanner(System.in);

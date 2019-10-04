@@ -3,7 +3,6 @@ package net.vortexdata.tsqpf.remoteShell;
 import net.vortexdata.tsqpf.console.Logger;
 import org.json.simple.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -12,7 +11,6 @@ import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.UUID;
 
 public class ConnectionListener implements Runnable {
 
@@ -20,7 +18,8 @@ public class ConnectionListener implements Runnable {
     private boolean running = false;
     private Thread thread;
     private ArrayList<Session> sessions = new ArrayList<>();
-    public static final Charset charset = Charset.forName("UTF-8");
+    public static final Charset CHARSET = Charset.forName("UTF-8");
+    public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
 
 
     public ConnectionListener(Logger logger) {
@@ -69,8 +68,8 @@ public class ConnectionListener implements Runnable {
             handshake.put("sessionId", id);
 
 
-            outputStream.write(handshake.toJSONString().getBytes(charset));
-            outputStream.write("<EOM>".getBytes(charset));
+            outputStream.write(handshake.toJSONString().getBytes(CHARSET));
+            outputStream.write(END_OF_MESSAGE);
             outputStream.flush();
             sessions.add(new Session(id, socket, inputStream, outputStream, this));
 

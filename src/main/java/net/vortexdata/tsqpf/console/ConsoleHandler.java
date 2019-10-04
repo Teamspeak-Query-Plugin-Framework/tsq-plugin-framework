@@ -80,7 +80,7 @@ public class ConsoleHandler implements Runnable {
      */
 
 
-    public void processInput(String line, User user) {
+    public void processInput(String line, User user, VirtualTerminal terminal) {
 
         String[] data = line.split(" ");
         String commandPrefix = data[0];
@@ -90,7 +90,7 @@ public class ConsoleHandler implements Runnable {
             for (CommandInterface cmd : commands) {
                 if (cmd.getName().equalsIgnoreCase(data[0])) {
                     if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(currentUser.getGroup())) {
-                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length));
+                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length), terminal);
                         commandExists = true;
                         break;
                     } else {
@@ -106,6 +106,7 @@ public class ConsoleHandler implements Runnable {
     }
 
     public void run() {
+        ConsoleTerminal terminal = new ConsoleTerminal();
 
         userManager.reloadUsers();
         Scanner scanner = new Scanner(System.in);
@@ -136,7 +137,7 @@ public class ConsoleHandler implements Runnable {
                 System.out.print(currentUser.getUsername() + "@local> ");
 
                 line = scanner.nextLine();
-                processInput(line, currentUser);
+                processInput(line, currentUser, terminal);
             }
         } while (active);
 

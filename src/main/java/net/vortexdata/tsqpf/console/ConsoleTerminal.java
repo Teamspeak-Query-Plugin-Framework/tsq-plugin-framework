@@ -24,14 +24,8 @@ public class ConsoleTerminal implements VirtualTerminal {
     }
 
     @Override
-    public String readln(String delimiter) {
-
-        scanner.useDelimiter(delimiter);
-        return scanner.next();
-    }
-
-    @Override
     public String readln() {
         return scanner.nextLine();
     }
+
 }

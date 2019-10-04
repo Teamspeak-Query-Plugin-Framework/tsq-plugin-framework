@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.remoteShell;
+package net.vortexdata.tsqpf.utils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -16,35 +16,36 @@ import java.util.Arrays;
  */
 public class CipherUtils {
 
-    private static SecretKeySpec secretKeySpec;
-    private static byte[] key;
+
+
 
     /**
      *  Obfuscates secret and creates a more secure keySpec.
      *
      * @param secret
      */
-    public static void createMessageDigest(byte[] secret) {
+    public static SecretKeySpec createMessageDigest(byte[] secret) {
         try {
+            byte[] key;
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
             key = sha1.digest(secret);
             key = Arrays.copyOf(key, 16);
-            secretKeySpec = new SecretKeySpec(key, "AES");
+            return new SecretKeySpec(key, "AES");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
      * Encrypts give data.
      *
      * @param data
-     * @param secret
      * @return
      */
-    public static byte[] encrypt(byte[] data, byte[] secret) {
+    public static byte[] encrypt(byte[] data, SecretKeySpec secretKeySpec) {
         try {
-            createMessageDigest(secret);
+
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 
@@ -59,12 +60,11 @@ public class CipherUtils {
      * Decrypts give data.
      *
      * @param data
-     * @param secret
      * @return
      */
-    public static byte[] decrypt(byte[] data, byte[] secret) {
+    public static byte[] decrypt(byte[] data, SecretKeySpec secretKeySpec) {
         try {
-            createMessageDigest(secret);
+
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
             return cipher.doFinal(data);

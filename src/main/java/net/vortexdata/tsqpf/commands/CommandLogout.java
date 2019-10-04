@@ -8,8 +8,8 @@ public class CommandLogout extends CommandInterface {
 
     private ConsoleHandler consoleHandler;
 
-    public CommandLogout(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
-        super(logger, terminal);
+    public CommandLogout(Logger logger, ConsoleHandler consoleHandler) {
+        super(logger);
         this.consoleHandler = consoleHandler;
     }
 
@@ -19,7 +19,7 @@ public class CommandLogout extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args) {
+    public void gotCalled(String[] args, VirtualTerminal terminal) {
         consoleHandler.logout();
         getLogger().printDebug("Invalidating console handler session.");
     }
