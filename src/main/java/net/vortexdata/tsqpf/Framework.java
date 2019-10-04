@@ -259,4 +259,32 @@ public class Framework {
         }
     }
 
+    public ConsoleHandler getConsoleHandler() {
+        return consoleHandler;
+    }
+
+    public ChatCommandListener getChatCommandListener() {
+        return chatCommandListener;
+    }
+
+    public TS3Api getApi() {
+        return api;
+    }
+
+    public net.vortexdata.tsqpf.console.Logger getLogger() {
+        return logger;
+    }
+
+    public Logger getRootLogger() {
+        return rootLogger;
+    }
+
+    public void addEventHandler(TS3Listener listener) {
+        api.addTS3Listeners(listener);
+    }
+
+    public static Framework getInstance() {
+        return instance;
+    }
+
 }
