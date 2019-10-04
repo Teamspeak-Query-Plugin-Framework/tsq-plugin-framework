@@ -1,11 +1,12 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandClear extends CommandInterface {
 
-    public CommandClear(Logger logger) {
-        super(logger);
+    public CommandClear(Logger logger, VirtualTerminal terminal) {
+        super(logger, terminal);
     }
 
     @Override
@@ -16,7 +17,7 @@ public class CommandClear extends CommandInterface {
     @Override
     public void gotCalled(String[] args) {
         for (int i = 0; i < 50; i++)
-            System.out.println("");
+            terminal.println("");
     }
 
     @Override

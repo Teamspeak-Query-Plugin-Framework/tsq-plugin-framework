@@ -129,7 +129,9 @@ public class Session implements Runnable {
                 return;
             }
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            user = null;
+            token = null;
+            Framework.getInstance().getLogger().printInfo("Handshake failed");
         }
 
     }
