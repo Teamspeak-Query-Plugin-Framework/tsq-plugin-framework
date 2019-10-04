@@ -58,7 +58,7 @@ public class Framework {
         boolean didConfigExist = configMain.load();
         if (!didConfigExist) {
             logger.printWarn("Could not find config file, therefor created a new one. Please review and adjust its values to avoid any issues.");
-            shutdown(false);
+            shutdown();
         }
         logger.printDebug("Main config loaded.");
 
@@ -109,23 +109,56 @@ public class Framework {
             query.connect();
         } catch (Exception e) {
             logger.printError("Connection to server failed, dumping error details: ", e);
-            shutdown(true);
+            shutdown();
         }
+
+        logger.printInfo("Successfully established connection to server.");
+
+        logger.printDebug("Initializing console handler...");
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
+        logger.printDebug("Console handler loaded.");
+        logger.printDebug("Registering console commands...");
+
+        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandStop(logger, this));
+        consoleHandler.registerCommand(new CommandClear(logger));
+        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
+        logger.printDebug("Console handler and console commands successfully initialized and registered.");
+
+
+        bootHandler.setBootEndTime();
+        logger.printInfo("Boot process finished.");
+        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
+        bootHandler = null;
+
+        consoleHandler.start();
+        connectionListener = new ConnectionListener(logger);
+        connectionListener.start();
 
 
     }
 
     public void shutdown() {
         logger.printInfo("Shutting down for system halt.");
-        logger.printDebug("Shutting down console handler...");
-        if (consoleHandler != null)
+
+        if (connectionListener != null) {
+            logger.printDebug("Shutting down shell connection listener...");
+            connectionListener.stop();
+        }
+
+        if (consoleHandler != null) {
+            logger.printDebug("Shutting down console handler...");
             consoleHandler.shutdown();
-        else
-            logger.printDebug("Console handler was not initialized, there was not needed to be unloaded.");
+        }
+
+
         if (pluginManager != null) {
             logger.printInfo("Unloading plugins...");
             pluginManager.disableAll();
         }
+
         logger.printInfo("Successfully unloaded plugins and disabled console handler.");
         logger.printInfo("Ending framework logging...");
         System.exit(0);
