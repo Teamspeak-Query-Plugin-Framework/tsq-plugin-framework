@@ -48,6 +48,9 @@ public class Framework {
     }
 
     public void init() {
+
+        logger = new FrameworkLogger(this);
+
         // Init BootHandler
         BootHandler bootHandler = new BootHandler();
         bootHandler.setBootStartTime();
@@ -112,6 +115,8 @@ public class Framework {
             shutdown();
         }
 
+        chatCommandListener = new ChatCommandListener(this, configMain);
+
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
@@ -166,7 +171,9 @@ public class Framework {
 
     public void sleep() {
         logger.printDebug("Sleep initiated.");
+        logger.printDebug("Disabling all plugins...");
         pluginManager.disableAll();
+        logger.printDebug("All plugins disabled.");
     }
 
     public TS3Query wake(ConfigMain configMain, TS3Query query) {
