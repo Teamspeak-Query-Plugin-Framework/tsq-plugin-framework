@@ -76,7 +76,7 @@ public class Framework {
         }
 
         System.out.println("Loading libraries... Please wait.");
-        ConsoleTerminal consoleTerminal = new ConsoleTerminal();
+
 
 
         // Init BootHandler
@@ -155,12 +155,12 @@ public class Framework {
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
-        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler, consoleTerminal));
-        consoleHandler.registerCommand(new CommandStop(logger, this, consoleTerminal));
-        consoleHandler.registerCommand(new CommandClear(logger, consoleTerminal));
-        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler, consoleTerminal));
-        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler, consoleTerminal));
-        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler, consoleTerminal));
+        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandStop(logger, this));
+        consoleHandler.registerCommand(new CommandClear(logger));
+        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
+        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         connectionListener = new ConnectionListener(logger);

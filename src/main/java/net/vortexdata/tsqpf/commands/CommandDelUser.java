@@ -7,8 +7,8 @@ public class CommandDelUser extends CommandInterface {
 
     UserManager userManager;
 
-    public CommandDelUser(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
-        super(logger, terminal);
+    public CommandDelUser(Logger logger, ConsoleHandler consoleHandler) {
+        super(logger);
         this.userManager = consoleHandler.getUserManager();
         groups.add(UserGroup.ROOT);
     }
@@ -19,7 +19,7 @@ public class CommandDelUser extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args) {
+    public void gotCalled(String[] args, VirtualTerminal terminal) {
         if (args.length == 0) {
             terminal.println("Please specify a username.");
             return;

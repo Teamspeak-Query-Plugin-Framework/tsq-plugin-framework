@@ -4,7 +4,9 @@ package net.vortexdata.tsqpf.remoteShell;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
+import net.vortexdata.tsqpf.console.RemoteShellTerminal;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
+import net.vortexdata.tsqpf.utils.CipherUtils;
 import net.vortexdata.tsqpf.utils.HashUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,6 +30,8 @@ public class Session implements Runnable {
     private ConnectionListener listener;
     private User user = null;
     private String token = null;
+    private RemoteShellTerminal terminal;
+    private CipherHelper cipherHelper;
 
 
     public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
@@ -52,7 +56,7 @@ public class Session implements Runnable {
             while (!thread.isInterrupted()) {
                 byte[] buffer = new byte[32];
                 int recBytes = inputStream.read(buffer);
-                data += new String(buffer, ConnectionListener.charset);
+                data += new String(buffer, ConnectionListener.CHARSET);
                 messages = data.split("<EOM>");
                 data = messages[messages.length-1];
                 for (int i = 0; i < messages.length-1; i++) {
@@ -72,16 +76,16 @@ public class Session implements Runnable {
         }
     }
 
-    private void processMessage(String msg) {
+    private void processMessage(JSONObject message) {
         try {
-            msg = msg.trim();
-
-            JSONObject message = (JSONObject)(new JSONParser()).parse(msg);
             String type = (String) message.get("type");
 
             switch (type) {
                 case "handshake":
                     makeHandshake(message);
+                    break;
+                case "command":
+                    Framework.getInstance().getConsoleHandler().processInput((String)message.get("command"), user, terminal);
                     break;
                 case "data":
                     unpackData(message);
@@ -95,22 +99,27 @@ public class Session implements Runnable {
         }
     }
 
+    private void processMessage(String msg) {
+        try {
+            msg = msg.trim();
+            JSONObject message = (JSONObject)(new JSONParser()).parse(msg);
+            processMessage(message);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private boolean isLoggedIn() {
         return user != null && token != null;
     }
 
     private void unpackData(JSONObject message) throws ParseException {
-
-        System.out.println(message.get("data"));
-        String base64 = (String) message.get("data");
-        byte[] dataBytes = Base64.getDecoder().decode(base64);
-        String data = new String(Objects.requireNonNull(CipherUtils.decrypt(dataBytes, token.getBytes(ConnectionListener.charset))));
-        System.out.println(data);
-        JSONObject msg = (JSONObject)(new JSONParser()).parse(data);
-        System.out.println(msg.get("command"));
-        Framework.getInstance().getConsoleHandler().processInput((String)msg.get("command"), user);
+        String data = cipherHelper.decryptString((String)message.get("data"));
+        processMessage((JSONObject)(new JSONParser()).parse(data));
     }
+
+
 
     private void makeHandshake(JSONObject message) {
         UserManager manager = Framework.getInstance().getConsoleHandler().getUserManager();
@@ -121,6 +130,8 @@ public class Session implements Runnable {
             token = HashUtils.sha_256(pw+id);
             if (token.equals((String)message.get("verify"))) {
                 this.user = user;
+                this.cipherHelper = new CipherHelper(token);
+                this.terminal = new RemoteShellTerminal(inputStream, outputStream, cipherHelper);
                 Framework.getInstance().getLogger().printInfo(user.getUsername()+ " logged in");
 
                 return;

@@ -15,9 +15,9 @@ public class CommandStop extends CommandInterface {
 
     private Framework framework;
 
-    public CommandStop(Logger logger, Framework Framework, VirtualTerminal terminal) {
-        super(logger, terminal);
-        framework = Framework;
+    public CommandStop(Logger logger, Framework framework) {
+        super(logger);
+        this.framework = framework;
         groups.add(UserGroup.ROOT);
     }
 
@@ -27,7 +27,7 @@ public class CommandStop extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args) {
+    public void gotCalled(String[] args, VirtualTerminal terminal) {
         framework.shutdown(true);
     }
 

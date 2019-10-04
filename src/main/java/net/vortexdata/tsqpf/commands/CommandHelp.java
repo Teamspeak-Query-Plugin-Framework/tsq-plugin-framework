@@ -15,8 +15,8 @@ public class CommandHelp extends CommandInterface {
 
     private ConsoleHandler consoleHandler;
 
-    public CommandHelp(Logger logger, ConsoleHandler handler, VirtualTerminal terminal) {
-        super(logger, terminal);
+    public CommandHelp(Logger logger, ConsoleHandler handler) {
+        super(logger);
         consoleHandler = handler;
     }
 
@@ -26,7 +26,7 @@ public class CommandHelp extends CommandInterface {
         return "You need help with help? That's kinda genius :)";
     }
 
-    public void gotCalled(String[] args) {
+    public void gotCalled(String[] args, VirtualTerminal terminal) {
 
         if (args.length > 0) {
             for (CommandInterface cmd : consoleHandler.getCommands()) {
