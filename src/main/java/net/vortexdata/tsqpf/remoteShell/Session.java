@@ -19,6 +19,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
 
 public class Session implements Runnable {
 
@@ -32,6 +35,7 @@ public class Session implements Runnable {
     private String token = null;
     private RemoteShellTerminal terminal;
     private CipherHelper cipherHelper;
+    public BlockingQueue<JSONObject> terminalUserInputBuffer;
 
 
     public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
@@ -40,6 +44,7 @@ public class Session implements Runnable {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.listener = listener;
+        terminalUserInputBuffer = new ArrayBlockingQueue<JSONObject>(10);
         start();
     }
 
@@ -76,6 +81,8 @@ public class Session implements Runnable {
         }
     }
 
+
+    private Thread commandThread;
     private void processMessage(JSONObject message) {
         try {
             String type = (String) message.get("type");
@@ -85,16 +92,29 @@ public class Session implements Runnable {
                     makeHandshake(message);
                     break;
                 case "command":
-                    Framework.getInstance().getConsoleHandler().processInput((String)message.get("command"), user, terminal);
+                    if(commandThread == null || !commandThread.isAlive()) {
+                        commandThread = new Thread(() -> {
+                            Framework.getInstance().getConsoleHandler().processInput((String) message.get("command"), user, terminal);
+                            sendReadyForNextCommand();
+                        });
+                        commandThread.start();
+
+                    }
+
+                    break;
+                case "userInput":
+
+                    if(terminalUserInputBuffer.remainingCapacity() == 0) terminalUserInputBuffer.clear();
+                    terminalUserInputBuffer.put(message);
                     break;
                 case "data":
-                    unpackData(message);
+                    processMessage(unpackData(message));
                     break;
                 default:
                     System.out.println(message.toJSONString());
                     break;
             }
-        } catch (ParseException e) {
+        } catch (ParseException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -110,13 +130,24 @@ public class Session implements Runnable {
     }
 
 
+    private void sendReadyForNextCommand() {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("type", "readyForNextCmd");
+            outputStream.write(data.toJSONString().getBytes(ConnectionListener.CHARSET));
+            outputStream.write(ConnectionListener.END_OF_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean isLoggedIn() {
         return user != null && token != null;
     }
 
-    private void unpackData(JSONObject message) throws ParseException {
+    public JSONObject unpackData(JSONObject message) throws ParseException {
         String data = cipherHelper.decryptString((String)message.get("data"));
-        processMessage((JSONObject)(new JSONParser()).parse(data));
+        return (JSONObject)(new JSONParser()).parse(data);
     }
 
 
@@ -131,8 +162,9 @@ public class Session implements Runnable {
             if (token.equals((String)message.get("verify"))) {
                 this.user = user;
                 this.cipherHelper = new CipherHelper(token);
-                this.terminal = new RemoteShellTerminal(inputStream, outputStream, cipherHelper);
+                this.terminal = new RemoteShellTerminal(inputStream, outputStream, cipherHelper, this);
                 Framework.getInstance().getLogger().printInfo(user.getUsername()+ " logged in");
+                sendReadyForNextCommand();
 
                 return;
             } else {

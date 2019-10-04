@@ -2,8 +2,10 @@ package net.vortexdata.tsqpf.console;
 
 
 
+import com.sun.javafx.css.PseudoClassState;
 import net.vortexdata.tsqpf.remoteShell.CipherHelper;
 import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
+import net.vortexdata.tsqpf.remoteShell.Session;
 import net.vortexdata.tsqpf.utils.CipherUtils;
 import org.json.simple.JSONObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -11,19 +13,25 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
 public class RemoteShellTerminal implements VirtualTerminal {
 
     private InputStream inputStream;
     private OutputStream outputStream;
     private CipherHelper cipherHelper;
+    private Session session;
 
 
-    public RemoteShellTerminal(InputStream inputStream, OutputStream outputStream, CipherHelper helper) {
+    public RemoteShellTerminal(InputStream inputStream, OutputStream outputStream, CipherHelper helper, Session session) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.cipherHelper = helper;
+        this.session = session;
     }
+
+
+
 
     @Override
     public void println(String msg) {
@@ -48,21 +56,38 @@ public class RemoteShellTerminal implements VirtualTerminal {
 
     @Override
     public void print(String msg) {
-        throw new Error("This method is not available for remote shells.");
+
+        println(msg);
     }
 
     @Override
     public String readln() {
         try {
             JSONObject data = new JSONObject();
+            String readId = UUID.randomUUID().toString();
             data.put("type", "terminal");
             data.put("mode", "readln");
+            data.put("id", readId);
             outputStream.write(data.toJSONString().getBytes(ConnectionListener.CHARSET));
             outputStream.write(ConnectionListener.END_OF_MESSAGE);
             outputStream.flush();
+
+            while (true) {
+                if(session.terminalUserInputBuffer.isEmpty()) {
+                    Thread.sleep(10);
+                    continue;
+                }
+                JSONObject response = session.terminalUserInputBuffer.take();
+
+                if(!((String)response.get("id")).equals(readId)) continue;
+                return (String)response.get("input");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return "not implemented yet";
+        return null;
     }
 }

@@ -29,25 +29,23 @@ public class CommandAddUser extends CommandInterface {
     public void gotCalled(String[] args, VirtualTerminal terminal) {
 
         UserGroup newGroup;
-        Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
         terminal.print("Enter new username: ");
-        String username = scanner.nextLine();
+        String username = terminal.readln();
         if (username.contains(" ") || username.isEmpty()) {
             terminal.println("Username must not contain whitespaces, please try again.");
             return;
         }
         terminal.print("Enter new password: ");
-        String password = scanner.nextLine();
+        String password = terminal.readln();
         terminal.print("Re-type new password: ");
-        String retypePassword = scanner.nextLine();
+        String retypePassword = terminal.readln();
         if (!password.equals(retypePassword)) {
             terminal.println("Passwords don't match, please try again.");
             return;
         }
 
         terminal.print("Group (Administrator / Guest): ");
-        String group = scanner.nextLine();
+        String group = terminal.readln();
         if (group.equalsIgnoreCase("ADMINISTRATOR"))
             newGroup = UserGroup.ADMINISTRATOR;
         else if (group.equalsIgnoreCase("GUEST"))
