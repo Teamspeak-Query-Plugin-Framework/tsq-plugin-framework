@@ -27,9 +27,12 @@ import org.apache.log4j.Logger;
  *
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
+ *
+ * @since 1.0.0
  */
 public class Framework {
 
+    private TS3Config config;
     private static final Logger rootLogger = LogManager.getRootLogger();
     private static Framework instance;
     private TS3Api api;
@@ -40,52 +43,14 @@ public class Framework {
     private ConnectionListener connectionListener;
 
     public static void main(String[] args) {
-
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].contains("-debug")) {
-                rootLogger.setLevel(Level.DEBUG);
-            } else if (args[i].contains("-setup")) {
-                InstallWizzard installWizzard = new InstallWizzard();
-                installWizzard.init();
-            }
-        }
-
         instance = new Framework();
         instance.init();
     }
 
-    private void init() {
-
-        // Display Copy Header & wait 1 seconds
-        System.out.println("|| ==================================================== ||");
-        System.out.println("|| Teamspeak Query Plugin Framework                     ||");
-        System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
-        System.out.println("||                                                      ||");
-        System.out.println("|| Support: support@vortexdata.net                      ||");
-        System.out.println("|| Authors: Michael Wiesinger, Sandro Kierner           ||");
-        System.out.println("|| Publisher: VortexdataNET                             ||");
-        System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
-        System.out.println("|| ==================================================== ||");
-        System.out.println();
-
-        // Sleep for 1 second
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            // Ignore
-        }
-
-        System.out.println("Loading libraries... Please wait.");
-
-
-
+    public void init() {
         // Init BootHandler
         BootHandler bootHandler = new BootHandler();
         bootHandler.setBootStartTime();
-
-        // Init Logger
-        logger = new FrameworkLogger(this);
-        logger.printInfo("Initializing... Please wait.");
 
         // Load main config
         ConfigMain configMain = new ConfigMain();
@@ -97,8 +62,7 @@ public class Framework {
         }
         logger.printDebug("Main config loaded.");
 
-        // Create config
-        final TS3Config config = new TS3Config();
+        config = new TS3Config();
         logger.printDebug("Trying to assign server address...");
         config.setHost(configMain.getProperty("serverAddress"));
         logger.printDebug("Server address set.");
@@ -126,12 +90,12 @@ public class Framework {
             @Override
             public void onConnect(TS3Query ts3Query) {
                 api = ts3Query.getApi();
-                connect(configMain, ts3Query);
+                wake(configMain, ts3Query);
             }
 
             @Override
             public void onDisconnect(TS3Query ts3Query) {
-                // Nothing
+                sleep();
             }
 
         });
@@ -145,55 +109,36 @@ public class Framework {
             query.connect();
         } catch (Exception e) {
             logger.printError("Connection to server failed, dumping error details: ", e);
-            System.exit(0);
+            shutdown(true);
         }
 
-        logger.printInfo("Successfully established connection to server.");
-
-        logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
-        logger.printDebug("Console handler loaded.");
-        logger.printDebug("Registering console commands...");
-
-        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandStop(logger, this));
-        consoleHandler.registerCommand(new CommandClear(logger));
-        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
-        logger.printDebug("Console handler and console commands successfully initialized and registered.");
-
-        connectionListener = new ConnectionListener(logger);
-
-
-        // Load modules
-        bootHandler.setBootEndTime();
-        logger.printInfo("Boot process finished.");
-        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
-
-
-
-        consoleHandler.start();
-        connectionListener.start();
 
     }
 
-    public void shutdown(boolean isManagerEnabled) {
+    public void shutdown() {
         logger.printInfo("Shutting down for system halt.");
         logger.printDebug("Shutting down console handler...");
         if (consoleHandler != null)
             consoleHandler.shutdown();
         else
             logger.printDebug("Console handler was not initialized, there was not needed to be unloaded.");
-        logger.printInfo("Unloading plugins...");
-        if (isManagerEnabled)
+        if (pluginManager != null) {
+            logger.printInfo("Unloading plugins...");
             pluginManager.disableAll();
+        }
         logger.printInfo("Successfully unloaded plugins and disabled console handler.");
         logger.printInfo("Ending framework logging...");
         System.exit(0);
     }
 
-    public TS3Query connect(ConfigMain configMain, TS3Query query) {
+    public void sleep() {
+        logger.printDebug("Sleep initiated.");
+        pluginManager.disableAll();
+    }
+
+    public TS3Query wake(ConfigMain configMain, TS3Query query) {
+
+        logger.printDebug("Wakeup initiated.");
         api = query.getApi();
         try {
             logger.printDebug("Trying to sign into query...");
@@ -239,33 +184,39 @@ public class Framework {
 
 
         return query;
+
     }
 
-    public ConsoleHandler getConsoleHandler() {
-        return consoleHandler;
+    public void evaluateArgs(String[] args) {
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].contains("-debug")) {
+                rootLogger.setLevel(Level.DEBUG);
+            } else if (args[i].contains("-setup")) {
+                InstallWizzard installWizzard = new InstallWizzard();
+                installWizzard.init();
+            }
+        }
+
     }
 
-    public ChatCommandListener getChatCommandListener() {
-        return chatCommandListener;
+    public void printCopyHeader() {
+        System.out.println("|| ==================================================== ||");
+        System.out.println("|| Teamspeak Query Plugin Framework                     ||");
+        System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
+        System.out.println("||                                                      ||");
+        System.out.println("|| Support: support@vortexdata.net                      ||");
+        System.out.println("|| Authors: Michael Wiesinger, Sandro Kierner           ||");
+        System.out.println("|| Publisher: VortexdataNET                             ||");
+        System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
+        System.out.println("|| ==================================================== ||");
+        System.out.println();
+        // Sleep for 1 second
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // Ignore
+        }
     }
 
-    public TS3Api getApi() {
-        return api;
-    }
-
-    public net.vortexdata.tsqpf.console.Logger getLogger() {
-        return logger;
-    }
-
-    public Logger getRootLogger() {
-        return rootLogger;
-    }
-
-    public void addEventHandler(TS3Listener listener) {
-        api.addTS3Listeners(listener);
-    }
-
-    public static Framework getInstance() {
-        return instance;
-    }
 }
