@@ -9,6 +9,7 @@ import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
+import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.installers.InstallWizzard;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
@@ -75,6 +76,8 @@ public class Framework {
         }
 
         System.out.println("Loading libraries... Please wait.");
+        ConsoleTerminal consoleTerminal = new ConsoleTerminal();
+
 
         // Init BootHandler
         BootHandler bootHandler = new BootHandler();
@@ -151,12 +154,13 @@ public class Framework {
         consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
-        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandStop(logger, this));
-        consoleHandler.registerCommand(new CommandClear(logger));
-        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
+
+        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler, consoleTerminal));
+        consoleHandler.registerCommand(new CommandStop(logger, this, consoleTerminal));
+        consoleHandler.registerCommand(new CommandClear(logger, consoleTerminal));
+        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler, consoleTerminal));
+        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler, consoleTerminal));
+        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler, consoleTerminal));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         connectionListener = new ConnectionListener(logger);

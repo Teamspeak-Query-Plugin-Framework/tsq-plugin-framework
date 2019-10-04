@@ -7,8 +7,8 @@ public class CommandDelUser extends CommandInterface {
 
     UserManager userManager;
 
-    public CommandDelUser(Logger logger, ConsoleHandler consoleHandler) {
-        super(logger);
+    public CommandDelUser(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
+        super(logger, terminal);
         this.userManager = consoleHandler.getUserManager();
         groups.add(UserGroup.ROOT);
     }
@@ -21,18 +21,18 @@ public class CommandDelUser extends CommandInterface {
     @Override
     public void gotCalled(String[] args) {
         if (args.length == 0) {
-            System.out.println("Please specify a username.");
+            terminal.println("Please specify a username.");
             return;
         } else {
             if (args[0].equalsIgnoreCase("ROOT")) {
-                System.out.println("Root user can not be deleted.");
+                terminal.println("Root user can not be deleted.");
                 return;
             }
             boolean success = userManager.deleteUser(args[0]);
             if (success)
-                System.out.println("User " + args[0] + " deleted.");
+                terminal.println("User " + args[0] + " deleted.");
             else
-                System.out.println("User " + args[0] + " does not exist.");
+                terminal.println("User " + args[0] + " does not exist.");
         }
     }
 

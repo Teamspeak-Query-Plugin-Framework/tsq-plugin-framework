@@ -4,6 +4,7 @@ import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 import net.vortexdata.tsqpf.exceptions.*;
 
 import java.util.Scanner;
@@ -12,8 +13,8 @@ public class CommandAddUser extends CommandInterface {
 
     private UserManager userManager;
 
-    public CommandAddUser(Logger logger, ConsoleHandler consoleHandler) {
-        super(logger);
+    public CommandAddUser(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
+        super(logger, terminal);
         this.userManager = consoleHandler.getUserManager();
         groups.add(UserGroup.ROOT);
         groups.add(UserGroup.ADMINISTRATOR);
@@ -30,37 +31,37 @@ public class CommandAddUser extends CommandInterface {
         UserGroup newGroup;
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
-        System.out.print("Enter new username: ");
+        terminal.print("Enter new username: ");
         String username = scanner.nextLine();
         if (username.contains(" ") || username.isEmpty()) {
-            System.out.println("Username must not contain whitespaces, please try again.");
+            terminal.println("Username must not contain whitespaces, please try again.");
             return;
         }
-        System.out.print("Enter new password: ");
+        terminal.print("Enter new password: ");
         String password = scanner.nextLine();
-        System.out.print("Re-type new password: ");
+        terminal.print("Re-type new password: ");
         String retypePassword = scanner.nextLine();
         if (!password.equals(retypePassword)) {
-            System.out.println("Passwords don't match, please try again.");
+            terminal.println("Passwords don't match, please try again.");
             return;
         }
 
-        System.out.print("Group (Administrator / Guest): ");
+        terminal.print("Group (Administrator / Guest): ");
         String group = scanner.nextLine();
         if (group.equalsIgnoreCase("ADMINISTRATOR"))
             newGroup = UserGroup.ADMINISTRATOR;
         else if (group.equalsIgnoreCase("GUEST"))
             newGroup = UserGroup.GUEST;
         else {
-            System.out.println(group + " does not match any of the available groups, please try again.");
+            terminal.println(group + " does not match any of the available groups, please try again.");
             return;
         }
 
         try {
             userManager.createUser(username, password, newGroup);
-            System.out.println("New user created.");
+            terminal.println("New user created.");
         } catch (UserAlreadyExistingException e) {
-            System.out.println("Fatal: User " + username + " already exists.");
+            terminal.println("Fatal: User " + username + " already exists.");
             return;
         }
 

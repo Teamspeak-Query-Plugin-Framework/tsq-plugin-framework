@@ -2,6 +2,7 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 /**
  * Displays help on console
@@ -14,8 +15,8 @@ public class CommandHelp extends CommandInterface {
 
     private ConsoleHandler consoleHandler;
 
-    public CommandHelp(Logger logger, ConsoleHandler handler) {
-        super(logger);
+    public CommandHelp(Logger logger, ConsoleHandler handler, VirtualTerminal terminal) {
+        super(logger, terminal);
         consoleHandler = handler;
     }
 
@@ -30,15 +31,15 @@ public class CommandHelp extends CommandInterface {
         if (args.length > 0) {
             for (CommandInterface cmd : consoleHandler.getCommands()) {
                 if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    System.out.println(cmd.getHelpMessage());
+                    terminal.println(cmd.getHelpMessage());
                     return;
                 }
             }
         } else if (args.length > 1) {
-            System.out.println("Incremented help is not supported in this build.");
+            terminal.println("Incremented help is not supported in this build.");
         } else {
             for (CommandInterface command : consoleHandler.getCommands()) {
-                System.out.println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
+                terminal.println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
             }
         }
 

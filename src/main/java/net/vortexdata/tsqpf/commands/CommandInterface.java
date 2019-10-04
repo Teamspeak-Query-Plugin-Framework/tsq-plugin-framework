@@ -1,7 +1,9 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 import java.util.ArrayList;
 
@@ -15,10 +17,12 @@ public abstract class CommandInterface {
 
     protected ArrayList<UserGroup> groups;
     private Logger logger;
+    protected VirtualTerminal terminal;
 
-    public CommandInterface(Logger logger) {
+    public CommandInterface(Logger logger, VirtualTerminal terminal) {
         groups = new ArrayList<>();
         this.logger = logger;
+        this.terminal = terminal;
     }
 
     protected Logger getLogger() {

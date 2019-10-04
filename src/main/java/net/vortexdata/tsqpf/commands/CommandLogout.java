@@ -2,13 +2,14 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandLogout extends CommandInterface {
 
     private ConsoleHandler consoleHandler;
 
-    public CommandLogout(Logger logger, ConsoleHandler consoleHandler) {
-        super(logger);
+    public CommandLogout(Logger logger, ConsoleHandler consoleHandler, VirtualTerminal terminal) {
+        super(logger, terminal);
         this.consoleHandler = consoleHandler;
     }
 
