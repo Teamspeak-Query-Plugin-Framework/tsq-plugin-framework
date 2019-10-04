@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="net.vortexdata.tsqpf-2.0.0-preview">
-    <output-path>$PROJECT_DIR$/out/artifacts/net_vortexdata_tsqpf_2_0_0_preview</output-path>
-    <root id="archive" name="net.vortexdata.tsqpf-2.0.0-preview.jar">
+  <artifact type="jar" name="Vortexdata Release Build">
+    <output-path>$PROJECT_DIR$/out/artifacts/Vortexdata_Release_Build</output-path>
+    <root id="archive" name="Vortexdata Release Build.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/main/manifest/release/META-INF/MANIFEST.MF" />
       </element>
