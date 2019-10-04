@@ -94,13 +94,13 @@ public class ConsoleHandler implements Runnable {
                         commandExists = true;
                         break;
                     } else {
-                        System.out.println("Permission denied.");
+                        terminal.println("Permission denied.");
                     }
                     commandExists = true;
                 }
             }
             if (!commandExists) {
-                System.out.println(commandPrefix + ": command not found");
+                terminal.println(commandPrefix + ": command not found");
             }
         }
     }
