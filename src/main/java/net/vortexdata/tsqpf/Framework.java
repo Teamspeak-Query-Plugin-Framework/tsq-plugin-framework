@@ -50,6 +50,7 @@ public class Framework {
 
     public void init() {
 
+        printCopyHeader();
         logger = new FrameworkLogger(this);
 
         // Init BootHandler
