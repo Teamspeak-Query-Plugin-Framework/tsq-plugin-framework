@@ -1,6 +1,6 @@
 package net.vortexdata.tsqpf.modules;
 
-import net.vortexdata.tsqpf.exceptions.InvalidConfigPropertyKey;
+import net.vortexdata.tsqpf.exceptions.InvalidConfigPropertyKeyException;
 
 import java.io.*;
 import java.util.Arrays;
@@ -103,7 +103,7 @@ public class PluginConfig {
             for (String key : entries.keySet()) {
                 if (key.contains(":")) {
                     writer.close();
-                    throw new InvalidConfigPropertyKey("Key must not contain ':'");
+                    throw new InvalidConfigPropertyKeyException("Key must not contain ':'");
                 }
                 writer.write(key + ":" + entries.get(key) + "\n");
 
