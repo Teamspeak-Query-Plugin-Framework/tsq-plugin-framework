@@ -11,6 +11,7 @@ import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.installers.InstallWizzard;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
@@ -141,6 +142,8 @@ public class Framework {
         consoleHandler.start();
         connectionListener = new ConnectionListener(logger);
         connectionListener.start();
+
+        HeartBeatListener heartBeatListener = new HeartBeatListener();
 
 
     }
