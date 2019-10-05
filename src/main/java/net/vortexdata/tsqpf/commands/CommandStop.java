@@ -28,7 +28,7 @@ public class CommandStop extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args, VirtualTerminal terminal) {
-        framework.shutdown(true);
+        framework.shutdown();
     }
 
     @Override
