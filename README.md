@@ -84,3 +84,9 @@ No additional software required.
    - WelcomeMessage (https://github.com/Vortexdata/tsqpf-plugin-welcomemessage)
    - PrivateChannel (https://github.com/Vortexdata/tsqpf-plugin-privatechannel)
    - Analytics (N/A)
+
+## Using the Remote Shell 
+
+[DESCRIPTION NEEDED]
+
+##
