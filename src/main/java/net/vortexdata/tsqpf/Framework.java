@@ -45,11 +45,12 @@ public class Framework {
 
     public static void main(String[] args) {
         instance = new Framework();
-        instance.init();
+        instance.init(args);
     }
 
-    public void init() {
+    public void init(String[] args) {
 
+        evaluateArgs(args);
         printCopyHeader();
         logger = new FrameworkLogger(this);
 
