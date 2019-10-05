@@ -143,7 +143,7 @@ public class Framework {
         connectionListener = new ConnectionListener(logger);
         connectionListener.start();
 
-        HeartBeatListener heartBeatListener = new HeartBeatListener();
+        HeartBeatListener heartBeatListener = new HeartBeatListener(api);
 
 
     }
