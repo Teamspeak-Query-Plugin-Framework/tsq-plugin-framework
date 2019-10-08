@@ -253,8 +253,8 @@ public class Framework {
             if (args[i].contains("-debug")) {
                 rootLogger.setLevel(Level.DEBUG);
             } else if (args[i].contains("-setup")) {
-                InstallWizzard installWizzard = new InstallWizzard();
-                installWizzard.init();
+                System.out.println("Setup wizard is not supported in this build.");
+                System.exit(0);
             }
         }
 
