@@ -4,6 +4,7 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.configs.ConfigMain;
+import net.vortexdata.tsqpf.configs.ConfigMessages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +18,11 @@ import java.util.HashMap;
  */
 public class ChatCommandListener {
 
-    private ConfigMain config;
     private String messageCommandNotFound;
     private TS3Api ts3Api;
 
-    public ChatCommandListener(Framework Framework, ConfigMain config) {
-        this.messageCommandNotFound = config.getProperty("messageChatCommandNotFound");
+    public ChatCommandListener(Framework Framework, ConfigMessages msgConfig) {
+        this.messageCommandNotFound = msgConfig.getProperty("chatCommandUnknown");
         ts3Api = Framework.getApi();
     }
 
@@ -33,12 +33,15 @@ public class ChatCommandListener {
      */
     public void newMessage(TextMessageEvent msg) {
 
-        if (commandList.size() == 0) return;
-
         // Send TSQPF Info
         if (msg.getMessage().startsWith("!info")) {
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
+            return;
+        }
+
+        if (commandList.size() == 0) {
+            ts3Api.sendPrivateMessage(msg.getInvokerId(), messageCommandNotFound);
             return;
         }
 

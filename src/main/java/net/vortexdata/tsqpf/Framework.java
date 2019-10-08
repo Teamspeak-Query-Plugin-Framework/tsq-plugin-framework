@@ -8,6 +8,7 @@ import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
+import net.vortexdata.tsqpf.configs.ConfigMessages;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
@@ -42,6 +43,7 @@ public class Framework {
     private PluginManager pluginManager;
     private net.vortexdata.tsqpf.console.Logger logger;
     private ConnectionListener connectionListener;
+    private ReconnectStrategy reconnectStrategy;
 
     public static void main(String[] args) {
         instance = new Framework();
@@ -60,9 +62,13 @@ public class Framework {
 
         // Load main config
         ConfigMain configMain = new ConfigMain();
-        logger.printDebug("Loading main config...");
-        boolean didConfigExist = configMain.load();
-        if (!didConfigExist) {
+        ConfigMessages configMessages = new ConfigMessages();
+        logger.printDebug("Loading configs...");
+        boolean didConfigMainExist = configMain.load();
+        boolean didConfigMessagesExist = configMessages.load();
+        if (!didConfigMessagesExist)
+            logger.printWarn("Could not find message config file, therefor created a new one. You might want to review its values.");
+        if (!didConfigMainExist) {
             logger.printWarn("Could not find config file, therefor created a new one. Please review and adjust its values to avoid any issues.");
             shutdown();
         }
@@ -78,16 +84,21 @@ public class Framework {
         String reconnectStrategy = configMain.getProperty("reconnectStrategy");
         if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
             config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+            this.reconnectStrategy = ReconnectStrategy.exponentialBackoff();
         } else if (reconnectStrategy.equalsIgnoreCase("disconnect")) {
             config.setReconnectStrategy(ReconnectStrategy.disconnect());
+            this.reconnectStrategy = ReconnectStrategy.disconnect();
         } else if (reconnectStrategy.equalsIgnoreCase("linearBackoff")) {
             config.setReconnectStrategy(ReconnectStrategy.linearBackoff());
+            this.reconnectStrategy = ReconnectStrategy.linearBackoff();
         } else if (reconnectStrategy.equalsIgnoreCase("userControlled")) {
             logger.printWarn("UserControlled reconnect strategy is currently not supported, reverting to disconnect. You will have to manually restart the framework after a timeout.");
             config.setReconnectStrategy(ReconnectStrategy.disconnect());
+            this.reconnectStrategy = ReconnectStrategy.disconnect();
         } else {
             logger.printWarn("Could not identify reconnect strategy " + reconnectStrategy + ", falling back to exponentialBackoff.");
             config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+            this.reconnectStrategy = ReconnectStrategy.exponentialBackoff();
         }
         logger.printDebug("Reconnect strategy set.");
 
@@ -96,7 +107,7 @@ public class Framework {
             @Override
             public void onConnect(TS3Query ts3Query) {
                 api = ts3Query.getApi();
-                wake(configMain, ts3Query);
+                wake(configMain, configMessages, ts3Query);
             }
 
             @Override
@@ -118,7 +129,7 @@ public class Framework {
             shutdown();
         }
 
-        chatCommandListener = new ChatCommandListener(this, configMain);
+        chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printInfo("Successfully established connection to server.");
 
@@ -175,13 +186,17 @@ public class Framework {
     }
 
     public void sleep() {
+        if (this.reconnectStrategy == ReconnectStrategy.disconnect()) {
+            shutdown();
+            return;
+        }
         logger.printDebug("Sleep initiated.");
         logger.printDebug("Disabling all plugins...");
         pluginManager.disableAll();
         logger.printDebug("All plugins disabled.");
     }
 
-    public TS3Query wake(ConfigMain configMain, TS3Query query) {
+    public TS3Query wake(ConfigMain configMain, ConfigMessages configMessages, TS3Query query) {
 
         logger.printDebug("Wakeup initiated.");
         api = query.getApi();
@@ -213,7 +228,7 @@ public class Framework {
             System.exit(0);
         }
 
-        chatCommandListener = new ChatCommandListener(this, configMain);
+        chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printDebug("Trying to register global events...");
         api.registerAllEvents();
@@ -238,8 +253,8 @@ public class Framework {
             if (args[i].contains("-debug")) {
                 rootLogger.setLevel(Level.DEBUG);
             } else if (args[i].contains("-setup")) {
-                InstallWizzard installWizzard = new InstallWizzard();
-                installWizzard.init();
+                System.out.println("Setup wizard is not supported in this build.");
+                System.exit(0);
             }
         }
 
