@@ -36,6 +36,7 @@ public class Config implements ConfigInterface {
             // Return empty map if config is empty.
             values = null;
             this.create();
+            return false;
         } else {
             try {
                 Properties prop = new Properties();
