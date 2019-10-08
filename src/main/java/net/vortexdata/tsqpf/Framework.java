@@ -107,7 +107,7 @@ public class Framework {
             @Override
             public void onConnect(TS3Query ts3Query) {
                 api = ts3Query.getApi();
-                wake(configMain, ts3Query);
+                wake(configMain, configMessages, ts3Query);
             }
 
             @Override
@@ -129,7 +129,7 @@ public class Framework {
             shutdown();
         }
 
-        chatCommandListener = new ChatCommandListener(this, configMain);
+        chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printInfo("Successfully established connection to server.");
 
@@ -196,7 +196,7 @@ public class Framework {
         logger.printDebug("All plugins disabled.");
     }
 
-    public TS3Query wake(ConfigMain configMain, TS3Query query) {
+    public TS3Query wake(ConfigMain configMain, ConfigMessages configMessages, TS3Query query) {
 
         logger.printDebug("Wakeup initiated.");
         api = query.getApi();
@@ -228,7 +228,7 @@ public class Framework {
             System.exit(0);
         }
 
-        chatCommandListener = new ChatCommandListener(this, configMain);
+        chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printDebug("Trying to register global events...");
         api.registerAllEvents();
