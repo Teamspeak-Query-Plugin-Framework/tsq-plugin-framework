@@ -67,4 +67,11 @@ public class Config implements ConfigInterface {
         return path;
     }
 
+    public String getProperty(String key) {
+        if (values == null || values.isEmpty())
+            return defaultValues.get(key);
+        else
+            return values.get(key);
+    }
+
 }
