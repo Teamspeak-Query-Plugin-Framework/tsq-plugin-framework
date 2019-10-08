@@ -1,6 +1,8 @@
 package net.vortexdata.tsqpf.installers;
 
 
+import net.vortexdata.tsqpf.configs.Config;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,21 +24,20 @@ public class InstallConfig {
     /**
      * Creates a new config file at the desired path.
      *
-     * @param path          Desired path of new config file
-     * @param defaultValues The configs default values
+     * @param config          Config object that needs new config file
      * @return true if creation was successful
      */
-    public boolean create(String path, HashMap<String, String> defaultValues) {
+    public boolean create(Config config) {
         // Purge if file remains
-        File file = new File(path);
+        File file = new File(config.getPath());
         if (file.exists()) {
             file.delete();
         }
 
         Properties prop = new Properties();
-        prop.putAll(defaultValues);
+        prop.putAll(config.getDefaultValues());
 
-        File configFile = new File(path);
+        File configFile = new File(config.getPath());
         configFile.getParentFile().mkdirs();
         try {
             FileOutputStream fileOut = new FileOutputStream(configFile, false);

@@ -1,6 +1,8 @@
 package net.vortexdata.tsqpf.configs;
 
 
+import net.vortexdata.tsqpf.installers.InstallConfig;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
@@ -31,7 +33,8 @@ public class Config implements ConfigInterface {
         if (!file.exists()) {
             // Return empty map if config is empty.
             values = null;
-            return false;
+            InstallConfig installConfig = new InstallConfig();
+            installConfig.create(this);
         } else {
             try {
                 Properties prop = new Properties();
