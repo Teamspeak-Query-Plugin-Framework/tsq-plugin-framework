@@ -1,14 +1,9 @@
 package net.vortexdata.tsqpf.console;
 
-
-
-import com.sun.javafx.css.PseudoClassState;
 import net.vortexdata.tsqpf.remoteShell.CipherHelper;
 import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
 import net.vortexdata.tsqpf.remoteShell.Session;
-import net.vortexdata.tsqpf.utils.CipherUtils;
 import org.json.simple.JSONObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
 import java.io.InputStream;
