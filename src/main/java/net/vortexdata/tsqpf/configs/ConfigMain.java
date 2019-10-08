@@ -24,6 +24,7 @@ public class ConfigMain extends Config {
         defaultValues.put("clientNickname", "TSQP Framework");
         defaultValues.put("reconnectStrategy", "exponentialBackoff");
         defaultValues.put("shellPort", "12342");
+        defaultValues.put("enableRemoteShell", "true");
     }
 
 }
