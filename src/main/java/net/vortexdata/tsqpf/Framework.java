@@ -23,6 +23,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.io.*;
+import java.util.*;
+
 /**
  * Copyright (C) VortexdataNET - All Rights Reserved
  * Unauthorized redistribution of this software, via any medium is prohibited!
@@ -261,15 +264,26 @@ public class Framework {
     }
 
     public void printCopyHeader() {
-        System.out.println("|| ==================================================== ||");
-        System.out.println("|| Teamspeak Query Plugin Framework                     ||");
-        System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
-        System.out.println("||                                                      ||");
-        System.out.println("|| Support: support@vortexdata.net                      ||");
-        System.out.println("|| Authors: Michael Wiesinger, Sandro Kierner           ||");
-        System.out.println("|| Publisher: VortexdataNET                             ||");
-        System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
-        System.out.println("|| ==================================================== ||");
+
+        String version = "unknown";
+        final Properties properties = new Properties();
+        try {
+            properties.load(getClass().getResourceAsStream("project.properties"));
+            version = properties.getProperty("version");
+        } catch (IOException e) {
+            version = "unknown";
+        }
+
+        System.out.println("==================================================== ");
+        System.out.println("Teamspeak Query Plugin Framework | Version " + version);
+        System.out.println("https://projects.vortexdata.net/tsq-plugin-framework ");
+        System.out.println("                                                     ");
+        System.out.println("Support: support@vortexdata.net                      ");
+        System.out.println("Authors: Michael Wiesinger, Sandro Kierner           ");
+        System.out.println("Publisher: VortexdataNET                             ");
+        System.out.println("Copyright: Copyright (C) 2019 VortexdataNET          ");
+        System.out.println("==================================================== ");
+        System.out.println("");
         System.out.println();
         // Sleep for 1 second
         try {
