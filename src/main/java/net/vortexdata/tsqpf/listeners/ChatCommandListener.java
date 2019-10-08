@@ -4,6 +4,7 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.configs.ConfigMain;
+import net.vortexdata.tsqpf.configs.ConfigMessages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +18,11 @@ import java.util.HashMap;
  */
 public class ChatCommandListener {
 
-    private ConfigMain config;
     private String messageCommandNotFound;
     private TS3Api ts3Api;
 
-    public ChatCommandListener(Framework Framework, ConfigMain config) {
-        this.messageCommandNotFound = config.getProperty("messageChatCommandNotFound");
+    public ChatCommandListener(Framework Framework, ConfigMessages msgConfig) {
+        this.messageCommandNotFound = msgConfig.getProperty("chatCommandUnknown");
         ts3Api = Framework.getApi();
     }
 
