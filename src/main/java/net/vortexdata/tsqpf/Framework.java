@@ -268,13 +268,27 @@ public class Framework {
         String version = "unknown";
         final Properties properties = new Properties();
         try {
-            properties.load(getClass().getResourceAsStream("project.properties"));
+            properties.load(getClass().getResourceAsStream("/project.properties"));
             version = properties.getProperty("version");
         } catch (IOException e) {
             version = "unknown";
         }
 
-        System.out.println("==================================================== ");
+        String versionLine = "Teamspeak Query Plugin Framework | Version " + version;
+        String projectUrl = "https://projects.vortexdata.net/tsq-plugin-framework";
+        String delimiterLine = "";
+
+        if (versionLine.length() > projectUrl.length()) {
+            for (int i = 0; i < versionLine.length(); i++) {
+                delimiterLine += "=";
+            }
+        } else {
+            for (int i = 0; i < projectUrl.length(); i++) {
+                delimiterLine += "=";
+            }
+        }
+
+        System.out.println(delimiterLine);
         System.out.println("Teamspeak Query Plugin Framework | Version " + version);
         System.out.println("https://projects.vortexdata.net/tsq-plugin-framework ");
         System.out.println("                                                     ");
@@ -282,7 +296,7 @@ public class Framework {
         System.out.println("Authors: Michael Wiesinger, Sandro Kierner           ");
         System.out.println("Publisher: VortexdataNET                             ");
         System.out.println("Copyright: Copyright (C) 2019 VortexdataNET          ");
-        System.out.println("==================================================== ");
+        System.out.println(delimiterLine);
         System.out.println("");
         System.out.println();
         // Sleep for 1 second
