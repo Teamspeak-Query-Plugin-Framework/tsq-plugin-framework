@@ -23,7 +23,6 @@ public class ConfigMain extends Config {
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
         defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("messageChatCommandNotFound", "Unknown command.");
         defaultValues.put("shellPort", "12342");
     }
 
