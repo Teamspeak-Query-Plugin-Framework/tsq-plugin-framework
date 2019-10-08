@@ -9,6 +9,7 @@
     </appender>
 
     <appender name="roll" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Append" value="false" />
         <param name="File" value="logs//latest.log" />
         <param name="DatePattern" value=".yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
