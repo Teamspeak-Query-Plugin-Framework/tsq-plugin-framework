@@ -21,40 +21,6 @@ import java.util.Properties;
  */
 public class InstallConfig {
 
-    /**
-     * Creates a new config file at the desired path.
-     *
-     * @param config          Config object that needs new config file
-     * @return true if creation was successful
-     */
-    public boolean create(Config config) {
-        // Purge if file remains
-        File file = new File(config.getPath());
-        if (file.exists()) {
-            file.delete();
-        }
 
-        Properties prop = new Properties();
-        prop.putAll(config.getDefaultValues());
-
-        File configFile = new File(config.getPath());
-        configFile.getParentFile().mkdirs();
-        try {
-            FileOutputStream fileOut = new FileOutputStream(configFile, false);
-
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            Date date = new Date();
-
-            prop.store(fileOut, "Generated at: " + dateFormat.format(date));
-            fileOut.flush();
-            fileOut.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-    }
 
 }
