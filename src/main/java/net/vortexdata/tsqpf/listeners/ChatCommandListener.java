@@ -33,12 +33,15 @@ public class ChatCommandListener {
      */
     public void newMessage(TextMessageEvent msg) {
 
-        if (commandList.size() == 0) return;
-
         // Send TSQPF Info
         if (msg.getMessage().startsWith("!info")) {
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
+            return;
+        }
+
+        if (commandList.size() == 0) {
+            ts3Api.sendPrivateMessage(msg.getInvokerId(), messageCommandNotFound);
             return;
         }
 
