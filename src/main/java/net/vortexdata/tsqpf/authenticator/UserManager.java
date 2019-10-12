@@ -285,6 +285,7 @@ public class UserManager {
         try {
             createUser("root", newPassword, UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
+            // Print root user information
             System.out.println("===============================================");
             System.out.println("IMPORTANT! SAVE THIS INFORMATION FOR LATER USE!");
             System.out.println("===============================================");
