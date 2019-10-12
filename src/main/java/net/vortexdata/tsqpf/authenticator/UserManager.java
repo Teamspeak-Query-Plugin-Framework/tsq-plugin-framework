@@ -280,12 +280,17 @@ public class UserManager {
         byte[] array = new byte[10];
         new Random().nextBytes(array);
         String generatedString = new String(array, Charset.forName("UTF-8"));
+        String newPassword = "testpassword";
 
         try {
-            createUser("root", "testpassword", UserGroup.ROOT);
+            createUser("root", newPassword, UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
-            logger.printDebug("Exporting root user info to file...");
-            logger.printWarn("Print root user info to file is not supported in this build.");
+            System.out.println("===============================================");
+            System.out.println("IMPORTANT! SAVE THIS INFORMATION FOR LATER USE!");
+            System.out.println("===============================================");
+            System.out.println("Root user: root");
+            System.out.println("Root password: " + newPassword);
+            System.out.println("===============================================");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");
         }
