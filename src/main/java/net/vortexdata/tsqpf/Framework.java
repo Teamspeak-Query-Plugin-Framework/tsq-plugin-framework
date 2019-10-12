@@ -48,6 +48,8 @@ public class Framework {
     private ConnectionListener connectionListener;
     private ReconnectStrategy reconnectStrategy;
 
+    private boolean regenerateRootUser = false;
+
     public static void main(String[] args) {
         instance = new Framework();
         instance.init(args);
@@ -137,7 +139,7 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG, regenerateRootUser);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
@@ -258,6 +260,8 @@ public class Framework {
             } else if (args[i].contains("-setup")) {
                 System.out.println("Setup wizard is not supported in this build.");
                 System.exit(0);
+            } else if (args[i].contains("-regenerate-root")) {
+                regenerateRootUser = true;
             }
         }
 
