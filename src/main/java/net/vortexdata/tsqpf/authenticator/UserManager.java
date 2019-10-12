@@ -277,10 +277,9 @@ public class UserManager {
     }
 
     public String generateRootUser() {
-        byte[] array = new byte[10];
+        byte[] array = new byte[7];
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
-        String newPassword = "testpassword";
+        String newPassword = new String(array, Charset.forName("UTF-8"));
 
         try {
             createUser("root", newPassword, UserGroup.ROOT);
@@ -296,7 +295,7 @@ public class UserManager {
             logger.printError("Root user already exists.");
         }
 
-        return generatedString;
+        return newPassword;
 
     }
 
