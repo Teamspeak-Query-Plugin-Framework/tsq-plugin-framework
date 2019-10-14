@@ -289,7 +289,7 @@ public class UserManager {
         }
 
         System.out.println("====================[ IMPORTANT ]====================");
-        System.out.println("> Please write down or save this \ninformation");
+        System.out.println("> Please write down or save this information");
         System.out.println("> ");
         System.out.println("> Root user: root");
         System.out.println("> Root password: " + generatedPassword);
