@@ -277,29 +277,27 @@ public class UserManager {
     }
 
     public String generateRootUser() {
-        byte[] array = new byte[7];
+
+        byte[] array = new byte[10];
         new Random().nextBytes(array);
-        String newPassword = new String(array, Charset.forName("UTF-8"));
+        String generatedPassword = new String(array, Charset.forName("UTF-8"));
 
         try {
-            createUser("root", newPassword, UserGroup.ROOT);
+            createUser("root", generatedPassword, UserGroup.ROOT);
             logger.printDebug("New root user successfully generated.");
-            // Print root user information
-            System.out.println("===============================================");
-            System.out.println("IMPORTANT! SAVE THIS INFORMATION FOR LATER USE!");
-            System.out.println("===============================================");
-            System.out.println("Root user: root");
-            System.out.println("Root password: " + newPassword);
-            System.out.println("===============================================");
         } catch (UserAlreadyExistingException e) {
             logger.printError("Root user already exists.");
         }
 
-        return newPassword;
+        return generatedPassword;
 
     }
 
     public boolean deleteUser(String username) {
+        return deleteUser(username, false);
+    }
+
+    public boolean deleteUser(String username, boolean forcedelete) {
 
         if (username.equalsIgnoreCase("ROOT"))
             return false;

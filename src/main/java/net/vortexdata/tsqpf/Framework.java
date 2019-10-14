@@ -23,9 +23,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.io.*;
-import java.util.*;
-
 /**
  * Copyright (C) VortexdataNET - All Rights Reserved
  * Unauthorized redistribution of this software, via any medium is prohibited!
@@ -47,8 +44,7 @@ public class Framework {
     private net.vortexdata.tsqpf.console.Logger logger;
     private ConnectionListener connectionListener;
     private ReconnectStrategy reconnectStrategy;
-
-    private boolean regenerateRootUser = false;
+    private boolean resetRoot = false;
 
     public static void main(String[] args) {
         instance = new Framework();
@@ -139,7 +135,7 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG, regenerateRootUser);
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
@@ -163,6 +159,8 @@ public class Framework {
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
 
+        if (resetRoot)
+            consoleHandler.resetRoot();
 
     }
 
@@ -260,48 +258,23 @@ public class Framework {
             } else if (args[i].contains("-setup")) {
                 System.out.println("Setup wizard is not supported in this build.");
                 System.exit(0);
-            } else if (args[i].contains("-regenerate-root")) {
-                regenerateRootUser = true;
+            } else if (args[i].contains("-reset-root")) {
+                resetRoot = true;
             }
         }
 
     }
 
     public void printCopyHeader() {
-
-        String version = "unknown";
-        final Properties properties = new Properties();
-        try {
-            properties.load(getClass().getResourceAsStream("/project.properties"));
-            version = properties.getProperty("version");
-        } catch (IOException e) {
-            version = "unknown";
-        }
-
-        String versionLine = "Teamspeak Query Plugin Framework | Version " + version;
-        String projectUrl = "https://projects.vortexdata.net/tsq-plugin-framework";
-        String delimiterLine = "";
-
-        if (versionLine.length() > projectUrl.length()) {
-            for (int i = 0; i < versionLine.length(); i++) {
-                delimiterLine += "=";
-            }
-        } else {
-            for (int i = 0; i < projectUrl.length(); i++) {
-                delimiterLine += "=";
-            }
-        }
-
-        System.out.println(delimiterLine);
-        System.out.println("Teamspeak Query Plugin Framework | Version " + version);
-        System.out.println("https://projects.vortexdata.net/tsq-plugin-framework ");
-        System.out.println("                                                     ");
-        System.out.println("Support: support@vortexdata.net                      ");
-        System.out.println("Authors: Michael Wiesinger, Sandro Kierner           ");
-        System.out.println("Publisher: VortexdataNET                             ");
-        System.out.println("Copyright: Copyright (C) 2019 VortexdataNET          ");
-        System.out.println(delimiterLine);
-        System.out.println("");
+        System.out.println("|| ==================================================== ||");
+        System.out.println("|| Teamspeak Query Plugin Framework                     ||");
+        System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
+        System.out.println("||                                                      ||");
+        System.out.println("|| Support: support@vortexdata.net                      ||");
+        System.out.println("|| Authors: Michael Wiesinger, Sandro Kierner           ||");
+        System.out.println("|| Publisher: VortexdataNET                             ||");
+        System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
+        System.out.println("|| ==================================================== ||");
         System.out.println();
         // Sleep for 1 second
         try {
