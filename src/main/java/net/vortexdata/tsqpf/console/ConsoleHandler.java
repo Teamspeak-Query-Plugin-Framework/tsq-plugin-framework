@@ -26,6 +26,7 @@ public class ConsoleHandler implements Runnable {
     private Thread thread;
     private List<CommandInterface> commands = Collections.synchronizedList(new ArrayList<CommandInterface>());
     private static boolean running = false;
+    private boolean didRootExist = false;
 
     public ConsoleHandler(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel) {
         this.logger = logger;
@@ -114,10 +115,13 @@ public class ConsoleHandler implements Runnable {
         String[] data;
 
         logger.printDebug("Looking for root user account...");
-        if (!userManager.doesRootUserExist())
+        if (!userManager.doesRootUserExist()) {
+            didRootExist = false;
             userManager.generateRootUser();
-        else
+        } else {
             logger.printDebug("Root user found, skipping creation...");
+            didRootExist = true;
+        }
 
         do {
             do {
@@ -175,4 +179,7 @@ public class ConsoleHandler implements Runnable {
         userManager.generateRootUser();
     }
 
+    public boolean isDidRootExist() {
+        return didRootExist;
+    }
 }
