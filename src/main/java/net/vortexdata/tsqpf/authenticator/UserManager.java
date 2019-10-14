@@ -306,8 +306,10 @@ public class UserManager {
 
     public boolean deleteUser(String username, boolean forcedelete) {
 
-        if (username.equalsIgnoreCase("ROOT"))
-            return false;
+        if (!forcedelete) {
+            if (username.equalsIgnoreCase("ROOT"))
+                return false;
+        }
 
         boolean success = false;
         logger.printDebug("Trying to delete user...");
