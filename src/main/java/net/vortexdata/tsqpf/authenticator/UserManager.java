@@ -289,6 +289,13 @@ public class UserManager {
             logger.printError("Root user already exists.");
         }
 
+        System.out.println("==============[ IMPORTANT ]==============");
+        System.out.println("Root user: root");
+        System.out.println("Root password: " + generatedPassword);
+        System.out.println("");
+        System.out.println("Please write down or save this \ninformation");
+        System.out.println("=========================================");
+
         return generatedPassword;
 
     }

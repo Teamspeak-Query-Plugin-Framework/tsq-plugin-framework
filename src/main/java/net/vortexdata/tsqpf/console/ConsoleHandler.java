@@ -172,13 +172,7 @@ public class ConsoleHandler implements Runnable {
 
     public void resetRoot() {
         userManager.deleteUser("root", true);
-        String newPass = userManager.generateRootUser();
-        System.out.println("==============[ IMPORTANT ]==============");
-        System.out.println("Root user: root");
-        System.out.println("Root password: " + newPass);
-        System.out.println("");
-        System.out.println("Please write down or save this \ninformation");
-        System.out.println("=========================================");
+        userManager.generateRootUser();
     }
 
 }
