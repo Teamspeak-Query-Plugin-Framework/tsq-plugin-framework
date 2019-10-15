@@ -7,7 +7,7 @@
     <groupId>net.vortexdata.tsqpf</groupId>
     <artifactId>net.vortexdata.tsqpf</artifactId>
 
-    <version>2.0.0-mint-preview-y19m10d15</version>
+    <version>2.0.0-mint-y19m10d15</version>
 
     <name>Teamspeak Query Plugin Framework</name>
 
