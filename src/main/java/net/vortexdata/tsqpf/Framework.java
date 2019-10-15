@@ -159,9 +159,9 @@ public class Framework {
             shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
         } catch (Exception e) {
             logger.printError("Failed to parse shell port value, falling back to default.");
-            shellPort = configMain.get
+            shellPort = Integer.parseInt(configMain.getDefaultProperty("shellPort"));
         }
-        connectionListener = new ConnectionListener(logger);
+        connectionListener = new ConnectionListener(logger, shellPort);
         connectionListener.start();
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
