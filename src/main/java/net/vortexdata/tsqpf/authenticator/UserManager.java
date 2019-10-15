@@ -4,7 +4,7 @@ import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
-import net.vortexdata.tsqpf.utils.HashUtils;
+import net.vortexdata.tsqpf.utils.*;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -278,9 +278,8 @@ public class UserManager {
 
     public String generateRootUser() {
 
-        byte[] array = new byte[10];
-        new Random().nextBytes(array);
-        String generatedPassword = new String(array, Charset.forName("UTF-8"));
+        RandomString randomString = new RandomString(16);
+        String generatedPassword = randomString.nextString();
 
         try {
             createUser("root", generatedPassword, UserGroup.ROOT);
@@ -289,12 +288,13 @@ public class UserManager {
             logger.printError("Root user already exists.");
         }
 
-        System.out.println("==============[ IMPORTANT ]==============");
-        System.out.println("Root user: root");
-        System.out.println("Root password: " + generatedPassword);
-        System.out.println("");
-        System.out.println("Please write down or save this \ninformation");
-        System.out.println("=========================================");
+        System.out.println("====================[ IMPORTANT ]====================");
+        System.out.println("> Please write down or save this information");
+        System.out.println("> ");
+        System.out.println("> Root user: root");
+        System.out.println("> Root password: " + generatedPassword);
+        System.out.println("> ");
+        System.out.println("=====================================================");
 
         return generatedPassword;
 

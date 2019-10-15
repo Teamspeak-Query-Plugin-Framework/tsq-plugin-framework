@@ -20,10 +20,12 @@ public class ConnectionListener implements Runnable {
     private ArrayList<Session> sessions = new ArrayList<>();
     public static final Charset CHARSET = Charset.forName("UTF-8");
     public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
+    private int port;
 
 
-    public ConnectionListener(Logger logger) {
+    public ConnectionListener(Logger logger, int port) {
         this.logger = logger;
+        this.port = port;
     }
 
     public void start() {

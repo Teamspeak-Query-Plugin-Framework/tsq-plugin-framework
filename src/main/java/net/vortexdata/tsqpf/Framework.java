@@ -135,7 +135,7 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG, resetRoot);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
@@ -154,13 +154,17 @@ public class Framework {
         bootHandler = null;
 
         consoleHandler.start();
-        connectionListener = new ConnectionListener(logger);
+        int shellPort;
+        try {
+            shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
+        } catch (Exception e) {
+            logger.printError("Failed to parse shell port value, falling back to default.");
+            shellPort = Integer.parseInt(configMain.getDefaultProperty("shellPort"));
+        }
+        connectionListener = new ConnectionListener(logger, shellPort);
         connectionListener.start();
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
-
-        if (!consoleHandler.isDidRootExist() && resetRoot)
-            consoleHandler.resetRoot();
 
     }
 
