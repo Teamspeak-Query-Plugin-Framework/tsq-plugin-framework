@@ -10,7 +10,7 @@ A java-based plugin framework for Teamspeak 3 servers.
 ✅ Setup wizard for easy-to-use installation<br/>
 ✅ Detailed log files and console output<br/>
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
