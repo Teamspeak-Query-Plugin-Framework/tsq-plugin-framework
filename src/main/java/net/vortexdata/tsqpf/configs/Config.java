@@ -114,4 +114,11 @@ public class Config implements ConfigInterface {
             return values.get(key);
     }
 
+    public String getDefaultProperty(String key) {
+        if (defaultValues == null || defaultValues.isEmpty())
+            return "";
+        else
+            return defaultValues.get(key);
+    }
+
 }

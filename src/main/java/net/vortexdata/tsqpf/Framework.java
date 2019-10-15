@@ -154,7 +154,14 @@ public class Framework {
         bootHandler = null;
 
         consoleHandler.start();
-        connectionListener = new ConnectionListener(logger);
+        int shellPort;
+        try {
+            shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
+        } catch (Exception e) {
+            logger.printError("Failed to parse shell port value, falling back to default.");
+            shellPort = Integer.parseInt(configMain.getDefaultProperty("shellPort"));
+        }
+        connectionListener = new ConnectionListener(logger, shellPort);
         connectionListener.start();
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
