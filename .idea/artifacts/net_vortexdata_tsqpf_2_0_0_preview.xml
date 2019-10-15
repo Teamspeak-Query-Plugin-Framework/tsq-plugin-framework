@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="net.vortexdata.tsqpf-2.0.0-preview">
+    <output-path>$PROJECT_DIR$/out/artifacts/net_vortexdata_tsqpf_2_0_0_preview</output-path>
+    <root id="archive" name="net.vortexdata.tsqpf-2.0.0-preview.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/manifest/release/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/theholywaffle/teamspeak3-api/1.2.0/teamspeak3-api-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar" path-in-jar="/" />
+      <element id="module-output" name="tsq-plugin-framework-dev" />
+    </root>
+  </artifact>
+</component>

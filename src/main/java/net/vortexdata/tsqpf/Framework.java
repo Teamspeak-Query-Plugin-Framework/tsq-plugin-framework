@@ -154,6 +154,13 @@ public class Framework {
         bootHandler = null;
 
         consoleHandler.start();
+        int shellPort;
+        try {
+            shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
+        } catch (Exception e) {
+            logger.printError("Failed to parse shell port value, falling back to default.");
+            shellPort = configMain.get
+        }
         connectionListener = new ConnectionListener(logger);
         connectionListener.start();
 
