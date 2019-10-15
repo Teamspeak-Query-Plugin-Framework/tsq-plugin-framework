@@ -2,7 +2,7 @@
 
 A java-based plugin framework for Teamspeak 3 servers.
 
-## Features
+## 🏷️ Features
 ✅ Plugin API to add more features to your Teamspeak server<br/>
 ✅ Plugin cross-talk<br/>
 ✅ Reconnect strategies<br/>
