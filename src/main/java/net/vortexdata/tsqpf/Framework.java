@@ -135,7 +135,7 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG);
+        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG, resetRoot);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
@@ -158,9 +158,6 @@ public class Framework {
         connectionListener.start();
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
-
-        if (consoleHandler.isDidRootExist() && resetRoot)
-            consoleHandler.resetRoot();
 
     }
 
