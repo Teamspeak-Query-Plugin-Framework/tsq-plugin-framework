@@ -159,7 +159,7 @@ public class Framework {
 
         HeartBeatListener heartBeatListener = new HeartBeatListener(api);
 
-        if (!consoleHandler.isDidRootExist() && resetRoot)
+        if (consoleHandler.isDidRootExist() && resetRoot)
             consoleHandler.resetRoot();
 
     }
