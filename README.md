@@ -1,5 +1,7 @@
 # Teamspeak Query Plugin Framework
 
+[![Build Status](https://travis-ci.org/TheHolyWaffle/TeamSpeak-3-Java-API.svg)]
+
 A java-based plugin framework for Teamspeak 3 servers.
 
 ## 🏷️ Features
