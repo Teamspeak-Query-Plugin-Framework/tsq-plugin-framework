@@ -87,7 +87,9 @@ No additional software required.
 
 ## 💡 Developing Plugins
 
-It is really ease to develop plugins for the framework. All you need is a version of the TSQPF api and you need to follow the plugin structure conventions.
+It is really ease to develop plugins for the framework. All you need is a version of the TSQPF api and you need to follow the plugin structure conventions. You can read more about how plugins are structured [in the wiki](https://github.com/Vortexdata/tsq-plugin-framework/wiki/Plugin-Structure)
+
+The api comes with various tools allowing you to easily register chat or console commands, create a custom plugin config and many more. Again, this is all documented in the wiki.
 
 ## 🖥️ Using the Remote Shell 
 
