@@ -3,12 +3,12 @@
 A java-based plugin framework for Teamspeak 3 servers.
 
 ## Features
-- Plugin API to add more features to your Teamspeak server
-- Plugin cross-talk
-- Reconnect strategies
-- Easy plugin development
-- Setup wizard for easy-to-use installation
-- Detailed log files and console output
+✅ Plugin API to add more features to your Teamspeak server
+✅ Plugin cross-talk
+✅ Reconnect strategies
+✅ Easy plugin development
+✅ Setup wizard for easy-to-use installation
+✅ Detailed log files and console output
 
 ## Getting Started
 
