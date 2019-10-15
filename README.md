@@ -85,8 +85,14 @@ No additional software required.
    - PrivateChannel (https://github.com/Vortexdata/tsqpf-plugin-privatechannel)
    - Analytics (N/A)
 
+## 💡 Developing Plugins
+
+It is really ease to develop plugins for the framework. All you need is a version of the TSQPF api and you need to follow the plugin structure conventions.
+
 ## 🖥️ Using the Remote Shell 
 
-[DESCRIPTION NEEDED]
+In order to get started with using the integrated remote shell, you first of all need to make sure that its port is free and not used by any other service. If that is the case, then you need to download the latest version of the remote shell client which can be found [here](https://github.com/Vortexdata/tsqpf-remote-shell-client/releases).
 
-##
+### Connecting to a Framework
+
+You basically just have to run it and enter your TSQPF ip address, port, a user name and its password. If that was successfully done, you should now be connected to the terminal. From this point on you can use all commands just like if you were directly using the terminal.
