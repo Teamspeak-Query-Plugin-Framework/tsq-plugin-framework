@@ -1,6 +1,6 @@
 # Teamspeak Query Plugin Framework
 
-![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg)
+![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)
 
 A java-based plugin framework for Teamspeak 3 servers.
 
