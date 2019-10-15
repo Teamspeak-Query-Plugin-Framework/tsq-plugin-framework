@@ -7,9 +7,9 @@
     <groupId>net.vortexdata.tsqpf</groupId>
     <artifactId>net.vortexdata.tsqpf</artifactId>
 
-    <version>2.0.0-mint-preview-y19m10d8</version>
+    <version>2.0.0-mint-preview-y19m10d15</version>
 
-    <name>My Resources Plugin Practice Project</name>
+    <name>Teamspeak Query Plugin Framework</name>
 
     <dependencies>
 
