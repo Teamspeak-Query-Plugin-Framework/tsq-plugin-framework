@@ -1,5 +1,6 @@
 package net.vortexdata.tsqpf.plugins;
 
+import com.amihaiemil.eoyaml.YamlMapping;
 import net.vortexdata.tsqpf.Framework;
 
 /**
@@ -14,10 +15,12 @@ public class PluginContainer {
     private String pluginName;
     private PluginLogger pluginLogger;
     private PluginConfig pluginConfig;
+    private YamlMapping pluginYamlConfig;
 
-    public PluginContainer(TeamspeakPlugin teamspeakPlugin, String pluginName) {
+    public PluginContainer(TeamspeakPlugin teamspeakPlugin, String pluginName, YamlMapping yamlConfig) {
         this.teamspeakPlugin = teamspeakPlugin;
         this.pluginName = pluginName;
+        this.pluginYamlConfig = yamlConfig;
         pluginConfig = new PluginConfig(this.pluginName);
     }
 
@@ -38,7 +41,9 @@ public class PluginContainer {
         return teamspeakPlugin;
     }
 
-
+    public YamlMapping getPluginYamlConfig() {
+        return this.pluginYamlConfig;
+    }
     /**
      * Returns the plugins name
      */

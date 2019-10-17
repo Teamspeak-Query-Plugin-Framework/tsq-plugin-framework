@@ -76,10 +76,6 @@ public class PluginManager {
             if (file.isDirectory()) return;
 
             URL[] urls = {new URL("jar:file:" + file.getPath() +"!/")};
-
-
-
-
             URLClassLoader loader = new URLClassLoader(urls);
             if(loader == null) {
                 //Cannot load jar file
@@ -99,26 +95,17 @@ public class PluginManager {
                 //Jaml not valid
                 return;
             }
-
-
-
-
-
-
             Class cl = loader.loadClass(main);
-
             if (cl == null) {
                 //Main class not found!
                 return;
             }
-
-
             TeamspeakPlugin plugin = (TeamspeakPlugin) cl.newInstance();
             if (plugin == null) throw new Error("Error no instance found");
 
             if (name == null || name.length() < 1) throw new Error("Invalid Name");
 
-            PluginContainer pc = new PluginContainer(plugin, name);
+            PluginContainer pc = new PluginContainer(plugin, name, yamlMapping);
             pc.initLogger(framework);
             plugin.setContainer(pc);
             plugin.setFramework(framework);
