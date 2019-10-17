@@ -15,7 +15,7 @@ import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.BootHandler;
-import net.vortexdata.tsqpf.modules.PluginManager;
+import net.vortexdata.tsqpf.plugins.PluginManager;
 import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;

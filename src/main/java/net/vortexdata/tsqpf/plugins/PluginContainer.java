@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.plugins;
 
 import net.vortexdata.tsqpf.Framework;
 
@@ -10,13 +10,13 @@ import net.vortexdata.tsqpf.Framework;
  */
 public class PluginContainer {
 
-    private PluginInterface pluginInterface;
+    private TeamspeakPlugin teamspeakPlugin;
     private String pluginName;
     private PluginLogger pluginLogger;
     private PluginConfig pluginConfig;
 
-    public PluginContainer(PluginInterface pluginInterface, String pluginName) {
-        this.pluginInterface = pluginInterface;
+    public PluginContainer(TeamspeakPlugin teamspeakPlugin, String pluginName) {
+        this.teamspeakPlugin = teamspeakPlugin;
         this.pluginName = pluginName;
         pluginConfig = new PluginConfig(this.pluginName);
     }
@@ -34,8 +34,8 @@ public class PluginContainer {
     /**
      * Returns the plugin interface
      */
-    public PluginInterface getPluginInterface() {
-        return pluginInterface;
+    public TeamspeakPlugin getTeamspeakPlugin() {
+        return teamspeakPlugin;
     }
 
 

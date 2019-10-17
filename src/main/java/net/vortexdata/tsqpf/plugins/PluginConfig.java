@@ -1,8 +1,13 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.plugins;
 
 import net.vortexdata.tsqpf.exceptions.InvalidConfigPropertyKeyException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 

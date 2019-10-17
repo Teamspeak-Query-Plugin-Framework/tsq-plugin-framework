@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.plugins;
 
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.console.Logger;

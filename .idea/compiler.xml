@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Ts-Management-Bot" />
-        <module name="tsq-plugin-framework" />
         <module name="tsq-plugin-framework-dev" />
         <module name="Vortexdata" />
+        <module name="tsq-plugin-framework" />
+        <module name="Ts-Management-Bot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
