@@ -96,8 +96,8 @@ public abstract class PluginInterface extends EventHandler {
      *
      * @param cmd The command class
      */
-    protected void registerChatCommand(ChatCommandInterface cmd, String txt) {
-        framework.getChatCommandListener().registerNewCommand(cmd, txt);
+    protected void registerChatCommand(ChatCommandInterface cmd, String prefix) {
+        framework.getChatCommandListener().registerNewCommand(cmd, prefix);
     }
 
     /**
