@@ -4,12 +4,11 @@ import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
-import net.vortexdata.tsqpf.utils.*;
+import net.vortexdata.tsqpf.utils.HashUtils;
+import net.vortexdata.tsqpf.utils.RandomString;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Manages all users and database

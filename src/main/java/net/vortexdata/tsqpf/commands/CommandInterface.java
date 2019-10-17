@@ -1,7 +1,6 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.authenticator.UserGroup;
-import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.VirtualTerminal;
 

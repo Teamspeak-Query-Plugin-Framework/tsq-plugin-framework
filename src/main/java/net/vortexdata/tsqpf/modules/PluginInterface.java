@@ -28,13 +28,6 @@ public abstract class PluginInterface extends EventHandler {
     }
 
     /**
-     * Returns a plugins name
-     *
-     * @return Plugin name
-     */
-    abstract public String getName();
-
-    /**
      * Sets a plugins container
      *
      * @param pc Plugin Container
@@ -43,6 +36,13 @@ public abstract class PluginInterface extends EventHandler {
         if (pluginContainer != null) return;
         pluginContainer = pc;
     }
+
+    /**
+     * Returns a plugins name
+     *
+     * @return Plugin name
+     */
+    abstract public String getName();
 
     /**
      * Sets a plugins framework

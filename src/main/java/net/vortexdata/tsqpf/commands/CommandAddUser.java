@@ -5,9 +5,7 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.VirtualTerminal;
-import net.vortexdata.tsqpf.exceptions.*;
-
-import java.util.Scanner;
+import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 
 public class CommandAddUser extends CommandInterface {
 

@@ -1,10 +1,5 @@
 package net.vortexdata.tsqpf.installers;
 
-import net.vortexdata.tsqpf.configs.ConfigMain;
-
-import java.util.HashMap;
-import java.util.Scanner;
-
 /**
  * Simple user interface to assist users in configuring the framework.
  *
@@ -12,7 +7,6 @@ import java.util.Scanner;
  * @since 1.0.0
  */
 public class InstallWizzard {
-
 
 
 }

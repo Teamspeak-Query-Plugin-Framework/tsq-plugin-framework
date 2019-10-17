@@ -26,8 +26,6 @@ public class RemoteShellTerminal implements VirtualTerminal {
     }
 
 
-
-
     @Override
     public void println(String msg) {
         try {
@@ -40,7 +38,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
 
 
             container.put("type", "data");
-            container.put("data",cipherHelper.encryptString(data.toJSONString()));
+            container.put("data", cipherHelper.encryptString(data.toJSONString()));
             outputStream.write(container.toJSONString().getBytes(ConnectionListener.CHARSET));
             outputStream.write(ConnectionListener.END_OF_MESSAGE);
             outputStream.flush();
@@ -68,14 +66,14 @@ public class RemoteShellTerminal implements VirtualTerminal {
             outputStream.flush();
 
             while (true) {
-                if(session.terminalUserInputBuffer.isEmpty()) {
+                if (session.terminalUserInputBuffer.isEmpty()) {
                     Thread.sleep(10);
                     continue;
                 }
                 JSONObject response = session.terminalUserInputBuffer.take();
 
-                if(!((String)response.get("id")).equals(readId)) continue;
-                return (String)response.get("input");
+                if (!response.get("id").equals(readId)) continue;
+                return (String) response.get("input");
             }
 
         } catch (IOException e) {

@@ -1,6 +1,5 @@
 package net.vortexdata.tsqpf.heartbeat;
 
-import com.github.theholywaffle.teamspeak3.SocketReader;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import net.vortexdata.tsqpf.Framework;
 import org.json.simple.JSONObject;
@@ -8,7 +7,6 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class HeartBeatListener implements Runnable {
@@ -16,6 +14,7 @@ public class HeartBeatListener implements Runnable {
     private static boolean running = false;
     private TS3Api api;
     private Thread thread;
+
     public HeartBeatListener(TS3Api api) {
         this.api = api;
         start();
@@ -30,7 +29,7 @@ public class HeartBeatListener implements Runnable {
 
     @Override
     public void run() {
-        if(running) return;
+        if (running) return;
         running = true;
         ServerSocket listener = null;
         try {

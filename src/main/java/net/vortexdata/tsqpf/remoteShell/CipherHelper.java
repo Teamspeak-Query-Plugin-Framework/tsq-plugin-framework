@@ -2,7 +2,6 @@ package net.vortexdata.tsqpf.remoteShell;
 
 import net.vortexdata.tsqpf.utils.CipherUtils;
 
-import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Objects;

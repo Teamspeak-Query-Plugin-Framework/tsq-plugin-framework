@@ -17,13 +17,21 @@ import java.util.List;
  */
 public class PluginManager {
 
+    private static List<PluginContainer> loadedPlugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
     private Framework framework;
 
     public PluginManager(Framework framework) {
         this.framework = framework;
     }
 
-    private static List<PluginContainer> loadedPlugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
+    /**
+     * Returns a list of all loaded plugins
+     *
+     * @return List of all loaded plugins
+     */
+    public static List<PluginContainer> getLoadedPlugins() {
+        return loadedPlugins;
+    }
 
     /**
      * Runs through the plugin directory and tries to load and enable all plugins.
@@ -88,15 +96,6 @@ public class PluginManager {
             framework.getLogger().printInfo("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin development setup. Dumping error details: " + e.getMessage());
 
         }
-    }
-
-    /**
-     * Returns a list of all loaded plugins
-     *
-     * @return List of all loaded plugins
-     */
-    public static List<PluginContainer> getLoadedPlugins() {
-        return loadedPlugins;
     }
 
 }

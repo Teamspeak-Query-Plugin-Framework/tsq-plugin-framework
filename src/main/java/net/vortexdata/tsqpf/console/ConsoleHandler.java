@@ -17,6 +17,7 @@ import java.util.*;
  */
 public class ConsoleHandler implements Runnable {
 
+    private static boolean running = false;
     private UserManager userManager;
     private User currentUser;
     private org.apache.log4j.Logger rootLogger;
@@ -25,7 +26,6 @@ public class ConsoleHandler implements Runnable {
     private Logger logger;
     private Thread thread;
     private List<CommandInterface> commands = Collections.synchronizedList(new ArrayList<CommandInterface>());
-    private static boolean running = false;
     private boolean didRootExist = false;
     private boolean resetRoot = false;
 

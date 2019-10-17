@@ -39,7 +39,6 @@ public class PluginContainer {
     }
 
 
-
     /**
      * Returns the plugins name
      */

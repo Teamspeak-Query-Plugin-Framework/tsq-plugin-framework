@@ -17,10 +17,8 @@ import java.util.Arrays;
 public class CipherUtils {
 
 
-
-
     /**
-     *  Obfuscates secret and creates a more secure keySpec.
+     * Obfuscates secret and creates a more secure keySpec.
      *
      * @param secret
      */

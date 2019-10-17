@@ -10,10 +10,8 @@ import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.configs.ConfigMessages;
 import net.vortexdata.tsqpf.console.ConsoleHandler;
-import net.vortexdata.tsqpf.console.ConsoleTerminal;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
-import net.vortexdata.tsqpf.installers.InstallWizzard;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.BootHandler;
@@ -29,14 +27,13 @@ import org.apache.log4j.Logger;
  *
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
- *
  * @since 1.0.0
  */
 public class Framework {
 
-    private TS3Config config;
     private static final Logger rootLogger = LogManager.getRootLogger();
     private static Framework instance;
+    private TS3Config config;
     private TS3Api api;
     private ConsoleHandler consoleHandler;
     private ChatCommandListener chatCommandListener;
@@ -49,6 +46,10 @@ public class Framework {
     public static void main(String[] args) {
         instance = new Framework();
         instance.init(args);
+    }
+
+    public static Framework getInstance() {
+        return instance;
     }
 
     public void init(String[] args) {
@@ -130,7 +131,7 @@ public class Framework {
             shutdown();
         }
 
-        chatCommandListener = new ChatCommandListener(this, configMessages);
+        //chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printInfo("Successfully established connection to server.");
 
@@ -234,7 +235,7 @@ public class Framework {
             logger.printError("Failed to set nickname, dumping error details: ", e);
             System.exit(0);
         }
-
+        logger.printDebug("Starting up ChatCommandListener.");
         chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printDebug("Trying to register global events...");
@@ -310,10 +311,6 @@ public class Framework {
 
     public void addEventHandler(TS3Listener listener) {
         api.addTS3Listeners(listener);
-    }
-
-    public static Framework getInstance() {
-        return instance;
     }
 
 }

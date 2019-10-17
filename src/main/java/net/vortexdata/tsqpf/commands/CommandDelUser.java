@@ -1,7 +1,10 @@
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.authenticator.*;
-import net.vortexdata.tsqpf.console.*;
+import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.authenticator.UserManager;
+import net.vortexdata.tsqpf.console.ConsoleHandler;
+import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandDelUser extends CommandInterface {
 

@@ -8,5 +8,5 @@ import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
  */
 public interface ChatCommandInterface {
 
-    public void gotCalled(TextMessageEvent event);
+    void gotCalled(TextMessageEvent event);
 }

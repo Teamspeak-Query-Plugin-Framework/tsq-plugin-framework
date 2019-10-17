@@ -1,7 +1,5 @@
 package net.vortexdata.tsqpf.authenticator;
 
-import java.util.HashMap;
-
 /**
  * Represents a users account
  *
@@ -11,10 +9,10 @@ import java.util.HashMap;
  */
 public class User {
 
+    public static final String CSV_SEPARATOR = ";";
     private UserGroup group;
     private String username;
     private String password;
-    public static final String CSV_SEPARATOR = ";";
 
 
     public User(String username, String password, UserGroup group) {
