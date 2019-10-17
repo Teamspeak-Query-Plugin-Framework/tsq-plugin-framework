@@ -1,10 +1,11 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.plugins;
 
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
+import net.vortexdata.tsqpf.modules.EventHandler;
 
 /**
  * Parent class for framework plugins PluginMain
@@ -12,7 +13,7 @@ import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
  * @author Michael Wiesinger
  * @since 1.0.0
  */
-public abstract class PluginInterface extends EventHandler {
+public abstract class TeamspeakPlugin extends EventHandler {
 
 
     private PluginContainer pluginContainer = null;
@@ -37,12 +38,6 @@ public abstract class PluginInterface extends EventHandler {
         pluginContainer = pc;
     }
 
-    /**
-     * Returns a plugins name
-     *
-     * @return Plugin name
-     */
-    abstract public String getName();
 
     /**
      * Sets a plugins framework
