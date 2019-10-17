@@ -1,8 +1,6 @@
 package net.vortexdata.tsqpf.configs;
 
 
-import net.vortexdata.tsqpf.installers.InstallConfig;
-
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
