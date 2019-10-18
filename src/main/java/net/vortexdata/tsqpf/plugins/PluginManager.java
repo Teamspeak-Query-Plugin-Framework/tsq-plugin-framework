@@ -58,8 +58,6 @@ public class PluginManager {
     /**
      * Unloads all loaded plugins and disables them, preparing for save shutdown.
      */
-
-
     public void disableAll() {
         for (PluginContainer pc : loadedPlugins) {
             pc.getTeamspeakPlugin().onDisable();
@@ -92,12 +90,14 @@ public class PluginManager {
             String version = yamlMapping.string("version");
 
             if(main == null || name == null || version == null) {
-                //Jaml not valid
+                //Yaml not valid
+                framework.getLogger().printWarn("Failed to load a plugin due to incorrect plugin.yml setup.");
                 return;
             }
             Class cl = loader.loadClass(main);
             if (cl == null) {
                 //Main class not found!
+                framework.getLogger().printWarn("Could not locate main class of plugin " + name + ".");
                 return;
             }
             TeamspeakPlugin plugin = (TeamspeakPlugin) cl.newInstance();
@@ -114,7 +114,7 @@ public class PluginManager {
             framework.getLogger().printInfo("Plugin " + pc.getPluginName() + " successfully loaded and initialized.");
 
         } catch (Exception e) {
-            framework.getLogger().printInfo("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin development setup. Dumping error details: " + e.getMessage());
+            framework.getLogger().printWarn("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin setup. Dumping error details: " + e.getMessage());
 
         }
     }
