@@ -101,6 +101,10 @@ In order to get started with using the integrated remote shell, you first of all
 
 You basically just have to run it and enter your TSQPF ip address, port, a user name and its password. If that was successfully done, you should now be connected to the terminal. From this point on you can use all commands just like if you were directly using the terminal.
 
+## 🔨 Contributing
+
+If you want to see a new feature in a future update you can always create a new feature request. Unfortunately, we currently do not support any third-party pull requests.
+
 ## ❤️ Supporting us
 
 Your donation allows us to continue creating more content just like this. You can send credit card or bank donations using the secure PayPal transaction system: [URL_NEEDED]
