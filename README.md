@@ -30,7 +30,7 @@ No additional software required.
 
    Install using commands below
    
-   ```
+   ```batch
    apt-get install screen
    ```
 
