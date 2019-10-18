@@ -77,11 +77,13 @@ public class PluginManager {
             URLClassLoader loader = new URLClassLoader(urls);
             if(loader == null) {
                 //Cannot load jar file
+                framework.getLogger().printWarn("Failed to load plugin " + file.getName() + ".");
                 return;
             }
             InputStream stream = loader.getResourceAsStream("plugin.yml");
             if (stream == null) {
                 //plugin.yml not found
+                framework.getLogger().printWarn("Failed to locate plugin.yml of " + file.getName() + ", therefore cancelled its initialization.");
                 return;
             }
             YamlMapping yamlMapping = Yaml.createYamlInput(stream).readYamlMapping();
