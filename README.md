@@ -1,4 +1,4 @@
-# Teamspeak Query Plugin Framework
+# Teamspeak Query Plugin Framework | Mint
 
 ![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)
 
