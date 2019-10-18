@@ -1,6 +1,6 @@
 # Teamspeak Query Plugin Framework | Mint
 
-![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)
+[![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)](https://travis-ci.org/Vortexdata/tsq-plugin-framework)
 [![Issues](https://img.shields.io/github/issues/Vortexdata/tsq-plugin-framework?label=Issues)](https://github.com/Vortexdata/tsq-plugin-framework/issues)
 [![Twitter](https://img.shields.io/twitter/url?color=1DA1F2&label=Twitter&logo=Twitter&logoColor=1DA1F2&style=flat-square&url=https%3A%2F%2Ftwitter.com%2FVortexdataNET)](https://twitter.com/VortexdataNET)
 
