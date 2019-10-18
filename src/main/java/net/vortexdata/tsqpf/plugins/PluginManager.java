@@ -103,9 +103,15 @@ public class PluginManager {
                 return;
             }
             TeamspeakPlugin plugin = (TeamspeakPlugin) cl.newInstance();
-            if (plugin == null) throw new Error("Error no instance found");
+            if (plugin == null) {
+                framework.getLogger().printWarn("Plugin instance of " + file.getName() + " could not be found.");
+                throw new Error("Error no instance found");
+            }
 
-            if (name == null || name.length() < 1) throw new Error("Invalid Name");
+            if (name == null || name.length() < 1) {
+                framework.getLogger().printWarn("Name of plugin " + file.getName() + " is invalid.");
+                throw new Error("Invalid Name");
+            }
 
             PluginContainer pc = new PluginContainer(plugin, name, yamlMapping);
             pc.initLogger(framework);
