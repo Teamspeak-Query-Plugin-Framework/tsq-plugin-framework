@@ -30,7 +30,7 @@ No additional software required.
 
    Install using commands below
    
-   ```batch
+   ```bash
    apt-get install screen
    ```
 
@@ -49,7 +49,7 @@ No additional software required.
    
    Create a file ending with '.bat', copy and paste the code below, then run the script.
    
-   ```
+   ```batch
    @echo off
    TITLE Teamspeak Query Plugin Framework
    java -jar tsq-plugin-framework.jar -debug
@@ -66,7 +66,7 @@ No additional software required.
    
    Now, create a new screen session:
    
-   ```
+   ```bash
    screen -S session_name
    ```
    
@@ -74,7 +74,7 @@ No additional software required.
    
    Once you've created the session, it should automaticall be attached. Now run the launch script:
    
-   ```
+   ```bash
    ./launch.sh
    ```
    
