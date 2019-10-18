@@ -5,7 +5,7 @@
 [![Twitter](https://img.shields.io/twitter/url?color=1DA1F2&label=Twitter&logo=Twitter&logoColor=1DA1F2&style=flat-square&url=https%3A%2F%2Ftwitter.com%2FVortexdataNET)](https://twitter.com/VortexdataNET)
 
 
-A java-based plugin framework for Teamspeak 3 servers allowing administrators to add new featues.
+A java-based plugin framework for Teamspeak 3 servers.
 
 ![TSQPF Logo](https://i.imgur.com/HgMc6NV.png)
 
