@@ -9,6 +9,8 @@ A java-based plugin framework for Teamspeak 3 servers allowing administrators to
 
 ![TSQPF Logo](https://i.imgur.com/HgMc6NV.png)
 
+![TSQPF Logo](https://i.imgur.com/b0TbDVk.png)
+
 ## 🏷️ Features
 ✅ Plugin API to add more features to your Teamspeak server<br/>
 ✅ Plugin cross-talk<br/>
