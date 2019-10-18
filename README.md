@@ -1,6 +1,10 @@
 # Teamspeak Query Plugin Framework | Mint
 
 ![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)
+![Issues](https://img.shields.io/github/issues/Vortexdata/tsq-plugin-framework?label=Issues)
+
+    <a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/badges/shields" /></a>
 
 A java-based plugin framework for Teamspeak 3 servers allowing administrators to add new featues.
 
