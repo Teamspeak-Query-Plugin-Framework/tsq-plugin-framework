@@ -2,15 +2,17 @@
 
 ![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)
 
-A java-based plugin framework for Teamspeak 3 servers.
+A java-based plugin framework for Teamspeak 3 servers allowing administrators to add new featues.
 
 ## 🏷️ Features
 ✅ Plugin API to add more features to your Teamspeak server<br/>
 ✅ Plugin cross-talk<br/>
+✅ Plugin config system<br/>
 ✅ Reconnect strategies<br/>
 ✅ Easy plugin development<br/>
 ✅ Setup wizard for easy-to-use installation<br/>
 ✅ Detailed log files and console output<br/>
+✅ Heartbeat socket with status information<br/>
 
 ## 🚀 Getting Started
 
