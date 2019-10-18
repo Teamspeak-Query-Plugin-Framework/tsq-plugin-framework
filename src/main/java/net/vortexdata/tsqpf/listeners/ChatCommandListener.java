@@ -32,14 +32,10 @@ public class ChatCommandListener {
      * @param msg The events object
      */
     public void newMessage(TextMessageEvent msg) {
-        System.out.println(msg.getMessage());
         // Send TSQPF Info
         if (msg.getMessage().startsWith("!info")) {
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "More info: https://projects.vortexdata.net/tsq-plugin-framework");
-            for (String pre : commandList.keySet()) {
-                System.out.println(pre);
-            }
             return;
         }
 
