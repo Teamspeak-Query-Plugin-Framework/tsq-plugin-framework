@@ -15,7 +15,6 @@ A java-based plugin framework for Teamspeak 3 servers.
 ✅ Plugin config system<br/>
 ✅ Reconnect strategies<br/>
 ✅ Easy plugin development<br/>
-✅ Setup wizard for easy-to-use installation<br/>
 ✅ Detailed log files and console output<br/>
 ✅ Heartbeat socket with status information<br/>
 
