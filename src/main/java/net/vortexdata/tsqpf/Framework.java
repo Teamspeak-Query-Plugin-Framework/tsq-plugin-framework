@@ -152,13 +152,13 @@ public class Framework {
             logger.printDebug("Opening remote shell port...");
             int shellPort;
             try {
-                shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
+                shellPort = Integer.parseInt(configMain.getProperty("remoteShellPort"));
 
                 connectionListener = new ConnectionListener(logger, shellPort);
                 connectionListener.start();
             } catch (Exception e) {
                 logger.printError("Failed to parse shell port value, falling back to default.");
-                shellPort = Integer.parseInt(configMain.getDefaultProperty("shellPort"));
+                shellPort = Integer.parseInt(configMain.getDefaultProperty("remoteShellPort"));
 
                 connectionListener = new ConnectionListener(logger, shellPort);
                 connectionListener.start();
