@@ -148,14 +148,6 @@ public class Framework {
         consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
-
-        bootHandler.setBootEndTime();
-        logger.printInfo("Boot process finished.");
-        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
-        bootHandler = null;
-
-        consoleHandler.start();
-
         if (configMain.getProperty("enableRemoteShell").equalsIgnoreCase("true")) {
             logger.printDebug("Opening remote shell port...");
             int shellPort;
@@ -188,6 +180,13 @@ public class Framework {
         } else {
             logger.printDebug("Skipping opening of heartbeat port as defined per config.");
         }
+
+        bootHandler.setBootEndTime();
+        logger.printInfo("Boot process finished.");
+        logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
+        bootHandler = null;
+
+        consoleHandler.start();
 
     }
 
