@@ -18,7 +18,7 @@ public class ConfigMain extends Config {
         // Setting Default Values
         defaultValues.put("serverAddress", "127.0.0.1");
         defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "admin");
+        defaultValues.put("queryUser", "serveradmin");
         defaultValues.put("queryPassword", "password");
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
