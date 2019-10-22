@@ -14,9 +14,11 @@ public class HeartBeatListener implements Runnable {
     private static boolean running = false;
     private TS3Api api;
     private Thread thread;
+    private int port;
 
-    public HeartBeatListener(TS3Api api) {
+    public HeartBeatListener(TS3Api api, int port) {
         this.api = api;
+        this.port = port;
         start();
     }
 
@@ -33,7 +35,7 @@ public class HeartBeatListener implements Runnable {
         running = true;
         ServerSocket listener = null;
         try {
-            listener = new ServerSocket(12343);
+            listener = new ServerSocket(port);
         } catch (IOException e) {
             Framework.getInstance().getLogger().printError(e.getMessage());
         }

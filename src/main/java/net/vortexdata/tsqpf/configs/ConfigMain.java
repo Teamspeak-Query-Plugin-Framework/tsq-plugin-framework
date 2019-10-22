@@ -23,8 +23,10 @@ public class ConfigMain extends Config {
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
         defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("shellPort", "12342");
+        defaultValues.put("remoteShellPort", "12342");
+        defaultValues.put("heartbeatPort", "12343");
         defaultValues.put("enableRemoteShell", "true");
+        defaultValues.put("enableHeartbeat", "true");
     }
 
 }
