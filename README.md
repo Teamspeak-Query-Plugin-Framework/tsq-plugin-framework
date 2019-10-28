@@ -91,7 +91,7 @@ There are a number of start parameters that are available, here's a list of them
 -debug: Set console logging to debug level (Does not affect file logging in any way!).
 -reset-root: Resets the auto-generated root user and prints the new credentials to console.
 
-The default Java parameters are of course also supported. You can find the documentation ![here](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html)
+The default Java parameters are of course also supported. You can find the documentation [here](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html)
    
 ## 🔌 Installing Plugins
 
