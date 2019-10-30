@@ -23,7 +23,6 @@ public class Config implements ConfigInterface {
 
     public Config(String path) {
         this.path = path;
-        load();
     }
 
     public boolean load() {
