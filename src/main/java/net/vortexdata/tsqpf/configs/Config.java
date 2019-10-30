@@ -110,7 +110,7 @@ public class Config implements ConfigInterface {
         if (values == null || values.isEmpty())
             return defaultValues.get(key);
         else if (!values.keySet().contains(key))
-            getDefaultProperty(key);
+            return getDefaultProperty(key);
         else
             return values.get(key);
     }
