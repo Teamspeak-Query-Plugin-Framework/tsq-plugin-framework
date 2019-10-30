@@ -108,12 +108,16 @@ public class Config implements ConfigInterface {
     public String getProperty(String key) {
         if (values == null || values.isEmpty())
             return defaultValues.get(key);
+        else if (!values.keySet().contains(key))
+            return getDefaultProperty(key);
         else
             return values.get(key);
     }
 
     public String getDefaultProperty(String key) {
         if (defaultValues == null || defaultValues.isEmpty())
+            return "";
+        else if (!defaultValues.keySet().contains(key))
             return "";
         else
             return defaultValues.get(key);
