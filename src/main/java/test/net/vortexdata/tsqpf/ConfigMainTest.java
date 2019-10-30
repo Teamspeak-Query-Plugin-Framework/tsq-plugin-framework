@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConfigMainTest {
 
     @Test
-    public void getNonExistantConfigValue() {
+    public void getNonExistentConfigValue() {
         ConfigMain configMain = new ConfigMain();
+        String returnValue = configMain.getProperty("someKeyThatDoesNotExist");
     }
 
 }
