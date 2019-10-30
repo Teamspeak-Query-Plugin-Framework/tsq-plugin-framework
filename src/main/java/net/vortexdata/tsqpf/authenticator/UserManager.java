@@ -69,9 +69,6 @@ public class UserManager {
 
         boolean success = false;
 
-        if (!username.matches("[a-zA-Z0-9]+"))
-            return false;
-
         try {
             loadUserSerializedData(username);
             throw new UserAlreadyExistingException();
