@@ -93,7 +93,7 @@ public class Session implements Runnable {
                     break;
                 case "command":
                     listener.commandExecutor.execute(() -> {
-                        Framework.getInstance().getConsoleHandler().processInput((String) message.get("command"), user, terminal);
+                        Framework.getInstance().getConsoleCommandHandler().processInput((String) message.get("command"), user, terminal);
                         sendReadyForNextCommand();
                     });
                     break;
@@ -147,7 +147,7 @@ public class Session implements Runnable {
 
 
     private void makeHandshake(JSONObject message) {
-        UserManager manager = Framework.getInstance().getConsoleHandler().getUserManager();
+        UserManager manager = Framework.getInstance().getLocalConsole().getUserManager();
 
         try {
             User user = manager.getUser((String) message.get("username"));

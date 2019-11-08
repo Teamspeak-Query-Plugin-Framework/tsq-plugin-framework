@@ -6,10 +6,12 @@ import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.TS3Listener;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ConnectionHandler;
 import com.github.theholywaffle.teamspeak3.api.reconnect.ReconnectStrategy;
+import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.configs.ConfigMessages;
-import net.vortexdata.tsqpf.console.ConsoleHandler;
+import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
+import net.vortexdata.tsqpf.console.LocalConsole;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
@@ -35,7 +37,9 @@ public class Framework {
     private static Framework instance;
     private TS3Config config;
     private TS3Api api;
-    private ConsoleHandler consoleHandler;
+    private LocalConsole localConsole;
+    private ConsoleCommandHandler consoleCommandHandler;
+    private UserManager userManager;
     private ChatCommandListener chatCommandListener;
     private PluginManager pluginManager;
     private net.vortexdata.tsqpf.console.Logger logger;
@@ -136,16 +140,18 @@ public class Framework {
         logger.printInfo("Successfully established connection to server.");
 
         logger.printDebug("Initializing console handler...");
-        consoleHandler = new ConsoleHandler(logger, rootLogger, Level.DEBUG, resetRoot);
+        userManager = new UserManager(this.logger);
+        consoleCommandHandler = new ConsoleCommandHandler();
+        localConsole = new LocalConsole(logger, rootLogger, Level.DEBUG, resetRoot, consoleCommandHandler, userManager);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
-        consoleHandler.registerCommand(new CommandHelp(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandStop(logger, this));
-        consoleHandler.registerCommand(new CommandClear(logger));
-        consoleHandler.registerCommand(new CommandLogout(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandAddUser(logger, consoleHandler));
-        consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
+        consoleCommandHandler.registerCommand(new CommandHelp(logger, consoleCommandHandler));
+        consoleCommandHandler.registerCommand(new CommandStop(logger, this));
+        consoleCommandHandler.registerCommand(new CommandClear(logger));
+        consoleCommandHandler.registerCommand(new CommandLogout(logger, localConsole));
+        consoleCommandHandler.registerCommand(new CommandAddUser(logger, userManager));
+        consoleCommandHandler.registerCommand(new CommandDelUser(logger, userManager));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         if (configMain.getProperty("enableRemoteShell").equalsIgnoreCase("true")) {
@@ -186,7 +192,7 @@ public class Framework {
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
         bootHandler = null;
 
-        consoleHandler.start();
+        localConsole.start();
 
     }
 
@@ -198,9 +204,9 @@ public class Framework {
             connectionListener.stop();
         }
 
-        if (consoleHandler != null) {
+        if (localConsole != null) {
             logger.printDebug("Shutting down console handler...");
-            consoleHandler.shutdown();
+            localConsole.shutdown();
         }
 
 
@@ -256,16 +262,22 @@ public class Framework {
             logger.printError("Failed to set nickname, dumping error details: ", e);
             System.exit(0);
         }
+
+        // Old Listeners and Handlers could cause unwanted side effects when reconnecting.
+
         logger.printDebug("Starting up ChatCommandListener.");
+        //TODO: Implement reuseable ChatCommandListener
         chatCommandListener = new ChatCommandListener(this, configMessages);
 
         logger.printDebug("Trying to register global events...");
         api.registerAllEvents();
+        //TODO: Implement reuseable GlobalEventHandler
         api.addTS3Listeners(new GlobalEventHandler(this));
         logger.printDebug("Successfully registered global events.");
 
 
         logger.printDebug("Initializing plugin controller...");
+        //TODO: Implement reuseable PluginManager
         pluginManager = new PluginManager(this);
         logger.printDebug("Loading and enabling plugins...");
         pluginManager.enableAll();
@@ -310,8 +322,12 @@ public class Framework {
         }
     }
 
-    public ConsoleHandler getConsoleHandler() {
-        return consoleHandler;
+    public ConsoleCommandHandler getConsoleCommandHandler() {
+        return consoleCommandHandler;
+    }
+
+    public LocalConsole getLocalConsole() {
+        return localConsole;
     }
 
     public ChatCommandListener getChatCommandListener() {

@@ -1,16 +1,17 @@
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.console.ConsoleHandler;
+import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
+import net.vortexdata.tsqpf.console.LocalConsole;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandLogout extends CommandInterface {
 
-    private ConsoleHandler consoleHandler;
+    private LocalConsole localConsole;
 
-    public CommandLogout(Logger logger, ConsoleHandler consoleHandler) {
+    public CommandLogout(Logger logger, LocalConsole localConsole) {
         super(logger);
-        this.consoleHandler = consoleHandler;
+        this.localConsole = localConsole;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class CommandLogout extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args, VirtualTerminal terminal) {
-        consoleHandler.logout();
+        localConsole.logout();
         getLogger().printDebug("Invalidating console handler session.");
     }
 
