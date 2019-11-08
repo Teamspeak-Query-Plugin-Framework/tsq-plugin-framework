@@ -33,6 +33,13 @@ public class CommandAddUser extends CommandInterface {
             terminal.println("Username must not contain whitespaces, please try again.");
             return;
         }
+
+        if (!username.matches("[a-zA-Z0-9]+")) {
+            terminal.println("Username must only contain alphanumeric characters.");
+            return;
+        }
+
+
         terminal.print("Enter new password: ");
         String password = terminal.readln();
         terminal.print("Re-type new password: ");

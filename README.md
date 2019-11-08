@@ -84,6 +84,15 @@ No additional software required.
    
    The framework will generate its directory structure and terminate after completion. Navigate to to the main properties file and adjust it to fit your servers prefferences. Once complete, run the script again (be sure you're runnning it using a screen session) and wait for the boot process to complete.
    
+### 🛠️ Start Parameters
+
+There are a number of start parameters that are available, here's a list of them:
+
+```-debug```: Set console logging to debug level (Does not affect file logging in any way!).<br>
+```-reset-root```: Resets the auto-generated root user and prints the new credentials to console.
+
+The default Java parameters are of course also supported. You can find the documentation [here](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html)
+   
 ## 🔌 Installing Plugins
 
    Here's a list of all official TSQPF plugins developed by us. Contrary to community made plugins, these are verified and tested by VortexdataNET, meaning they are running stable and are safe to use.

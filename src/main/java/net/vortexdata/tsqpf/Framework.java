@@ -148,6 +148,38 @@ public class Framework {
         consoleHandler.registerCommand(new CommandDelUser(logger, consoleHandler));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
+        if (configMain.getProperty("enableRemoteShell").equalsIgnoreCase("true")) {
+            logger.printDebug("Opening remote shell port...");
+            int shellPort;
+            try {
+                shellPort = Integer.parseInt(configMain.getProperty("remoteShellPort"));
+
+                connectionListener = new ConnectionListener(logger, shellPort);
+                connectionListener.start();
+            } catch (Exception e) {
+                logger.printError("Failed to parse shell port value, falling back to default.");
+                shellPort = Integer.parseInt(configMain.getDefaultProperty("remoteShellPort"));
+
+                connectionListener = new ConnectionListener(logger, shellPort);
+                connectionListener.start();
+            }
+        } else {
+            logger.printDebug("Skipping opening of remote shell port as defined per config.");
+        }
+
+        HeartBeatListener heartBeatListener;
+        if (configMain.getProperty("enableHeartbeat").equalsIgnoreCase("true")) {
+            logger.printDebug("Opening heartbeat port...");
+            try {
+                int port = Integer.parseInt(configMain.getProperty("heartbeatPort"));
+                heartBeatListener = new HeartBeatListener(api, port);
+            } catch (Exception e) {
+                logger.printWarn("Failed to parse heartbeat port, reverting to default value.");
+                heartBeatListener = new HeartBeatListener(api, Integer.parseInt(configMain.getDefaultProperty("heartbeatPort")));
+            }
+        } else {
+            logger.printDebug("Skipping opening of heartbeat port as defined per config.");
+        }
 
         bootHandler.setBootEndTime();
         logger.printInfo("Boot process finished.");
@@ -155,17 +187,6 @@ public class Framework {
         bootHandler = null;
 
         consoleHandler.start();
-        int shellPort;
-        try {
-            shellPort = Integer.parseInt(configMain.getProperty("shellPort"));
-        } catch (Exception e) {
-            logger.printError("Failed to parse shell port value, falling back to default.");
-            shellPort = Integer.parseInt(configMain.getDefaultProperty("shellPort"));
-        }
-        connectionListener = new ConnectionListener(logger, shellPort);
-        connectionListener.start();
-
-        HeartBeatListener heartBeatListener = new HeartBeatListener(api);
 
     }
 
