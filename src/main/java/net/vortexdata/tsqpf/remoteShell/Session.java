@@ -32,7 +32,7 @@ public class Session implements Runnable {
     private String token = null;
     private RemoteShellTerminal terminal;
     private CipherHelper cipherHelper;
-    private Thread commandThread;
+
 
     public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
         this.id = id;
@@ -49,8 +49,14 @@ public class Session implements Runnable {
         thread.start();
     }
 
+    private void init() {
+
+    }
+
+
     @Override
     public void run() {
+        init();
         try {
             String data = "";
             String[] messages;
@@ -86,15 +92,10 @@ public class Session implements Runnable {
                     makeHandshake(message);
                     break;
                 case "command":
-                    if (commandThread == null || !commandThread.isAlive()) {
-                        commandThread = new Thread(() -> {
-                            Framework.getInstance().getConsoleHandler().processInput((String) message.get("command"), user, terminal);
-                            sendReadyForNextCommand();
-                        });
-                        commandThread.start();
-
-                    }
-
+                    listener.commandExecutor.execute(() -> {
+                        Framework.getInstance().getConsoleHandler().processInput((String) message.get("command"), user, terminal);
+                        sendReadyForNextCommand();
+                    });
                     break;
                 case "userInput":
 

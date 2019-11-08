@@ -12,10 +12,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class ConnectionListener implements Runnable {
 
     public static final Charset CHARSET = StandardCharsets.UTF_8;
+    public ExecutorService commandExecutor;
     public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
     private Logger logger;
     private boolean running = false;
@@ -45,10 +49,16 @@ public class ConnectionListener implements Runnable {
         sessions.remove(session);
     }
 
+
+    private void init() {
+        commandExecutor = Executors.newFixedThreadPool(5);
+    }
+
+
     @Override
     public void run() {
         try {
-
+            init();
 
             ServerSocket listener = new ServerSocket(12342);
             running = true;
