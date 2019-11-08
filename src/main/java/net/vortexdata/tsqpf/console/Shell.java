@@ -12,7 +12,10 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-//TODO: Documentation
+/**
+ * Shell implementation
+ * @author Fabian Gurtner (fabian@profiluefter.me)
+ */
 public class Shell implements VirtualTerminal, IShell {
 	private Logger logger;
 	private String clientHostname;
@@ -25,6 +28,12 @@ public class Shell implements VirtualTerminal, IShell {
 
 	//Custom
 
+	/**
+	 * @param clientHostname The hostname/ip of the client. Shown in the prompt.
+	 * @param shellInputStream The {@link InputStream} used to communicate with the client.
+	 * @param shellOutputStream The {@link OutputStream} used to communicate with the client.
+	 * @param logger Logger that is used for one warning and the {@link UserManager#UserManager(Logger)}
+	 */
 	public Shell(String clientHostname, InputStream shellInputStream, OutputStream shellOutputStream, Logger logger) {
 		this.clientHostname = clientHostname;
 
@@ -38,7 +47,10 @@ public class Shell implements VirtualTerminal, IShell {
 		this.logger = logger;
 	}
 
-	//Returns false if never authenticated
+	/**
+	 * Authenticates once and executes commands until {@link IShell#logout()} is called.
+	 * @return false if authentication failed
+	 */
 	@Override
 	public boolean run() {
 		user = authenticate();
@@ -68,6 +80,10 @@ public class Shell implements VirtualTerminal, IShell {
 
 	//IShell
 
+	/**
+	 * Displays a prompt to authenticate and submits the input to {@link UserManager#authenticate(String, String)}.
+	 * @return Returns the user that is authenticated.
+	 */
 	@Override
 	public User authenticate() {
 		if(user != null)
@@ -89,6 +105,9 @@ public class Shell implements VirtualTerminal, IShell {
 		}
 	}
 
+	/**
+	 * Prints the prompt that is suitable for the current user.
+	 */
 	@Override
 	public void printPrompt() {
 		if(user == null) {
@@ -98,23 +117,41 @@ public class Shell implements VirtualTerminal, IShell {
 		printer.format("%s@%s> ", user.getUsername(), clientHostname);
 	}
 
+	/**
+	 * Reads a command and splits the arguments.
+	 * @return An String[] containing the command name and args.
+	 */
 	@Override
 	public String[] readCommand() {
 		return scanner.nextLine().split(" ");
 	}
 
+	/**
+	 * Checks if the user still has the permission to execute the command.
+	 * @param command The command in question.
+	 * @return If the execution of the command is permitted.
+	 * @throws UserNotFoundException In the edge case if the user was deleted while logged in this is thrown.
+	 */
 	@Override
 	public boolean checkPermissions(CommandInterface command) throws UserNotFoundException {
 		userManager.reloadUsers();
 		return command.isGroupRequirementMet(userManager.getUser(user.getUsername()).getGroup());
 	}
 
+	/**
+	 * Executes the command.
+	 * @param command The command to be executed.
+	 * @param rawArgs An array including the command name and args.
+	 */
 	@Override
 	public void executeCommand(CommandInterface command, String[] rawArgs) {
 		command.gotCalled(Arrays.copyOfRange(rawArgs, 1, rawArgs.length),this);
 	}
 
 	//TODO: Rewrite command interface to support this
+	/**
+	 * Logs the user out if called.
+	 */
 	@Override
 	public void logout() {
 		user = null;
