@@ -61,6 +61,7 @@ public class PluginManager {
     public void disableAll() {
         for (PluginContainer pc : loadedPlugins) {
             pc.getTeamspeakPlugin().onDisable();
+            framework.getLogger().printInfo("Unloading plugin " + pc.getPluginName() + ".");
             pc = null;
         }
         loadedPlugins.clear();
