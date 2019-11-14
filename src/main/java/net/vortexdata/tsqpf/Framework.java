@@ -354,4 +354,7 @@ public class Framework {
         api.addTS3Listeners(listener);
     }
 
+    public PluginManager getPluginManager() {
+        return pluginManager;
+    }
 }

@@ -89,6 +89,7 @@ public class ConnectionListener implements Runnable {
 
             }
         } catch (Exception e) {
+
             logger.printError(e.getMessage());
         }
     }

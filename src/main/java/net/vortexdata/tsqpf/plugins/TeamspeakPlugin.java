@@ -104,6 +104,10 @@ public abstract class TeamspeakPlugin extends EventHandler {
         return pluginContainer.getLogger();
     }
 
+
+    protected PluginManager getPluginManager() {
+        return framework.getPluginManager();
+    }
     /**
      * This is run on plugins enable, initiated by PluginManager
      */
