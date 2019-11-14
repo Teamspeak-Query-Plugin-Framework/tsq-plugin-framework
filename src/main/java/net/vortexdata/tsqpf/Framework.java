@@ -149,7 +149,7 @@ public class Framework {
         consoleCommandHandler.registerCommand(new CommandHelp(logger, consoleCommandHandler));
         consoleCommandHandler.registerCommand(new CommandStop(logger, this));
         consoleCommandHandler.registerCommand(new CommandClear(logger));
-        consoleCommandHandler.registerCommand(new CommandLogout(logger, localConsole));
+        consoleCommandHandler.registerCommand(new CommandLogout(logger));
         consoleCommandHandler.registerCommand(new CommandAddUser(logger, userManager));
         consoleCommandHandler.registerCommand(new CommandDelUser(logger, userManager));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
@@ -328,6 +328,10 @@ public class Framework {
 
     public LocalConsole getLocalConsole() {
         return localConsole;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
     }
 
     public ChatCommandListener getChatCommandListener() {

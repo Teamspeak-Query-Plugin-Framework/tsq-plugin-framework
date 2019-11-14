@@ -4,6 +4,7 @@ package net.vortexdata.tsqpf.remoteShell;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
+import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.RemoteShellTerminal;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 import net.vortexdata.tsqpf.utils.HashUtils;
@@ -32,21 +33,27 @@ public class Session implements Runnable {
     private String token = null;
     private RemoteShellTerminal terminal;
     private CipherHelper cipherHelper;
+    private Logger logger;
 
 
-    public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener) {
+    public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener, Logger logger) {
         this.id = id;
         this.socket = socket;
         this.inputStream = inputStream;
         this.outputStream = outputStream;
         this.listener = listener;
         terminalUserInputBuffer = new ArrayBlockingQueue<JSONObject>(10);
+        this.logger = logger;
         start();
     }
 
     private void start() {
         thread = new Thread(this);
         thread.start();
+    }
+
+    public void shutdown() {
+        thread.interrupt();
     }
 
     private void init() {
@@ -61,6 +68,7 @@ public class Session implements Runnable {
             String data = "";
             String[] messages;
             while (!thread.isInterrupted()) {
+
                 byte[] buffer = new byte[32];
                 int recBytes = inputStream.read(buffer);
                 data += new String(buffer, ConnectionListener.CHARSET);
@@ -68,15 +76,26 @@ public class Session implements Runnable {
                 data = messages[messages.length - 1];
                 for (int i = 0; i < messages.length - 1; i++) {
                     processMessage(messages[i]);
+
                 }
             }
         } catch (IOException e) {
             listener.connectionDropped(this);
         } finally {
             try {
+                JSONObject data = new JSONObject();
+                data.put("type", "shutdownNow");
+                outputStream.write(data.toJSONString().getBytes(ConnectionListener.CHARSET));
+                outputStream.write(ConnectionListener.END_OF_MESSAGE);
+                outputStream.flush();
                 socket.close();
                 inputStream.close();
                 outputStream.close();
+
+                if(user != null)
+                    logger.printInfo(user.getUsername() +" logged out.");
+                else
+                    logger.printInfo("Handshake failed.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,7 +114,9 @@ public class Session implements Runnable {
                     listener.commandExecutor.execute(() -> {
                         Framework.getInstance().getConsoleCommandHandler().processInput((String) message.get("command"), user, terminal);
                         sendReadyForNextCommand();
+
                     });
+
                     break;
                 case "userInput":
 
@@ -145,6 +166,9 @@ public class Session implements Runnable {
         return (JSONObject) (new JSONParser()).parse(data);
     }
 
+    private void logout() {
+
+    }
 
     private void makeHandshake(JSONObject message) {
         UserManager manager = Framework.getInstance().getLocalConsole().getUserManager();

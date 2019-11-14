@@ -84,7 +84,7 @@ public class ConnectionListener implements Runnable {
                 outputStream.write(handshake.toJSONString().getBytes(CHARSET));
                 outputStream.write(END_OF_MESSAGE);
                 outputStream.flush();
-                sessions.add(new Session(id, socket, inputStream, outputStream, this));
+                sessions.add(new Session(id, socket, inputStream, outputStream, this, logger));
 
 
             }

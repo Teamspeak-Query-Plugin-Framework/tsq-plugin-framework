@@ -1,17 +1,20 @@
 package net.vortexdata.tsqpf.console;
 
 import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.authenticator.User;
 
 import java.util.Scanner;
 
-public class ConsoleTerminal implements VirtualTerminal {
+public class LocalConsoleTerminal implements VirtualTerminal {
 
     private Logger logger;
     private Scanner scanner;
+    private LocalConsole localConsole;
 
-    public ConsoleTerminal() {
+    public LocalConsoleTerminal(User user, LocalConsole localConsole) {
         logger = Framework.getInstance().getLogger();
         scanner = new Scanner(System.in);
+        this.localConsole = localConsole;
     }
 
     @Override
@@ -26,6 +29,11 @@ public class ConsoleTerminal implements VirtualTerminal {
     @Override
     public String readln() {
         return scanner.nextLine();
+    }
+
+    @Override
+    public void logout() {
+        localConsole.logout();
     }
 
 }

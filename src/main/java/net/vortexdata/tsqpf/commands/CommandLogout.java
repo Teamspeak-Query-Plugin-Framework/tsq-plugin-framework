@@ -7,11 +7,10 @@ import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandLogout extends CommandInterface {
 
-    private LocalConsole localConsole;
 
-    public CommandLogout(Logger logger, LocalConsole localConsole) {
+
+    public CommandLogout(Logger logger) {
         super(logger);
-        this.localConsole = localConsole;
     }
 
     @Override
@@ -21,8 +20,10 @@ public class CommandLogout extends CommandInterface {
 
     @Override
     public void gotCalled(String[] args, VirtualTerminal terminal) {
-        localConsole.logout();
-        getLogger().printDebug("Invalidating console handler session.");
+        terminal.logout();
+        terminal.println("Logged out");
+
+        //getLogger().printDebug("Invalidating console handler session.");
     }
 
     @Override
