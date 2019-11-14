@@ -71,10 +71,6 @@ public class RemoteShellTerminal implements VirtualTerminal {
             outputStream.flush();
 
             while (true) {
-                if (session.terminalUserInputBuffer.isEmpty()) {
-                    session.terminalUserInputBuffer.wait();
-                    continue;
-                }
                 JSONObject response = session.terminalUserInputBuffer.take();
 
                 if (!response.get("id").equals(readId)) continue;
