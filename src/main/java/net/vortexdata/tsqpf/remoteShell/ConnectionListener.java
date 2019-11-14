@@ -51,7 +51,7 @@ public class ConnectionListener implements Runnable {
 
 
     private void init() {
-        commandExecutor = Executors.newFixedThreadPool(5);
+        commandExecutor = Executors.newFixedThreadPool(1);
     }
 
 
@@ -60,7 +60,7 @@ public class ConnectionListener implements Runnable {
         try {
             init();
 
-            ServerSocket listener = new ServerSocket(12342);
+            ServerSocket listener = new ServerSocket(port);
             running = true;
             while (running) {
                 if (thread.isInterrupted()) {
