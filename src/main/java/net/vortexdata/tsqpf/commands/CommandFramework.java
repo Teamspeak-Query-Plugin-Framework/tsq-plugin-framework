@@ -38,7 +38,9 @@ public class CommandFramework extends CommandInterface {
                 terminal.println("OS version: \t\t\t\t" + System.getProperty("os.version"));
                 terminal.println("Java version: \t\t\t" + System.getProperty("java.version"));
                 terminal.println("Java vendor: \t\t\t" + System.getProperty("java.vendor"));
-
+            } else {
+                terminal.println("framework "+ args[1] +": unknown parameters");
+                terminal.println("Try 'framework <reload | kill | stop | stats>'");
             }
 
 
