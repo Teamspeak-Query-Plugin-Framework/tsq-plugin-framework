@@ -152,6 +152,7 @@ public class Framework {
         consoleCommandHandler.registerCommand(new CommandLogout(logger));
         consoleCommandHandler.registerCommand(new CommandAddUser(logger, userManager));
         consoleCommandHandler.registerCommand(new CommandDelUser(logger, userManager));
+        consoleCommandHandler.registerCommand(new CommandFramework(logger, this));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         if (configMain.getProperty("enableRemoteShell").equalsIgnoreCase("true")) {
