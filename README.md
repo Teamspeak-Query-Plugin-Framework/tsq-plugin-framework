@@ -120,6 +120,14 @@ You basically just have to run it and enter your TSQPF ip address, port, a user 
 
 If you want to see a new feature in a future update you can always create a new feature request. Unfortunately, we currently do not support any third-party pull requests.
 
+## 📖 Contributors
+
+TAXSET: Project Lead, Framework Core
+VarChar42: Framework Core, Plugin Manager
+profiluefter: Remote Dashboard, Security Check
+TheHolyWaffle: Teamspeak Java API
+
+
 ## ❤️ Supporting us
 
 Your donation allows us to continue creating more content just like this. You can send credit card or bank donations using the secure PayPal transaction system: [URL_NEEDED]
