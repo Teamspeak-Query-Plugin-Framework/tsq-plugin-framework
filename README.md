@@ -122,10 +122,10 @@ If you want to see a new feature in a future update you can always create a new 
 
 ## 📖 Contributors
 
-TAXSET: Project Lead, Framework Core<br>
-VarChar42: Framework Core, Plugin Manager<br>
-profiluefter: Remote Dashboard, Security Check<br>
-TheHolyWaffle: Teamspeak Java API<br>
+**TAXSET**: Project Lead, Framework Core<br>
+**VarChar42**: Framework Core, Plugin Manager<br>
+**profiluefter**: Remote Dashboard, Security Check<br>
+**TheHolyWaffle**: Teamspeak Java API<br>
 
 
 ## ❤️ Supporting us
