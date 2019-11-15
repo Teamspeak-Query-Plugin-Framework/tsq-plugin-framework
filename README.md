@@ -97,9 +97,11 @@ The default Java parameters are of course also supported. You can find the docum
 
    Here's a list of all official TSQPF plugins developed by us. Contrary to community made plugins, these are verified and tested by VortexdataNET, meaning they are running stable and are safe to use.
    
-   - RollingBanner (https://github.com/Vortexdata/tsqpf-plugin-rollingbanner)
-   - WelcomeMessage (https://github.com/Vortexdata/tsqpf-plugin-welcomemessage)
-   - PrivateChannel (https://github.com/Vortexdata/tsqpf-plugin-privatechannel)
+   - AntiAFK (https://github.com/Teamspeak-Query-Plugin-Framework/tsqpf-plugin-antiafk)
+   - DynamicChannel (https://github.com/Teamspeak-Query-Plugin-Framework/tsqpf-plugin-dynamicchannel)
+   - RollingBanner (https://github.com/Teamspeak-Query-Plugin-Framework/tsqpf-plugin-rollingbanner)
+   - WelcomeMessage (https://github.com/Teamspeak-Query-Plugin-Framework/tsqpf-plugin-welcomemessage)
+   - PrivateChannel (https://github.com/Teamspeak-Query-Plugin-Framework/tsqpf-plugin-privatechannel)
    - Analytics (N/A)
 
 ## 💡 Developing Plugins
@@ -118,7 +120,7 @@ You basically just have to run it and enter your TSQPF ip address, port, a user 
 
 ## 🔨 Contributing
 
-If you want to see a new feature in a future update you can always create a new feature request. Unfortunately, we currently do not support any third-party pull requests.
+If you want to see a new feature in a future update, you can always create a new feature request. Unfortunately, we currently do not support any third-party pull requests.
 
 ## 📖 Contributors
 
