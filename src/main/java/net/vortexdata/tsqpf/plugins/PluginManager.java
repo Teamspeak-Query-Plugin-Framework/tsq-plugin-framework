@@ -55,12 +55,26 @@ public class PluginManager {
 
     }
 
+    public void disablePlugin(String name) {
+        PluginContainer removed = null;
+        for (PluginContainer pc : loadedPlugins) {
+            if (pc.getPluginName().equals(name)) {
+                pc.getTeamspeakPlugin().onDisable();
+                removed = pc;
+                break;
+            }
+        }
+        if(removed != null)
+        loadedPlugins.remove(removed);
+    }
+
     /**
      * Unloads all loaded plugins and disables them, preparing for save shutdown.
      */
     public void disableAll() {
         for (PluginContainer pc : loadedPlugins) {
             pc.getTeamspeakPlugin().onDisable();
+            framework.getLogger().printInfo("Unloading plugin " + pc.getPluginName() + ".");
             pc = null;
         }
         loadedPlugins.clear();

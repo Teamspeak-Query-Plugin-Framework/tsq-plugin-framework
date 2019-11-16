@@ -12,5 +12,7 @@ public interface VirtualTerminal {
 
     String readln();
 
+    void logout();
+
 
 }

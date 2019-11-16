@@ -2,7 +2,6 @@ package net.vortexdata.tsqpf.console;
 
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
-import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
 import org.apache.log4j.Level;
 
@@ -15,7 +14,7 @@ import java.util.*;
  * @author Michael Wiesinger
  * @since 1.0.0
  */
-public class ConsoleHandler implements Runnable {
+public class LocalConsole implements Runnable {
 
     private static boolean running = false;
     private UserManager userManager;
@@ -25,11 +24,12 @@ public class ConsoleHandler implements Runnable {
     private boolean active;
     private Logger logger;
     private Thread thread;
-    private List<CommandInterface> commands = Collections.synchronizedList(new ArrayList<CommandInterface>());
+    private ConsoleCommandHandler consoleCommandHandler;
+
     private boolean didRootExist = false;
     private boolean resetRoot = false;
 
-    public ConsoleHandler(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot) {
+    public LocalConsole(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot, ConsoleCommandHandler consoleCommandHandler, UserManager userManager) {
         this.logger = logger;
         thread = new Thread(this);
         if (running) return;
@@ -37,8 +37,9 @@ public class ConsoleHandler implements Runnable {
         active = true;
         this.rootLogger = rootLogger;
         this.logLevel = logLevel;
-        this.userManager = new UserManager(this.logger);
+        this.userManager = userManager;
         this.resetRoot = resetRoot;
+        this.consoleCommandHandler = consoleCommandHandler;
     }
 
     /**
@@ -48,23 +49,9 @@ public class ConsoleHandler implements Runnable {
         thread.start();
     }
 
-    /**
-     * Registers a console command.
-     *
-     * @param cmd Class of command to register
-     * @return True if command was successfully registerd
-     */
-    public boolean registerCommand(CommandInterface cmd) {
-        for (CommandInterface c : commands)
-            if (c.getName().equalsIgnoreCase(cmd.getName())) return false;
 
-        commands.add(cmd);
-        return true;
-    }
 
-    public List<CommandInterface> getCommands() {
-        return Collections.unmodifiableList(commands);
-    }
+
 
     public String[] login() {
         String[] values = new String[2];
@@ -83,33 +70,10 @@ public class ConsoleHandler implements Runnable {
      */
 
 
-    public void processInput(String line, User user, VirtualTerminal terminal) {
 
-        String[] data = line.split(" ");
-        String commandPrefix = data[0];
-
-        if (data.length > 0 && !data[0].isEmpty()) {
-            boolean commandExists = false;
-            for (CommandInterface cmd : commands) {
-                if (cmd.getName().equalsIgnoreCase(data[0])) {
-                    if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(user.getGroup())) {
-                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length), terminal);
-                        commandExists = true;
-                        break;
-                    } else {
-                        terminal.println("Permission denied.");
-                    }
-                    commandExists = true;
-                }
-            }
-            if (!commandExists) {
-                terminal.println(commandPrefix + ": command not found");
-            }
-        }
-    }
 
     public void run() {
-        ConsoleTerminal terminal = new ConsoleTerminal();
+
 
         userManager.reloadUsers();
         Scanner scanner = new Scanner(System.in);
@@ -141,12 +105,12 @@ public class ConsoleHandler implements Runnable {
                 }
             } while (currentUser == null);
             System.out.println("Sign in approved.");
-
+            LocalConsoleTerminal terminal = new LocalConsoleTerminal(currentUser, this);
             while (currentUser != null) {
                 System.out.print(currentUser.getUsername() + "@local> ");
 
                 line = scanner.nextLine();
-                processInput(line, currentUser, terminal);
+                consoleCommandHandler.processInput(line, currentUser, terminal);
             }
         } while (active);
 

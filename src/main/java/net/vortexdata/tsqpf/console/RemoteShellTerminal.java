@@ -26,6 +26,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
     }
 
 
+
     @Override
     public void println(String msg) {
         try {
@@ -36,12 +37,13 @@ public class RemoteShellTerminal implements VirtualTerminal {
             data.put("mode", "println");
             data.put("message", msg);
 
-
             container.put("type", "data");
             container.put("data", cipherHelper.encryptString(data.toJSONString()));
             outputStream.write(container.toJSONString().getBytes(ConnectionListener.CHARSET));
             outputStream.write(ConnectionListener.END_OF_MESSAGE);
             outputStream.flush();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,6 +54,9 @@ public class RemoteShellTerminal implements VirtualTerminal {
 
         println(msg);
     }
+
+
+
 
     @Override
     public String readln() {
@@ -66,10 +71,6 @@ public class RemoteShellTerminal implements VirtualTerminal {
             outputStream.flush();
 
             while (true) {
-                if (session.terminalUserInputBuffer.isEmpty()) {
-                    Thread.sleep(10);
-                    continue;
-                }
                 JSONObject response = session.terminalUserInputBuffer.take();
 
                 if (!response.get("id").equals(readId)) continue;
@@ -82,5 +83,10 @@ public class RemoteShellTerminal implements VirtualTerminal {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void logout() {
+        session.shutdown();
     }
 }

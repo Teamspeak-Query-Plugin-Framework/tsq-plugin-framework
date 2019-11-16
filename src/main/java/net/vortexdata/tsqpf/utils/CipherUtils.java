@@ -36,7 +36,7 @@ public class CipherUtils {
     }
 
     /**
-     * Encrypts give data.
+     * Encrypts given data.
      *
      * @param data
      * @return
@@ -55,7 +55,7 @@ public class CipherUtils {
     }
 
     /**
-     * Decrypts give data.
+     * Decrypts given data.
      *
      * @param data
      * @return

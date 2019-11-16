@@ -12,10 +12,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class ConnectionListener implements Runnable {
 
     public static final Charset CHARSET = StandardCharsets.UTF_8;
+    public ExecutorService commandExecutor;
     public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
     private Logger logger;
     private boolean running = false;
@@ -45,12 +49,18 @@ public class ConnectionListener implements Runnable {
         sessions.remove(session);
     }
 
+
+    private void init() {
+        commandExecutor = Executors.newFixedThreadPool(1);
+    }
+
+
     @Override
     public void run() {
         try {
+            init();
 
-
-            ServerSocket listener = new ServerSocket(12342);
+            ServerSocket listener = new ServerSocket(port);
             running = true;
             while (running) {
                 if (thread.isInterrupted()) {
@@ -74,11 +84,12 @@ public class ConnectionListener implements Runnable {
                 outputStream.write(handshake.toJSONString().getBytes(CHARSET));
                 outputStream.write(END_OF_MESSAGE);
                 outputStream.flush();
-                sessions.add(new Session(id, socket, inputStream, outputStream, this));
+                sessions.add(new Session(id, socket, inputStream, outputStream, this, logger));
 
 
             }
         } catch (Exception e) {
+
             logger.printError(e.getMessage());
         }
     }

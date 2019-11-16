@@ -2,7 +2,8 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.authenticator.UserManager;
-import net.vortexdata.tsqpf.console.ConsoleHandler;
+import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
+import net.vortexdata.tsqpf.console.LocalConsole;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.VirtualTerminal;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
@@ -11,9 +12,9 @@ public class CommandAddUser extends CommandInterface {
 
     private UserManager userManager;
 
-    public CommandAddUser(Logger logger, ConsoleHandler consoleHandler) {
+    public CommandAddUser(Logger logger, UserManager userManager) {
         super(logger);
-        this.userManager = consoleHandler.getUserManager();
+        this.userManager = userManager;
         groups.add(UserGroup.ROOT);
         groups.add(UserGroup.ADMINISTRATOR);
     }

@@ -74,7 +74,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      */
     @Deprecated
     protected void registerCommand(CommandInterface cmd) {
-        framework.getConsoleHandler().registerCommand(cmd);
+        framework.getConsoleCommandHandler().registerCommand(cmd);
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * @param cmd The command class
      */
     protected void registerConsoleCommand(CommandInterface cmd) {
-        framework.getConsoleHandler().registerCommand(cmd);
+        framework.getConsoleCommandHandler().registerCommand(cmd);
     }
 
     /**
@@ -104,6 +104,10 @@ public abstract class TeamspeakPlugin extends EventHandler {
         return pluginContainer.getLogger();
     }
 
+
+    protected PluginManager getPluginManager() {
+        return framework.getPluginManager();
+    }
     /**
      * This is run on plugins enable, initiated by PluginManager
      */
