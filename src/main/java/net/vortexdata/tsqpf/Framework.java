@@ -10,9 +10,9 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.ConfigMain;
 import net.vortexdata.tsqpf.configs.ConfigMessages;
-import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
-import net.vortexdata.tsqpf.console.LocalConsole;
+import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
+import net.vortexdata.tsqpf.console.LocalShell;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
@@ -37,8 +37,7 @@ public class Framework {
     private static Framework instance;
     private TS3Config config;
     private TS3Api api;
-    private LocalConsole localConsole;
-    private ConsoleCommandHandler consoleCommandHandler;
+    private LocalShell localShell;
     private UserManager userManager;
     private ChatCommandListener chatCommandListener;
     private PluginManager pluginManager;
@@ -141,18 +140,17 @@ public class Framework {
 
         logger.printDebug("Initializing console handler...");
         userManager = new UserManager(this.logger);
-        consoleCommandHandler = new ConsoleCommandHandler();
-        localConsole = new LocalConsole(logger, rootLogger, Level.DEBUG, resetRoot, consoleCommandHandler, userManager);
+        localShell = new LocalShell(logger, resetRoot);
         logger.printDebug("Console handler loaded.");
         logger.printDebug("Registering console commands...");
 
-        consoleCommandHandler.registerCommand(new CommandHelp(logger, consoleCommandHandler));
-        consoleCommandHandler.registerCommand(new CommandStop(logger, this));
-        consoleCommandHandler.registerCommand(new CommandClear(logger));
-        consoleCommandHandler.registerCommand(new CommandLogout(logger));
-        consoleCommandHandler.registerCommand(new CommandAddUser(logger, userManager));
-        consoleCommandHandler.registerCommand(new CommandDelUser(logger, userManager));
-        consoleCommandHandler.registerCommand(new CommandFramework(logger, this));
+        CommandContainer.registerCommand(new CommandHelp(logger));
+        CommandContainer.registerCommand(new CommandStop(logger, this));
+        CommandContainer.registerCommand(new CommandClear(logger));
+        CommandContainer.registerCommand(new CommandLogout(logger));
+        CommandContainer.registerCommand(new CommandAddUser(logger, userManager));
+        CommandContainer.registerCommand(new CommandDelUser(logger, userManager));
+        CommandContainer.registerCommand(new CommandFramework(logger, this));
         logger.printDebug("Console handler and console commands successfully initialized and registered.");
 
         if (configMain.getProperty("enableRemoteShell").equalsIgnoreCase("true")) {
@@ -193,7 +191,7 @@ public class Framework {
         logger.printInfo("It took " + bootHandler.getBootTime() + " milliseconds to start the framework and load plugins.");
         bootHandler = null;
 
-        localConsole.start();
+        localShell.start();
 
     }
 
@@ -205,9 +203,9 @@ public class Framework {
             connectionListener.stop();
         }
 
-        if (localConsole != null) {
+        if (localShell != null) {
             logger.printDebug("Shutting down console handler...");
-            localConsole.shutdown();
+            localShell.shutdown();
         }
 
 
@@ -323,12 +321,8 @@ public class Framework {
         }
     }
 
-    public ConsoleCommandHandler getConsoleCommandHandler() {
-        return consoleCommandHandler;
-    }
-
-    public LocalConsole getLocalConsole() {
-        return localConsole;
+    public LocalShell getLocalShell() {
+        return localShell;
     }
 
     public UserManager getUserManager() {

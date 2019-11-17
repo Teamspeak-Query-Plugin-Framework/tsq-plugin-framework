@@ -1,9 +1,8 @@
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
-import net.vortexdata.tsqpf.console.LocalConsole;
+import net.vortexdata.tsqpf.console.CommandContainer;
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 /**
  * Displays help on console
@@ -14,33 +13,30 @@ import net.vortexdata.tsqpf.console.VirtualTerminal;
  */
 public class CommandHelp extends CommandInterface {
 
-    private ConsoleCommandHandler consoleCommandHandler;
-
-    public CommandHelp(Logger logger, ConsoleCommandHandler handler) {
+    public CommandHelp(Logger logger) {
         super(logger);
-        consoleCommandHandler = handler;
+        CommandInterface.allowAllGroups(this);
     }
-
 
     @Override
     public String getHelpMessage() {
         return "You need help with help? That's kinda genius :)";
     }
 
-    public void gotCalled(String[] args, VirtualTerminal terminal) {
+    public void execute(String[] args, IShell shell) {
 
         if (args.length > 0) {
-            for (CommandInterface cmd : consoleCommandHandler.getCommands()) {
+            for (CommandInterface cmd : CommandContainer.getCommands()) {
                 if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    terminal.println(cmd.getHelpMessage());
+                    shell.getPrinter().println(cmd.getHelpMessage());
                     return;
                 }
             }
-        } else if (args.length > 1) {
-            terminal.println("Incremented help is not supported in this build.");
+        } else if (args.length > 1) { //FIXME What is this supposed to do?
+            shell.getPrinter().println("Incremented help is not supported in this build.");
         } else {
-            for (CommandInterface command : consoleCommandHandler.getCommands()) {
-                terminal.println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
+            for (CommandInterface command : CommandContainer.getCommands()) {
+                shell.getPrinter().println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
             }
         }
 

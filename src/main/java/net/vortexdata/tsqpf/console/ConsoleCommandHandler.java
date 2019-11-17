@@ -4,10 +4,10 @@ import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Deprecated
 public class ConsoleCommandHandler {
 
 
@@ -18,7 +18,7 @@ public class ConsoleCommandHandler {
      * Registers a console command.
      *
      * @param cmd Class of command to register
-     * @return True if command was successfully registerd
+     * @return True if command was successfully registered
      */
     public boolean registerCommand(CommandInterface cmd) {
         for (CommandInterface c : commands)
@@ -42,7 +42,7 @@ public class ConsoleCommandHandler {
             for (CommandInterface cmd : commands) {
                 if (cmd.getName().equalsIgnoreCase(data[0])) {
                     if (cmd.getGroupRange() == 0 || cmd.isGroupRequirementMet(user.getGroup())) {
-                        cmd.gotCalled(Arrays.copyOfRange(data, 1, data.length), terminal);
+                        //TODO: cmd.execute(Arrays.copyOfRange(data, 1, data.length), terminal);
                         commandExists = true;
                         break;
                     } else {

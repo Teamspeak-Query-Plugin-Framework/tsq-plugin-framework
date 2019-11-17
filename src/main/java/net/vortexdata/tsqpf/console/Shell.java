@@ -16,15 +16,15 @@ import java.util.Scanner;
  * Shell implementation
  * @author Fabian Gurtner (fabian@profiluefter.me)
  */
-public class Shell implements VirtualTerminal, IShell {
-	private Logger logger;
-	private String clientHostname;
-	private Scanner scanner;
-	private PrintStream printer;
-	private User user;
-	private UserManager userManager;
+public class Shell implements IShell {
+	protected Logger logger;
+	protected String clientHostname;
+	protected Scanner scanner;
+	protected PrintStream printer;
+	protected User user;
+	protected UserManager userManager;
 
-	private static final String delimiter = "\n";
+	protected static final String delimiter = "\n";
 
 	//Custom
 
@@ -52,7 +52,7 @@ public class Shell implements VirtualTerminal, IShell {
 	 * @return false if authentication failed
 	 */
 	@Override
-	public boolean run() {
+	public boolean execute() {
 		user = authenticate();
 		if(user == null)
 			return false;
@@ -145,33 +145,24 @@ public class Shell implements VirtualTerminal, IShell {
 	 */
 	@Override
 	public void executeCommand(CommandInterface command, String[] rawArgs) {
-		command.gotCalled(Arrays.copyOfRange(rawArgs, 1, rawArgs.length),this);
+		command.execute(Arrays.copyOfRange(rawArgs, 1, rawArgs.length),this);
 	}
 
-	//TODO: Rewrite command interface to support this
 	/**
-	 * Logs the user out if called.
+	 * Logs the user out.
 	 */
 	@Override
 	public void logout() {
 		user = null;
 	}
 
-	//VirtualTerminal
-	//TODO: Make VirtualTerminal deprecated
-
 	@Override
-	public void println(String msg) {
-		this.printer.println(msg);
+	public PrintStream getPrinter() {
+		return this.printer;
 	}
 
 	@Override
-	public void print(String msg) {
-		this.printer.print(msg);
-	}
-
-	@Override
-	public String readln() {
-		return scanner.nextLine();
+	public Scanner getReader() {
+		return this.scanner;
 	}
 }

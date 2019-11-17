@@ -4,6 +4,7 @@ package net.vortexdata.tsqpf.plugins;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.commands.CommandInterface;
+import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
 import net.vortexdata.tsqpf.modules.EventHandler;
 
@@ -74,7 +75,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      */
     @Deprecated
     protected void registerCommand(CommandInterface cmd) {
-        framework.getConsoleCommandHandler().registerCommand(cmd);
+        CommandContainer.registerCommand(cmd);
     }
 
     /**
@@ -83,7 +84,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * @param cmd The command class
      */
     protected void registerConsoleCommand(CommandInterface cmd) {
-        framework.getConsoleCommandHandler().registerCommand(cmd);
+        CommandContainer.registerCommand(cmd);
     }
 
     /**

@@ -5,6 +5,7 @@ import net.vortexdata.tsqpf.authenticator.User;
 
 import java.util.Scanner;
 
+@Deprecated
 public class LocalConsoleTerminal implements VirtualTerminal {
 
     private Logger logger;

@@ -2,10 +2,8 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.authenticator.UserManager;
-import net.vortexdata.tsqpf.console.ConsoleCommandHandler;
-import net.vortexdata.tsqpf.console.LocalConsole;
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandDelUser extends CommandInterface {
 
@@ -23,20 +21,20 @@ public class CommandDelUser extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args, VirtualTerminal terminal) {
+    public void execute(String[] args, IShell shell) {
         if (args.length == 0) {
-            terminal.println("Please specify a username.");
+            shell.getPrinter().println("Please specify a username.");
             return;
         } else {
             if (args[0].equalsIgnoreCase("ROOT")) {
-                terminal.println("Root user can not be deleted.");
+                shell.getPrinter().println("Root user can not be deleted.");
                 return;
             }
             boolean success = userManager.deleteUser(args[0]);
             if (success)
-                terminal.println("User " + args[0] + " deleted.");
+                shell.getPrinter().println("User " + args[0] + " deleted.");
             else
-                terminal.println("User " + args[0] + " does not exist.");
+                shell.getPrinter().println("User " + args[0] + " does not exist.");
         }
     }
 

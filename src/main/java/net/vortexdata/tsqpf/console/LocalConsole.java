@@ -14,6 +14,7 @@ import java.util.*;
  * @author Michael Wiesinger
  * @since 1.0.0
  */
+@Deprecated
 public class LocalConsole implements Runnable {
 
     private static boolean running = false;
@@ -26,7 +27,6 @@ public class LocalConsole implements Runnable {
     private Thread thread;
     private ConsoleCommandHandler consoleCommandHandler;
 
-    private boolean didRootExist = false;
     private boolean resetRoot = false;
 
     public LocalConsole(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot, ConsoleCommandHandler consoleCommandHandler, UserManager userManager) {
@@ -52,7 +52,7 @@ public class LocalConsole implements Runnable {
 
 
 
-
+    @Deprecated
     public String[] login() {
         String[] values = new String[2];
         Scanner scanner = new Scanner(System.in);
@@ -83,7 +83,6 @@ public class LocalConsole implements Runnable {
         logger.printDebug("Looking for root user account...");
 
         if (!userManager.doesRootUserExist()) {
-            didRootExist = false;
             userManager.generateRootUser();
         } else {
             logger.printDebug("Root user found.");
@@ -105,6 +104,7 @@ public class LocalConsole implements Runnable {
                 }
             } while (currentUser == null);
             System.out.println("Sign in approved.");
+
             LocalConsoleTerminal terminal = new LocalConsoleTerminal(currentUser, this);
             while (currentUser != null) {
                 System.out.print(currentUser.getUsername() + "@local> ");
@@ -146,9 +146,5 @@ public class LocalConsole implements Runnable {
     public void resetRoot() {
         userManager.deleteUser("root", true);
         userManager.generateRootUser();
-    }
-
-    public boolean isDidRootExist() {
-        return didRootExist;
     }
 }

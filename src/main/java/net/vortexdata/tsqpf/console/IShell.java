@@ -5,6 +5,9 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
 
+import java.io.PrintStream;
+import java.util.Scanner;
+
 /**
  * Interface for shell actions.
  * Using this as a type could be useful for testing.
@@ -15,9 +18,9 @@ public interface IShell {
 	 * Authenticates once and executes commands until {@link IShell#logout()} is called.
 	 * @return false if authentication failed
 	 */
-	boolean run();
+	boolean execute();
 
-	//TODO: The 5 methods below should be private, but this is impossible before Java 9.
+	//The 5 methods below should be private, but this is impossible before Java 9.
 	/**
 	 * Displays a prompt to authenticate and submits the input to {@link UserManager#authenticate(String, String)}.
 	 * @return Returns the user that is authenticated.
@@ -50,4 +53,8 @@ public interface IShell {
 	 * Logs the user out if called.
 	 */
 	void logout();
+
+	PrintStream getPrinter();
+
+	Scanner getReader();
 }

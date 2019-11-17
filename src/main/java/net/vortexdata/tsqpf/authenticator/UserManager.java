@@ -35,7 +35,7 @@ public class UserManager {
      * @return A valid user
      */
     public User authenticate(String username, String password) throws InvalidCredentialsException {
-
+        //FIXME Authorization should be done here!
         User user;
         try {
             user = getUser(username);
