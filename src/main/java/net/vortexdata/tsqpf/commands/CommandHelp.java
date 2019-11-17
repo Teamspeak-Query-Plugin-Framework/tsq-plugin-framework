@@ -32,7 +32,7 @@ public class CommandHelp extends CommandInterface {
                     return;
                 }
             }
-        } else if (args.length > 1) { //FIXME What is this supposed to do?
+        } else if (args.length > 1) {
             shell.getPrinter().println("Incremented help is not supported in this build.");
         } else {
             for (CommandInterface command : CommandContainer.getCommands()) {

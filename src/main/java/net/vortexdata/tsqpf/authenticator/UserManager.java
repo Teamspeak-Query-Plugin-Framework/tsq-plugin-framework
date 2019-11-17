@@ -35,15 +35,15 @@ public class UserManager {
      * @return A valid user
      */
     public User authenticate(String username, String password) throws InvalidCredentialsException {
-        //FIXME Authorization should be done here!
         User user;
         try {
             user = getUser(username);
+            if (user.getPassword().equals(getPasswordHash(password)))
+                return user;
         } catch (UserNotFoundException e) {
-            throw new InvalidCredentialsException();
+            // Ignore and proceed with InvalidCredentialsException
         }
-
-        return user;
+        throw new InvalidCredentialsException();
     }
 
     /**
