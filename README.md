@@ -1,4 +1,4 @@
-   > ⚠️ **Important**: Version 1.0 Lite will be superseded by version 2.0 Mint, which is set to release between October and November 2019. Therefore, we will not release any updates regarding this generation of the framework. You can already check out the latest development builds of Mint [on the v2.0 branch](https://github.com/Vortexdata/tsq-plugin-framework/tree/v2.0).
+   > ⚠️ **Important**: Version 1.0 Lite will be superseded by version 2.0 Mint, which is set to release sometime in December 2019. Therefore, we will not release any updates regarding this generation of the framework. You can already check out the latest development builds of Mint [on the v2.0 branch](https://github.com/Vortexdata/tsq-plugin-framework/tree/v2.0).
 
 
 # Teamspeak Query Plugin Framework
