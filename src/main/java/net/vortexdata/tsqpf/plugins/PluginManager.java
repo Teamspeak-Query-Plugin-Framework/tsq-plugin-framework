@@ -107,7 +107,7 @@ public class PluginManager {
 
             for (PluginContainer loadedPlugin : loadedPlugins) {
                 if (loadedPlugin.getPluginName().equalsIgnoreCase(name)) {
-                        framework.getLogger().printWarn("Failed to load a plugin: Plugin name already im use.");
+                        framework.getLogger().printWarn("Failed to load a plugin ("+ loadedPlugin.getPluginName() +"): Plugin with same name already in use.");
                         return;
                 }
             }
