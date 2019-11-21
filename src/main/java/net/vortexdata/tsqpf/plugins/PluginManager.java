@@ -105,6 +105,14 @@ public class PluginManager {
             String name = yamlMapping.string("name");
             String version = yamlMapping.string("version");
 
+            for (PluginContainer loadedPlugin : loadedPlugins) {
+                if (loadedPlugin.getPluginName().equalsIgnoreCase(name)) {
+                        framework.getLogger().printWarn("Failed to load a plugin: Plugin name already im use.");
+                        return;
+                }
+            }
+
+
             if(main == null || name == null || version == null) {
                 //Yaml not valid
                 framework.getLogger().printWarn("Failed to load a plugin due to incorrect plugin.yml setup.");
