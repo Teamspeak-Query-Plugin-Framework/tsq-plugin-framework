@@ -13,6 +13,7 @@ import net.vortexdata.tsqpf.configs.ConfigMessages;
 import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.console.LocalShell;
+import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
@@ -45,6 +46,7 @@ public class Framework {
     private ConnectionListener connectionListener;
     private ReconnectStrategy reconnectStrategy;
     private boolean resetRoot = false;
+    private FrameworkStatus frameworkStatus;
 
     public static void main(String[] args) {
         instance = new Framework();
@@ -57,6 +59,7 @@ public class Framework {
 
     public void init(String[] args) {
 
+        frameworkStatus = FrameworkStatus.STARTING;
         evaluateArgs(args);
         printCopyHeader();
         logger = new FrameworkLogger(this);
@@ -232,6 +235,7 @@ public class Framework {
 
     public TS3Query wake(ConfigMain configMain, ConfigMessages configMessages, TS3Query query) {
 
+        frameworkStatus = FrameworkStatus.WAKING;
         logger.printDebug("Wakeup initiated.");
         api = query.getApi();
         try {
@@ -282,7 +286,7 @@ public class Framework {
         pluginManager.enableAll();
         logger.printDebug("Successfully loaded plugins.");
 
-
+        frameworkStatus = FrameworkStatus.RUNNING;
         return query;
 
     }
@@ -347,6 +351,10 @@ public class Framework {
 
     public void addEventHandler(TS3Listener listener) {
         api.addTS3Listeners(listener);
+    }
+
+    public void reload() {
+        frameworkStatus = FrameworkStatus.RELOADING;
     }
 
     public PluginManager getPluginManager() {
