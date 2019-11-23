@@ -87,6 +87,7 @@ public class Framework {
                 shutdown();
             }
         } catch (Exception e) {
+            logger.printError("Failed to parse 'acceptEula' config value.");
             shutdown();
         }
 
