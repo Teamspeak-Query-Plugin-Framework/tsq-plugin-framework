@@ -1,8 +1,9 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandFramework extends CommandInterface {
 
@@ -11,6 +12,7 @@ public class CommandFramework extends CommandInterface {
     public CommandFramework(Logger logger, Framework framework) {
         super(logger);
         this.framework = framework;
+        groups.add(UserGroup.ROOT);
     }
 
     @Override
@@ -19,34 +21,34 @@ public class CommandFramework extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args, VirtualTerminal terminal) {
+    public void execute(String[] args, IShell shell) {
 
 
-        if (args.length > 1) {
+        if (args.length > 0) {
 
 
-            if (args[1].equalsIgnoreCase("reload")) {
-                terminal.println("This action is not supported in this build.");
-            } else if (args[1].equalsIgnoreCase("stop") || args[1].equalsIgnoreCase("exit") || args[1].equalsIgnoreCase("shutdown")) {
+            if (args[0].equalsIgnoreCase("reload")) {
+                shell.getPrinter().println("This action is not supported in this build.");
+            } else if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("exit") || args[0].equalsIgnoreCase("shutdown")) {
                 framework.shutdown();
-            } else if (args[1].equalsIgnoreCase("kill")) {
+            } else if (args[0].equalsIgnoreCase("kill")) {
                 System.exit(0);
-            } else if (args[1].equalsIgnoreCase("stats")) {
-                terminal.println("Available cores: \t\t\t" + Runtime.getRuntime().availableProcessors());
-                terminal.println("Memory usage: \t\t\t" + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().maxMemory()));
-                terminal.println("Operating system: \t\t\t" + System.getProperty("os.name"));
-                terminal.println("OS version: \t\t\t\t" + System.getProperty("os.version"));
-                terminal.println("Java version: \t\t\t" + System.getProperty("java.version"));
-                terminal.println("Java vendor: \t\t\t" + System.getProperty("java.vendor"));
+            } else if (args[0].equalsIgnoreCase("stats")) {
+                shell.getPrinter().println("Available cores: \t\t\t" + Runtime.getRuntime().availableProcessors());
+                shell.getPrinter().println("Memory usage: \t\t\t" + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().maxMemory()));
+                shell.getPrinter().println("Operating system: \t\t\t" + System.getProperty("os.name"));
+                shell.getPrinter().println("OS version: \t\t\t\t" + System.getProperty("os.version"));
+                shell.getPrinter().println("Java version: \t\t\t" + System.getProperty("java.version"));
+                shell.getPrinter().println("Java vendor: \t\t\t" + System.getProperty("java.vendor"));
             } else {
-                terminal.println("framework "+ args[1] +": unknown parameters");
-                terminal.println("Try 'framework <reload | kill | stop | stats>'");
+                shell.getPrinter().println("framework "+ args[0] +": unknown parameters");
+                shell.getPrinter().println("Try 'framework <reload | kill | stop | stats>'");
             }
 
 
         } else {
-            terminal.println("framework: missing parameters");
-            terminal.println("Try 'framework <reload | kill | stop | stats>'");
+            shell.getPrinter().println("framework: missing parameters");
+            shell.getPrinter().println("Try 'framework <reload | kill | stop | stats>'");
         }
 
 

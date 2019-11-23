@@ -1,10 +1,11 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Interface for Commands
@@ -21,7 +22,6 @@ public abstract class CommandInterface {
     public CommandInterface(Logger logger) {
         groups = new ArrayList<>();
         this.logger = logger;
-
     }
 
     protected Logger getLogger() {
@@ -42,7 +42,7 @@ public abstract class CommandInterface {
     /**
      * This method is run when the user runs the command.
      */
-    abstract public void gotCalled(String[] args, VirtualTerminal terminal);
+    abstract public void execute(String[] args, IShell shell);
 
     /**
      * This method is run when the user runs the command.
@@ -57,5 +57,9 @@ public abstract class CommandInterface {
                 return true;
         }
         return false;
+    }
+
+    protected static void allowAllGroups(CommandInterface command) {
+        command.groups.addAll(Arrays.asList(UserGroup.values()));
     }
 }

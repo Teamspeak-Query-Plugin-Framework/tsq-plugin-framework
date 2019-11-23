@@ -2,8 +2,8 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 /**
  * Shuts down the framework
@@ -27,7 +27,7 @@ public class CommandStop extends CommandInterface {
     }
 
     @Override
-    public void gotCalled(String[] args, VirtualTerminal terminal) {
+    public void execute(String[] args, IShell shell) {
         framework.shutdown();
     }
 

@@ -1,12 +1,13 @@
 package net.vortexdata.tsqpf.commands;
 
+import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
-import net.vortexdata.tsqpf.console.VirtualTerminal;
 
 public class CommandClear extends CommandInterface {
 
     public CommandClear(Logger logger) {
         super(logger);
+        CommandInterface.allowAllGroups(this);
     }
 
     @Override
@@ -14,10 +15,11 @@ public class CommandClear extends CommandInterface {
         return "Clears the console screen";
     }
 
+    private static final String clearString = new String(new char[50]).replace('\0','\n');
+
     @Override
-    public void gotCalled(String[] args, VirtualTerminal terminal) {
-        for (int i = 0; i < 50; i++)
-            terminal.println("");
+    public void execute(String[] args, IShell shell) {
+        shell.getPrinter().print(clearString);
     }
 
     @Override
