@@ -27,6 +27,7 @@ public class ConfigMain extends Config {
         defaultValues.put("heartbeatPort", "12343");
         defaultValues.put("enableRemoteShell", "true");
         defaultValues.put("enableHeartbeat", "true");
+        defaultValues.put("acceptEula", "false");
     }
 
 }

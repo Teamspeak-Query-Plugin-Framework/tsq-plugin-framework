@@ -25,8 +25,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * Copyright (C) VortexdataNET - All Rights Reserved
- * Unauthorized redistribution of this software, via any medium is prohibited!
+ * Copyright (C) VortexdataNET
  *
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
@@ -81,6 +80,16 @@ public class Framework {
             shutdown();
         }
         logger.printDebug("Main config loaded.");
+
+        try {
+            if (!Boolean.parseBoolean(configMain.getProperty("acceptEula"))) {
+                logger.printError("You have to accept the eula before running the framework. It is located in the frameworks root directory and can be accepted by changing the 'acceptEula' config value in the main.properties.");
+                shutdown();
+            }
+        } catch (Exception e) {
+            shutdown();
+        }
+
 
         config = new TS3Config();
         logger.printDebug("Trying to assign server address...");
