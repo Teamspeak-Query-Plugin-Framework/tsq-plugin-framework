@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.modules.boothandler;
 
 /**
  * Records statistics during boot process

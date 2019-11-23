@@ -13,11 +13,13 @@ import net.vortexdata.tsqpf.configs.ConfigMessages;
 import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.console.LocalShell;
+import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
-import net.vortexdata.tsqpf.modules.BootHandler;
+import net.vortexdata.tsqpf.modules.boothandler.BootHandler;
+import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
 import org.apache.log4j.Level;
@@ -25,8 +27,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * Copyright (C) VortexdataNET - All Rights Reserved
- * Unauthorized redistribution of this software, via any medium is prohibited!
+ * Copyright (C) VortexdataNET
  *
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
@@ -68,6 +69,15 @@ public class Framework {
         BootHandler bootHandler = new BootHandler();
         bootHandler.setBootStartTime();
 
+        // Check eula
+        Eula eula = new Eula(logger);
+        try {
+            eula.init();
+        } catch (OutdatedEulaException e) {
+            logger.printError("Your eula was outdated and has been updated. Please review it and run the framework again. By running the framework again you accept all changes done to the new eula version.");
+            shutdown();
+        }
+
         // Load main config
         ConfigMain configMain = new ConfigMain();
         ConfigMessages configMessages = new ConfigMessages();
@@ -81,6 +91,17 @@ public class Framework {
             shutdown();
         }
         logger.printDebug("Main config loaded.");
+
+        try {
+            if (!Boolean.parseBoolean(configMain.getProperty("acceptEula"))) {
+                logger.printError("You have to accept the eula before running the framework. It is located in the frameworks root directory and can be accepted by changing the 'acceptEula' config value in the main.properties.");
+                shutdown();
+            }
+        } catch (Exception e) {
+            logger.printError("Failed to parse 'acceptEula' config value.");
+            shutdown();
+        }
+
 
         config = new TS3Config();
         logger.printDebug("Trying to assign server address...");

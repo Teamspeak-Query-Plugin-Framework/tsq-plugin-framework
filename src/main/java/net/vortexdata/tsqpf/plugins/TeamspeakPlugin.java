@@ -6,7 +6,7 @@ import net.vortexdata.tsqpf.Framework;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
-import net.vortexdata.tsqpf.modules.EventHandler;
+import net.vortexdata.tsqpf.modules.eventhandler.EventHandler;
 
 /**
  * Parent class for framework plugins PluginMain

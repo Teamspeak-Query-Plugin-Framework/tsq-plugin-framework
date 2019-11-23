@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.modules;
+package net.vortexdata.tsqpf.modules.eventhandler;
 
 import com.github.theholywaffle.teamspeak3.api.event.*;
 
