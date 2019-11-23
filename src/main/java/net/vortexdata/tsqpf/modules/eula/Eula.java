@@ -8,24 +8,21 @@ import java.io.*;
 public class Eula {
 
     private Logger logger;
-    private boolean isValid;
 
     public Eula(Logger logger) {
         this.logger = logger;
-        isValid = false;
     }
 
     public boolean check() throws OutdatedEulaException {
-        File eulaFile = new File(getClass().getClassLoader().getResource("eula.txt").getFile());
-        File frameworkFile = new File(getClass().getClassLoader().getResource("project.properties").getFile());
 
         BufferedReader eulaBr = null;
         BufferedReader frameworkBr = null;
 
         try {
-            eulaBr = new BufferedReader(new FileReader(eulaFile));
+            InputStream fwBrIn = getClass().getResourceAsStream("/project.properties");
+            eulaBr = new BufferedReader(new FileReader("eula.txt"));
             String[] eulaVersion = eulaBr.readLine().split(":")[1].split("\\.");
-            frameworkBr = new BufferedReader(new FileReader(frameworkFile));
+            frameworkBr = new BufferedReader(new InputStreamReader(fwBrIn));
             while (frameworkBr.ready()) {
                 String cLine = frameworkBr.readLine();
                 if (cLine.contains("version=")) {
@@ -35,11 +32,12 @@ public class Eula {
                         eulaBr.close();
                         frameworkBr.close();
                         throw new OutdatedEulaException();
+                    } else {
+                        return true;
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            logger.printError("Failed to get eula.txt resource.");
             return false;
         } catch (IOException e) {
             logger.printError("Failed to read eula.txt resource.");
@@ -59,13 +57,13 @@ public class Eula {
     }
 
     public boolean create() {
-        File eulaFile = new File(getClass().getClassLoader().getResource("eula.txt").getFile());
         try {
-            BufferedReader eulaBr = new BufferedReader(new FileReader(eulaFile));
+            InputStream fwBrIn = getClass().getResourceAsStream("/eula.txt");
+            BufferedReader eulaBr = new BufferedReader(new InputStreamReader(fwBrIn));
             BufferedWriter eulaBw = new BufferedWriter(new FileWriter("eula.txt", false));
 
             while (eulaBr.ready()) {
-                eulaBw.write(eulaBr.readLine());
+                eulaBw.write(eulaBr.readLine() + "\n");
             }
 
             eulaBr.close();
@@ -94,7 +92,7 @@ public class Eula {
                 logger.printDebug("Up-to-date eula.txt found, creation skipped.");
             }
         } catch (OutdatedEulaException e) {
-            throw new OutdatedEulaException();
+            create();
         }
         return status;
     }

@@ -69,6 +69,15 @@ public class Framework {
         BootHandler bootHandler = new BootHandler();
         bootHandler.setBootStartTime();
 
+        // Check eula
+        Eula eula = new Eula(logger);
+        try {
+            eula.init();
+        } catch (OutdatedEulaException e) {
+            logger.printError("Your eula was outdated and has been updated. Please review it and run the framework again. By running the framework again you accept all changes done to the new eula version.");
+            shutdown();
+        }
+
         // Load main config
         ConfigMain configMain = new ConfigMain();
         ConfigMessages configMessages = new ConfigMessages();
@@ -90,14 +99,6 @@ public class Framework {
             }
         } catch (Exception e) {
             logger.printError("Failed to parse 'acceptEula' config value.");
-            shutdown();
-        }
-
-        Eula eula = new Eula(logger);
-        try {
-            eula.init();
-        } catch (OutdatedEulaException e) {
-            logger.printError("Your eula was outdated and has been updated. Please review it and run the framework again. By running the framework again you accept all changes done to the new eula version.");
             shutdown();
         }
 
