@@ -330,12 +330,13 @@ public class Framework {
     public void printCopyHeader() {
         System.out.println("|| ==================================================== ||");
         System.out.println("|| Teamspeak Query Plugin Framework                     ||");
-        System.out.println("|| https://projects.vortexdata.net/tsq-plugin-framework ||");
-        System.out.println("||                                                      ||");
-        System.out.println("|| Support: support@vortexdata.net                      ||");
-        System.out.println("|| Authors: Michael Wiesinger, Sandro Kierner           ||");
-        System.out.println("|| Publisher: VortexdataNET                             ||");
         System.out.println("|| Copyright: Copyright (C) 2019 VortexdataNET          ||");
+        System.out.println("|| https://tsqpf.vortexdata.net/                        ||");
+        System.out.println("||                                                      ||");
+        System.out.println("|| Core: Michael Wiesinger, Sandro Kierner              ||");
+        System.out.println("|| Api: Bert De Geyter                                  ||");
+        System.out.println("|| Shell: Michael Wiesinger, Fabian Gurtner             ||");
+        System.out.println("|| External Systems: Klaus Scheiböck                    ||");
         System.out.println("|| ==================================================== ||");
         System.out.println();
         // Sleep for 1 second
