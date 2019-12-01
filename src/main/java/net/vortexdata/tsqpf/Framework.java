@@ -40,6 +40,7 @@ import net.vortexdata.tsqpf.console.FrameworkLogger;
 import net.vortexdata.tsqpf.console.LocalShell;
 import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.framework.FrameworkStatus;
+import net.vortexdata.tsqpf.framework.StatusReporter;
 import net.vortexdata.tsqpf.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
@@ -66,6 +67,7 @@ public class Framework {
     private ReconnectStrategy reconnectStrategy;
     private boolean resetRoot = false;
     private FrameworkStatus frameworkStatus;
+    private StatusReporter statusReporter;
 
     public static void main(String[] args) {
         instance = new Framework();
@@ -149,6 +151,10 @@ public class Framework {
         }
         logger.printDebug("Reconnect strategy set.");
 
+
+
+
+
         config.setConnectionHandler(new ConnectionHandler() {
 
             @Override
@@ -207,6 +213,10 @@ public class Framework {
         } else {
             logger.printDebug("Skipping opening of heartbeat port as defined per config.");
         }
+
+        statusReporter = new StatusReporter(this, configMain.getProperty("uuid"));
+        logger.printInfo("Sending Report");
+        statusReporter.startup();
 
         bootHandler.setBootEndTime();
         logger.printInfo("Boot process finished.");
