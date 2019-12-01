@@ -1,71 +1,37 @@
+/*
+ *
+ *  Teamspeak Query Plugin Framework
+ *
+ *  Copyright (C) 2019 - 2020 VortexdataNET
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ */
+
 package net.vortexdata.tsqpf.installers;
 
-import net.vortexdata.tsqpf.configs.*;
-
-import java.util.*;
-
+/**
+ * Simple user interface to assist users in configuring the framework.
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
 public class InstallWizzard {
 
-    private HashMap<String, String> values;
-
-    public InstallWizzard() {
-        ConfigMain cMain = new ConfigMain();
-        values = cMain.getDefaultValues();
-    }
-
-    public void init() {
-        values = new HashMap<String, String>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("You've started the program in setup mode.");
-        System.out.println("-----------------------------------------");
-        System.out.println("The address of your server can be an IP address or domain (e.g. 'vortexdata.net' or '127.0.0.1'). If your Teamspeak server runs on the same system as the bot, your can enter '127.0.0.1'.");
-        System.out.print("Your servers address: ");
-        values.put("serverAddress", scanner.nextLine());
-
-        boolean isVirtualIdValid = false;
-        do {
-            System.out.println("\nThe virtual server ID is the ID of the virtual server you want to run this bot on. If you only have one virtual server instance, put in '1' as default.");
-            System.out.print("Your virtual server id: ");
-            String paramVirtualServerIdString = scanner.nextLine();
-
-            try {
-                int paramVirtualServerId = Integer.parseInt(paramVirtualServerIdString);
-                values.put("virtualServer", paramVirtualServerIdString);
-                isVirtualIdValid = true;
-            } catch (Exception e) {
-                System.out.println("\nInvalid input!");
-            }
-        } while (!isVirtualIdValid);
-
-        boolean isPortValid = false;
-        do {
-            System.out.println("\nThe server query port specifies on which port this bot will connect to your query. It's default value is '10011'.");
-            System.out.print("Query port: ");
-            String paramQueryPortString = scanner.nextLine();
-
-            try {
-                int paramQueryPort = Integer.parseInt(paramQueryPortString);
-                values.put("queryPort", paramQueryPortString);
-                isPortValid = true;
-            } catch (Exception e) {
-                System.out.println("\nInvalid input!");
-            }
-        } while (!isPortValid);
-
-        System.out.println("\nQuery user is used to log into query. Default 'serveradmin'.");
-        System.out.print("Query user: ");
-        values.put("queryUser", scanner.nextLine());
-
-        System.out.println("\nQuery password is used to log into query. Default value is generated on first successful launch of your Teamspeak server.");
-        System.out.print("Query password: ");
-        values.put("queryPassword", scanner.nextLine());
-
-        System.out.println("\nThe bots nickname will be displayed in chat tabs etc.");
-        System.out.print("Framework nickname: ");
-        values.put("botNickname", scanner.nextLine());
-
-        InstallConfig installConfig = new InstallConfig();
-        installConfig.create("configs/main.properties", values);
-    }
 
 }

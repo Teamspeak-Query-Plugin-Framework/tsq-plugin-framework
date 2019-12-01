@@ -1,12 +1,39 @@
-package net.vortexdata.tsqpf.configs;
+/*
+ *
+ *  Teamspeak Query Plugin Framework
+ *
+ *  Copyright (C) 2019 - 2020 VortexdataNET
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ */
 
-import net.vortexdata.tsqpf.installers.*;
+package net.vortexdata.tsqpf.configs;
 
 import java.util.HashMap;
 
-
-public class ConfigMain extends ConfigField implements Config {
-
+/**
+ * ConfigMain class
+ *
+ * @author Sandro Kierner
+ * @since 1.0.0
+ */
+public class ConfigMain extends Config {
 
     public ConfigMain() {
         super("configs//main.properties");
@@ -16,35 +43,16 @@ public class ConfigMain extends ConfigField implements Config {
         // Setting Default Values
         defaultValues.put("serverAddress", "127.0.0.1");
         defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "admin");
+        defaultValues.put("queryUser", "serveradmin");
         defaultValues.put("queryPassword", "password");
         defaultValues.put("virtualServerId", "1");
         defaultValues.put("clientNickname", "TSQP Framework");
-    }
-
-    public void load() {
-        ConfigLoader cLoader = new ConfigLoader();
-        values = cLoader.load(path);
-        if (values.size() < defaultValues.size()) {
-            InstallConfig iConfig = new InstallConfig();
-            iConfig.create(path, defaultValues);
-        }
-    }
-
-    public String getProperty(String key) {
-        return values.get(key);
-    }
-
-    public HashMap<String, String> getValues() {
-        return null;
-    }
-
-    public HashMap<String, String> getDefaultValues() {
-        return null;
-    }
-
-    public String getPath() {
-        return null;
+        defaultValues.put("reconnectStrategy", "exponentialBackoff");
+        defaultValues.put("remoteShellPort", "12342");
+        defaultValues.put("heartbeatPort", "12343");
+        defaultValues.put("enableRemoteShell", "true");
+        defaultValues.put("enableHeartbeat", "true");
+        defaultValues.put("acceptEula", "false");
     }
 
 }

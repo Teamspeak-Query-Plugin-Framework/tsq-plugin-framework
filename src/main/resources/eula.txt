@@ -1,0 +1,21 @@
+#version:2.0.0
+
+The VortexdataNET TSQPF End User License Agreement (EULA) sets rules for
+downloading and using the Teamspeak Query Plugin Framework (Later called
+TSPQF). The most recent version of the EULA can be found at
+"https://tsqpf.vortexdata.net/docs/eula".
+
+By accepting the TSQPF EULA, you verify that you agree to the collection
+of some data of your TSQPF instance, which is being sent to
+VortexdataNET. VortexdataNET will use the collected information only for
+display on their official websites (eg. https://tsqpf.vortexdata.net)
+and to locate bugs and issues of the TSQPF.
+
+The following information will be collected:
+	- TSQPF RAM Usage
+	- TSQPF CPU Usage
+	- TSQPF Plugins in use
+	- TSQPF Startups (Inlcuding Date and Time)
+	- TSQPF Crashes (Inlcuding Date and Time)
+	- TSQPF Reloads (Inlcuding Date and Time)
+	- TSQPF Main config settings (/configs/main.properties)
