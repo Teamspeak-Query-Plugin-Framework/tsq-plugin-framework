@@ -9,6 +9,8 @@ import sun.net.www.http.HttpClient;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class StatusReporter {
@@ -31,8 +33,9 @@ public class StatusReporter {
     public void startup() {
         JSONObject requestData = new JSONObject();
         requestData.put("type", "startUp");
-        requestData.put("uuid", uuid);
-        sendData(requestData.toJSONString());
+        requestData.put("uuid", "18b36e20-ecee-4396-babf-aa8cec9f134b"); // Needs to be generated at first startup
+        requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+        sendData(requestData.toString());
 
 
 
@@ -43,13 +46,15 @@ public class StatusReporter {
     private void sendData(String data) {
         try {
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json; utf-8");
-            con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
+            con.setRequestMethod("POST");
+
+            con.setRequestProperty("User-Agent", "Java client");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
 
             try(OutputStream os = con.getOutputStream()) {
-                byte[] input = data.getBytes("utf-8");
+                byte[] input = ("data="+data).getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
             try(BufferedReader br = new BufferedReader(
@@ -59,7 +64,7 @@ public class StatusReporter {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                System.out.println(response.toString());
+
             }
         } catch (IOException e) {
             e.printStackTrace();
