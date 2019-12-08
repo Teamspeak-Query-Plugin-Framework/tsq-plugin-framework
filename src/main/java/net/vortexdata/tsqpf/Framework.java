@@ -29,6 +29,7 @@ import com.github.theholywaffle.teamspeak3.*;
 import com.github.theholywaffle.teamspeak3.api.reconnect.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.commands.*;
+import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.framework.*;
@@ -65,14 +66,16 @@ public class Framework {
 
         // Create query
         frameworkContainer.getFrameworkLogger().printDebug("Trying to connect to server...");
-        frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.getTs3Config()));
+        frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.generateTs3Config()));
 
         try {
             frameworkContainer.getTs3Query().connect();
-        } catch (Exception e) {
-            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ", e);
+        } catch (Exception exx) {
+            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
+            exx.printStackTrace();
             shutdown();
         }
+
         frameworkContainer.getFrameworkLogger().printInfo("Successfully established connection to server.");
 
         frameworkContainer.getFrameworkLogger().printDebug("Initializing console handler...");
@@ -158,14 +161,15 @@ public class Framework {
         frameworkContainer.setFrameworkStatus(FrameworkStatus.WAKING);
         frameworkContainer.getFrameworkLogger().printDebug("Wakeup initiated...");
         frameworkContainer.setTs3Api(ts3Query.getApi());
+        frameworkContainer.getFrameworkLogger().printDebug("Trying to sign into query...");
         try {
-            frameworkContainer.getFrameworkLogger().printDebug("Trying to sign into query...");
             frameworkContainer.getTs3Api().login(
-                    frameworkContainer.getConfig("config//main.properties").getProperty("queryUser"),
-                    frameworkContainer.getConfig("config//main.properties").getProperty("queryPassword")
+                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryUser"),
+                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryPassword")
             );
         } catch (Exception e) {
-            frameworkContainer.getFrameworkLogger().printError("Failed to sign into query, dumping error details: " + e.getMessage());
+            frameworkContainer.getFrameworkLogger().printError("Failed to sign into query, dumping error details: ");
+            e.printStackTrace();
             shutdown();
         }
 

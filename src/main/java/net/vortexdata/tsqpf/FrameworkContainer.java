@@ -137,6 +137,8 @@ public class FrameworkContainer {
 
         });
 
+        this.ts3Config = ts3config;
+
         return ts3config;
 
     }
