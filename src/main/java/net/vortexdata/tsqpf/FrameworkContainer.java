@@ -83,7 +83,6 @@ public class FrameworkContainer {
 
     public void init() {
         frameworkLogger = new FrameworkLogger(framework);
-        frameworkLogger.printInfo("Hi");
 
         parseArgs(frameworkStartParameters);
 
