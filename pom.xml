@@ -69,7 +69,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.vortexdata.tsqpf.Framework</mainClass>
+                            <mainClass>net.vortexdata.tsqpf.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

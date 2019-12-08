@@ -27,7 +27,7 @@ package net.vortexdata.tsqpf.plugins;
 
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
@@ -43,7 +43,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
 
 
     private PluginContainer pluginContainer = null;
-    private Framework framework;
+    private FrameworkContainer frameworkContainer;
 
     /**
      * Returns a plugins container
@@ -68,11 +68,11 @@ public abstract class TeamspeakPlugin extends EventHandler {
     /**
      * Sets a plugins framework
      *
-     * @param pc The Framework
+     * @param frameworkContainer The FrameworkContainer
      */
-    public void setFramework(Framework pc) {
-        if (framework != null) return;
-        framework = pc;
+    public void setFrameworkContainer(FrameworkContainer frameworkContainer) {
+        if (frameworkContainer != null) return;
+        this.frameworkContainer = frameworkContainer;
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * @return The Frameworks api
      */
     protected TS3Api getAPI() {
-        return framework.getApi();
+        return frameworkContainer.getTs3Api();
     }
 
     /**
@@ -118,7 +118,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * @param cmd The command class
      */
     protected void registerChatCommand(ChatCommandInterface cmd, String prefix) {
-        framework.getChatCommandListener().registerNewCommand(cmd, prefix);
+        frameworkContainer.getFrameworkChatCommandListener().registerNewCommand(cmd, prefix);
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
 
 
     protected PluginManager getPluginManager() {
-        return framework.getPluginManager();
+        return frameworkContainer.getFrameworkPluginManager();
     }
     /**
      * This is run on plugins enable, initiated by PluginManager

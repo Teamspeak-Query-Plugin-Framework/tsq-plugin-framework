@@ -25,6 +25,7 @@
 
 package net.vortexdata.tsqpf.remoteShell;
 
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.console.Logger;
 import org.json.simple.JSONObject;
 
@@ -51,11 +52,12 @@ public class ConnectionListener implements Runnable {
     private Thread thread;
     private ArrayList<Session> sessions = new ArrayList<>();
     private int port;
+    private FrameworkContainer frameworkContainer;
 
-
-    public ConnectionListener(Logger logger, int port) {
+    public ConnectionListener(FrameworkContainer frameworkContainer, Logger logger, int port) {
         this.logger = logger;
         this.port = port;
+        this.frameworkContainer = frameworkContainer;
     }
 
     public void start() {
@@ -109,7 +111,7 @@ public class ConnectionListener implements Runnable {
                 outputStream.write(handshake.toJSONString().getBytes(CHARSET));
                 outputStream.write(END_OF_MESSAGE);
                 outputStream.flush();
-                sessions.add(new Session(id, socket, inputStream, outputStream, this, logger));
+                sessions.add(new Session(frameworkContainer, id, socket, inputStream, outputStream, this, logger));
 
 
             }

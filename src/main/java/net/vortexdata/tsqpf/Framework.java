@@ -50,10 +50,12 @@ public class Framework {
 
     public void launch() {
 
-        frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
-
         // Print Startup Head
         printCopyHeader();
+
+        // init framework container
+        frameworkContainer.init();
+        frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
 
         // Check EULA
         checkEula();
@@ -195,13 +197,13 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Trying to register global events...");
         frameworkContainer.getTs3Api().registerAllEvents();
         //TODO: Implement reuseable GlobalEventHandler
-        frameworkContainer.getTs3Api().addTS3Listeners(new GlobalEventHandler(frameworkContainer.getFramework()));
+        frameworkContainer.getTs3Api().addTS3Listeners(new GlobalEventHandler(frameworkContainer));
         frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
 
 
         frameworkContainer.getFrameworkLogger().printDebug("Initializing plugin controller...");
         //TODO: Implement reuseable PluginManager
-        frameworkContainer.setFrameworkPluginManager(new PluginManager(frameworkContainer.getFramework()));
+        frameworkContainer.setFrameworkPluginManager(new PluginManager(frameworkContainer));
         frameworkContainer.getFrameworkLogger().printDebug("Loading and enabling plugins...");
         frameworkContainer.getFrameworkPluginManager().enableAll();
         frameworkContainer.getFrameworkLogger().printDebug("Successfully loaded plugins.");
@@ -219,6 +221,10 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Disabling all plugins...");
         frameworkContainer.getFrameworkPluginManager().disableAll();
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
+    }
+
+    public FrameworkContainer getFrameworkContainer() {
+        return frameworkContainer;
     }
 
 }

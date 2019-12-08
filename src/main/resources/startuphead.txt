@@ -6,5 +6,5 @@
 || Core: Michael Wiesinger, Sandro Kierner              ||
 || Api: Bert De Geyter                                  ||
 || Shell: Michael Wiesinger, Fabian Gurtner             ||
-|| External Systems: Klaus Scheiböck                    ||
+|| External Systems: Klaus Scheiboeck                   ||
 || ==================================================== ||

@@ -25,7 +25,7 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
 
 import java.util.Scanner;
@@ -37,8 +37,8 @@ public class LocalConsoleTerminal implements VirtualTerminal {
     private Scanner scanner;
     private LocalConsole localConsole;
 
-    public LocalConsoleTerminal(User user, LocalConsole localConsole) {
-        logger = Framework.getInstance().getLogger();
+    public LocalConsoleTerminal(User user, LocalConsole localConsole, FrameworkContainer frameworkContainer) {
+        logger = frameworkContainer.getFrameworkLogger();
         scanner = new Scanner(System.in);
         this.localConsole = localConsole;
     }

@@ -45,7 +45,7 @@ public class FrameworkContainer {
 
     // Global Variables
     private HashMap<String, Boolean> booleanParameters;
-    private final Logger rootLogger = LogManager.getRootLogger();
+    private Logger rootLogger;
     private final BootHandler bootHandler;
 
     // Teamspeak API
@@ -65,25 +65,32 @@ public class FrameworkContainer {
     private ReconnectStrategy frameworkReconnectStrategy;
     private FrameworkStatus frameworkStatus;
     private LocalShell frameworkLocalShell;
+    private String[] frameworkStartParameters;
 
     public FrameworkContainer(Framework framework, String[] args) {
 
+        this.frameworkStartParameters = args;
         this.framework = framework;
+        rootLogger =  LogManager.getRootLogger();
 
         booleanParameters = new HashMap<>();
         frameworkConfigs = new ArrayList<>();
         frameworkStatus = FrameworkStatus.STARTING;
         bootHandler = new BootHandler();
         bootHandler.setBootStartTime();
-        frameworkLogger = new FrameworkLogger(this.framework);
 
-        parseArgs(args);
+    }
+
+    public void init() {
+        frameworkLogger = new FrameworkLogger(framework);
+        frameworkLogger.printInfo("Hi");
+
+        parseArgs(frameworkStartParameters);
 
         frameworkLocalShell = new LocalShell(frameworkLogger, booleanParameters.get("-reset-root"));
-        frameworkPluginManager = new PluginManager(this.framework);
+        frameworkPluginManager = new PluginManager(this);
 
         loadConfigs();
-
     }
 
     public TS3Config generateTs3Config() {
