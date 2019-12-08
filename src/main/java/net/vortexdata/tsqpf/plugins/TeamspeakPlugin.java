@@ -71,8 +71,8 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * @param frameworkContainer The FrameworkContainer
      */
     public void setFrameworkContainer(FrameworkContainer frameworkContainer) {
-        if (frameworkContainer != null) return;
-        this.frameworkContainer = frameworkContainer;
+        if (this.frameworkContainer == null)
+            this.frameworkContainer = frameworkContainer;
     }
 
     /**
