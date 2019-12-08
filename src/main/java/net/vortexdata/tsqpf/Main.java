@@ -23,42 +23,13 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.modules.boothandler;
+package net.vortexdata.tsqpf;
 
-/**
- * Records statistics during boot process
- *
- * @author Sandro Kierner
- * @since 1.0.0
- */
-public class BootHandler {
+public class Main {
 
-    private long bootStartTime = 0;
-    private long bootEndTime = 0;
-
-    /**
-     * Sets the timestamp of when the boot process started.
-     */
-    public void setBootStartTime() {
-        bootStartTime = System.currentTimeMillis();
-    }
-
-    /**
-     * Sets the timestamp of when the boot process finished.
-     */
-    public void setBootEndTime() {
-        bootEndTime = System.currentTimeMillis();
-    }
-
-    /**
-     * @return Returns the total time that passed during boot
-     */
-    public float getBootTime() {
-        return bootEndTime - bootStartTime;
-    }
-
-    public float getBootStartTime() {
-        return bootStartTime;
+    public static void main(String[] args) {
+        Framework frameworkInstance = new Framework(args);
+        frameworkInstance.launch();
     }
 
 }
