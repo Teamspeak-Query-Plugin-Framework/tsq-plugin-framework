@@ -86,7 +86,7 @@ public class FrameworkContainer {
 
         parseArgs(frameworkStartParameters);
 
-        frameworkLocalShell = new LocalShell(frameworkLogger, booleanParameters.get("-reset-root"));
+        frameworkLocalShell = new LocalShell(frameworkLogger, getBooleanParameter("-reset-root"));
         frameworkPluginManager = new PluginManager(this);
 
         loadConfigs();
