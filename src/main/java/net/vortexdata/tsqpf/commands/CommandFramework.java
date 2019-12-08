@@ -25,18 +25,18 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 public class CommandFramework extends CommandInterface {
 
-    private Framework framework;
+    private FrameworkContainer frameworkContainer;
 
-    public CommandFramework(Logger logger, Framework framework) {
-        super(logger);
-        this.framework = framework;
+    public CommandFramework(FrameworkContainer frameworkContainer) {
+        super(frameworkContainer.getFrameworkLogger());
+        this.frameworkContainer = frameworkContainer;
         groups.add(UserGroup.ROOT);
     }
 
@@ -53,9 +53,10 @@ public class CommandFramework extends CommandInterface {
 
 
             if (args[0].equalsIgnoreCase("reload")) {
-                shell.getPrinter().println("This action is not supported in this build.");
+                frameworkContainer.getFramework().hibernate();
+                frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
             } else if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("exit") || args[0].equalsIgnoreCase("shutdown")) {
-                framework.shutdown();
+                frameworkContainer.getFramework().shutdown();
             } else if (args[0].equalsIgnoreCase("kill")) {
                 System.exit(0);
             } else if (args[0].equalsIgnoreCase("stats")) {

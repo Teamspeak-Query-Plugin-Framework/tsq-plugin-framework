@@ -90,7 +90,8 @@ public class Framework {
         CommandContainer.registerCommand(new CommandLogout(frameworkContainer.getFrameworkLogger()));
         CommandContainer.registerCommand(new CommandAddUser(frameworkContainer.getFrameworkLogger(), frameworkContainer.getUserManager()));
         CommandContainer.registerCommand(new CommandDelUser(frameworkContainer.getFrameworkLogger(), frameworkContainer.getUserManager()));
-        CommandContainer.registerCommand(new CommandFramework(frameworkContainer.getFrameworkLogger(), frameworkContainer.getFramework()));
+        CommandContainer.registerCommand(new CommandFramework(frameworkContainer));
+        CommandContainer.registerCommand(new CommandPlugins(frameworkContainer));
         frameworkContainer.getFrameworkLogger().printDebug("Console handler and console commands successfully initialized and registered.");
 
         frameworkContainer.getBootHandler().setBootEndTime();
