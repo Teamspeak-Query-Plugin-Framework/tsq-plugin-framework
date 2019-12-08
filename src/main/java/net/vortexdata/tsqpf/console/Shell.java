@@ -95,7 +95,8 @@ public class Shell implements IShell {
 			try {
 				hasPermission = checkPermissions(command);
 			} catch(UserNotFoundException e) {
-				printer.println("User has been deleted before executing command!");
+				if (!rawCommand[0].isEmpty())
+					printer.println("User has been deleted before executing command!");
 				break;
 			}
 			if(hasPermission)
