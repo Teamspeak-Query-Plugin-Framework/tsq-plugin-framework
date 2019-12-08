@@ -88,6 +88,7 @@ public class Shell implements IShell {
 			if(rawCommand.length < 1) continue;
 			CommandInterface command = CommandContainer.searchCommand(rawCommand[0]);
 			if (command == null) {
+				printer.println(rawCommand[0] + ": command not found");
 				return false;
 			}
 			boolean hasPermission;
