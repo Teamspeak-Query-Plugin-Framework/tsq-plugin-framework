@@ -38,17 +38,39 @@ public class CommandPlugins extends CommandInterface {
 
     @Override
     public String getHelpMessage() {
-        return null;
+        return "Controls loaded framework plugins.";
     }
 
     @Override
     public void execute(String[] args, IShell shell) {
 
+        if (args.length > 0) {
+
+            if (args[0].equalsIgnoreCase("reload")) {
+                frameworkContainer.getFramework().hibernate();
+                frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
+            } else if (args[0].equalsIgnoreCase("disable")) {
+                if (args.length > 1) {
+                    if (frameworkContainer.getFrameworkPluginManager().disablePlugin(args[1]))
+                        shell.getPrinter().println("Plugin " + args[1] + " successfully disabled.");
+                    else
+                        shell.getPrinter().println("Plugin " + args[1] + " not found.");
+                } else {
+                    shell.getPrinter().println("plugins disable: missing parameters");
+                    shell.getPrinter().println("Try 'plugins disable <pluginname>'");
+                }
+            }
+
+        } else {
+            shell.getPrinter().println("plugins: missing parameters");
+            shell.getPrinter().println("Try 'plugins <reload [optional: pluginname] | find [pluginname] | disable [pluginname]>'");
+        }
+
     }
 
     @Override
     public String getName() {
-        return null;
+        return "plugins";
     }
 
 }

@@ -80,17 +80,20 @@ public class PluginManager {
 
     }
 
-    public void disablePlugin(String name) {
+    public boolean disablePlugin(String name) {
         PluginContainer removed = null;
         for (PluginContainer pc : loadedPlugins) {
-            if (pc.getPluginName().equals(name)) {
+            if (pc.getPluginName().equalsIgnoreCase(name)) {
                 pc.getTeamspeakPlugin().onDisable();
                 removed = pc;
                 break;
             }
         }
-        if(removed != null)
-        loadedPlugins.remove(removed);
+        if(removed != null) {
+            loadedPlugins.remove(removed);
+            return true;
+        }
+        return false;
     }
 
     /**
