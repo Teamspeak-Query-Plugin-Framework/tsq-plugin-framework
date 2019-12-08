@@ -33,7 +33,7 @@ public class StatusReporter {
     public void startup() {
         JSONObject requestData = new JSONObject();
         requestData.put("type", "startUp");
-        requestData.put("uuid", "18b36e20-ecee-4396-babf-aa8cec9f134b"); // Needs to be generated at first startup
+        requestData.put("uuid", "18b36e20-ecee-4396-babf-aa8cec9f134b"); // TODO: Needs to be generated at first startup
         requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
         sendData(requestData.toString());
 
@@ -49,7 +49,7 @@ public class StatusReporter {
             con.setDoOutput(true);
             con.setRequestMethod("POST");
 
-            con.setRequestProperty("User-Agent", "Java client");
+            con.setRequestProperty("User-Agent", "TSQPF status reporter");
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 
