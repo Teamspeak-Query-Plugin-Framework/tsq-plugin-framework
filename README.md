@@ -7,7 +7,7 @@
 
 A java-based plugin framework for Teamspeak 3 servers.
 
-![TSQPF Logo](https://i.imgur.com/HgMc6NV.png)
+![TSQPF Logo](https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png)
 
 ## 🏷️ Features
 ✅ Plugin API to add more features to your Teamspeak server<br/>
