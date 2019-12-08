@@ -87,6 +87,9 @@ public class Shell implements IShell {
 			String[] rawCommand = readCommand();
 			if(rawCommand.length < 1) continue;
 			CommandInterface command = CommandContainer.searchCommand(rawCommand[0]);
+			if (command == null) {
+				return false;
+			}
 			boolean hasPermission;
 			try {
 				hasPermission = checkPermissions(command);
@@ -97,7 +100,7 @@ public class Shell implements IShell {
 			if(hasPermission)
 				executeCommand(command, rawCommand);
 			else
-				printer.println("Permissions insufficient!");
+				printer.println("Insufficient permissions!");
 		}
 
 		return true;
@@ -159,8 +162,10 @@ public class Shell implements IShell {
 	 */
 	@Override
 	public boolean checkPermissions(CommandInterface command) throws UserNotFoundException {
+		if (command == null)
+			return false;
 		userManager.reloadUsers();
-		return command.isGroupRequirementMet(userManager.getUser(user.getUsername()).getGroup());
+		return command.isGroupRequirementMet(user.getGroup());
 	}
 
 	/**

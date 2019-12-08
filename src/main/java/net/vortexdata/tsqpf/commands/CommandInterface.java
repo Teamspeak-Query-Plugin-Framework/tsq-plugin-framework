@@ -77,6 +77,10 @@ public abstract class CommandInterface {
     abstract public String getName();
 
     public boolean isGroupRequirementMet(UserGroup group) {
+        if (group == null) {
+            logger.printError("Failed to check group permission requirement for command " + getName() + ".");
+            return false;
+        }
         for (UserGroup currentRequiredGroup : groups) {
             if (group == currentRequiredGroup)
                 return true;
