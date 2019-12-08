@@ -231,6 +231,9 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Disabling all plugins...");
         frameworkContainer.getFrameworkPluginManager().disableAll();
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
+
+        frameworkContainer.setLocalShell(null);
+
     }
 
     public FrameworkContainer getFrameworkContainer() {
