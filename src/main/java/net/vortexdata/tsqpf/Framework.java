@@ -65,18 +65,18 @@ public class Framework {
         frameworkContainer.loadConfigs();
 
         // Create query
-        frameworkContainer.getFrameworkLogger().printDebug("Trying to connect to server...");
         frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.generateTs3Config()));
 
+        // Establish connection
+        frameworkContainer.getFrameworkLogger().printDebug("Trying to connect to server...");
         try {
             frameworkContainer.getTs3Query().connect();
+            frameworkContainer.getFrameworkLogger().printDebug("Connection to server established.");
         } catch (Exception exx) {
             frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
             exx.printStackTrace();
             shutdown();
         }
-
-        frameworkContainer.getFrameworkLogger().printInfo("Successfully established connection to server.");
 
         frameworkContainer.getFrameworkLogger().printDebug("Initializing console handler...");
         frameworkContainer.setUserManager(new UserManager(frameworkContainer.getFrameworkLogger()));
@@ -138,6 +138,9 @@ public class Framework {
     }
 
     public void shutdown() {
+
+        frameworkContainer.setFrameworkStatus(FrameworkStatus.STOPPING);
+
         frameworkContainer.getFrameworkLogger().printInfo("Shutting down for system halt.");
 
         if (frameworkContainer.getLocalShell() != null) {
@@ -217,6 +220,8 @@ public class Framework {
     }
 
     public void hibernate() {
+        frameworkContainer.setFrameworkStatus(FrameworkStatus.HIBERNATING);
+
         if (frameworkContainer.getFrameworkReconnectStrategy() == ReconnectStrategy.disconnect()) {
             shutdown();
             return;
