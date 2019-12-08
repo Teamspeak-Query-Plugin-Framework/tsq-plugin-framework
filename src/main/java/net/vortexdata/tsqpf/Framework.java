@@ -26,6 +26,7 @@
 package net.vortexdata.tsqpf;
 
 import com.github.theholywaffle.teamspeak3.*;
+import com.github.theholywaffle.teamspeak3.api.reconnect.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.console.*;
@@ -210,7 +211,14 @@ public class Framework {
     }
 
     public void hibernate() {
-
+        if (frameworkContainer.getFrameworkReconnectStrategy() == ReconnectStrategy.disconnect()) {
+            shutdown();
+            return;
+        }
+        frameworkContainer.getFrameworkLogger().printDebug("Sleep initiated.");
+        frameworkContainer.getFrameworkLogger().printDebug("Disabling all plugins...");
+        frameworkContainer.getFrameworkPluginManager().disableAll();
+        frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
     }
 
 }
