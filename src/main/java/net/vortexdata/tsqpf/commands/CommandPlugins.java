@@ -26,6 +26,7 @@
 package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.console.*;
 
 public class CommandPlugins extends CommandInterface {
@@ -34,6 +35,7 @@ public class CommandPlugins extends CommandInterface {
 
     public CommandPlugins(FrameworkContainer frameworkContainer) {
         super(frameworkContainer.getFrameworkLogger());
+        groups.add(UserGroup.ROOT);
     }
 
     @Override
