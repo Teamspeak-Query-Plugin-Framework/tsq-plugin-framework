@@ -61,11 +61,11 @@ public class CommandFramework extends CommandInterface {
                 System.exit(0);
             } else if (args[0].equalsIgnoreCase("stats")) {
                 shell.getPrinter().println("Available cores: \t\t\t" + Runtime.getRuntime().availableProcessors());
-                shell.getPrinter().println("Memory usage: \t\t\t" + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().maxMemory()));
+                shell.getPrinter().println("Memory usage: \t\t\t\t" + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()));
                 shell.getPrinter().println("Operating system: \t\t\t" + System.getProperty("os.name"));
                 shell.getPrinter().println("OS version: \t\t\t\t" + System.getProperty("os.version"));
-                shell.getPrinter().println("Java version: \t\t\t" + System.getProperty("java.version"));
-                shell.getPrinter().println("Java vendor: \t\t\t" + System.getProperty("java.vendor"));
+                shell.getPrinter().println("Java version: \t\t\t\t" + System.getProperty("java.version"));
+                shell.getPrinter().println("Java vendor: \t\t\t\t" + System.getProperty("java.vendor"));
             } else {
                 shell.getPrinter().println("framework "+ args[0] +": unknown parameters");
                 shell.getPrinter().println("Try 'framework <reload | kill | stop | stats>'");
