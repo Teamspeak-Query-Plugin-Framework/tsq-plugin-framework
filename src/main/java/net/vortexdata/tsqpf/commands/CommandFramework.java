@@ -61,7 +61,7 @@ public class CommandFramework extends CommandInterface {
                 System.exit(0);
             } else if (args[0].equalsIgnoreCase("stats")) {
                 shell.getPrinter().println("Available cores: \t\t\t" + Runtime.getRuntime().availableProcessors());
-                shell.getPrinter().println("Memory usage: \t\t\t\t" + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()));
+                shell.getPrinter().println("Memory usage: \t\t\t\t" + (((double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) / 1000 + " mb"));
                 shell.getPrinter().println("Operating system: \t\t\t" + System.getProperty("os.name"));
                 shell.getPrinter().println("OS version: \t\t\t\t" + System.getProperty("os.version"));
                 shell.getPrinter().println("Java version: \t\t\t\t" + System.getProperty("java.version"));
