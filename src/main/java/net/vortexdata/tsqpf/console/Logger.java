@@ -25,38 +25,38 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 
 public abstract class Logger {
 
-    private Framework framework;
+    private FrameworkContainer frameworkContainer;
 
-    public Logger(Framework Framework) {
-        framework = Framework;
+    public Logger(FrameworkContainer frameworkContainer) {
+        this.frameworkContainer = frameworkContainer;
     }
 
     public void printInfo(String message) {
-        framework.getRootLogger().info(message);
+        frameworkContainer.getRootLogger().info(message);
     }
 
     public void printDebug(String message) {
-        framework.getRootLogger().debug(message);
+        frameworkContainer.getRootLogger().debug(message);
     }
 
     public void printError(String message, Exception e) {
-        framework.getRootLogger().error(message, e);
+        frameworkContainer.getRootLogger().error(message, e);
     }
 
     public void printError(String message) {
-        framework.getRootLogger().error(message);
+        frameworkContainer.getRootLogger().error(message);
     }
 
     public void printWarn(String message, Exception e) {
-        framework.getRootLogger().warn(message, e);
+        frameworkContainer.getRootLogger().warn(message, e);
     }
 
     public void printWarn(String message) {
-        framework.getRootLogger().warn(message);
+        frameworkContainer.getRootLogger().warn(message);
     }
 
 }

@@ -87,17 +87,23 @@ public class Shell implements IShell {
 			String[] rawCommand = readCommand();
 			if(rawCommand.length < 1) continue;
 			CommandInterface command = CommandContainer.searchCommand(rawCommand[0]);
+			if (command == null) {
+				if (!rawCommand[0].isEmpty())
+					printer.println(rawCommand[0] + ": command not found");
+				return false;
+			}
 			boolean hasPermission;
 			try {
 				hasPermission = checkPermissions(command);
 			} catch(UserNotFoundException e) {
-				printer.println("User has been deleted before executing command!");
+				if (!rawCommand[0].isEmpty())
+					printer.println("User has been deleted before executing command!");
 				break;
 			}
 			if(hasPermission)
 				executeCommand(command, rawCommand);
 			else
-				printer.println("Permissions insufficient!");
+				printer.println("Insufficient permissions!");
 		}
 
 		return true;
@@ -159,8 +165,10 @@ public class Shell implements IShell {
 	 */
 	@Override
 	public boolean checkPermissions(CommandInterface command) throws UserNotFoundException {
+		if (command == null)
+			return false;
 		userManager.reloadUsers();
-		return command.isGroupRequirementMet(userManager.getUser(user.getUsername()).getGroup());
+		return command.isGroupRequirementMet(user.getGroup());
 	}
 
 	/**

@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.heartbeat;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -40,8 +40,10 @@ public class HeartBeatListener implements Runnable {
     private TS3Api api;
     private Thread thread;
     private int port;
+    private FrameworkContainer frameworkContainer;
 
-    public HeartBeatListener(TS3Api api, int port) {
+    public HeartBeatListener(FrameworkContainer container, TS3Api api, int port) {
+        this.frameworkContainer = container;
         this.api = api;
         this.port = port;
         start();
@@ -62,7 +64,7 @@ public class HeartBeatListener implements Runnable {
         try {
             listener = new ServerSocket(port);
         } catch (IOException e) {
-            Framework.getInstance().getLogger().printError(e.getMessage());
+            frameworkContainer.getFrameworkLogger().printError(e.getMessage());
         }
         while (true) {
             try {
@@ -77,7 +79,7 @@ public class HeartBeatListener implements Runnable {
                 socket.close();
 
             } catch (Exception e) {
-                Framework.getInstance().getLogger().printError(e.getMessage());
+                frameworkContainer.getFrameworkLogger().printError(e.getMessage());
             }
         }
 

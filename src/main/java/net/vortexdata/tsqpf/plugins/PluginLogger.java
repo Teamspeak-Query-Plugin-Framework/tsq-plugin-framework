@@ -40,7 +40,7 @@ public class PluginLogger extends Logger {
     private PluginContainer pluginContainer;
 
     public PluginLogger(Framework Framework, PluginContainer container) {
-        super(Framework);
+        super(Framework.getFrameworkContainer());
         pluginContainer = container;
     }
 
