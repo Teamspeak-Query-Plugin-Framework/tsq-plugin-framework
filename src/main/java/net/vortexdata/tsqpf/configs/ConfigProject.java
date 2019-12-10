@@ -34,7 +34,6 @@ public class ConfigProject extends Config {
 
         this.values = values;
 
-        values.forEach((x, b) -> System.out.println(x +"->"+ b));
         return true;
     }
 

@@ -28,6 +28,8 @@ package net.vortexdata.tsqpf.commands;
 import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.console.*;
+import net.vortexdata.tsqpf.plugins.PluginContainer;
+import net.vortexdata.tsqpf.plugins.PluginManager;
 
 public class CommandPlugins extends CommandInterface {
 
@@ -52,20 +54,17 @@ public class CommandPlugins extends CommandInterface {
                 frameworkContainer.getFramework().hibernate();
                 frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
             } else if (args[0].equalsIgnoreCase("disable")) {
-                if (args.length > 1) {
-                    if (frameworkContainer.getFrameworkPluginManager().disablePlugin(args[1]))
-                        shell.getPrinter().println("Plugin " + args[1] + " successfully disabled.");
-                    else
-                        shell.getPrinter().println("Plugin " + args[1] + " not found.");
-                } else {
-                    shell.getPrinter().println("plugins disable: missing parameters");
-                    shell.getPrinter().println("Try 'plugins disable <pluginname>'");
-                }
+                shell.getPrinter().println("This action is not yet supported.");
+            } else {
+                shell.getPrinter().println("plugins disable: missing parameters");
+                shell.getPrinter().println("Try 'plugins <reload | >'");
             }
 
         } else {
-            shell.getPrinter().println("plugins: missing parameters");
-            shell.getPrinter().println("Try 'plugins <reload [optional: pluginname] | find [pluginname] | disable [pluginname]>'");
+            shell.getPrinter().println("Loaded plugins: ");
+            for (PluginContainer pc : PluginManager.getLoadedPlugins()) {
+                shell.getPrinter().println(pc.getPluginName());
+            }
         }
 
     }
