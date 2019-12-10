@@ -32,7 +32,7 @@ import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
-import net.vortexdata.tsqpf.modules.statusreporter.FrameworkStatus;
+import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.eula.*;

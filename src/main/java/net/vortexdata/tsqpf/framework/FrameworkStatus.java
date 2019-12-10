@@ -23,7 +23,7 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.modules.statusreporter;
+package net.vortexdata.tsqpf.framework;
 
 public enum FrameworkStatus {
 

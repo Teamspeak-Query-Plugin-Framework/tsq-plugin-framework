@@ -20,9 +20,9 @@ public class StatusReporter {
         this.frameworkContainer = frameworkContainer;
         this.uuid = frameworkContainer.getFrameworkUuidManager().getLoadedUUID();
         try {
-            url = new URL("http://localhost/statusApi/");
+            url = new URL(frameworkContainer.getConfig("/project.properties").getProperty("statisticsInterfaceUrl"));
         } catch (MalformedURLException e) {
-            frameworkContainer.getFrameworkLogger().printWarn("Could not get framework UUID, generating new one...");
+            frameworkContainer.getFrameworkLogger().printWarn("Status reporter submission URL is invalid.");
         }
     }
 
