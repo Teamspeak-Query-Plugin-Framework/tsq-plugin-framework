@@ -57,4 +57,8 @@ public class BootHandler {
         return bootEndTime - bootStartTime;
     }
 
+    public float getBootStartTime() {
+        return bootStartTime;
+    }
+
 }

@@ -27,7 +27,7 @@ package net.vortexdata.tsqpf.listeners;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.*;
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.plugins.PluginContainer;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 
@@ -40,11 +40,11 @@ import net.vortexdata.tsqpf.plugins.PluginManager;
 public class GlobalEventHandler implements TS3Listener {
 
     private TS3Api ts3Api;
-    private Framework framework;
+    private FrameworkContainer frameworkContainer;
 
-    public GlobalEventHandler(Framework framework) {
-        this.framework = framework;
-        ts3Api = framework.getApi();
+    public GlobalEventHandler(FrameworkContainer frameworkContainer) {
+        this.frameworkContainer = frameworkContainer;
+        ts3Api = frameworkContainer.getTs3Api();
     }
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {
@@ -52,7 +52,7 @@ public class GlobalEventHandler implements TS3Listener {
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onTextMessage(textMessageEvent);
         }
-        framework.getChatCommandListener().newMessage(textMessageEvent);
+        frameworkContainer.getFrameworkChatCommandListener().newMessage(textMessageEvent);
     }
 
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {

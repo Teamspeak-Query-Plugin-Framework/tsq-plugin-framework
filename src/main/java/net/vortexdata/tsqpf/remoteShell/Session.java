@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.remoteShell;
 
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.Logger;
@@ -59,9 +59,10 @@ public class Session implements Runnable {
     private RemoteShellTerminal terminal;
     private CipherHelper cipherHelper;
     private Logger logger;
+    private FrameworkContainer frameworkContainer;
 
-
-    public Session(String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener, Logger logger) {
+    public Session(FrameworkContainer frameworkContainer, String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener, Logger logger) {
+        this.frameworkContainer = frameworkContainer;
         this.id = id;
         this.socket = socket;
         this.inputStream = inputStream;
@@ -195,7 +196,7 @@ public class Session implements Runnable {
     }
 
     private void makeHandshake(JSONObject message) {
-        UserManager manager = Framework.getInstance().getUserManager();
+        UserManager manager = frameworkContainer.getUserManager();
 
         try {
             User user = manager.getUser((String) message.get("username"));
@@ -205,7 +206,7 @@ public class Session implements Runnable {
                 this.user = user;
                 this.cipherHelper = new CipherHelper(token);
                 this.terminal = new RemoteShellTerminal(inputStream, outputStream, cipherHelper, this);
-                Framework.getInstance().getLogger().printInfo(user.getUsername() + " logged in");
+                frameworkContainer.getFrameworkLogger().printInfo(user.getUsername() + " logged in");
                 sendReadyForNextCommand();
 
                 return;
@@ -216,7 +217,7 @@ public class Session implements Runnable {
         } catch (UserNotFoundException e) {
             user = null;
             token = null;
-            Framework.getInstance().getLogger().printInfo("Handshake failed");
+            frameworkContainer.getFrameworkLogger().printInfo("Handshake failed");
         }
 
     }

@@ -25,6 +25,7 @@
 
 package net.vortexdata.tsqpf.console;
 
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
@@ -51,10 +52,12 @@ public class LocalConsole implements Runnable {
     private Logger logger;
     private Thread thread;
     private ConsoleCommandHandler consoleCommandHandler;
+    private FrameworkContainer frameworkContainer;
 
     private boolean resetRoot = false;
 
-    public LocalConsole(Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot, ConsoleCommandHandler consoleCommandHandler, UserManager userManager) {
+    public LocalConsole(FrameworkContainer frameworkContainer, Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot, ConsoleCommandHandler consoleCommandHandler, UserManager userManager) {
+        this.frameworkContainer = frameworkContainer;
         this.logger = logger;
         thread = new Thread(this);
         if (running) return;
@@ -130,7 +133,7 @@ public class LocalConsole implements Runnable {
             } while (currentUser == null);
             System.out.println("Sign in approved.");
 
-            LocalConsoleTerminal terminal = new LocalConsoleTerminal(currentUser, this);
+            LocalConsoleTerminal terminal = new LocalConsoleTerminal(currentUser, this, frameworkContainer);
             while (currentUser != null) {
                 System.out.print(currentUser.getUsername() + "@local> ");
 

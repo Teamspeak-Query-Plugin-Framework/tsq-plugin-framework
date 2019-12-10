@@ -27,7 +27,7 @@ package net.vortexdata.tsqpf.listeners;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.configs.ConfigMessages;
 
 import java.util.ArrayList;
@@ -46,9 +46,9 @@ public class ChatCommandListener {
     private TS3Api ts3Api;
     private HashMap<String, ArrayList<ChatCommandInterface>> commandList = new HashMap<>();
 
-    public ChatCommandListener(Framework Framework, ConfigMessages msgConfig) {
-        this.messageCommandNotFound = msgConfig.getProperty("chatCommandUnknown");
-        ts3Api = Framework.getApi();
+    public ChatCommandListener(FrameworkContainer frameworkContainer) {
+        this.messageCommandNotFound = frameworkContainer.getConfig(new ConfigMessages().getPath()).getProperty("chatCommandUnknown");
+        ts3Api = frameworkContainer.getTs3Api();
     }
 
     /**
