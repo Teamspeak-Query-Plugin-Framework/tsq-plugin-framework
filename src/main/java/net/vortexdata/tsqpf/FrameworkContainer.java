@@ -30,9 +30,12 @@ import com.github.theholywaffle.teamspeak3.api.reconnect.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
-import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.listeners.*;
 import net.vortexdata.tsqpf.modules.boothandler.*;
+import net.vortexdata.tsqpf.modules.statusreporter.FrameworkStatus;
+import net.vortexdata.tsqpf.modules.statusreporter.StatusEvents;
+import net.vortexdata.tsqpf.modules.statusreporter.StatusReporter;
+import net.vortexdata.tsqpf.modules.uuid.UuidManager;
 import net.vortexdata.tsqpf.plugins.*;
 import net.vortexdata.tsqpf.utils.ResourceLoader;
 import org.apache.log4j.*;
@@ -67,6 +70,8 @@ public class FrameworkContainer {
     private FrameworkStatus frameworkStatus;
     private LocalShell frameworkLocalShell;
     private String[] frameworkStartParameters;
+    private StatusReporter frameworkStatusReporter;
+    private UuidManager frameworkUuidManager;
 
     // Framework Utils
     private ResourceLoader frameworkResourceLoader;
@@ -86,14 +91,19 @@ public class FrameworkContainer {
     }
 
     public void init() {
+
         frameworkLogger = new FrameworkLogger(framework);
-
         parseArgs(frameworkStartParameters);
-
         frameworkLocalShell = new LocalShell(frameworkLogger, getBooleanParameter("-reset-root"));
         frameworkPluginManager = new PluginManager(this);
 
         loadConfigs();
+
+        this.frameworkStatusReporter = new StatusReporter(this);
+        frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
+
+        frameworkUuidManager = new UuidManager(this);
+        frameworkUuidManager.init();
     }
 
     public TS3Config generateTs3Config() {
@@ -369,5 +379,13 @@ public class FrameworkContainer {
 
     public void setFrameworkResourceLoader(ResourceLoader frameworkResourceLoader) {
         this.frameworkResourceLoader = frameworkResourceLoader;
+    }
+
+    public StatusReporter getFrameworkStatusReporter() {
+        return frameworkStatusReporter;
+    }
+
+    public UuidManager getFrameworkUuidManager() {
+        return frameworkUuidManager;
     }
 }

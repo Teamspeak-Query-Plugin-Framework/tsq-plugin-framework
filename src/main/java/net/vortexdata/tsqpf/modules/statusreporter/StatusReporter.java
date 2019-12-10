@@ -1,47 +1,30 @@
-package net.vortexdata.tsqpf.framework;
+package net.vortexdata.tsqpf.modules.statusreporter;
 
 
-import net.vortexdata.tsqpf.Framework;
-import net.vortexdata.tsqpf.remoteShell.ConnectionListener;
+import net.vortexdata.tsqpf.FrameworkContainer;
 import org.json.simple.JSONObject;
-import sun.net.www.http.HttpClient;
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class StatusReporter {
 
-    private Framework framework;
     private String uuid;
-    URL url;
+    private URL url;
+    private FrameworkContainer frameworkContainer;
 
-    public StatusReporter(Framework framework, String uuid) {
-        this.framework = framework;
-        this.uuid = uuid;
+    public StatusReporter(FrameworkContainer frameworkContainer) {
+        this.frameworkContainer = frameworkContainer;
+        this.uuid = frameworkContainer.getFrameworkUuidManager().getLoadedUUID();
         try {
             url = new URL("http://localhost/statusApi/");
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            frameworkContainer.getFrameworkLogger().printWarn("Could not get framework UUID, generating new one...");
         }
     }
-
-
-    public void startup() {
-        JSONObject requestData = new JSONObject();
-        requestData.put("type", "startUp");
-        requestData.put("uuid", "18b36e20-ecee-4396-babf-aa8cec9f134b"); // TODO: Needs to be generated at first startup
-        requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
-        sendData(requestData.toString());
-
-
-
-    }
-
-
 
     private void sendData(String data) {
         try {
@@ -71,7 +54,13 @@ public class StatusReporter {
         }
     }
 
-    public static String createReporterUUID() {
-        return UUID.randomUUID().toString();
+    public void logEvent(StatusEvents event) {
+
+        JSONObject requestData = new JSONObject();
+        requestData.put("type", event.toString());
+        requestData.put("uuid", uuid);
+        requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+
+        sendData(requestData.toString());
     }
 }
