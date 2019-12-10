@@ -27,6 +27,7 @@ package net.vortexdata.tsqpf.commands;
 
 import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.configs.ConfigProject;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
@@ -55,6 +56,7 @@ public class CommandFramework extends CommandInterface {
 
 
             if (args[0].equalsIgnoreCase("reload")) {
+                shell.getPrinter().println("Reloading may cause issues with some plugins. We do not offer support on any issues caused by this action.");
                 frameworkContainer.getFramework().hibernate();
                 frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
             } else if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("exit") || args[0].equalsIgnoreCase("shutdown")) {
@@ -65,13 +67,21 @@ public class CommandFramework extends CommandInterface {
 
                 DecimalFormat df = new DecimalFormat("#.##");
 
+                shell.getPrinter().println("===============================================");
                 shell.getPrinter().println("Available cores: \t\t\t" + Runtime.getRuntime().availableProcessors());
                 shell.getPrinter().println("Memory usage: \t\t\t\t" + df.format((double) ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) / 1000) + " mb");
                 shell.getPrinter().println("Operating system: \t\t\t" + System.getProperty("os.name"));
                 shell.getPrinter().println("OS version: \t\t\t\t" + System.getProperty("os.version"));
+                shell.getPrinter().println("-----------------------------------------------");
                 shell.getPrinter().println("Java version: \t\t\t\t" + System.getProperty("java.version"));
                 shell.getPrinter().println("Java vendor: \t\t\t\t" + System.getProperty("java.vendor"));
-            } else {
+                shell.getPrinter().println("-----------------------------------------------");
+                shell.getPrinter().println("Framework version: \t\t\t" + frameworkContainer.getConfig(new ConfigProject().getPath()).getProperty("version"));
+                shell.getPrinter().println("Framework vendor: \t\t\t" + frameworkContainer.getConfig(new ConfigProject().getPath()).getProperty("vendor"));
+                shell.getPrinter().println("Framework status: \t\t\t" + frameworkContainer.getFrameworkStatus());
+                shell.getPrinter().println("===============================================");
+            }
+            else {
                 shell.getPrinter().println("framework "+ args[0] +": unknown parameters");
                 shell.getPrinter().println("Try 'framework <reload | kill | stop | stats>'");
             }

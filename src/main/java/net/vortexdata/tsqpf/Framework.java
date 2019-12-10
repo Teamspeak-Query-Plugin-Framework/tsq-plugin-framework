@@ -227,7 +227,7 @@ public class Framework {
             shutdown();
             return;
         }
-        frameworkContainer.getFrameworkLogger().printDebug("Sleep initiated.");
+        frameworkContainer.getFrameworkLogger().printDebug("Hibernation initiated.");
         frameworkContainer.getFrameworkLogger().printDebug("Disabling all plugins...");
         frameworkContainer.getFrameworkPluginManager().disableAll();
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");

@@ -34,6 +34,7 @@ import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.listeners.*;
 import net.vortexdata.tsqpf.modules.boothandler.*;
 import net.vortexdata.tsqpf.plugins.*;
+import net.vortexdata.tsqpf.utils.ResourceLoader;
 import org.apache.log4j.*;
 import org.apache.log4j.Logger;
 
@@ -67,6 +68,9 @@ public class FrameworkContainer {
     private LocalShell frameworkLocalShell;
     private String[] frameworkStartParameters;
 
+    // Framework Utils
+    private ResourceLoader frameworkResourceLoader;
+
     public FrameworkContainer(Framework framework, String[] args) {
 
         this.frameworkStartParameters = args;
@@ -94,38 +98,44 @@ public class FrameworkContainer {
 
     public TS3Config generateTs3Config() {
 
-        TS3Config ts3config = new TS3Config();
+        TS3Config localTs3config = new TS3Config();
 
         frameworkLogger.printDebug("Trying to assign server address...");
-        ts3config.setHost(getConfig("configs//main.properties").getProperty("serverAddress"));
+        localTs3config.setHost(getConfig("configs//main.properties").getProperty("serverAddress"));
         frameworkLogger.printDebug("Server address assigned.");
 
         frameworkLogger.printDebug("Trying to assign reconnect strategy...");
-        String reconnectStrategy = getConfig("configs//main.properties").getProperty("reconnectStrategy");
+        String reconnectStrategy = getConfig(new ConfigMain().getPath()).getProperty("reconnectStrategy");
         if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
-            ts3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+            localTs3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
             this.frameworkReconnectStrategy = ReconnectStrategy.exponentialBackoff();
+            frameworkLogger.printInfo("Reconnect strategy set to exponentialBackoff.");
         } else if (reconnectStrategy.equalsIgnoreCase("disconnect")) {
-            ts3config.setReconnectStrategy(ReconnectStrategy.disconnect());
+            localTs3config.setReconnectStrategy(ReconnectStrategy.disconnect());
             this.frameworkReconnectStrategy = ReconnectStrategy.disconnect();
+            frameworkLogger.printInfo("Reconnect strategy set to disconnect.");
         } else if (reconnectStrategy.equalsIgnoreCase("linearBackoff")) {
-            ts3config.setReconnectStrategy(ReconnectStrategy.linearBackoff());
+            localTs3config.setReconnectStrategy(ReconnectStrategy.linearBackoff());
             this.frameworkReconnectStrategy = ReconnectStrategy.linearBackoff();
+            frameworkLogger.printInfo("Reconnect strategy set to linearBackoff.");
         } else if (reconnectStrategy.equalsIgnoreCase("userControlled")) {
             frameworkLogger.printWarn("UserControlled reconnect strategy is currently not supported, reverting to disconnect. You will have to manually restart the framework after a timeout.");
-            ts3config.setReconnectStrategy(ReconnectStrategy.disconnect());
+            localTs3config.setReconnectStrategy(ReconnectStrategy.disconnect());
             this.frameworkReconnectStrategy = ReconnectStrategy.disconnect();
+            frameworkLogger.printInfo("Reconnect strategy set to disconnect (unsupported user controlled).");
         } else {
             frameworkLogger.printWarn("Could not identify reconnect strategy " + reconnectStrategy + ", falling back to exponentialBackoff.");
-            ts3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
+            localTs3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
             this.frameworkReconnectStrategy = ReconnectStrategy.exponentialBackoff();
         }
-        frameworkLogger.printDebug("Reconnect strategy assigned.");
 
-        ts3config.setConnectionHandler(new ConnectionHandler() {
+        frameworkLogger.printDebug("Registering reconnect strategy...");
+
+        localTs3config.setConnectionHandler(new ConnectionHandler() {
 
             @Override
             public void onConnect(TS3Query ts3Query) {
+                frameworkLogger.printDebug("Api onConnect event fired...");
                 ts3Api = ts3Query.getApi();
                 framework.wakeup(ts3Query);
             }
@@ -137,9 +147,11 @@ public class FrameworkContainer {
 
         });
 
-        this.ts3Config = ts3config;
+        frameworkLogger.printDebug("Reconnect strategy registration finished.");
 
-        return ts3config;
+        this.ts3Config = localTs3config;
+
+        return localTs3config;
 
     }
 
@@ -153,6 +165,10 @@ public class FrameworkContainer {
         ConfigMessages configMessages = new ConfigMessages();
         boolean didConfigMessagesExist = configMessages.load();
         frameworkConfigs.add(configMessages);
+
+        ConfigProject configProject = new ConfigProject();
+        configProject.load();
+        frameworkConfigs.add(configProject);
 
         if (!didConfigMessagesExist)
             frameworkLogger.printWarn("Could not find message config file, therefor created a new one. You might want to review its values.");
@@ -296,6 +312,17 @@ public class FrameworkContainer {
         return frameworkConfigs;
     }
 
+    public Config getFrameworkConfig(Config configType) {
+
+        for (Config config : frameworkConfigs) {
+            if (config.getClass().getGenericSuperclass().equals(configType.getClass().getGenericSuperclass())) {
+                return config;
+            }
+        }
+
+        return null;
+    }
+
     public void setTs3Query(TS3Query ts3Query) {
         this.ts3Query = ts3Query;
     }
@@ -322,5 +349,25 @@ public class FrameworkContainer {
 
         }
 
+    }
+
+    public String[] getFrameworkStartParameters() {
+        return frameworkStartParameters;
+    }
+
+    public ResourceLoader getFrameworkResourceLoader() {
+        return frameworkResourceLoader;
+    }
+
+    public void setRootLogger(Logger rootLogger) {
+        this.rootLogger = rootLogger;
+    }
+
+    public void setFrameworkStartParameters(String[] frameworkStartParameters) {
+        this.frameworkStartParameters = frameworkStartParameters;
+    }
+
+    public void setFrameworkResourceLoader(ResourceLoader frameworkResourceLoader) {
+        this.frameworkResourceLoader = frameworkResourceLoader;
     }
 }
