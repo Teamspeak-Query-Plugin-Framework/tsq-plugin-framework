@@ -27,6 +27,7 @@ public class UpdateFetcher {
     }
 
     public void checkForUpdate() {
+        frameworkContainer.getFrameworkLogger().printDebug("Checking for updates...");
         if (isUpdateAvailable()) {
             System.out.println("================================[UPDATE AVAILABLE]================================");
             System.out.println("There's a newer version of the Teamspeak Query Plugin Framework available for");
@@ -41,6 +42,8 @@ public class UpdateFetcher {
             } catch (InterruptedException e) {
                 // Ignore
             }
+        } else {
+            frameworkContainer.getFrameworkLogger().printInfo("No updates were found.");
         }
     }
 
