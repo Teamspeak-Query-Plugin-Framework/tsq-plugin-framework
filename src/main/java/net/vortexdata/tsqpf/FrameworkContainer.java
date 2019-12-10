@@ -99,11 +99,13 @@ public class FrameworkContainer {
 
         loadConfigs();
 
-        this.frameworkStatusReporter = new StatusReporter(this);
-        frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
-
+        // Init UUID Manager
         frameworkUuidManager = new UuidManager(this);
         frameworkUuidManager.init();
+
+        // Init Framework Status Reporter
+        this.frameworkStatusReporter = new StatusReporter(this);
+        frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
     }
 
     public TS3Config generateTs3Config() {
