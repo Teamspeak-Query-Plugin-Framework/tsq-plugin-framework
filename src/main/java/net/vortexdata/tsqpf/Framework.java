@@ -32,8 +32,9 @@ import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
-import net.vortexdata.tsqpf.framework.*;
-import net.vortexdata.tsqpf.listeners.*;
+import net.vortexdata.tsqpf.modules.statusreporter.FrameworkStatus;
+import net.vortexdata.tsqpf.listeners.ChatCommandListener;
+import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.update.UpdateFetcher;
 import net.vortexdata.tsqpf.plugins.*;
@@ -97,7 +98,6 @@ public class Framework {
         CommandContainer.registerCommand(new CommandFramework(frameworkContainer));
         CommandContainer.registerCommand(new CommandPlugins(frameworkContainer));
         frameworkContainer.getFrameworkLogger().printDebug("Console handler and console commands successfully initialized and registered.");
-
         frameworkContainer.getBootHandler().setBootEndTime();
         frameworkContainer.getFrameworkLogger().printInfo("Boot process finished.");
         frameworkContainer.getFrameworkLogger().printInfo("It took " + frameworkContainer.getBootHandler().getBootTime() + " milliseconds to start the framework and load plugins.");
@@ -125,7 +125,6 @@ public class Framework {
             frameworkContainer.getFrameworkLogger().printError("Failed to parse 'acceptEula' config value.");
             shutdown();
         }
-
     }
 
     private void printCopyHeader() {
