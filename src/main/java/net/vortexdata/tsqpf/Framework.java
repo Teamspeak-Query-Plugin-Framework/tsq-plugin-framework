@@ -35,6 +35,7 @@ import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.listeners.*;
 import net.vortexdata.tsqpf.modules.eula.*;
+import net.vortexdata.tsqpf.modules.update.UpdateFetcher;
 import net.vortexdata.tsqpf.plugins.*;
 
 import java.io.*;
@@ -57,6 +58,10 @@ public class Framework {
         // init framework container
         frameworkContainer.init();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
+
+        // Check for update
+        UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
+        updateFetcher.checkForUpdate();
 
         // Check EULA
         checkEula();
