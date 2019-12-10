@@ -85,7 +85,6 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Registering console commands...");
 
         CommandContainer.registerCommand(new CommandHelp(frameworkContainer.getFrameworkLogger()));
-        CommandContainer.registerCommand(new CommandStop(frameworkContainer.getFrameworkLogger(), this));
         CommandContainer.registerCommand(new CommandClear(frameworkContainer.getFrameworkLogger()));
         CommandContainer.registerCommand(new CommandLogout(frameworkContainer.getFrameworkLogger()));
         CommandContainer.registerCommand(new CommandAddUser(frameworkContainer.getFrameworkLogger(), frameworkContainer.getUserManager()));
