@@ -33,7 +33,7 @@ import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.listeners.*;
 import net.vortexdata.tsqpf.modules.boothandler.*;
 import net.vortexdata.tsqpf.framework.FrameworkStatus;
-import net.vortexdata.tsqpf.modules.statusreporter.StatusReporter;
+import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.uuid.UuidManager;
 import net.vortexdata.tsqpf.plugins.*;
 import net.vortexdata.tsqpf.utils.ResourceLoader;
@@ -104,7 +104,7 @@ public class FrameworkContainer {
 
         // Init Framework Status Reporter
         this.frameworkStatusReporter = new StatusReporter(this);
-        // TODO: frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
+        frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
     }
 
     public TS3Config generateTs3Config() {

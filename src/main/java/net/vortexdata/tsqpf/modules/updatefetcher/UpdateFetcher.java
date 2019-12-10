@@ -1,4 +1,4 @@
-package net.vortexdata.tsqpf.modules.update;
+package net.vortexdata.tsqpf.modules.updatefetcher;
 
 
 import net.vortexdata.tsqpf.FrameworkContainer;
@@ -23,7 +23,7 @@ public class UpdateFetcher {
         this.frameworkContainer = frameworkContainer;
         ConfigProject configProject = new ConfigProject();
         configProject.load();
-        updateUrl = configProject.getProperty("updateUrl");
+        updateUrl = configProject.getProperty("updateFetcherInterfaceUrl");
     }
 
     public void checkForUpdate() {
@@ -33,7 +33,7 @@ public class UpdateFetcher {
             System.out.println("There's a newer version of the Teamspeak Query Plugin Framework available for");
             System.out.println("download now!");
             System.out.println("");
-            System.out.println("Download the new update here:");
+            System.out.println("Download the new updatefetcher here:");
             System.out.println("https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/releases");
             System.out.println("==================================================================================");
             System.out.println("Boot process will resume in 8 seconds...");
@@ -68,11 +68,11 @@ public class UpdateFetcher {
             return tagToVersionCode(curVersion) < tagToVersionCode(tag_name);
 
         } catch (MalformedURLException e) {
-            frameworkContainer.getFrameworkLogger().printWarn("The update URL packaged in this framework version seems to be invalid. Maybe you are using a preview build or your framework version is corrupted.");
+            frameworkContainer.getFrameworkLogger().printWarn("The update fetcher URL packaged in this framework version seems to be invalid. Maybe you are using a preview build or your framework version is corrupted.");
         } catch (IOException e) {
-            frameworkContainer.getFrameworkLogger().printWarn("Couldn't fetch update from release URL. Maybe your framework version has not been set up correctly or you are using a preview build.");
+            frameworkContainer.getFrameworkLogger().printDebug("Failed to fetch updates, skipping...");
         } catch (ParseException e) {
-            frameworkContainer.getFrameworkLogger().printWarn("Encountered a parse exception whilst trying to fetch update. Maybe you are using a preview build or your framework is corrupted.");
+            frameworkContainer.getFrameworkLogger().printWarn("Encountered a parse exception whilst trying to fetch updatefetcher. Maybe you are using a preview build or your framework is corrupted.");
         }
         return false;
     }

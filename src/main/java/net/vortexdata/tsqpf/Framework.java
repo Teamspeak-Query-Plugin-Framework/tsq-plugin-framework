@@ -36,7 +36,7 @@ import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
-import net.vortexdata.tsqpf.modules.update.UpdateFetcher;
+import net.vortexdata.tsqpf.modules.updatefetcher.UpdateFetcher;
 import net.vortexdata.tsqpf.plugins.*;
 
 import java.io.*;
@@ -60,7 +60,7 @@ public class Framework {
         frameworkContainer.init();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
 
-        // Check for update
+        // Check for updatefetcher
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
         updateFetcher.checkForUpdate();
 
