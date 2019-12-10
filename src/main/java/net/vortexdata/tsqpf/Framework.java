@@ -36,6 +36,7 @@ import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.listeners.ChatCommandListener;
 import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
+import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.updatefetcher.UpdateFetcher;
 import net.vortexdata.tsqpf.plugins.*;
 
@@ -143,6 +144,8 @@ public class Framework {
 
     public void shutdown() {
 
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
+
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STOPPING);
 
         frameworkContainer.getFrameworkLogger().printInfo("Shutting down for system halt.");
@@ -164,6 +167,8 @@ public class Framework {
     }
 
     public void wakeup(TS3Query ts3Query) {
+
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.WAKEUP);
 
         frameworkContainer.setFrameworkStatus(FrameworkStatus.WAKING);
         frameworkContainer.getFrameworkLogger().printDebug("Wakeup initiated...");
@@ -224,6 +229,8 @@ public class Framework {
     }
 
     public void hibernate() {
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.HIBERNATION);
+
         frameworkContainer.setFrameworkStatus(FrameworkStatus.HIBERNATING);
 
         if (frameworkContainer.getFrameworkReconnectStrategy() == ReconnectStrategy.disconnect()) {
@@ -241,6 +248,12 @@ public class Framework {
 
     public FrameworkContainer getFrameworkContainer() {
         return frameworkContainer;
+    }
+
+    public void reload() {
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.RELOAD);
+        hibernate();
+        wakeup(frameworkContainer.getTs3Query());
     }
 
 }

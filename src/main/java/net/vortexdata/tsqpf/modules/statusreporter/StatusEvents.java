@@ -2,6 +2,6 @@ package net.vortexdata.tsqpf.modules.statusreporter;
 
 public enum StatusEvents {
 
-    STARTUP, CRASH, SHUTDOWN, RELOAD
+    STARTUP, CRASH, SHUTDOWN, RELOAD, PLUGINLOAD, HIBERNATION, WAKEUP, PLUGINDISABLE, UUIDGENERATION, CONNECTIONLOSS
 
 }

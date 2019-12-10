@@ -28,6 +28,7 @@ package net.vortexdata.tsqpf.plugins;
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlMapping;
 import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.modules.statusreporter.*;
 
 import java.io.File;
 import java.io.InputStream;
@@ -75,8 +76,10 @@ public class PluginManager {
         if (files == null) return;
         for (File f : files)
             loadPlugin(f);
-        for (PluginContainer pc : loadedPlugins)
+        for (PluginContainer pc : loadedPlugins) {
             pc.getTeamspeakPlugin().onEnable();
+        }
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.PLUGINLOAD);
 
     }
 
@@ -106,6 +109,7 @@ public class PluginManager {
             pc = null;
         }
         loadedPlugins.clear();
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.PLUGINDISABLE);
     }
 
     /**

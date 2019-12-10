@@ -1,6 +1,7 @@
 package net.vortexdata.tsqpf.modules.uuid;
 
 import net.vortexdata.tsqpf.FrameworkContainer;
+import net.vortexdata.tsqpf.modules.statusreporter.*;
 
 import java.io.*;
 import java.util.UUID;
@@ -47,6 +48,7 @@ public class UuidManager {
     }
 
     private boolean createUuid(String newUuid) {
+        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(path, false));

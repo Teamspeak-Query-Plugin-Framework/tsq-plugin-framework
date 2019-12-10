@@ -57,8 +57,7 @@ public class CommandFramework extends CommandInterface {
 
             if (args[0].equalsIgnoreCase("reload")) {
                 shell.getPrinter().println("Reloading may cause issues with some plugins. We do not offer support on any issues caused by this action.");
-                frameworkContainer.getFramework().hibernate();
-                frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
+                frameworkContainer.getFramework().reload();
             } else if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("exit") || args[0].equalsIgnoreCase("shutdown")) {
                 frameworkContainer.getFramework().shutdown();
             } else if (args[0].equalsIgnoreCase("kill")) {

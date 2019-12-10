@@ -51,8 +51,7 @@ public class CommandPlugins extends CommandInterface {
         if (args.length > 0) {
 
             if (args[0].equalsIgnoreCase("reload")) {
-                frameworkContainer.getFramework().hibernate();
-                frameworkContainer.getFramework().wakeup(frameworkContainer.getTs3Query());
+                frameworkContainer.getFramework().reload();
             } else if (args[0].equalsIgnoreCase("disable")) {
                 shell.getPrinter().println("This action is not yet supported.");
             } else {
