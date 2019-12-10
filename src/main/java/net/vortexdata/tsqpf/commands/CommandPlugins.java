@@ -57,7 +57,7 @@ public class CommandPlugins extends CommandInterface {
                 shell.getPrinter().println("This action is not yet supported.");
             } else {
                 shell.getPrinter().println("plugins disable: missing parameters");
-                shell.getPrinter().println("Try 'plugins <reload | >'");
+                shell.getPrinter().println("Try 'plugins <reload | disable | find>'");
             }
 
         } else {
