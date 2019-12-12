@@ -46,6 +46,7 @@ public class Framework {
 
     private FrameworkContainer frameworkContainer;
 
+
     public Framework(String[] args) {
 
         frameworkContainer = new FrameworkContainer(this, args);
@@ -70,6 +71,8 @@ public class Framework {
 
         // Load main config
         frameworkContainer.loadConfigs();
+
+
 
         // Create query
         frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.generateTs3Config()));
@@ -161,6 +164,8 @@ public class Framework {
             frameworkContainer.getFrameworkPluginManager().disableAll();
         }
 
+
+
         frameworkContainer.getFrameworkLogger().printInfo("Successfully unloaded plugins and disabled console handler.");
         frameworkContainer.getFrameworkLogger().printInfo("Ending framework logging...");
         System.exit(0);
@@ -208,18 +213,18 @@ public class Framework {
 
         frameworkContainer.getFrameworkLogger().printDebug("Starting up ChatCommandListener.");
         //TODO: Implement reuseable ChatCommandListener
-        frameworkContainer.setFrameworkChatCommandListener(new ChatCommandListener(frameworkContainer));
+        frameworkContainer.setFrameworkChatCommandListener(frameworkContainer.getChatCommandListener());
 
         frameworkContainer.getFrameworkLogger().printDebug("Trying to register global events...");
         frameworkContainer.getTs3Api().registerAllEvents();
         //TODO: Implement reuseable GlobalEventHandler
-        frameworkContainer.getTs3Api().addTS3Listeners(new GlobalEventHandler(frameworkContainer));
+        frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
         frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
 
 
         frameworkContainer.getFrameworkLogger().printDebug("Initializing plugin controller...");
         //TODO: Implement reuseable PluginManager
-        frameworkContainer.setFrameworkPluginManager(new PluginManager(frameworkContainer));
+        frameworkContainer.setFrameworkPluginManager(frameworkContainer.getPluginManager());
         frameworkContainer.getFrameworkLogger().printDebug("Loading and enabling plugins...");
         frameworkContainer.getFrameworkPluginManager().enableAll();
         frameworkContainer.getFrameworkLogger().printDebug("Successfully loaded plugins.");

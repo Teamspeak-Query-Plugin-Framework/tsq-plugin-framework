@@ -36,6 +36,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,11 +47,12 @@ import java.util.List;
  */
 public class PluginManager {
 
-    private static List<PluginContainer> loadedPlugins = Collections.synchronizedList(new ArrayList<PluginContainer>());
+    private static HashSet<PluginContainer> loadedPlugins;
     private FrameworkContainer frameworkContainer;
 
     public PluginManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
+        loadedPlugins = new HashSet<>();
     }
 
     /**
@@ -58,7 +60,7 @@ public class PluginManager {
      *
      * @return List of all loaded plugins
      */
-    public static List<PluginContainer> getLoadedPlugins() {
+    public static HashSet<PluginContainer> getLoadedPlugins() {
         return loadedPlugins;
     }
 

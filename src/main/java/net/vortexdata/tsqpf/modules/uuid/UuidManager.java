@@ -48,7 +48,7 @@ public class UuidManager {
     }
 
     private boolean createUuid(String newUuid) {
-        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
+
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(path, false));

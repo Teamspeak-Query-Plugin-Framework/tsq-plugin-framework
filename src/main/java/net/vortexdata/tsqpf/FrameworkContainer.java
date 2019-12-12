@@ -71,6 +71,9 @@ public class FrameworkContainer {
     private String[] frameworkStartParameters;
     private StatusReporter frameworkStatusReporter;
     private UuidManager frameworkUuidManager;
+    private GlobalEventHandler globalEventHandler;
+    private ChatCommandListener chatCommandListener;
+    private PluginManager pluginManager;
 
     // Framework Utils
     private ResourceLoader frameworkResourceLoader;
@@ -89,6 +92,7 @@ public class FrameworkContainer {
 
     }
 
+
     public void init() {
 
         frameworkLogger = new FrameworkLogger(framework);
@@ -105,6 +109,15 @@ public class FrameworkContainer {
         // Init Framework Status Reporter
         this.frameworkStatusReporter = new StatusReporter(this);
         frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
+
+        globalEventHandler = new GlobalEventHandler(this);
+        chatCommandListener = new ChatCommandListener(this);
+        pluginManager = new PluginManager(this);
+
+
+
+
+
     }
 
     public TS3Config generateTs3Config() {
@@ -388,5 +401,17 @@ public class FrameworkContainer {
 
     public UuidManager getFrameworkUuidManager() {
         return frameworkUuidManager;
+    }
+
+    public GlobalEventHandler getGlobalEventHandler() {
+        return globalEventHandler;
+    }
+
+    public ChatCommandListener getChatCommandListener() {
+        return chatCommandListener;
+    }
+
+    public PluginManager getPluginManager() {
+        return pluginManager;
     }
 }

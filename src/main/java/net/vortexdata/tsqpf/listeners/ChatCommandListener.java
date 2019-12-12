@@ -43,12 +43,12 @@ import java.util.HashMap;
 public class ChatCommandListener {
 
     private String messageCommandNotFound;
-    private TS3Api ts3Api;
     private HashMap<String, ArrayList<ChatCommandInterface>> commandList = new HashMap<>();
+    private FrameworkContainer frameworkContainer;
 
     public ChatCommandListener(FrameworkContainer frameworkContainer) {
         this.messageCommandNotFound = frameworkContainer.getConfig(new ConfigMessages().getPath()).getProperty("chatCommandUnknown");
-        ts3Api = frameworkContainer.getTs3Api();
+        this.frameworkContainer = frameworkContainer;
     }
 
     /**
@@ -57,6 +57,7 @@ public class ChatCommandListener {
      * @param msg The events object
      */
     public void newMessage(TextMessageEvent msg) {
+        TS3Api ts3Api = frameworkContainer.getTs3Api();
         // Send TSQPF Info
         if (msg.getMessage().startsWith("!info")) {
             ts3Api.sendPrivateMessage(msg.getInvokerId(), "This server is running the VortexdataNET Teamspeak Query Plugin Framework");

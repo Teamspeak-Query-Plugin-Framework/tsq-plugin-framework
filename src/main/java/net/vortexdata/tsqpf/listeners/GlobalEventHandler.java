@@ -25,7 +25,6 @@
 
 package net.vortexdata.tsqpf.listeners;
 
-import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.*;
 import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.plugins.PluginContainer;
@@ -39,16 +38,15 @@ import net.vortexdata.tsqpf.plugins.PluginManager;
  */
 public class GlobalEventHandler implements TS3Listener {
 
-    private TS3Api ts3Api;
     private FrameworkContainer frameworkContainer;
 
     public GlobalEventHandler(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
-        ts3Api = frameworkContainer.getTs3Api();
+
     }
 
     public void onTextMessage(TextMessageEvent textMessageEvent) {
-        if (textMessageEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (textMessageEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onTextMessage(textMessageEvent);
         }
@@ -56,77 +54,77 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
-        if (clientJoinEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (clientJoinEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onClientJoin(clientJoinEvent);
         }
     }
 
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {
-        if (clientLeaveEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (clientLeaveEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onClientLeave(clientLeaveEvent);
         }
     }
 
     public void onServerEdit(ServerEditedEvent serverEditedEvent) {
-        if (serverEditedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (serverEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onServerEdit(serverEditedEvent);
         }
     }
 
     public void onChannelEdit(ChannelEditedEvent channelEditedEvent) {
-        if (channelEditedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelEdit(channelEditedEvent);
         }
     }
 
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent channelDescriptionEditedEvent) {
-        if (channelDescriptionEditedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelDescriptionEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelDescriptionChanged(channelDescriptionEditedEvent);
         }
     }
 
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
-        if (clientMovedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (clientMovedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onClientMoved(clientMovedEvent);
         }
     }
 
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
-        if (channelCreateEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelCreateEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelCreate(channelCreateEvent);
         }
     }
 
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
-        if (channelDeletedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelDeletedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelDeleted(channelDeletedEvent);
         }
     }
 
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
-        if (channelMovedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelMovedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelMoved(channelMovedEvent);
         }
     }
 
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
-        if (channelPasswordChangedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (channelPasswordChangedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onChannelPasswordChanged(channelPasswordChangedEvent);
         }
     }
 
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
-        if (privilegeKeyUsedEvent.getInvokerId() == ts3Api.whoAmI().getId()) return;
+        if (privilegeKeyUsedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
             pl.getTeamspeakPlugin().onPrivilegeKeyUsed(privilegeKeyUsedEvent);
         }
