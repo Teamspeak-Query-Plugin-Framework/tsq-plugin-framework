@@ -1,6 +1,6 @@
 || ==================================================== ||
 || Teamspeak Query Plugin Framework                     ||
-|| Copyright: Copyright (C) 2019 - 2020 VortexdataNET   ||
+|| Copyright (C) 2019 - 2020 VortexdataNET              ||
 || https://tsqpf.vortexdata.net/                        ||
 ||                                                      ||
 || Core: Michael Wiesinger, Sandro Kierner              ||
