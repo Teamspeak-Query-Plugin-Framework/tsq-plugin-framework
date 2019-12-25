@@ -54,8 +54,8 @@ public class StatusReporter {
 
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            frameworkContainer.getFrameworkLogger().printError("Failed to send data, appending details: " + e.getMessage());
         }
     }
 
