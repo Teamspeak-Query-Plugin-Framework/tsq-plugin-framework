@@ -42,6 +42,9 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
+/**
+ * Contains all framework variables for easy use.
+ */
 public class FrameworkContainer {
 
     private Framework framework;
