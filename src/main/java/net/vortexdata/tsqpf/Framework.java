@@ -77,16 +77,7 @@ public class Framework {
         // Create query
         frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.generateTs3Config()));
 
-        // Establish connection
-        frameworkContainer.getFrameworkLogger().printDebug("Trying to connect to server...");
-        try {
-            frameworkContainer.getTs3Query().connect();
-            frameworkContainer.getFrameworkLogger().printDebug("Connection to server established.");
-        } catch (Exception exx) {
-            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
-            exx.printStackTrace();
-            shutdown();
-        }
+
 
         frameworkContainer.getFrameworkLogger().printDebug("Initializing console handler...");
         frameworkContainer.setUserManager(new UserManager(frameworkContainer.getFrameworkLogger()));
@@ -101,12 +92,51 @@ public class Framework {
         CommandContainer.registerCommand(new CommandDelUser(frameworkContainer.getFrameworkLogger(), frameworkContainer.getUserManager()));
         CommandContainer.registerCommand(new CommandFramework(frameworkContainer));
         CommandContainer.registerCommand(new CommandPlugins(frameworkContainer));
+
+
+        // Old Listeners and Handlers could cause unwanted side effects when reconnecting.
+
+        frameworkContainer.getFrameworkLogger().printDebug("Starting up ChatCommandListener.");
+        //TODO: Implement reuseable ChatCommandListener
+        frameworkContainer.setFrameworkChatCommandListener(frameworkContainer.getChatCommandListener());
+
+        frameworkContainer.getFrameworkLogger().printDebug("Initializing plugin controller...");
+        //TODO: Implement reuseable PluginManager
+        frameworkContainer.setFrameworkPluginManager(frameworkContainer.getPluginManager());
+
+
+
+
+
+        // Establish connection
+        frameworkContainer.getFrameworkLogger().printDebug("Trying to connect to server...");
+        try {
+            frameworkContainer.getTs3Query().connect();
+            frameworkContainer.getFrameworkLogger().printDebug("Connection to server established.");
+        } catch (Exception exx) {
+            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
+            exx.printStackTrace();
+            shutdown();
+        }
+
+
+        frameworkContainer.getFrameworkLogger().printDebug("Trying to register global events...");
+        frameworkContainer.getTs3Api().registerAllEvents();
+        frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
+        frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
+
+
         frameworkContainer.getFrameworkLogger().printDebug("Console handler and console commands successfully initialized and registered.");
         frameworkContainer.getBootHandler().setBootEndTime();
         frameworkContainer.getFrameworkLogger().printInfo("Boot process finished.");
         frameworkContainer.getFrameworkLogger().printInfo("It took " + frameworkContainer.getBootHandler().getBootTime() + " milliseconds to start the framework and load plugins.");
 
+
+
+
+
         frameworkContainer.getLocalShell().start();
+
 
     }
 
@@ -209,28 +239,13 @@ public class Framework {
             shutdown();
         }
 
-        // Old Listeners and Handlers could cause unwanted side effects when reconnecting.
 
-        frameworkContainer.getFrameworkLogger().printDebug("Starting up ChatCommandListener.");
-        //TODO: Implement reuseable ChatCommandListener
-        frameworkContainer.setFrameworkChatCommandListener(frameworkContainer.getChatCommandListener());
-
-        frameworkContainer.getFrameworkLogger().printDebug("Trying to register global events...");
-        frameworkContainer.getTs3Api().registerAllEvents();
-        //TODO: Implement reuseable GlobalEventHandler
-        frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
-        frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
-
-
-        frameworkContainer.getFrameworkLogger().printDebug("Initializing plugin controller...");
-        //TODO: Implement reuseable PluginManager
-        frameworkContainer.setFrameworkPluginManager(frameworkContainer.getPluginManager());
         frameworkContainer.getFrameworkLogger().printDebug("Loading and enabling plugins...");
         frameworkContainer.getFrameworkPluginManager().enableAll();
         frameworkContainer.getFrameworkLogger().printDebug("Successfully loaded plugins.");
 
+        frameworkContainer.getTs3Api().registerAllEvents();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.RUNNING);
-
     }
 
     public void hibernate() {
@@ -242,12 +257,18 @@ public class Framework {
             shutdown();
             return;
         }
+
+
         frameworkContainer.getFrameworkLogger().printDebug("Hibernation initiated.");
         frameworkContainer.getFrameworkLogger().printDebug("Disabling all plugins...");
         frameworkContainer.getFrameworkPluginManager().disableAll();
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
 
-        frameworkContainer.setLocalShell(null);
+
+        frameworkContainer.getTs3Api().unregisterAllEvents();
+        frameworkContainer.getTs3Api().logout();
+        frameworkContainer.setTs3Api(null);
+        System.gc();
 
     }
 
