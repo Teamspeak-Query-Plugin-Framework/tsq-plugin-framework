@@ -36,11 +36,15 @@ public class StatusReporter {
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 
-            try(OutputStream os = con.getOutputStream()) {
+            try {
+                OutputStream os = con.getOutputStream();
                 byte[] input = ("data="+data).getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
+            } catch (Exception e) {
+                frameworkContainer.getFrameworkLogger().printError("Encountered an error whilst trying to send data, appending details: " + e.getMessage());
             }
-            try(BufferedReader br = new BufferedReader(
+
+            try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(con.getInputStream(), "utf-8"))) {
                 StringBuilder response = new StringBuilder();
                 String responseLine = null;
@@ -49,6 +53,7 @@ public class StatusReporter {
                 }
 
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
