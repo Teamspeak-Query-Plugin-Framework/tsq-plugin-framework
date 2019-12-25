@@ -42,6 +42,9 @@ import net.vortexdata.tsqpf.plugins.*;
 
 import java.io.*;
 
+/**
+ * Top-level controller of the framework.
+ */
 public class Framework {
 
     private FrameworkContainer frameworkContainer;
@@ -53,6 +56,9 @@ public class Framework {
 
     }
 
+    /**
+     * Launches the framework, prepares all variables and co.
+     */
     public void launch() {
 
         // Print Startup Head
@@ -140,6 +146,9 @@ public class Framework {
 
     }
 
+    /**
+     * Checks if current version of EULA is valid.
+     */
     private void checkEula() {
 
         Eula eula = new Eula(frameworkContainer.getFrameworkLogger());
@@ -161,6 +170,9 @@ public class Framework {
         }
     }
 
+    /**
+     * Prints the credits and copyright header on startup.
+     */
     private void printCopyHeader() {
         BufferedReader headBr = null;
 
@@ -175,6 +187,9 @@ public class Framework {
         }
     }
 
+    /**
+     * Unloads all plugins and shuts down the framework.
+     */
     public void shutdown() {
 
         frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
@@ -201,6 +216,12 @@ public class Framework {
         System.exit(0);
     }
 
+    /**
+     *
+     * Wakes up the framework and re-establishes connection to Teamspeak server.
+     *
+     * @param ts3Query
+     */
     public void wakeup(TS3Query ts3Query) {
 
         frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.WAKEUP);
@@ -248,6 +269,9 @@ public class Framework {
         frameworkContainer.setFrameworkStatus(FrameworkStatus.RUNNING);
     }
 
+    /**
+     * Disconnects from Teamspeak server and unloads all plugins.
+     */
     public void hibernate() {
         frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.HIBERNATION);
 
@@ -272,10 +296,16 @@ public class Framework {
 
     }
 
+    /**
+     * @return      The Frameworks variable wrapper.
+     */
     public FrameworkContainer getFrameworkContainer() {
         return frameworkContainer;
     }
 
+    /**
+     * Reloads the Framework.
+     */
     public void reload() {
         frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.RELOAD);
         hibernate();

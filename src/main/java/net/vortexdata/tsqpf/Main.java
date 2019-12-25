@@ -25,6 +25,9 @@
 
 package net.vortexdata.tsqpf;
 
+/**
+ * Main class of the framework.
+ */
 public class Main {
 
     public static void main(String[] args) {
