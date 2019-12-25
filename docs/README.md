@@ -1,0 +1,1 @@
+You can find detailed documentation on all of the framework's features, setup and more on its website: https://tsqpf.vortexdata.net/docs/
