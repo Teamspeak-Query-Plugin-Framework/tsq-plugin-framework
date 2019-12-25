@@ -30,7 +30,9 @@ import net.vortexdata.tsqpf.commands.CommandInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Documentation
+/**
+ * Contains all commands.
+ */
 public class CommandContainer {
 	private static Map<String, CommandInterface> commands = new HashMap<>();
 
@@ -42,10 +44,20 @@ public class CommandContainer {
 		return true;
 	}
 
+	/**
+	 *
+	 * Searches for a command and returns one if found.
+	 *
+	 * @param name		The name of the command that should be returned.
+	 * @return			Returns the command with the name that has been handed over.
+	 */
 	public static CommandInterface searchCommand(String name) {
 		return commands.get(name);
 	}
 
+	/**
+	 * @return	Returns all registered commands.
+	 */
 	public static CommandInterface[] getCommands() {
 		return commands.values().toArray(new CommandInterface[0]);
 	}
