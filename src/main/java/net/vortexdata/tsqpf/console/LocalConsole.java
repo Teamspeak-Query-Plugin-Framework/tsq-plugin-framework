@@ -77,9 +77,6 @@ public class LocalConsole implements Runnable {
         thread.start();
     }
 
-
-
-
     @Deprecated
     public String[] login() {
         String[] values = new String[2];
@@ -96,10 +93,6 @@ public class LocalConsole implements Runnable {
     /**
      * Starts the console UI.
      */
-
-
-
-
     public void run() {
 
 
