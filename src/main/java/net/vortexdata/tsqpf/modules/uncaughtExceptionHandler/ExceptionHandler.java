@@ -20,5 +20,6 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         System.out.println("["+t.getName()+"] Exception: "+ e.getMessage());
+        if(frameworkContainer.getFrameworkStatusReporter() != null) frameworkContainer.getFrameworkStatusReporter().logException(t,e);
     }
 }

@@ -2,6 +2,7 @@ package net.vortexdata.tsqpf.modules.statusreporter;
 
 
 import net.vortexdata.tsqpf.FrameworkContainer;
+import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import org.json.simple.JSONObject;
 
 import java.io.*;
@@ -62,10 +63,25 @@ public class StatusReporter {
     public void logEvent(StatusEvents event) {
 
         JSONObject requestData = new JSONObject();
-        requestData.put("type", event.toString());
+        requestData.put("type", "event");
+        requestData.put("event", event.toString());
         requestData.put("uuid", uuid);
         requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
 
         sendData(requestData.toString());
+    }
+
+    public void logException(Thread t, Throwable e) {
+        JSONObject requestData = new JSONObject();
+        requestData.put("type", "exception");
+        requestData.put("name", e.getClass().getName());
+        requestData.put("uuid", uuid);
+        requestData.put("supportPin", (int) (Math.random() * Integer.MAX_VALUE));
+        requestData.put("thread", t.getName());
+        requestData.put("exceptionMessage", e.toString());
+        requestData.put("exceptionStack", e.fillInStackTrace().toString());
+        requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+        sendData(requestData.toString());
+
     }
 }

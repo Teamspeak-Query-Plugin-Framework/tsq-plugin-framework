@@ -63,6 +63,8 @@ public class Framework {
         Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
 
 
+
+
         // Print Startup Head
         printCopyHeader();
 
@@ -145,9 +147,11 @@ public class Framework {
 
 
 
-
+        //if(1 == 1) throw new RuntimeException("Testing Exception Reporter");
 
         frameworkContainer.getLocalShell().start();
+
+
 
 
     }
