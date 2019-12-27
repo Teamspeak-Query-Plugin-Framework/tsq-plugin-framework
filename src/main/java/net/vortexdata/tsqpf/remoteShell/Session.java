@@ -26,12 +26,12 @@
 package net.vortexdata.tsqpf.remoteShell;
 
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.console.RemoteShellTerminal;
 import net.vortexdata.tsqpf.exceptions.UserNotFoundException;
+import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.utils.HashUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

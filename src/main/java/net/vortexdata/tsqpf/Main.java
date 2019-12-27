@@ -25,6 +25,8 @@
 
 package net.vortexdata.tsqpf;
 
+import net.vortexdata.tsqpf.framework.*;
+
 /**
  * Main class of the framework.
  */

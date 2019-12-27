@@ -25,7 +25,7 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.framework.*;
 
 public abstract class Logger {
 

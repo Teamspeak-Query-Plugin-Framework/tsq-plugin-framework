@@ -25,9 +25,9 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.console.*;
+import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.plugins.PluginContainer;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 

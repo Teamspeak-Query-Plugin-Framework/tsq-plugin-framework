@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.plugins;
 
 import com.amihaiemil.eoyaml.YamlMapping;
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.framework.Framework;
 
 /**
  * Wrapper class combining all plugin essentials like config, logger, api and co.

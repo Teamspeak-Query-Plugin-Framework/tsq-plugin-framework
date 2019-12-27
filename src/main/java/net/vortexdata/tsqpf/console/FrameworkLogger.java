@@ -25,7 +25,7 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.framework.Framework;
 
 public class FrameworkLogger extends Logger {
 

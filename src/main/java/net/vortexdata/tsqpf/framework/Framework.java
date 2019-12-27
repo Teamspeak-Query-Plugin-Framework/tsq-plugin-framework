@@ -23,7 +23,7 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf;
+package net.vortexdata.tsqpf.framework;
 
 import com.github.theholywaffle.teamspeak3.*;
 import com.github.theholywaffle.teamspeak3.api.reconnect.*;
@@ -32,7 +32,6 @@ import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
-import net.vortexdata.tsqpf.framework.FrameworkStatus;
 import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;

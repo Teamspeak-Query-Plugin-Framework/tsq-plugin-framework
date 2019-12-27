@@ -27,17 +27,14 @@ package net.vortexdata.tsqpf.plugins;
 
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlMapping;
-import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Loads, unloads and manages all plugins in the plugin directory.

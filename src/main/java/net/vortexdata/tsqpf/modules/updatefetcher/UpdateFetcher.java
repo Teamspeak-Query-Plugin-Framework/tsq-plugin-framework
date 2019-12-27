@@ -1,7 +1,7 @@
 package net.vortexdata.tsqpf.modules.updatefetcher;
 
 
-import net.vortexdata.tsqpf.FrameworkContainer;
+import net.vortexdata.tsqpf.framework.FrameworkContainer;
 import net.vortexdata.tsqpf.configs.ConfigProject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

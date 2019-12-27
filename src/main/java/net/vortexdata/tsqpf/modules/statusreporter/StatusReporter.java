@@ -1,8 +1,7 @@
 package net.vortexdata.tsqpf.modules.statusreporter;
 
 
-import net.vortexdata.tsqpf.FrameworkContainer;
-import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
+import net.vortexdata.tsqpf.framework.FrameworkContainer;
 import org.json.simple.JSONObject;
 
 import java.io.*;

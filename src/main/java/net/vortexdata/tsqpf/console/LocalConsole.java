@@ -25,10 +25,10 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
 import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.exceptions.InvalidCredentialsException;
+import net.vortexdata.tsqpf.framework.*;
 import org.apache.log4j.Level;
 
 import java.util.*;

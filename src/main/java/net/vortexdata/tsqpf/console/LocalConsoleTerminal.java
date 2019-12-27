@@ -25,8 +25,8 @@
 
 package net.vortexdata.tsqpf.console;
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.User;
+import net.vortexdata.tsqpf.framework.*;
 
 import java.util.Scanner;
 

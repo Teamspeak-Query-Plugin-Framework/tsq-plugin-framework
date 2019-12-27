@@ -1,7 +1,6 @@
 package net.vortexdata.tsqpf.modules.uuid;
 
-import net.vortexdata.tsqpf.FrameworkContainer;
-import net.vortexdata.tsqpf.modules.statusreporter.*;
+import net.vortexdata.tsqpf.framework.FrameworkContainer;
 
 import java.io.*;
 import java.util.UUID;

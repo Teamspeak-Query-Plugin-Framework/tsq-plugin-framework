@@ -25,11 +25,10 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.configs.ConfigProject;
 import net.vortexdata.tsqpf.console.IShell;
-import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.framework.*;
 
 import java.text.*;
 

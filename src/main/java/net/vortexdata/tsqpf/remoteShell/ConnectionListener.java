@@ -25,8 +25,8 @@
 
 package net.vortexdata.tsqpf.remoteShell;
 
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.framework.*;
 import org.json.simple.JSONObject;
 
 import java.io.InputStream;
@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class ConnectionListener implements Runnable {
 

@@ -27,8 +27,8 @@ package net.vortexdata.tsqpf.listeners;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.configs.ConfigMessages;
+import net.vortexdata.tsqpf.framework.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

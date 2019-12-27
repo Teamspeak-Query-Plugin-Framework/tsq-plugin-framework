@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.heartbeat;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
-import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.framework.*;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;

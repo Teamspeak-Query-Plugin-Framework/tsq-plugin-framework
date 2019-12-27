@@ -1,8 +1,7 @@
 package net.vortexdata.tsqpf.modules.uncaughtExceptionHandler;
 
-import net.vortexdata.tsqpf.Framework;
-import net.vortexdata.tsqpf.FrameworkContainer;
-import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.framework.Framework;
+import net.vortexdata.tsqpf.framework.FrameworkContainer;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 

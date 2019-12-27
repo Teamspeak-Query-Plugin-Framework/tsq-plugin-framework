@@ -27,9 +27,9 @@ package net.vortexdata.tsqpf.plugins;
 
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
-import net.vortexdata.tsqpf.*;
 import net.vortexdata.tsqpf.commands.CommandInterface;
 import net.vortexdata.tsqpf.console.CommandContainer;
+import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.listeners.ChatCommandInterface;
 import net.vortexdata.tsqpf.modules.eventhandler.EventHandler;
 

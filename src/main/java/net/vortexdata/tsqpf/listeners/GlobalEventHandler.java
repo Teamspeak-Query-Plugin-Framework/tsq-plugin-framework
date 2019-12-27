@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.listeners;
 
 import com.github.theholywaffle.teamspeak3.api.event.*;
-import net.vortexdata.tsqpf.*;
+import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.plugins.PluginContainer;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 

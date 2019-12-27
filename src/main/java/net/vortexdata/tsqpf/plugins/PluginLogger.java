@@ -25,7 +25,7 @@
 
 package net.vortexdata.tsqpf.plugins;
 
-import net.vortexdata.tsqpf.Framework;
+import net.vortexdata.tsqpf.framework.Framework;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
