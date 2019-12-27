@@ -33,12 +33,10 @@ import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.framework.FrameworkStatus;
-import net.vortexdata.tsqpf.listeners.ChatCommandListener;
-import net.vortexdata.tsqpf.listeners.GlobalEventHandler;
+import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.updatefetcher.UpdateFetcher;
-import net.vortexdata.tsqpf.plugins.*;
 
 import java.io.*;
 
@@ -47,13 +45,14 @@ import java.io.*;
  */
 public class Framework {
 
+    private ExceptionHandler exceptionHandler;
     private FrameworkContainer frameworkContainer;
 
 
     public Framework(String[] args) {
 
         frameworkContainer = new FrameworkContainer(this, args);
-
+        exceptionHandler = new ExceptionHandler(this, frameworkContainer);
     }
 
     /**
@@ -61,12 +60,19 @@ public class Framework {
      */
     public void launch() {
 
+        Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+
+
+
+
         // Print Startup Head
         printCopyHeader();
 
         // init framework container
         frameworkContainer.init();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
+
+
 
         // Check for updatefetcher
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
@@ -122,6 +128,8 @@ public class Framework {
         } catch (Exception exx) {
             frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
             exx.printStackTrace();
+
+            exceptionHandler.uncaughtException(Thread.currentThread(), exx);
             shutdown();
         }
 
@@ -139,9 +147,11 @@ public class Framework {
 
 
 
-
+        //if(1 == 1) throw new RuntimeException("Testing Exception Reporter");
 
         frameworkContainer.getLocalShell().start();
+
+
 
 
     }
@@ -291,8 +301,6 @@ public class Framework {
 
         frameworkContainer.getTs3Api().unregisterAllEvents();
         frameworkContainer.getTs3Api().logout();
-        frameworkContainer.setTs3Api(null);
-        System.gc();
 
     }
 
