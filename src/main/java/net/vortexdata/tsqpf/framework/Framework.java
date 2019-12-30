@@ -206,14 +206,12 @@ public class Framework {
             frameworkContainer.getFrameworkLogger().printInfo("Unloading plugins...");
             try {
                 frameworkContainer.getFrameworkPluginManager().disableAll();
+                frameworkContainer.getFrameworkLogger().printInfo("Successfully unloaded plugins and disabled console handler.");
             } catch (Exception e) {
                 frameworkContainer.getFrameworkLogger().printDebug("Failed to unload all plugins, appending information: " + e.getMessage());
             }
         }
 
-
-
-        frameworkContainer.getFrameworkLogger().printInfo("Successfully unloaded plugins and disabled console handler.");
         frameworkContainer.getFrameworkLogger().printInfo("Ending framework logging...");
         System.exit(0);
     }
