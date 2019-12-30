@@ -49,3 +49,8 @@ your main.properties file to "true".
 
 If the EULA has changed after updating your framework, it will stop
 the boot process and inform you about any changes.
+
+! CONTACT INFORMATION !
+
+Email: contact@vortexdata.net
+Live Support: https://gitter.im/Teamspeak-Query-Plugin-Framework/community
