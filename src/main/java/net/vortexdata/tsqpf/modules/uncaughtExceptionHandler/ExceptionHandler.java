@@ -18,7 +18,9 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        System.out.println("["+t.getName()+"] Exception: "+ e.getMessage());
-        if(frameworkContainer.getFrameworkStatusReporter() != null) frameworkContainer.getFrameworkStatusReporter().logException(t,e);
+        frameworkContainer.getFrameworkLogger().printError("["+t.getName()+"] Unhandled exception: "+ e.getMessage());
+        if (frameworkContainer.getConfig("configs//main.properties").getProperty("enableExceptionReporting").equalsIgnoreCase("true")) {
+            if(frameworkContainer.getFrameworkStatusReporter() != null) frameworkContainer.getFrameworkStatusReporter().logException(t,e);
+        }
     }
 }

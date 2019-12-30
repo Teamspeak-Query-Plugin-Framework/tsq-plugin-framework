@@ -76,6 +76,7 @@ public class FrameworkContainer {
     private GlobalEventHandler globalEventHandler;
     private ChatCommandListener chatCommandListener;
     private PluginManager pluginManager;
+    private CommandContainer frameworkCommandContainer;
 
     // Framework Utils
     private ResourceLoader frameworkResourceLoader;

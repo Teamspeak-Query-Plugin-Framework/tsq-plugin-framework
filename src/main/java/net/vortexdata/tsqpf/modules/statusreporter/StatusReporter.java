@@ -71,11 +71,17 @@ public class StatusReporter {
     }
 
     public void logException(Thread t, Throwable e) {
+
+        int supportPin = (int) (Math.random() * Integer.MAX_VALUE);
+
+
+        frameworkContainer.getFrameworkLogger().printInfo("An unhandled exception has been sent to VortexdataNET servers for further analysis (Report-ID: "+ supportPin +" | Framework UUID: "+ uuid +").");
+
         JSONObject requestData = new JSONObject();
         requestData.put("type", "exception");
         requestData.put("name", e.getClass().getName());
         requestData.put("uuid", uuid);
-        requestData.put("supportPin", (int) (Math.random() * Integer.MAX_VALUE));
+        requestData.put("supportPin", supportPin);
         requestData.put("thread", t.getName());
         requestData.put("exceptionMessage", e.toString());
         requestData.put("exceptionStack", e.fillInStackTrace().toString());
