@@ -50,6 +50,9 @@ public class PluginManager {
     public PluginManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         loadedPlugins = new HashSet<>();
+        File pluginsDir = new File("plugins");
+        if (!pluginsDir.isDirectory())
+            pluginsDir.mkdirs();
     }
 
     /**

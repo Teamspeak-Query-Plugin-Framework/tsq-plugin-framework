@@ -24,6 +24,11 @@ public class UuidManager {
         String lUUID = "";
 
         try {
+
+            File sysDir = new File(path.split("//")[0]);
+            if (!sysDir.isDirectory())
+                sysDir.mkdirs();
+
             BufferedReader br = new BufferedReader(new FileReader(path));
             lUUID = br.readLine();
             if (lUUID != null && !lUUID.isEmpty()) {
