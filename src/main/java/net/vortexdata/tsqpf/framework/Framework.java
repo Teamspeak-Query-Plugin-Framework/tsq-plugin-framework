@@ -204,7 +204,11 @@ public class Framework {
 
         if (frameworkContainer.getFrameworkPluginManager() != null) {
             frameworkContainer.getFrameworkLogger().printInfo("Unloading plugins...");
-            frameworkContainer.getFrameworkPluginManager().disableAll();
+            try {
+                frameworkContainer.getFrameworkPluginManager().disableAll();
+            } catch (Exception e) {
+                frameworkContainer.getFrameworkLogger().printDebug("Failed to unload all plugins, appending information: " + e.getMessage());
+            }
         }
 
 
