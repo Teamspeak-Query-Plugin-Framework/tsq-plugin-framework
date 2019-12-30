@@ -36,6 +36,7 @@ import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.updatefetcher.UpdateFetcher;
+import net.vortexdata.tsqpf.plugins.PluginManager;
 
 import java.io.*;
 
@@ -202,7 +203,7 @@ public class Framework {
         }
 
 
-        if (frameworkContainer.getFrameworkPluginManager() != null) {
+        if (frameworkContainer.getFrameworkPluginManager() != null && PluginManager.getLoadedPlugins().size() > 0) {
             frameworkContainer.getFrameworkLogger().printInfo("Unloading plugins...");
             try {
                 frameworkContainer.getFrameworkPluginManager().disableAll();
