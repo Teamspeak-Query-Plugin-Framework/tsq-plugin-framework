@@ -189,7 +189,8 @@ public class Framework {
      */
     public void shutdown() {
 
-        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
+        if (frameworkContainer.getFrameworkStatusReporter() != null)
+            frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
 
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STOPPING);
 
