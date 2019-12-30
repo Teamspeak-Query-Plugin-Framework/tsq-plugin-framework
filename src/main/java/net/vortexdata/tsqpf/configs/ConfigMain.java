@@ -53,6 +53,7 @@ public class ConfigMain extends Config {
         defaultValues.put("enableRemoteShell", "true");
         defaultValues.put("enableHeartbeat", "true");
         defaultValues.put("acceptEula", "false");
+        defaultValues.put("enableExceptionReporting", "true");
     }
 
 }

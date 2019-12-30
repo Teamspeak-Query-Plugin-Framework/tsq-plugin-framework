@@ -125,10 +125,7 @@ public class Framework {
             frameworkContainer.getTs3Query().connect();
             frameworkContainer.getFrameworkLogger().printDebug("Connection to server established.");
         } catch (Exception exx) {
-            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, dumping error details: ");
-            exx.printStackTrace();
-
-            exceptionHandler.uncaughtException(Thread.currentThread(), exx);
+            frameworkContainer.getFrameworkLogger().printError("Connection to server failed, appending error details: " + exx.getMessage());
             shutdown();
         }
 
@@ -138,21 +135,12 @@ public class Framework {
         frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
         frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
 
-
         frameworkContainer.getFrameworkLogger().printDebug("Console handler and console commands successfully initialized and registered.");
         frameworkContainer.getBootHandler().setBootEndTime();
         frameworkContainer.getFrameworkLogger().printInfo("Boot process finished.");
         frameworkContainer.getFrameworkLogger().printInfo("It took " + frameworkContainer.getBootHandler().getBootTime() + " milliseconds to start the framework and load plugins.");
 
-
-
-        //if(1 == 1) throw new RuntimeException("Testing Exception Reporter");
-
         frameworkContainer.getLocalShell().start();
-
-
-
-
     }
 
     /**
