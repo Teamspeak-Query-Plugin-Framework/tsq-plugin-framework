@@ -268,6 +268,7 @@ public class Framework {
 
         frameworkContainer.getTs3Api().registerAllEvents();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.RUNNING);
+        frameworkContainer.getFrameworkLogger().printInfo("Wakeup procedure completed.");
     }
 
     /**
@@ -290,8 +291,8 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
 
 
-        frameworkContainer.getTs3Api().unregisterAllEvents();
-        frameworkContainer.getTs3Api().logout();
+        //frameworkContainer.getTs3Api().unregisterAllEvents();
+        //frameworkContainer.getTs3Api().logout();
 
     }
 

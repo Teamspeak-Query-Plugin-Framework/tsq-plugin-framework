@@ -118,6 +118,7 @@ public class Eula {
             }
         } catch (OutdatedEulaException e) {
             create();
+            throw new OutdatedEulaException();
         }
         return status;
     }
