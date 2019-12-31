@@ -8,7 +8,7 @@
 || applicable law.                                      ||
 ||                                                      ||
 || Core: Michael Wiesinger, Sandro Kierner              ||
-|| Api: Bert De Geyter                                  ||
 || Shell: Michael Wiesinger, Fabian Gurtner             ||
+|| Api: Bert De Geyter                                  ||
 || External Systems: Klaus Scheiboeck                   ||
 || ==================================================== ||
