@@ -28,7 +28,15 @@ package net.vortexdata.tsqpf;
 import net.vortexdata.tsqpf.framework.*;
 
 /**
- * Main class of the framework.
+ * The Teamspeak Query Plugin Framework was created in an effort to unify
+ * and make it more accessible for developers and server admins to
+ * enhance their servers with additional plugins.
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net): Project Lead, Core Development
+ * @author Michael Wiesinger (michael@vortexdata.net): Core Development, Senior Developer
+ * @author Fabian Gurtner (fabian@profiluefter.me): Remote Shell
+ * @author Klaus Scheiboek (klaus@vortexdata.net): External Systems
+ *
  */
 public class Main {
 

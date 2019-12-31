@@ -25,6 +25,10 @@
 
 package net.vortexdata.tsqpf.framework;
 
+/**
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @since 2.0.0
+ */
 public enum FrameworkStatus {
 
     STARTING, WAKING, RUNNING, HIBERNATING, CRASHED, RELOADING, STOPPING, INITIALIZING

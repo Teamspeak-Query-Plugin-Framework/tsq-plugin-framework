@@ -27,6 +27,12 @@ package net.vortexdata.tsqpf.configs;
 
 import java.util.HashMap;
 
+/**
+ * @author TAXSET
+ * @since 2.0.0
+ *
+ * This config contains all framework messages.
+ */
 public class ConfigMessages extends Config {
 
     public ConfigMessages() {

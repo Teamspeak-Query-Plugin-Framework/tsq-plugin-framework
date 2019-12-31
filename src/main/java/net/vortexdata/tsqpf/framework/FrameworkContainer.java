@@ -44,6 +44,9 @@ import java.util.*;
 
 /**
  * Contains all framework variables for easy use.
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @since 2.0.0
  */
 public class FrameworkContainer {
 

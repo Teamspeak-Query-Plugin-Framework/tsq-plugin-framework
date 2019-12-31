@@ -30,6 +30,10 @@ import net.vortexdata.tsqpf.exceptions.*;
 
 import java.io.*;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class Eula {
 
     private Logger logger;

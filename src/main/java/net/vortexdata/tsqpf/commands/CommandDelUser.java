@@ -30,6 +30,10 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class CommandDelUser extends CommandInterface {
 
     UserManager userManager;

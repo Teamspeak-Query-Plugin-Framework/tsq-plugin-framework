@@ -35,7 +35,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * Config fields prototype
+ * Parent and wrapper of all framework configs.
  *
  * @author Sandro Kierner
  * @since 2.0.0
@@ -50,6 +50,10 @@ public class Config implements ConfigInterface {
         this.path = path;
     }
 
+    /**
+     * Loads the config and its values from file to ram.
+     * @return true if load was successful.
+     */
     public boolean load() {
 
         HashMap<String, String> values = new HashMap<String, String>();
@@ -115,21 +119,37 @@ public class Config implements ConfigInterface {
         return true;
     }
 
+    /**
+     * Gets all values from the config.
+     *
+     * If none have yet been loaded, the default values are returned instead.
+     */
     @Override
     public HashMap<String, String> getValues() {
         return values;
     }
 
+    /**
+     * @return Returns the config default values.
+     */
     @Override
     public HashMap<String, String> getDefaultValues() {
         return defaultValues;
     }
 
+    /**
+     * @return Returns the configs path.
+     */
     @Override
     public String getPath() {
         return path;
     }
 
+    /**
+     *
+     * @param key Key of property that should be returned.
+     * @return Value associated to key.
+     */
     public String getProperty(String key) {
         if (values == null || values.isEmpty())
             return defaultValues.get(key);
@@ -139,6 +159,11 @@ public class Config implements ConfigInterface {
             return values.get(key);
     }
 
+    /**
+     *
+     * @param key Key of property that should be returned.
+     * @return Default value associated to key.
+     */
     public String getDefaultProperty(String key) {
         if (defaultValues == null || defaultValues.isEmpty())
             return "";

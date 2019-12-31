@@ -42,6 +42,10 @@ import java.io.*;
 
 /**
  * Top-level controller of the framework.
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @author Michael Wiesinger (michael@vortexdata.net)
+ * @since 2.0.0
  */
 public class Framework {
 

@@ -40,6 +40,7 @@ import java.util.Scanner;
 /**
  * Shell implementation
  * @author Fabian Gurtner (fabian@profiluefter.me)
+ * @since 2.0.0
  */
 public class Shell implements IShell {
 	protected Logger logger;

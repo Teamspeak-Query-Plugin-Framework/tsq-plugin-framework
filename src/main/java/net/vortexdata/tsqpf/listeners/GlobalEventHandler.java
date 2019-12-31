@@ -45,6 +45,9 @@ public class GlobalEventHandler implements TS3Listener {
 
     }
 
+    /**
+     * Fires when the framework receives a new text message.
+     */
     public void onTextMessage(TextMessageEvent textMessageEvent) {
         if (textMessageEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -53,6 +56,9 @@ public class GlobalEventHandler implements TS3Listener {
         frameworkContainer.getFrameworkChatCommandListener().newMessage(textMessageEvent);
     }
 
+    /**
+     * Fires when a client connects to the Teamspeak server.
+     */
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
         if (clientJoinEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -60,6 +66,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a client disconnects from the Teamspeak server.
+     */
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {
         if (clientLeaveEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -67,6 +76,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when the Teamspeak server is edited.
+     */
     public void onServerEdit(ServerEditedEvent serverEditedEvent) {
         if (serverEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -74,6 +86,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a channel of the Teamspeak server is edited.
+     */
     public void onChannelEdit(ChannelEditedEvent channelEditedEvent) {
         if (channelEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -81,6 +96,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when the channel description of any channel on the Teamspeak server is changed.
+     */
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent channelDescriptionEditedEvent) {
         if (channelDescriptionEditedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -88,6 +106,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a client is moved on the Teamspeak server.
+     */
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
         if (clientMovedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -95,6 +116,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a new channel is created on the Teamspeak server.
+     */
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
         if (channelCreateEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -102,6 +126,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a channel is deleted on the Teamspeak server.
+     */
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
         if (channelDeletedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -109,6 +136,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when a channel is moved on the Teamspeak server.
+     */
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
         if (channelMovedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -116,6 +146,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when the password of any channel is changed.
+     */
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
         if (channelPasswordChangedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {
@@ -123,6 +156,9 @@ public class GlobalEventHandler implements TS3Listener {
         }
     }
 
+    /**
+     * Fires when any privilege key is used.
+     */
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
         if (privilegeKeyUsedEvent.getInvokerId() == frameworkContainer.getTs3Api().whoAmI().getId()) return;
         for (PluginContainer pl : PluginManager.getLoadedPlugins()) {

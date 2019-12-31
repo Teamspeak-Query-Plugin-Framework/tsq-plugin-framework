@@ -5,6 +5,10 @@ import net.vortexdata.tsqpf.framework.FrameworkContainer;
 import java.io.*;
 import java.util.UUID;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class UuidManager {
 
     private String path;
