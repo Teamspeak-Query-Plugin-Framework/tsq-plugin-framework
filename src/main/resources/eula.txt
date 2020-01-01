@@ -5,7 +5,7 @@
 The VortexdataNET TSQPF End User License Agreement (EULA) sets rules for
 downloading and using the Teamspeak Query Plugin Framework (Later called
 TSPQF). A copy of the most recent version of the EULA can be found at
-"https://tsqpf.vortexdata.net/docs/framework_eula".
+"https://tsqpf.vortexdata.net/docs/docs/framework_eula".
 
 ! WARRANTY !
 
