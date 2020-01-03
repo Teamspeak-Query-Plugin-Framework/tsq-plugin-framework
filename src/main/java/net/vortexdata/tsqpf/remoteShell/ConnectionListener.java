@@ -52,7 +52,6 @@ public class ConnectionListener implements Runnable {
     /** Constant <code>CHARSET</code> */
     public static final Charset CHARSET = StandardCharsets.UTF_8;
     public ExecutorService commandExecutor;
-    /** Constant <code>END_OF_MESSAGE="<EOM>".getBytes(CHARSET)</code> */
     public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
     private Logger logger;
     private boolean running = false;
