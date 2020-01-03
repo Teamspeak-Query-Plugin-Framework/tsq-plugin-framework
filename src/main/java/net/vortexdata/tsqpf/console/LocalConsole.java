@@ -39,6 +39,7 @@ import java.util.*;
  * @author Sandro Kierner
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 @Deprecated
 public class LocalConsole implements Runnable {
@@ -56,6 +57,17 @@ public class LocalConsole implements Runnable {
 
     private boolean resetRoot = false;
 
+    /**
+     * <p>Constructor for LocalConsole.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param rootLogger a {@link org.apache.log4j.Logger} object.
+     * @param logLevel a {@link org.apache.log4j.Level} object.
+     * @param resetRoot a boolean.
+     * @param consoleCommandHandler a {@link net.vortexdata.tsqpf.console.ConsoleCommandHandler} object.
+     * @param userManager a {@link net.vortexdata.tsqpf.authenticator.UserManager} object.
+     */
     public LocalConsole(FrameworkContainer frameworkContainer, Logger logger, org.apache.log4j.Logger rootLogger, Level logLevel, boolean resetRoot, ConsoleCommandHandler consoleCommandHandler, UserManager userManager) {
         this.frameworkContainer = frameworkContainer;
         this.logger = logger;
@@ -77,6 +89,11 @@ public class LocalConsole implements Runnable {
         thread.start();
     }
 
+    /**
+     * <p>login.</p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     */
     @Deprecated
     public String[] login() {
         String[] values = new String[2];
@@ -152,18 +169,32 @@ public class LocalConsole implements Runnable {
         }
     }
 
+    /**
+     * <p>shutdown.</p>
+     */
     public void shutdown() {
         active = false;
     }
 
+    /**
+     * <p>logout.</p>
+     */
     public void logout() {
         currentUser = null;
     }
 
+    /**
+     * <p>Getter for the field <code>userManager</code>.</p>
+     *
+     * @return a {@link net.vortexdata.tsqpf.authenticator.UserManager} object.
+     */
     public UserManager getUserManager() {
         return userManager;
     }
 
+    /**
+     * <p>resetRoot.</p>
+     */
     public void resetRoot() {
         userManager.deleteUser("root", true);
         userManager.generateRootUser();

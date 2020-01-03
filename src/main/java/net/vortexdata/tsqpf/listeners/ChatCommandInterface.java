@@ -28,10 +28,18 @@ package net.vortexdata.tsqpf.listeners;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 
 /**
+ * <p>ChatCommandInterface interface.</p>
+ *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public interface ChatCommandInterface {
 
+    /**
+     * <p>gotCalled.</p>
+     *
+     * @param event a {@link com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent} object.
+     */
     void gotCalled(TextMessageEvent event);
 }

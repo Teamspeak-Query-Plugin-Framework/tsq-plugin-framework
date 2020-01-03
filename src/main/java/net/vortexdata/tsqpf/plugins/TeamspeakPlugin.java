@@ -38,6 +38,7 @@ import net.vortexdata.tsqpf.modules.eventhandler.EventHandler;
  *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public abstract class TeamspeakPlugin extends EventHandler {
 
@@ -116,6 +117,7 @@ public abstract class TeamspeakPlugin extends EventHandler {
      * Registers a new teamspeak direct chat command
      *
      * @param cmd The command class
+     * @param prefix a {@link java.lang.String} object.
      */
     protected void registerChatCommand(ChatCommandInterface cmd, String prefix) {
         frameworkContainer.getFrameworkChatCommandListener().registerNewCommand(cmd, prefix);
@@ -131,6 +133,11 @@ public abstract class TeamspeakPlugin extends EventHandler {
     }
 
 
+    /**
+     * <p>getPluginManager.</p>
+     *
+     * @return a {@link net.vortexdata.tsqpf.plugins.PluginManager} object.
+     */
     protected PluginManager getPluginManager() {
         return frameworkContainer.getFrameworkPluginManager();
     }

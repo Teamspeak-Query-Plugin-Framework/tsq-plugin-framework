@@ -6,8 +6,11 @@ import java.io.*;
 import java.util.UUID;
 
 /**
+ * <p>UuidManager class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class UuidManager {
 
@@ -15,15 +18,28 @@ public class UuidManager {
     private FrameworkContainer frameworkContainer;
     private String loadedUUID;
 
+    /**
+     * <p>Constructor for UuidManager.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public UuidManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         path = "sys//uuid.tsqpfd";
     }
 
+    /**
+     * <p>init.</p>
+     */
     public void init() {
         loadedUUID = loadUuid();
     }
 
+    /**
+     * <p>loadUuid.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String loadUuid() {
         String lUUID = "";
 
@@ -79,6 +95,11 @@ public class UuidManager {
         return false;
     }
 
+    /**
+     * <p>Getter for the field <code>loadedUUID</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getLoadedUUID() {
         return loadedUUID;
     }

@@ -27,34 +27,77 @@ package net.vortexdata.tsqpf.console;
 
 import net.vortexdata.tsqpf.framework.*;
 
+/**
+ * <p>Abstract Logger class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public abstract class Logger {
 
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for Logger.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public Logger(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
     }
 
+    /**
+     * <p>printInfo.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public void printInfo(String message) {
         frameworkContainer.getRootLogger().info(message);
     }
 
+    /**
+     * <p>printDebug.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public void printDebug(String message) {
         frameworkContainer.getRootLogger().debug(message);
     }
 
+    /**
+     * <p>printError.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param e a {@link java.lang.Exception} object.
+     */
     public void printError(String message, Exception e) {
         frameworkContainer.getRootLogger().error(message, e);
     }
 
+    /**
+     * <p>printError.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public void printError(String message) {
         frameworkContainer.getRootLogger().error(message);
     }
 
+    /**
+     * <p>printWarn.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param e a {@link java.lang.Exception} object.
+     */
     public void printWarn(String message, Exception e) {
         frameworkContainer.getRootLogger().warn(message, e);
     }
 
+    /**
+     * <p>printWarn.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public void printWarn(String message) {
         frameworkContainer.getRootLogger().warn(message);
     }

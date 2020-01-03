@@ -31,29 +31,53 @@ package net.vortexdata.tsqpf.authenticator;
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class User {
 
+    /** Constant <code>CSV_SEPARATOR=";"</code> */
     public static final String CSV_SEPARATOR = ";";
     private UserGroup group;
     private String username;
     private String password;
 
 
+    /**
+     * <p>Constructor for User.</p>
+     *
+     * @param username a {@link java.lang.String} object.
+     * @param password a {@link java.lang.String} object.
+     * @param group a {@link net.vortexdata.tsqpf.authenticator.UserGroup} object.
+     */
     public User(String username, String password, UserGroup group) {
         this.username = username;
         this.password = password;
         this.group = group;
     }
 
+    /**
+     * <p>Getter for the field <code>group</code>.</p>
+     *
+     * @return a {@link net.vortexdata.tsqpf.authenticator.UserGroup} object.
+     */
     public UserGroup getGroup() {
         return group;
     }
 
+    /**
+     * <p>Getter for the field <code>username</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * <p>serialize.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String serialize() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(username);
@@ -64,6 +88,11 @@ public class User {
         return buffer.toString();
     }
 
+    /**
+     * <p>Getter for the field <code>password</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getPassword() {
         return password;
     }

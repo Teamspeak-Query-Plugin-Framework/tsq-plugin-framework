@@ -9,17 +9,24 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
+ * <p>ConfigProject class.</p>
+ *
  * @author TAXSET
  * @since 2.0.0
  *
  * This config is a derivative config for configs contained in the frameworks resource directory.
+ * @version $Id: $Id
  */
 public class ConfigProject extends Config {
 
+    /**
+     * <p>Constructor for ConfigProject.</p>
+     */
     public ConfigProject() {
         super("/project.properties");
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean load() {
 

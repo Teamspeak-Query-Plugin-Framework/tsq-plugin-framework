@@ -28,13 +28,19 @@ package net.vortexdata.tsqpf.configs;
 import java.util.HashMap;
 
 /**
+ * <p>ConfigMessages class.</p>
+ *
  * @author TAXSET
  * @since 2.0.0
  *
  * This config contains all framework messages.
+ * @version $Id: $Id
  */
 public class ConfigMessages extends Config {
 
+    /**
+     * <p>Constructor for ConfigMessages.</p>
+     */
     public ConfigMessages() {
         super("configs//messages.properties");
         // Creating HashMaps

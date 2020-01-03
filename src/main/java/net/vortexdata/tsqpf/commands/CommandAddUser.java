@@ -32,13 +32,22 @@ import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 
 /**
+ * <p>CommandAddUser class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandAddUser extends CommandInterface {
 
     private UserManager userManager;
 
+    /**
+     * <p>Constructor for CommandAddUser.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param userManager a {@link net.vortexdata.tsqpf.authenticator.UserManager} object.
+     */
     public CommandAddUser(Logger logger, UserManager userManager) {
         super(logger);
         this.userManager = userManager;
@@ -46,11 +55,13 @@ public class CommandAddUser extends CommandInterface {
         groups.add(UserGroup.ADMINISTRATOR);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Adds a new user account";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
 
@@ -98,6 +109,7 @@ public class CommandAddUser extends CommandInterface {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "adduser";

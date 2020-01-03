@@ -35,17 +35,25 @@ import net.vortexdata.tsqpf.plugins.PluginManager;
  *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class GlobalEventHandler implements TS3Listener {
 
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for GlobalEventHandler.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public GlobalEventHandler(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
 
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when the framework receives a new text message.
      */
     public void onTextMessage(TextMessageEvent textMessageEvent) {
@@ -57,6 +65,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a client connects to the Teamspeak server.
      */
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
@@ -67,6 +77,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a client disconnects from the Teamspeak server.
      */
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {
@@ -77,6 +89,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when the Teamspeak server is edited.
      */
     public void onServerEdit(ServerEditedEvent serverEditedEvent) {
@@ -87,6 +101,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a channel of the Teamspeak server is edited.
      */
     public void onChannelEdit(ChannelEditedEvent channelEditedEvent) {
@@ -97,6 +113,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when the channel description of any channel on the Teamspeak server is changed.
      */
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent channelDescriptionEditedEvent) {
@@ -107,6 +125,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a client is moved on the Teamspeak server.
      */
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
@@ -117,6 +137,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a new channel is created on the Teamspeak server.
      */
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
@@ -127,6 +149,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a channel is deleted on the Teamspeak server.
      */
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
@@ -137,6 +161,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when a channel is moved on the Teamspeak server.
      */
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
@@ -147,6 +173,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when the password of any channel is changed.
      */
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
@@ -157,6 +185,8 @@ public class GlobalEventHandler implements TS3Listener {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Fires when any privilege key is used.
      */
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {

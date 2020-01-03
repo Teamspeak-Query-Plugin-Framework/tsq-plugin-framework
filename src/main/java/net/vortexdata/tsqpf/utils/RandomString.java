@@ -30,16 +30,33 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * <p>RandomString class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class RandomString {
 
+    /** Constant <code>upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ"</code> */
     public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    /** Constant <code>lower="upper.toLowerCase(Locale.ROOT)"</code> */
     public static final String lower = upper.toLowerCase(Locale.ROOT);
+    /** Constant <code>digits="0123456789"</code> */
     public static final String digits = "0123456789";
+    /** Constant <code>alphanum="upper + lower + digits"</code> */
     public static final String alphanum = upper + lower + digits;
     private final Random random;
     private final char[] symbols;
     private final char[] buf;
 
+    /**
+     * <p>Constructor for RandomString.</p>
+     *
+     * @param length a int.
+     * @param random a {@link java.util.Random} object.
+     * @param symbols a {@link java.lang.String} object.
+     */
     public RandomString(int length, Random random, String symbols) {
         if (length < 1) throw new IllegalArgumentException();
         if (symbols.length() < 2) throw new IllegalArgumentException();
@@ -50,6 +67,9 @@ public class RandomString {
 
     /**
      * Create an alphanumeric string generator.
+     *
+     * @param length a int.
+     * @param random a {@link java.util.Random} object.
      */
     public RandomString(int length, Random random) {
         this(length, random, alphanum);
@@ -57,6 +77,8 @@ public class RandomString {
 
     /**
      * Create an alphanumeric strings from a secure generator.
+     *
+     * @param length a int.
      */
     public RandomString(int length) {
         this(length, new SecureRandom());
@@ -71,6 +93,8 @@ public class RandomString {
 
     /**
      * Generate a random string.
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String nextString() {
         for (int idx = 0; idx < buf.length; ++idx)

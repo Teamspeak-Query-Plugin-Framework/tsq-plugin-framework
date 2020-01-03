@@ -34,20 +34,27 @@ import net.vortexdata.tsqpf.console.Logger;
  * @author Michael Wiesinger
  * @author Sandro Kierner
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class PluginLogger extends Logger {
 
     private PluginContainer pluginContainer;
 
+    /**
+     * <p>Constructor for PluginLogger.</p>
+     *
+     * @param Framework a {@link net.vortexdata.tsqpf.framework.Framework} object.
+     * @param container a {@link net.vortexdata.tsqpf.plugins.PluginContainer} object.
+     */
     public PluginLogger(Framework Framework, PluginContainer container) {
         super(Framework.getFrameworkContainer());
         pluginContainer = container;
     }
 
     /**
-     * Logs a message to console or log file on debug level.
+     * {@inheritDoc}
      *
-     * @param message Message that gets logged to console or log file.
+     * Logs a message to console or log file on debug level.
      */
     @Override
     public void printDebug(String message) {
@@ -55,9 +62,9 @@ public class PluginLogger extends Logger {
     }
 
     /**
-     * Logs a message to console or log file on error level.
+     * {@inheritDoc}
      *
-     * @param message Message that gets logged to console or log file.
+     * Logs a message to console or log file on error level.
      */
     @Override
     public void printError(String message) {
@@ -65,9 +72,9 @@ public class PluginLogger extends Logger {
     }
 
     /**
-     * Logs a message to console or log file on warning level.
+     * {@inheritDoc}
      *
-     * @param message Message that gets logged to console or log file.
+     * Logs a message to console or log file on warning level.
      */
     @Override
     public void printWarn(String message) {
@@ -75,9 +82,9 @@ public class PluginLogger extends Logger {
     }
 
     /**
-     * Logs a message to console or log file on info level.
+     * {@inheritDoc}
      *
-     * @param message Message that gets logged to console or log file.
+     * Logs a message to console or log file on info level.
      */
     @Override
     public void printInfo(String message) {

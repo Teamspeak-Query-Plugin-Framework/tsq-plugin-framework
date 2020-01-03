@@ -41,12 +41,18 @@ import java.util.HashSet;
  *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class PluginManager {
 
     private static HashSet<PluginContainer> loadedPlugins;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for PluginManager.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public PluginManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         loadedPlugins = new HashSet<>();
@@ -85,6 +91,12 @@ public class PluginManager {
 
     }
 
+    /**
+     * <p>disablePlugin.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public boolean disablePlugin(String name) {
         PluginContainer removed = null;
         for (PluginContainer pc : loadedPlugins) {
@@ -116,6 +128,8 @@ public class PluginManager {
 
     /**
      * Loads a specific plugin and tries to enable it.
+     *
+     * @param file a {@link java.io.File} object.
      */
     public void loadPlugin(File file) {
         try {

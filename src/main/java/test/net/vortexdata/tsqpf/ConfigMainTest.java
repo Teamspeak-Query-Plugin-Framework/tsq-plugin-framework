@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConfigMainTest {
 
+    /**
+     * <p>getNonExistentConfigValue.</p>
+     */
     @Test
     public void getNonExistentConfigValue() {
         System.out.println("getNonExistentConfigValue");
@@ -15,6 +18,9 @@ class ConfigMainTest {
         assertEquals("", configMain.getProperty("someKeyThatDoesNotExist"));
     }
 
+    /**
+     * <p>getValue.</p>
+     */
     @Test
     public void getValue() {
         System.out.println("getValue");
@@ -22,6 +28,9 @@ class ConfigMainTest {
         assertEquals("serveradmin", configMain.getProperty("queryUser"));
     }
 
+    /**
+     * <p>getDefaultValue.</p>
+     */
     @Test
     public void getDefaultValue() {
         System.out.println("getDefaultValue");

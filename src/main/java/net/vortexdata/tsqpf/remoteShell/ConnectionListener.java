@@ -41,10 +41,18 @@ import java.util.Base64;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * <p>ConnectionListener class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class ConnectionListener implements Runnable {
 
+    /** Constant <code>CHARSET</code> */
     public static final Charset CHARSET = StandardCharsets.UTF_8;
     public ExecutorService commandExecutor;
+    /** Constant <code>END_OF_MESSAGE="<EOM>".getBytes(CHARSET)</code> */
     public static final byte[] END_OF_MESSAGE = "<EOM>".getBytes(CHARSET);
     private Logger logger;
     private boolean running = false;
@@ -53,12 +61,22 @@ public class ConnectionListener implements Runnable {
     private int port;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for ConnectionListener.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param port a int.
+     */
     public ConnectionListener(FrameworkContainer frameworkContainer, Logger logger, int port) {
         this.logger = logger;
         this.port = port;
         this.frameworkContainer = frameworkContainer;
     }
 
+    /**
+     * <p>start.</p>
+     */
     public void start() {
         if (running) return;
         if (thread == null) thread = new Thread(this, this.getClass().getName());
@@ -67,10 +85,18 @@ public class ConnectionListener implements Runnable {
 
     }
 
+    /**
+     * <p>stop.</p>
+     */
     public void stop() {
         thread.interrupt();
     }
 
+    /**
+     * <p>connectionDropped.</p>
+     *
+     * @param session a {@link net.vortexdata.tsqpf.remoteShell.Session} object.
+     */
     public void connectionDropped(Session session) {
         sessions.remove(session);
     }
@@ -81,6 +107,7 @@ public class ConnectionListener implements Runnable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         try {

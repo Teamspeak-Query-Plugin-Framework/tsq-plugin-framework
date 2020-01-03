@@ -35,19 +35,27 @@ import net.vortexdata.tsqpf.console.Logger;
  * @author Sandro Kierner
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class CommandHelp extends CommandInterface {
 
+    /**
+     * <p>Constructor for CommandHelp.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public CommandHelp(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "You need help with help? That's kinda genius :)";
     }
 
+    /** {@inheritDoc} */
     public void execute(String[] args, IShell shell) {
 
         if (args.length > 0) {
@@ -67,6 +75,11 @@ public class CommandHelp extends CommandInterface {
 
     }
 
+    /**
+     * <p>getName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName() {
         return "help";
     }

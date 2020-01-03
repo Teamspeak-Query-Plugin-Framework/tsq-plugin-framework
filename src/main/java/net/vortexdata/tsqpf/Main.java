@@ -36,10 +36,15 @@ import net.vortexdata.tsqpf.framework.*;
  * @author Michael Wiesinger (michael@vortexdata.net): Core Development, Senior Developer
  * @author Fabian Gurtner (fabian@profiluefter.me): Remote Shell
  * @author Klaus Scheiboek (klaus@vortexdata.net): External Systems
- *
+ * @version $Id: $Id
  */
 public class Main {
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public static void main(String[] args) {
         Framework frameworkInstance = new Framework(args);
         frameworkInstance.launch();

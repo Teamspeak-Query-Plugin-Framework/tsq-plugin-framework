@@ -33,24 +33,34 @@ import net.vortexdata.tsqpf.framework.*;
 import java.text.*;
 
 /**
+ * <p>CommandFramework class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandFramework extends CommandInterface {
 
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for CommandFramework.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public CommandFramework(FrameworkContainer frameworkContainer) {
         super(frameworkContainer.getFrameworkLogger());
         this.frameworkContainer = frameworkContainer;
         groups.add(UserGroup.ROOT);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Controls framework operations.";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
 
@@ -97,6 +107,7 @@ public class CommandFramework extends CommandInterface {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "framework";

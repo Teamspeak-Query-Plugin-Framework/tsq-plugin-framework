@@ -29,24 +29,34 @@ import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
+ * <p>CommandLogout class.</p>
+ *
  * @author Mchael Wiesinger
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandLogout extends CommandInterface {
 
 
 
+    /**
+     * <p>Constructor for CommandLogout.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public CommandLogout(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Invalidates your current session.";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
         shell.logout();
@@ -55,6 +65,7 @@ public class CommandLogout extends CommandInterface {
         //getLogger().printDebug("Invalidating console handler session.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "logout";

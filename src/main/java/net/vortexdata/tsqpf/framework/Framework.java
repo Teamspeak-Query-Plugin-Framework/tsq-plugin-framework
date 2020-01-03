@@ -46,6 +46,7 @@ import java.io.*;
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class Framework {
 
@@ -53,6 +54,11 @@ public class Framework {
     private FrameworkContainer frameworkContainer;
 
 
+    /**
+     * <p>Constructor for Framework.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public Framework(String[] args) {
 
         frameworkContainer = new FrameworkContainer(this, args);
@@ -225,7 +231,7 @@ public class Framework {
      *
      * Wakes up the framework and re-establishes connection to Teamspeak server.
      *
-     * @param ts3Query
+     * @param ts3Query a {@link com.github.theholywaffle.teamspeak3.TS3Query} object.
      */
     public void wakeup(TS3Query ts3Query) {
 
@@ -303,6 +309,8 @@ public class Framework {
     }
 
     /**
+     * <p>Getter for the field <code>frameworkContainer</code>.</p>
+     *
      * @return      The Frameworks variable wrapper.
      */
     public FrameworkContainer getFrameworkContainer() {

@@ -25,8 +25,15 @@
 
 package net.vortexdata.tsqpf.exceptions;
 
+/**
+ * <p>InvalidCredentialsException class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class InvalidCredentialsException extends Exception {
 
+    /** {@inheritDoc} */
     @Override
     public String getMessage() {
         return "Username or password are incorrect.";

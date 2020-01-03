@@ -32,23 +32,33 @@ import net.vortexdata.tsqpf.plugins.PluginContainer;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 
 /**
+ * <p>CommandPlugins class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandPlugins extends CommandInterface {
 
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for CommandPlugins.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public CommandPlugins(FrameworkContainer frameworkContainer) {
         super(frameworkContainer.getFrameworkLogger());
         groups.add(UserGroup.ROOT);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Controls loaded framework plugins.";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
 
@@ -72,6 +82,7 @@ public class CommandPlugins extends CommandInterface {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "plugins";

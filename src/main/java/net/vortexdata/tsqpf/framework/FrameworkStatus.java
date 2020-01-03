@@ -26,8 +26,11 @@
 package net.vortexdata.tsqpf.framework;
 
 /**
+ * <p>FrameworkStatus class.</p>
+ *
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public enum FrameworkStatus {
 

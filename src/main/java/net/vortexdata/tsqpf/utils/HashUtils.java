@@ -29,8 +29,20 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * <p>HashUtils class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class HashUtils {
 
+    /**
+     * <p>sha_256.</p>
+     *
+     * @param data a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String sha_256(String data) {
 
         try {

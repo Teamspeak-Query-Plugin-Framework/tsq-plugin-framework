@@ -28,55 +28,118 @@ package net.vortexdata.tsqpf.modules.eventhandler;
 import com.github.theholywaffle.teamspeak3.api.event.*;
 
 /**
+ * <p>Abstract EventHandler class.</p>
+ *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public abstract class EventHandler {
 
+    /**
+     * <p>onTextMessage.</p>
+     *
+     * @param textMessageEvent a {@link com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent} object.
+     */
     public void onTextMessage(TextMessageEvent textMessageEvent) {
 
     }
 
+    /**
+     * <p>onClientJoin.</p>
+     *
+     * @param clientJoinEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ClientJoinEvent} object.
+     */
     public void onClientJoin(ClientJoinEvent clientJoinEvent) {
 
     }
 
+    /**
+     * <p>onClientLeave.</p>
+     *
+     * @param clientLeaveEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ClientLeaveEvent} object.
+     */
     public void onClientLeave(ClientLeaveEvent clientLeaveEvent) {
 
     }
 
+    /**
+     * <p>onServerEdit.</p>
+     *
+     * @param serverEditedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ServerEditedEvent} object.
+     */
     public void onServerEdit(ServerEditedEvent serverEditedEvent) {
 
     }
 
+    /**
+     * <p>onChannelEdit.</p>
+     *
+     * @param channelEditedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelEditedEvent} object.
+     */
     public void onChannelEdit(ChannelEditedEvent channelEditedEvent) {
 
     }
 
+    /**
+     * <p>onChannelDescriptionChanged.</p>
+     *
+     * @param channelDescriptionEditedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelDescriptionEditedEvent} object.
+     */
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent channelDescriptionEditedEvent) {
 
     }
 
+    /**
+     * <p>onClientMoved.</p>
+     *
+     * @param clientMovedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ClientMovedEvent} object.
+     */
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
 
     }
 
+    /**
+     * <p>onChannelCreate.</p>
+     *
+     * @param channelCreateEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelCreateEvent} object.
+     */
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
 
     }
 
+    /**
+     * <p>onChannelDeleted.</p>
+     *
+     * @param channelDeletedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelDeletedEvent} object.
+     */
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
 
     }
 
+    /**
+     * <p>onChannelMoved.</p>
+     *
+     * @param channelMovedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelMovedEvent} object.
+     */
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
 
     }
 
+    /**
+     * <p>onChannelPasswordChanged.</p>
+     *
+     * @param channelPasswordChangedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.ChannelPasswordChangedEvent} object.
+     */
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
 
     }
 
+    /**
+     * <p>onPrivilegeKeyUsed.</p>
+     *
+     * @param privilegeKeyUsedEvent a {@link com.github.theholywaffle.teamspeak3.api.event.PrivilegeKeyUsedEvent} object.
+     */
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
 
     }

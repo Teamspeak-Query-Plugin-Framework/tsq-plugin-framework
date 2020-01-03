@@ -39,6 +39,7 @@ import java.util.Set;
  *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class Config implements ConfigInterface {
 
@@ -46,12 +47,18 @@ public class Config implements ConfigInterface {
     protected HashMap<String, String> values;
     protected HashMap<String, String> defaultValues;
 
+    /**
+     * <p>Constructor for Config.</p>
+     *
+     * @param path a {@link java.lang.String} object.
+     */
     public Config(String path) {
         this.path = path;
     }
 
     /**
      * Loads the config and its values from file to ram.
+     *
      * @return true if load was successful.
      */
     public boolean load() {
@@ -120,6 +127,8 @@ public class Config implements ConfigInterface {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Gets all values from the config.
      *
      * If none have yet been loaded, the default values are returned instead.
@@ -129,23 +138,20 @@ public class Config implements ConfigInterface {
         return values;
     }
 
-    /**
-     * @return Returns the config default values.
-     */
+    /** {@inheritDoc} */
     @Override
     public HashMap<String, String> getDefaultValues() {
         return defaultValues;
     }
 
-    /**
-     * @return Returns the configs path.
-     */
+    /** {@inheritDoc} */
     @Override
     public String getPath() {
         return path;
     }
 
     /**
+     * <p>getProperty.</p>
      *
      * @param key Key of property that should be returned.
      * @return Value associated to key.
@@ -160,6 +166,7 @@ public class Config implements ConfigInterface {
     }
 
     /**
+     * <p>getDefaultProperty.</p>
      *
      * @param key Key of property that should be returned.
      * @return Default value associated to key.

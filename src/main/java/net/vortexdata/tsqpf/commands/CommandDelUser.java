@@ -31,24 +31,35 @@ import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
+ * <p>CommandDelUser class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandDelUser extends CommandInterface {
 
     UserManager userManager;
 
+    /**
+     * <p>Constructor for CommandDelUser.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param userManager a {@link net.vortexdata.tsqpf.authenticator.UserManager} object.
+     */
     public CommandDelUser(Logger logger, UserManager userManager) {
         super(logger);
         this.userManager = userManager;
         groups.add(UserGroup.ROOT);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Deletes a user";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
         if (args.length == 0) {
@@ -67,6 +78,7 @@ public class CommandDelUser extends CommandInterface {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "deluser";

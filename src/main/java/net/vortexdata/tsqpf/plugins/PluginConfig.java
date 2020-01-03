@@ -42,12 +42,18 @@ import java.util.HashMap;
  * @author Michael Wiesinger
  * @author Sandro Kierner
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class PluginConfig {
 
     File configDir;
     private HashMap<String, String> entries;
 
+    /**
+     * <p>Constructor for PluginConfig.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public PluginConfig(String name) {
         configDir = new File("plugins//" + name + "//plugin.conf");
         configDir.getParentFile().mkdirs();
@@ -86,6 +92,9 @@ public class PluginConfig {
 
     /**
      * Set a plugins config value
+     *
+     * @param key a {@link java.lang.String} object.
+     * @param value a {@link java.lang.String} object.
      */
     public void setValue(String key, String value) {
         if (entries.containsKey(key)) {
@@ -118,15 +127,27 @@ public class PluginConfig {
         return entries.containsKey(key);
     }
 
+    /**
+     * <p>readValue.</p>
+     *
+     * @param key a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String readValue(String key) {
         return entries.get(key);
     }
 
+    /**
+     * <p>clear.</p>
+     */
     public void clear() {
         entries.clear();
     }
 
 
+    /**
+     * <p>saveAll.</p>
+     */
     public void saveAll() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(configDir, false));

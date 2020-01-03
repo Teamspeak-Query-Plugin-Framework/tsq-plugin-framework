@@ -26,17 +26,39 @@
 package net.vortexdata.tsqpf.console;
 
 /**
- * @deprecated Use {@link IShell} instead!
+ * <p>VirtualTerminal interface.</p>
+ *
+ * @deprecated Use {@link net.vortexdata.tsqpf.console.IShell} instead!
+ * @author TAXSET
+ * @version $Id: $Id
  */
 @Deprecated
 public interface VirtualTerminal {
 
+    /**
+     * <p>println.</p>
+     *
+     * @param msg a {@link java.lang.String} object.
+     */
     void println(String msg);
 
+    /**
+     * <p>print.</p>
+     *
+     * @param msg a {@link java.lang.String} object.
+     */
     void print(String msg);
 
+    /**
+     * <p>readln.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     String readln();
 
+    /**
+     * <p>logout.</p>
+     */
     void logout();
 
 

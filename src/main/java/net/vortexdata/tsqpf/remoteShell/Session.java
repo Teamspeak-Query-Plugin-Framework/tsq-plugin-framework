@@ -45,6 +45,12 @@ import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * <p>Session class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class Session implements Runnable {
 
     public BlockingQueue<JSONObject> terminalUserInputBuffer;
@@ -61,6 +67,17 @@ public class Session implements Runnable {
     private Logger logger;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for Session.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     * @param id a {@link java.lang.String} object.
+     * @param socket a {@link java.net.Socket} object.
+     * @param inputStream a {@link java.io.InputStream} object.
+     * @param outputStream a {@link java.io.OutputStream} object.
+     * @param listener a {@link net.vortexdata.tsqpf.remoteShell.ConnectionListener} object.
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public Session(FrameworkContainer frameworkContainer, String id, Socket socket, InputStream inputStream, OutputStream outputStream, ConnectionListener listener, Logger logger) {
         this.frameworkContainer = frameworkContainer;
         this.id = id;
@@ -78,6 +95,9 @@ public class Session implements Runnable {
         thread.start();
     }
 
+    /**
+     * <p>shutdown.</p>
+     */
     public void shutdown() {
         thread.interrupt();
     }
@@ -87,6 +107,7 @@ public class Session implements Runnable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         init();
@@ -186,6 +207,13 @@ public class Session implements Runnable {
         return user != null && token != null;
     }
 
+    /**
+     * <p>unpackData.</p>
+     *
+     * @param message a {@link org.json.simple.JSONObject} object.
+     * @return a {@link org.json.simple.JSONObject} object.
+     * @throws org.json.simple.parser.ParseException if any.
+     */
     public JSONObject unpackData(JSONObject message) throws ParseException {
         String data = cipherHelper.decryptString((String) message.get("data"));
         return (JSONObject) (new JSONParser()).parse(data);
@@ -223,6 +251,7 @@ public class Session implements Runnable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -231,6 +260,7 @@ public class Session implements Runnable {
         return Objects.equals(id, session.id);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(id);

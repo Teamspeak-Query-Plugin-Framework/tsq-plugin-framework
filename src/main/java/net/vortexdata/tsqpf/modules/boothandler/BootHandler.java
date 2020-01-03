@@ -30,6 +30,7 @@ package net.vortexdata.tsqpf.modules.boothandler;
  *
  * @author Sandro Kierner
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class BootHandler {
 
@@ -51,12 +52,19 @@ public class BootHandler {
     }
 
     /**
+     * <p>getBootTime.</p>
+     *
      * @return Returns the total time that passed during boot
      */
     public float getBootTime() {
         return bootEndTime - bootStartTime;
     }
 
+    /**
+     * <p>Getter for the field <code>bootStartTime</code>.</p>
+     *
+     * @return a float.
+     */
     public float getBootStartTime() {
         return bootStartTime;
     }

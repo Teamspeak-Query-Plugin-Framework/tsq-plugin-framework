@@ -34,6 +34,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * <p>HeartBeatListener class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class HeartBeatListener implements Runnable {
 
     private static boolean running = false;
@@ -42,6 +48,13 @@ public class HeartBeatListener implements Runnable {
     private int port;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for HeartBeatListener.</p>
+     *
+     * @param container a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     * @param api a {@link com.github.theholywaffle.teamspeak3.TS3Api} object.
+     * @param port a int.
+     */
     public HeartBeatListener(FrameworkContainer container, TS3Api api, int port) {
         this.frameworkContainer = container;
         this.api = api;
@@ -56,6 +69,7 @@ public class HeartBeatListener implements Runnable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         if (running) return;

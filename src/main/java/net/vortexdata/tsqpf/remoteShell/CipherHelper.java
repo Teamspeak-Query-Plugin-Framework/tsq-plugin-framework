@@ -31,24 +31,53 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Objects;
 
+/**
+ * <p>CipherHelper class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class CipherHelper {
 
     private String token;
     private SecretKeySpec keySpec;
 
+    /**
+     * <p>Constructor for CipherHelper.</p>
+     *
+     * @param token a {@link java.lang.String} object.
+     */
     public CipherHelper(String token) {
         this.token = token;
         this.keySpec = CipherUtils.createMessageDigest(token.getBytes(ConnectionListener.CHARSET));
     }
 
+    /**
+     * <p>encryptString.</p>
+     *
+     * @param data a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String encryptString(String data) {
         return Base64.getEncoder().encodeToString(CipherUtils.encrypt(data.getBytes(ConnectionListener.CHARSET), keySpec));
     }
 
+    /**
+     * <p>decryptString.</p>
+     *
+     * @param data a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String decryptString(String data) {
         return new String(Objects.requireNonNull(CipherUtils.decrypt(Base64.getDecoder().decode(data), keySpec)), ConnectionListener.CHARSET);
     }
 
+    /**
+     * <p>decryptBytes.</p>
+     *
+     * @param data an array of byte.
+     * @return a {@link java.lang.String} object.
+     */
     public String decryptBytes(byte[] data) {
         return new String(Objects.requireNonNull(CipherUtils.decrypt(Base64.getDecoder().decode(data), keySpec)), ConnectionListener.CHARSET);
 

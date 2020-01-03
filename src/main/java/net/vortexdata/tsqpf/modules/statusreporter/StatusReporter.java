@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @author Michael Wiesinger
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class StatusReporter {
 
@@ -23,6 +24,11 @@ public class StatusReporter {
     private URL url;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for StatusReporter.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public StatusReporter(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         this.uuid = frameworkContainer.getFrameworkUuidManager().getLoadedUUID();
@@ -66,6 +72,11 @@ public class StatusReporter {
         }
     }
 
+    /**
+     * <p>logEvent.</p>
+     *
+     * @param event a {@link net.vortexdata.tsqpf.modules.statusreporter.StatusEvents} object.
+     */
     public void logEvent(StatusEvents event) {
 
         JSONObject requestData = new JSONObject();
@@ -77,6 +88,12 @@ public class StatusReporter {
         sendData(requestData.toString());
     }
 
+    /**
+     * <p>logException.</p>
+     *
+     * @param t a {@link java.lang.Thread} object.
+     * @param e a {@link java.lang.Throwable} object.
+     */
     public void logException(Thread t, Throwable e) {
 
         int supportPin = (int) (Math.random() * Integer.MAX_VALUE);

@@ -39,8 +39,10 @@ import java.util.Scanner;
 
 /**
  * Shell implementation
+ *
  * @author Fabian Gurtner (fabian@profiluefter.me)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class Shell implements IShell {
 	protected Logger logger;
@@ -50,15 +52,18 @@ public class Shell implements IShell {
 	protected User user;
 	protected UserManager userManager;
 
+	/** Constant <code>delimiter="\n"</code> */
 	protected static final String delimiter = "\n";
 
 	//Custom
 
 	/**
+	 * <p>Constructor for Shell.</p>
+	 *
 	 * @param clientHostname The hostname/ip of the client. Shown in the prompt.
-	 * @param shellInputStream The {@link InputStream} used to communicate with the client.
-	 * @param shellOutputStream The {@link OutputStream} used to communicate with the client.
-	 * @param logger Logger that is used for one warning and the {@link UserManager#UserManager(Logger)}
+	 * @param shellInputStream The {@link java.io.InputStream} used to communicate with the client.
+	 * @param shellOutputStream The {@link java.io.OutputStream} used to communicate with the client.
+	 * @param logger Logger that is used for one warning and the {@link net.vortexdata.tsqpf.authenticator.UserManager#UserManager(Logger)}
 	 */
 	public Shell(String clientHostname, InputStream shellInputStream, OutputStream shellOutputStream, Logger logger) {
 		this.clientHostname = clientHostname;
@@ -74,8 +79,9 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Authenticates once and executes commands until {@link IShell#logout()} is called.
-	 * @return false if authentication failed
 	 */
 	@Override
 	public boolean execute() {
@@ -113,8 +119,9 @@ public class Shell implements IShell {
 	//IShell
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Displays a prompt to authenticate and submits the input to {@link UserManager#authenticate(String, String)}.
-	 * @return Returns the user that is authenticated.
 	 */
 	@Override
 	public User authenticate() {
@@ -138,6 +145,8 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Prints the prompt that is suitable for the current user.
 	 */
 	@Override
@@ -150,8 +159,9 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Reads a command and splits the arguments.
-	 * @return An String[] containing the command name and args.
 	 */
 	@Override
 	public String[] readCommand() {
@@ -159,10 +169,9 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Checks if the user still has the permission to execute the command.
-	 * @param command The command in question.
-	 * @return If the execution of the command is permitted.
-	 * @throws UserNotFoundException In the edge case if the user was deleted while logged in this is thrown.
 	 */
 	@Override
 	public boolean checkPermissions(CommandInterface command) throws UserNotFoundException {
@@ -173,9 +182,9 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Executes the command.
-	 * @param command The command to be executed.
-	 * @param rawArgs An array including the command name and args.
 	 */
 	@Override
 	public void executeCommand(CommandInterface command, String[] rawArgs) {
@@ -183,6 +192,8 @@ public class Shell implements IShell {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Logs the user out.
 	 */
 	@Override
@@ -190,11 +201,13 @@ public class Shell implements IShell {
 		user = null;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public PrintStream getPrinter() {
 		return this.printer;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Scanner getReader() {
 		return this.scanner;

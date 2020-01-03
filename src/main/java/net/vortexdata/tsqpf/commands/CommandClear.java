@@ -29,17 +29,26 @@ import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
+ * <p>CommandClear class.</p>
+ *
  * @author Sandro Kierner
  * @author Michael Wiesinger
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandClear extends CommandInterface {
 
+    /**
+     * <p>Constructor for CommandClear.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public CommandClear(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
         return "Clears the console screen";
@@ -47,11 +56,13 @@ public class CommandClear extends CommandInterface {
 
     private static final String clearString = new String(new char[50]).replace('\0','\n');
 
+    /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
         shell.getPrinter().print(clearString);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return "clear";

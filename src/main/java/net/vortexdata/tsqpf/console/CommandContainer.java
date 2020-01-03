@@ -35,13 +35,15 @@ import java.util.Map;
  *
  * @author Michael Wiesinger
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CommandContainer {
 	private static Map<String, CommandInterface> commands = new HashMap<>();
 
 	/**
 	 * Registers command to command container.
-	 * @param command
+	 *
+	 * @param command a {@link net.vortexdata.tsqpf.commands.CommandInterface} object.
 	 * @return true if command has not been assigned yet.
 	 */
 	public static boolean registerCommand(CommandInterface command) {
@@ -57,18 +59,23 @@ public class CommandContainer {
 	 * Searches for a command and returns one if found.
 	 *
 	 * @param name		The name of the command that should be returned.
-	 * @return			Returns the command with the name that has been handed over.
+	 * @return a {@link net.vortexdata.tsqpf.commands.CommandInterface} object.
 	 */
 	public static CommandInterface searchCommand(String name) {
 		return commands.get(name);
 	}
 
+	/**
+	 * <p>reset.</p>
+	 */
 	public static void reset() {
 		commands.clear();
 	}
 
 	/**
-	 * @return	Returns all registered commands.
+	 * <p>Getter for the field <code>commands</code>.</p>
+	 *
+	 * @return an array of {@link net.vortexdata.tsqpf.commands.CommandInterface} objects.
 	 */
 	public static CommandInterface[] getCommands() {
 		return commands.values().toArray(new CommandInterface[0]);

@@ -35,6 +35,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+/**
+ * <p>RemoteShellTerminal class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class RemoteShellTerminal implements VirtualTerminal {
 
     private InputStream inputStream;
@@ -43,6 +49,14 @@ public class RemoteShellTerminal implements VirtualTerminal {
     private Session session;
 
 
+    /**
+     * <p>Constructor for RemoteShellTerminal.</p>
+     *
+     * @param inputStream a {@link java.io.InputStream} object.
+     * @param outputStream a {@link java.io.OutputStream} object.
+     * @param helper a {@link net.vortexdata.tsqpf.remoteShell.CipherHelper} object.
+     * @param session a {@link net.vortexdata.tsqpf.remoteShell.Session} object.
+     */
     public RemoteShellTerminal(InputStream inputStream, OutputStream outputStream, CipherHelper helper, Session session) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
@@ -52,6 +66,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
 
 
 
+    /** {@inheritDoc} */
     @Override
     public void println(String msg) {
         try {
@@ -74,6 +89,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void print(String msg) {
 
@@ -83,6 +99,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
 
 
 
+    /** {@inheritDoc} */
     @Override
     public String readln() {
         try {
@@ -110,6 +127,7 @@ public class RemoteShellTerminal implements VirtualTerminal {
         return null;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void logout() {
         session.shutdown();

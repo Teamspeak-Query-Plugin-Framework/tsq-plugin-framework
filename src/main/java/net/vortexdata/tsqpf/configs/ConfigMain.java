@@ -32,9 +32,13 @@ import java.util.HashMap;
  *
  * @author Sandro Kierner
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class ConfigMain extends Config {
 
+    /**
+     * <p>Constructor for ConfigMain.</p>
+     */
     public ConfigMain() {
         super("configs//main.properties");
         // Creating HashMaps

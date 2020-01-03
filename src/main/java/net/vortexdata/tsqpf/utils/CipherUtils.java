@@ -36,8 +36,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
+ * <p>CipherUtils class.</p>
+ *
  * @author Michael Wiesinger
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class CipherUtils {
 
@@ -45,7 +48,8 @@ public class CipherUtils {
     /**
      * Obfuscates secret and creates a more secure keySpec.
      *
-     * @param secret
+     * @param secret an array of byte.
+     * @return a {@link javax.crypto.spec.SecretKeySpec} object.
      */
     public static SecretKeySpec createMessageDigest(byte[] secret) {
         try {
@@ -63,8 +67,9 @@ public class CipherUtils {
     /**
      * Encrypts given data.
      *
-     * @param data
-     * @return
+     * @param data an array of byte.
+     * @param secretKeySpec a {@link javax.crypto.spec.SecretKeySpec} object.
+     * @return an array of byte.
      */
     public static byte[] encrypt(byte[] data, SecretKeySpec secretKeySpec) {
         try {
@@ -82,8 +87,9 @@ public class CipherUtils {
     /**
      * Decrypts given data.
      *
-     * @param data
-     * @return
+     * @param data an array of byte.
+     * @param secretKeySpec a {@link javax.crypto.spec.SecretKeySpec} object.
+     * @return an array of byte.
      */
     public static byte[] decrypt(byte[] data, SecretKeySpec secretKeySpec) {
         try {

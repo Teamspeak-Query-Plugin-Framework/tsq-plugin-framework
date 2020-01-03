@@ -33,6 +33,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Deprecated
+/**
+ * <p>ConsoleCommandHandler class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class ConsoleCommandHandler {
 
 
@@ -53,10 +59,22 @@ public class ConsoleCommandHandler {
         return true;
     }
 
+    /**
+     * <p>Getter for the field <code>commands</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<CommandInterface> getCommands() {
         return Collections.unmodifiableList(commands);
     }
 
+    /**
+     * <p>processInput.</p>
+     *
+     * @param line a {@link java.lang.String} object.
+     * @param user a {@link net.vortexdata.tsqpf.authenticator.User} object.
+     * @param terminal a {@link net.vortexdata.tsqpf.console.VirtualTerminal} object.
+     */
     public void processInput(String line, User user, VirtualTerminal terminal) {
 
         String[] data = line.split(" ");

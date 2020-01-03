@@ -31,32 +31,49 @@ import net.vortexdata.tsqpf.framework.*;
 import java.util.Scanner;
 
 @Deprecated
+/**
+ * <p>LocalConsoleTerminal class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class LocalConsoleTerminal implements VirtualTerminal {
 
     private Logger logger;
     private Scanner scanner;
     private LocalConsole localConsole;
 
+    /**
+     * <p>Constructor for LocalConsoleTerminal.</p>
+     *
+     * @param user a {@link net.vortexdata.tsqpf.authenticator.User} object.
+     * @param localConsole a {@link net.vortexdata.tsqpf.console.LocalConsole} object.
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public LocalConsoleTerminal(User user, LocalConsole localConsole, FrameworkContainer frameworkContainer) {
         logger = frameworkContainer.getFrameworkLogger();
         scanner = new Scanner(System.in);
         this.localConsole = localConsole;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void println(String msg) {
         System.out.println(msg);
     }
 
+    /** {@inheritDoc} */
     public void print(String msg) {
         System.out.print(msg);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String readln() {
         return scanner.nextLine();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void logout() {
         localConsole.logout();

@@ -25,8 +25,15 @@
 
 package net.vortexdata.tsqpf.exceptions;
 
+/**
+ * <p>UserNotFoundException class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class UserNotFoundException extends Exception {
 
+    /** {@inheritDoc} */
     @Override
     public String getMessage() {
         return "User does not exist.";

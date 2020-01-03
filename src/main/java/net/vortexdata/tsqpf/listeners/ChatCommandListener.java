@@ -39,6 +39,7 @@ import java.util.HashMap;
  * @author Michael Wiesinger
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class ChatCommandListener {
 
@@ -46,6 +47,11 @@ public class ChatCommandListener {
     private HashMap<String, ArrayList<ChatCommandInterface>> commandList = new HashMap<>();
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for ChatCommandListener.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public ChatCommandListener(FrameworkContainer frameworkContainer) {
         this.messageCommandNotFound = frameworkContainer.getConfig(new ConfigMessages().getPath()).getProperty("chatCommandUnknown");
         this.frameworkContainer = frameworkContainer;
@@ -87,15 +93,17 @@ public class ChatCommandListener {
 
     /**
      * Registers and enables a new command.
-     *
-     * @param cmd    Instance of command class
-     * @param prefix How the command is referenced (eg !help)
      */
-
     public void reset() {
         commandList.clear();
     }
 
+    /**
+     * <p>registerNewCommand.</p>
+     *
+     * @param cmd a {@link net.vortexdata.tsqpf.listeners.ChatCommandInterface} object.
+     * @param prefix a {@link java.lang.String} object.
+     */
     public void registerNewCommand(ChatCommandInterface cmd, String prefix) {
         ArrayList<ChatCommandInterface> cmds;
 

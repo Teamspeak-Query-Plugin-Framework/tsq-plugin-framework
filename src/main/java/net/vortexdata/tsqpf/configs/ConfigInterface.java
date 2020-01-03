@@ -33,15 +33,36 @@ import java.util.HashMap;
  *
  * @author Sandro Kierner
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public interface ConfigInterface {
 
+    /**
+     * <p>load.</p>
+     *
+     * @return a boolean.
+     */
     boolean load();
 
+    /**
+     * <p>getValues.</p>
+     *
+     * @return a {@link java.util.HashMap} object.
+     */
     HashMap<String, String> getValues();
 
+    /**
+     * <p>getDefaultValues.</p>
+     *
+     * @return a {@link java.util.HashMap} object.
+     */
     HashMap<String, String> getDefaultValues();
 
+    /**
+     * <p>getPath.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     String getPath();
 
 }

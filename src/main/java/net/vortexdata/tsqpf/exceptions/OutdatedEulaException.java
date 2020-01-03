@@ -25,5 +25,11 @@
 
 package net.vortexdata.tsqpf.exceptions;
 
+/**
+ * <p>OutdatedEulaException class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class OutdatedEulaException extends Exception {
 }

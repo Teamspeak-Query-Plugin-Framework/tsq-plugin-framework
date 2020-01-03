@@ -25,8 +25,19 @@
 
 package net.vortexdata.tsqpf.exceptions;
 
+/**
+ * <p>InvalidConfigPropertyKeyException class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class InvalidConfigPropertyKeyException extends Error {
 
+    /**
+     * <p>Constructor for InvalidConfigPropertyKeyException.</p>
+     *
+     * @param error a {@link java.lang.String} object.
+     */
     public InvalidConfigPropertyKeyException(String error) {
         super(error);
     }

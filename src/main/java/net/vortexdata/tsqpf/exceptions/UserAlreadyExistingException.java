@@ -25,8 +25,15 @@
 
 package net.vortexdata.tsqpf.exceptions;
 
+/**
+ * <p>UserAlreadyExistingException class.</p>
+ *
+ * @author TAXSET
+ * @version $Id: $Id
+ */
 public class UserAlreadyExistingException extends Exception {
 
+    /** {@inheritDoc} */
     @Override
     public String getMessage() {
         return "User with same username already exists.";

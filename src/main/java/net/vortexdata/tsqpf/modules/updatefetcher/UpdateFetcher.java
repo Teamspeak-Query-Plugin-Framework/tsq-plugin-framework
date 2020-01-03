@@ -15,15 +15,23 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * <p>UpdateFetcher class.</p>
+ *
  * @author Michael Wiesinger
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class UpdateFetcher {
 
     private String updateUrl;
     private FrameworkContainer frameworkContainer;
 
+    /**
+     * <p>Constructor for UpdateFetcher.</p>
+     *
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
+     */
     public UpdateFetcher(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         ConfigProject configProject = new ConfigProject();
@@ -31,6 +39,9 @@ public class UpdateFetcher {
         updateUrl = configProject.getProperty("updateFetcherInterfaceUrl");
     }
 
+    /**
+     * <p>checkForUpdate.</p>
+     */
     public void checkForUpdate() {
         frameworkContainer.getFrameworkLogger().printDebug("Checking for updates...");
         if (isUpdateAvailable()) {

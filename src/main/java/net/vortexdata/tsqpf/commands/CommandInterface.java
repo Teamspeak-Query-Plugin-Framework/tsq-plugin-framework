@@ -37,6 +37,7 @@ import java.util.Arrays;
  *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public abstract class CommandInterface {
 
@@ -44,15 +45,30 @@ public abstract class CommandInterface {
     private Logger logger;
 
 
+    /**
+     * <p>Constructor for CommandInterface.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public CommandInterface(Logger logger) {
         groups = new ArrayList<>();
         this.logger = logger;
     }
 
+    /**
+     * <p>Getter for the field <code>logger</code>.</p>
+     *
+     * @return a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     protected Logger getLogger() {
         return logger;
     }
 
+    /**
+     * <p>getGroupRange.</p>
+     *
+     * @return a int.
+     */
     public int getGroupRange() {
         return groups.size();
     }
@@ -66,6 +82,9 @@ public abstract class CommandInterface {
 
     /**
      * This method is run when the user runs the command.
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     * @param shell a {@link net.vortexdata.tsqpf.console.IShell} object.
      */
     abstract public void execute(String[] args, IShell shell);
 
@@ -76,6 +95,12 @@ public abstract class CommandInterface {
      */
     abstract public String getName();
 
+    /**
+     * <p>isGroupRequirementMet.</p>
+     *
+     * @param group a {@link net.vortexdata.tsqpf.authenticator.UserGroup} object.
+     * @return a boolean.
+     */
     public boolean isGroupRequirementMet(UserGroup group) {
         if (group == null) {
             logger.printError("Failed to check group permission requirement for command " + getName() + ".");
@@ -88,6 +113,11 @@ public abstract class CommandInterface {
         return false;
     }
 
+    /**
+     * <p>allowAllGroups.</p>
+     *
+     * @param command a {@link net.vortexdata.tsqpf.commands.CommandInterface} object.
+     */
     protected static void allowAllGroups(CommandInterface command) {
         command.groups.addAll(Arrays.asList(UserGroup.values()));
     }

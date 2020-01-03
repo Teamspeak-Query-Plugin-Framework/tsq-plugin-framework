@@ -32,6 +32,7 @@ package net.vortexdata.tsqpf.authenticator;
  * @since 2.0.0
  *
  * TODO: Replace with dynamic custom group system
+ * @version $Id: $Id
  */
 public enum UserGroup {
 

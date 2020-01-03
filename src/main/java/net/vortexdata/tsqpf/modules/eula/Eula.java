@@ -31,17 +31,31 @@ import net.vortexdata.tsqpf.exceptions.*;
 import java.io.*;
 
 /**
+ * <p>Eula class.</p>
+ *
  * @author Sandro Kierner
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class Eula {
 
     private Logger logger;
 
+    /**
+     * <p>Constructor for Eula.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public Eula(Logger logger) {
         this.logger = logger;
     }
 
+    /**
+     * <p>check.</p>
+     *
+     * @return a boolean.
+     * @throws net.vortexdata.tsqpf.exceptions.OutdatedEulaException if any.
+     */
     public boolean check() throws OutdatedEulaException {
 
         BufferedReader eulaBr = null;
@@ -85,6 +99,11 @@ public class Eula {
         return true;
     }
 
+    /**
+     * <p>create.</p>
+     *
+     * @return a boolean.
+     */
     public boolean create() {
         try {
             InputStream fwBrIn = getClass().getResourceAsStream("/eula.txt");
@@ -106,6 +125,12 @@ public class Eula {
 
     }
 
+    /**
+     * <p>init.</p>
+     *
+     * @return a boolean.
+     * @throws net.vortexdata.tsqpf.exceptions.OutdatedEulaException if any.
+     */
     public boolean init() throws OutdatedEulaException {
         boolean status = false;
         try {

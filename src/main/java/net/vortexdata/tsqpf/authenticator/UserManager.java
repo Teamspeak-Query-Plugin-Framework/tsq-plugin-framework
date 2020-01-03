@@ -41,12 +41,18 @@ import java.util.ArrayList;
  * @author Sandro Kierner (sandro@vortexdata.net)
  * @author Michael Wiesinger (michael@vortexdata.net)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class UserManager {
 
     private static ArrayList<User> users;
     private Logger logger;
 
+    /**
+     * <p>Constructor for UserManager.</p>
+     *
+     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     */
     public UserManager(Logger logger) {
 
         this.logger = logger;
@@ -58,6 +64,7 @@ public class UserManager {
      * @param username The users username / unique identifier
      * @param password The users password
      * @return A valid user
+     * @throws net.vortexdata.tsqpf.exceptions.InvalidCredentialsException if any.
      */
     public User authenticate(String username, String password) throws InvalidCredentialsException {
         User user;
@@ -88,6 +95,7 @@ public class UserManager {
      * @param password Plain text password
      * @param group    The users group
      * @return true if successfully created
+     * @throws net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException if any.
      */
     public boolean createUser(String username, String password, UserGroup group) throws UserAlreadyExistingException {
         String hashedPassword = getPasswordHash(password);
@@ -273,6 +281,7 @@ public class UserManager {
      *
      * @param username Username required to find entry
      * @return User object from database
+     * @throws net.vortexdata.tsqpf.exceptions.UserNotFoundException if any.
      */
     public User getUser(String username) throws UserNotFoundException {
         return getUserFromSerializedString(loadUserSerializedData(username));
@@ -291,6 +300,11 @@ public class UserManager {
 
     }
 
+    /**
+     * <p>doesRootUserExist.</p>
+     *
+     * @return a boolean.
+     */
     public boolean doesRootUserExist() {
         try {
             getUser("root");
@@ -302,6 +316,7 @@ public class UserManager {
 
     /**
      * Generates a new root user if it does not exist already.
+     *
      * @return Newly generated root password in plain text.
      */
     public String generateRootUser() {
@@ -330,6 +345,7 @@ public class UserManager {
 
     /**
      * Deletes the specified user.
+     *
      * @param username Used to identify which user should be deleted.
      * @return true if user has been successfully deleted.
      */
@@ -339,6 +355,7 @@ public class UserManager {
 
     /**
      * Deletes the specified user.
+     *
      * @param username Used to identify which user should be deleted.
      * @param forcedelete Specifies, if user should be removed even if its flagged not to be deleteable.
      * @return true if user has been successfully deleted.
@@ -404,6 +421,7 @@ public class UserManager {
 
     /**
      * Reloads the user data file and loads them to local list.
+     *
      * @return true if reload was performed successfully.
      */
     public boolean reloadUsers() {

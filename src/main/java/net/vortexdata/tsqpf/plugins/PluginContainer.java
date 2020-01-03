@@ -33,6 +33,7 @@ import net.vortexdata.tsqpf.framework.Framework;
  *
  * @author Michael Wiesinger
  * @since 1.0.0
+ * @version $Id: $Id
  */
 public class PluginContainer {
 
@@ -42,6 +43,13 @@ public class PluginContainer {
     private PluginConfig pluginConfig;
     private YamlMapping pluginYamlConfig;
 
+    /**
+     * <p>Constructor for PluginContainer.</p>
+     *
+     * @param teamspeakPlugin a {@link net.vortexdata.tsqpf.plugins.TeamspeakPlugin} object.
+     * @param pluginName a {@link java.lang.String} object.
+     * @param yamlConfig a {@link com.amihaiemil.eoyaml.YamlMapping} object.
+     */
     public PluginContainer(TeamspeakPlugin teamspeakPlugin, String pluginName, YamlMapping yamlConfig) {
         this.teamspeakPlugin = teamspeakPlugin;
         this.pluginName = pluginName;
@@ -61,16 +69,25 @@ public class PluginContainer {
 
     /**
      * Returns the plugin interface
+     *
+     * @return a {@link net.vortexdata.tsqpf.plugins.TeamspeakPlugin} object.
      */
     public TeamspeakPlugin getTeamspeakPlugin() {
         return teamspeakPlugin;
     }
 
+    /**
+     * <p>Getter for the field <code>pluginYamlConfig</code>.</p>
+     *
+     * @return a {@link com.amihaiemil.eoyaml.YamlMapping} object.
+     */
     public YamlMapping getPluginYamlConfig() {
         return this.pluginYamlConfig;
     }
     /**
      * Returns the plugins name
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getPluginName() {
         return pluginName;
@@ -78,6 +95,8 @@ public class PluginContainer {
 
     /**
      * Returns the plugins logger
+     *
+     * @return a {@link net.vortexdata.tsqpf.plugins.PluginLogger} object.
      */
     public PluginLogger getLogger() {
         return pluginLogger;
@@ -85,6 +104,8 @@ public class PluginContainer {
 
     /**
      * Returns the plugins config
+     *
+     * @return a {@link net.vortexdata.tsqpf.plugins.PluginConfig} object.
      */
     public PluginConfig getPluginConfig() {
         return pluginConfig;

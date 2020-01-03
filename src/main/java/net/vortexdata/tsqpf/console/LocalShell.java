@@ -32,6 +32,7 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
  *
  * @author Fabian Gurtner (fabian@profiluefter.me)
  * @since 2.0.0
+ * @version $Id: $Id
  */
 public class LocalShell extends Shell implements Runnable {
 	private boolean resetRoot;
@@ -39,7 +40,9 @@ public class LocalShell extends Shell implements Runnable {
 	private Thread thread;
 
 	/**
-	 * @param logger    Logger that is used for e.g. the {@link UserManager#UserManager(Logger)}
+	 * <p>Constructor for LocalShell.</p>
+	 *
+	 * @param logger    Logger that is used for e.g. the {@link net.vortexdata.tsqpf.authenticator.UserManager#UserManager(Logger)}
 	 * @param resetRoot Set to true if the root user should be reset.
 	 */
 	public LocalShell(Logger logger, boolean resetRoot) {
@@ -48,6 +51,7 @@ public class LocalShell extends Shell implements Runnable {
 		this.thread = new Thread(this,"LocalShell");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		userManager.reloadUsers();
@@ -67,6 +71,9 @@ public class LocalShell extends Shell implements Runnable {
 			execute();
 	}
 
+	/**
+	 * <p>start.</p>
+	 */
 	public void start() {
 		running = true;
 		thread.start();
@@ -77,6 +84,9 @@ public class LocalShell extends Shell implements Runnable {
 		}
 	}
 
+	/**
+	 * <p>shutdown.</p>
+	 */
 	public void shutdown() {
 		running = false;
 	}
