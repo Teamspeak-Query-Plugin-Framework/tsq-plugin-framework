@@ -14,6 +14,11 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * @author Michael Wiesinger
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class UpdateFetcher {
 
     private String updateUrl;

@@ -32,10 +32,18 @@ import java.util.Map;
 
 /**
  * Contains all commands.
+ *
+ * @author Michael Wiesinger
+ * @since 2.0.0
  */
 public class CommandContainer {
 	private static Map<String, CommandInterface> commands = new HashMap<>();
 
+	/**
+	 * Registers command to command container.
+	 * @param command
+	 * @return true if command has not been assigned yet.
+	 */
 	public static boolean registerCommand(CommandInterface command) {
 		if(commands.containsKey(command.getName()))
 			return false;

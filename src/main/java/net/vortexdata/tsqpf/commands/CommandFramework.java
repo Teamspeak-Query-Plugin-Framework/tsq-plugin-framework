@@ -32,6 +32,10 @@ import net.vortexdata.tsqpf.framework.*;
 
 import java.text.*;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class CommandFramework extends CommandInterface {
 
     private FrameworkContainer frameworkContainer;

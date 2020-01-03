@@ -28,8 +28,8 @@ package net.vortexdata.tsqpf.authenticator;
 /**
  * Represents a users account
  *
- * @author Sandro Kierner
- * @author Michael Wiesinger
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @author Michael Wiesinger (michael@vortexdata.net)
  * @since 2.0.0
  */
 public class User {

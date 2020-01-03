@@ -31,6 +31,10 @@ import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 import net.vortexdata.tsqpf.exceptions.UserAlreadyExistingException;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class CommandAddUser extends CommandInterface {
 
     private UserManager userManager;

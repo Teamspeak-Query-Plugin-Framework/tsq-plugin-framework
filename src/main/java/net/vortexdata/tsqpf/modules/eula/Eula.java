@@ -30,6 +30,10 @@ import net.vortexdata.tsqpf.exceptions.*;
 
 import java.io.*;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class Eula {
 
     private Logger logger;
@@ -118,6 +122,7 @@ public class Eula {
             }
         } catch (OutdatedEulaException e) {
             create();
+            throw new OutdatedEulaException();
         }
         return status;
     }

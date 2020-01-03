@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * @author TAXSET
+ * @since 2.0.0
+ *
+ * This config is a derivative config for configs contained in the frameworks resource directory.
+ */
 public class ConfigProject extends Config {
 
     public ConfigProject() {

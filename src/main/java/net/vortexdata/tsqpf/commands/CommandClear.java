@@ -28,6 +28,11 @@ package net.vortexdata.tsqpf.commands;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
+/**
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
+ * @since 2.0.0
+ */
 public class CommandClear extends CommandInterface {
 
     public CommandClear(Logger logger) {

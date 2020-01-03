@@ -37,6 +37,7 @@ import java.util.Scanner;
  * Interface for shell actions.
  * Using this as a type could be useful for testing.
  * @author Fabian Gurtner (fabian@profiluefter.me)
+ * @since 2.0.0
  */
 public interface IShell {
 	/**

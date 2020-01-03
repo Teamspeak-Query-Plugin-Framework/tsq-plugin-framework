@@ -36,11 +36,16 @@ import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.updatefetcher.UpdateFetcher;
+import net.vortexdata.tsqpf.plugins.PluginManager;
 
 import java.io.*;
 
 /**
  * Top-level controller of the framework.
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @author Michael Wiesinger (michael@vortexdata.net)
+ * @since 2.0.0
  */
 public class Framework {
 
@@ -189,7 +194,8 @@ public class Framework {
      */
     public void shutdown() {
 
-        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
+        if (frameworkContainer.getFrameworkStatusReporter() != null)
+            frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.SHUTDOWN);
 
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STOPPING);
 
@@ -201,14 +207,16 @@ public class Framework {
         }
 
 
-        if (frameworkContainer.getFrameworkPluginManager() != null) {
+        if (frameworkContainer.getFrameworkPluginManager() != null && PluginManager.getLoadedPlugins().size() > 0) {
             frameworkContainer.getFrameworkLogger().printInfo("Unloading plugins...");
-            frameworkContainer.getFrameworkPluginManager().disableAll();
+            try {
+                frameworkContainer.getFrameworkPluginManager().disableAll();
+                frameworkContainer.getFrameworkLogger().printInfo("Successfully unloaded plugins and disabled console handler.");
+            } catch (Exception e) {
+                frameworkContainer.getFrameworkLogger().printDebug("Failed to unload all plugins, appending information: " + e.getMessage());
+            }
         }
 
-
-
-        frameworkContainer.getFrameworkLogger().printInfo("Successfully unloaded plugins and disabled console handler.");
         frameworkContainer.getFrameworkLogger().printInfo("Ending framework logging...");
         System.exit(0);
     }
@@ -264,6 +272,7 @@ public class Framework {
 
         frameworkContainer.getTs3Api().registerAllEvents();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.RUNNING);
+        frameworkContainer.getFrameworkLogger().printInfo("Wakeup procedure completed.");
     }
 
     /**
@@ -286,8 +295,8 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
 
 
-        frameworkContainer.getTs3Api().unregisterAllEvents();
-        frameworkContainer.getTs3Api().logout();
+        //frameworkContainer.getTs3Api().unregisterAllEvents();
+        //frameworkContainer.getTs3Api().logout();
 
         CommandContainer.reset();
     }

@@ -38,8 +38,8 @@ import java.util.ArrayList;
 /**
  * Manages all users and database
  *
- * @author Sandro Kierner
- * @author Michael Wiesinger
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @author Michael Wiesinger (michael@vortexdata.net)
  * @since 2.0.0
  */
 public class UserManager {
@@ -300,6 +300,10 @@ public class UserManager {
         }
     }
 
+    /**
+     * Generates a new root user if it does not exist already.
+     * @return Newly generated root password in plain text.
+     */
     public String generateRootUser() {
 
         RandomString randomString = new RandomString(16);
@@ -324,10 +328,21 @@ public class UserManager {
 
     }
 
+    /**
+     * Deletes the specified user.
+     * @param username Used to identify which user should be deleted.
+     * @return true if user has been successfully deleted.
+     */
     public boolean deleteUser(String username) {
         return deleteUser(username, false);
     }
 
+    /**
+     * Deletes the specified user.
+     * @param username Used to identify which user should be deleted.
+     * @param forcedelete Specifies, if user should be removed even if its flagged not to be deleteable.
+     * @return true if user has been successfully deleted.
+     */
     public boolean deleteUser(String username, boolean forcedelete) {
 
         if (!forcedelete) {
@@ -387,6 +402,10 @@ public class UserManager {
         return success;
     }
 
+    /**
+     * Reloads the user data file and loads them to local list.
+     * @return true if reload was performed successfully.
+     */
     public boolean reloadUsers() {
 
         String currentLine = "init";
