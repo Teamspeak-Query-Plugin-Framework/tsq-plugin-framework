@@ -5,6 +5,10 @@ import net.vortexdata.tsqpf.framework.FrameworkContainer;
 import java.io.*;
 import java.util.UUID;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class UuidManager {
 
     private String path;
@@ -24,6 +28,11 @@ public class UuidManager {
         String lUUID = "";
 
         try {
+
+            File sysDir = new File(path.split("//")[0]);
+            if (!sysDir.isDirectory())
+                sysDir.mkdirs();
+
             BufferedReader br = new BufferedReader(new FileReader(path));
             lUUID = br.readLine();
             if (lUUID != null && !lUUID.isEmpty()) {

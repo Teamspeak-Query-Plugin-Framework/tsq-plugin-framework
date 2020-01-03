@@ -39,10 +39,14 @@ import net.vortexdata.tsqpf.utils.ResourceLoader;
 import org.apache.log4j.*;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.*;
 
 /**
  * Contains all framework variables for easy use.
+ *
+ * @author Sandro Kierner (sandro@vortexdata.net)
+ * @since 2.0.0
  */
 public class FrameworkContainer {
 

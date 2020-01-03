@@ -28,6 +28,11 @@ package net.vortexdata.tsqpf.commands;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
+/**
+ * @author Mchael Wiesinger
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class CommandLogout extends CommandInterface {
 
 

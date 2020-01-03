@@ -31,6 +31,7 @@ import net.vortexdata.tsqpf.authenticator.UserManager;
  * Shell that includes managing the root user account.
  *
  * @author Fabian Gurtner (fabian@profiluefter.me)
+ * @since 2.0.0
  */
 public class LocalShell extends Shell implements Runnable {
 	private boolean resetRoot;

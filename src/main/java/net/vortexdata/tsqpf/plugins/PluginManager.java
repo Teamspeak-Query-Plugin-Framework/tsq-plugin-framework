@@ -50,6 +50,9 @@ public class PluginManager {
     public PluginManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         loadedPlugins = new HashSet<>();
+        File pluginsDir = new File("plugins");
+        if (!pluginsDir.isDirectory())
+            pluginsDir.mkdirs();
     }
 
     /**
@@ -178,6 +181,8 @@ public class PluginManager {
             frameworkContainer.getFrameworkLogger().printWarn("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin setup. Dumping error details: " + e.getMessage());
         }
     }
+
+
 
 
 

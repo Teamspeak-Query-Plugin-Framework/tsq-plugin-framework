@@ -31,6 +31,10 @@ import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.plugins.PluginContainer;
 import net.vortexdata.tsqpf.plugins.PluginManager;
 
+/**
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class CommandPlugins extends CommandInterface {
 
     private FrameworkContainer frameworkContainer;

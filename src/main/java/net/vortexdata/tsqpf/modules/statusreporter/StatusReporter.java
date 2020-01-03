@@ -10,6 +10,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Core of the status reports that are sent to VortexdataNET for debugging reasons.
+ *
+ * @author Michael Wiesinger
+ * @author Sandro Kierner
+ * @since 2.0.0
+ */
 public class StatusReporter {
 
     private String uuid;

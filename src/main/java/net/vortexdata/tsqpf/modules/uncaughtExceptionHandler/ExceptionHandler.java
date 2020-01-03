@@ -3,6 +3,10 @@ package net.vortexdata.tsqpf.modules.uncaughtExceptionHandler;
 import net.vortexdata.tsqpf.framework.Framework;
 import net.vortexdata.tsqpf.framework.FrameworkContainer;
 
+/**
+ * @author Michael Wiesinger
+ * @since 2.0.0
+ */
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
 

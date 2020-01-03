@@ -26,10 +26,12 @@
 package net.vortexdata.tsqpf.authenticator;
 
 /**
- * All groups a user can be a member of
+ * All groups a user can be a member of a group listed here.
  *
- * @author Sandro Kierner
+ * @author Sandro Kierner (sandro@vortexdata.net)
  * @since 2.0.0
+ *
+ * TODO: Replace with dynamic custom group system
  */
 public enum UserGroup {
 
