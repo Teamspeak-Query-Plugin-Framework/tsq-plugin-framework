@@ -91,6 +91,11 @@ public class ChatCommandListener {
      * @param cmd    Instance of command class
      * @param prefix How the command is referenced (eg !help)
      */
+
+    public void reset() {
+        commandList.clear();
+    }
+
     public void registerNewCommand(ChatCommandInterface cmd, String prefix) {
         ArrayList<ChatCommandInterface> cmds;
 

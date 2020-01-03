@@ -290,6 +290,7 @@ public class Framework {
         frameworkContainer.getTs3Api().logout();
 
         CommandContainer.reset();
+        frameworkContainer.getChatCommandListener().reset();
     }
 
     /**
