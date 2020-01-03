@@ -55,6 +55,10 @@ public class CommandContainer {
 		return commands.get(name);
 	}
 
+	public static void reset() {
+		commands.clear();
+	}
+
 	/**
 	 * @return	Returns all registered commands.
 	 */

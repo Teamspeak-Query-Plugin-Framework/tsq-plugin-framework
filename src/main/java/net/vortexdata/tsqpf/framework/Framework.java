@@ -289,6 +289,7 @@ public class Framework {
         frameworkContainer.getTs3Api().unregisterAllEvents();
         frameworkContainer.getTs3Api().logout();
 
+        CommandContainer.reset();
     }
 
     /**
