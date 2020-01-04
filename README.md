@@ -96,6 +96,6 @@ This project is released under the [MIT License](https://github.com/teamspeak-qu
 
 ## Copyright
 
-Framework Code: Copyright (C) 2019 - 2020 VortexdataNET
-Documentation: Copyright (C) 2020 VortexdataNET
+Framework Code: Copyright (C) 2019 - 2020 VortexdataNET<br>
+Documentation: Copyright (C) 2020 VortexdataNET<br>
 Website: Copyright (C) 2020 VortexdataNET
