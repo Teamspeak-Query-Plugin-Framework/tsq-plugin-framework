@@ -65,26 +65,26 @@ If you have a question or just want to chat with us, feel free to join our [Gitt
 ## Creators
 
 <h4>Sandro Kierner</h4>
-- Twitter: https://twitter.com/OfficialTAXSET
-- GitHub: https://github.com/TAXSET
-- Email: sandro@vortexdata.net
+- Twitter: https://twitter.com/OfficialTAXSET<br>
+- GitHub: https://github.com/TAXSET<br>
+- Email: sandro@vortexdata.net<br>
 
 <h4>Michael Wiesinger</h4>
-- Twitter: https://twitter.com/VarChar42
-- GitHub: https://github.com/VarChar42
-- Email: michael@vortexdata.net
+- Twitter: https://twitter.com/VarChar42<br>
+- GitHub: https://github.com/VarChar42<br>
+- Email: michael@vortexdata.net<br>
 
 ## Contributors
 
 <h4>Fabian Gurtner</h4>
-- Twitter: https://twitter.com/
-- GitHub: https://github.com/profiluefter
-- Email: fabian@profiluefter.me
+- Twitter: https://twitter.com/<br>
+- GitHub: https://github.com/profiluefter<br>
+- Email: fabian@profiluefter.me<br>
 
 <h4>Klaus Scheiböck</h4>
-- Twitter: https://twitter.com/Klaus_md5
-- GitHub: https://github.com/Klausmd5
-- Email: klaus@vortexdata.net
+- Twitter: https://twitter.com/Klaus_md5<br>
+- GitHub: https://github.com/Klausmd5<br>
+- Email: klaus@vortexdata.net<br>
 
 ## Backers
 
