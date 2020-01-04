@@ -62,22 +62,9 @@ public class CommandPlugins extends CommandInterface {
     @Override
     public void execute(String[] args, IShell shell) {
 
-        if (args.length > 0) {
-
-            if (args[0].equalsIgnoreCase("reload")) {
-                frameworkContainer.getFramework().reload();
-            } else if (args[0].equalsIgnoreCase("disable")) {
-                shell.getPrinter().println("This action is not yet supported.");
-            } else {
-                shell.getPrinter().println("plugins disable: missing parameters");
-                shell.getPrinter().println("Try 'plugins <reload | disable | find>'");
-            }
-
-        } else {
-            shell.getPrinter().println("Loaded plugins: ");
-            for (PluginContainer pc : PluginManager.getLoadedPlugins()) {
-                shell.getPrinter().println(pc.getPluginName());
-            }
+        shell.getPrinter().println("Loaded plugins: ");
+        for (PluginContainer pc : PluginManager.getLoadedPlugins()) {
+            shell.getPrinter().println(pc.getPluginName());
         }
 
     }
