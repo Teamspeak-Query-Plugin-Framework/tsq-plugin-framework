@@ -1,7 +1,8 @@
-
-<div style="width: 50%; margin: auto;">
-  ![TSQPF Logo](https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png)
-</div>
+<p align="center">
+  <a href="https://tsqpf.vortexdata.net/">
+    <img src="https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png" alt="TSQPF logo" width="350" height="350">
+  </a>
+</p>
 
 <h3 align="center">Teamspeak Query Plugin Framework</h3>
 
@@ -20,22 +21,26 @@
   <a href="https://blog.vortexdata.net">Blog</a>
 </p>
 
+## List of Contents
+
+- [Quick Start](https://tsqpf.vortexdata.net/docs/docs/framework_welcome/)
+- [Website](https://tsqpf.vortexdata.net/)
+- [Documentation](https://tsqpf.vortexdata.net/docs)
+- [Bugs and feature requests](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new/choose)
+- [Badges](https://vortexdata.net)
+- [Chat with us](https://gitter.im/Teamspeak-Query-Plugin-Framework/community)
+- [Creators](https://vortexdata.net)
+- [Contributors](https://vortexdata.net)
+- [Backers](https://vortexdata.net)
+- [License](https://vortexdata.net)
+- [Copyright](https://vortexdata.net)
+
+## Badges
+
 [![Gitter](https://badges.gitter.im/Teamspeak-Query-Plugin-Framework/community.svg)](https://gitter.im/Teamspeak-Query-Plugin-Framework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)](https://travis-ci.org/Vortexdata/tsq-plugin-framework)
 [![Issues](https://img.shields.io/github/issues/Vortexdata/tsq-plugin-framework?label=Issues)](https://github.com/Vortexdata/tsq-plugin-framework/issues)
 [![Twitter](https://img.shields.io/twitter/url?color=1DA1F2&label=Twitter&logo=Twitter&logoColor=1DA1F2&style=flat-square&url=https%3A%2F%2Ftwitter.com%2FVortexdataNET)](https://twitter.com/VortexdataNET)
-
-## List of Contents
-[Quick Start](https://tsqpf.vortexdata.net/docs/docs/framework_welcome/)
-[Website](https://tsqpf.vortexdata.net/)
-[Documentation](https://tsqpf.vortexdata.net/docs)
-[Bugs and feature requests](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new/choose)
-[Chat with us](https://gitter.im/Teamspeak-Query-Plugin-Framework/community)
-[Creators](https://vortexdata.net)
-[Contributors](https://vortexdata.net)
-[Backers](https://vortexdata.net)
-[License](https://vortexdata.net)
-[Copyright](https://vortexdata.net)
 
 ## 🏷️ Features
 ✅ Extensive API<br/>
