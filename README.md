@@ -23,17 +23,17 @@
 
 ## List of Contents
 
-- [Quick Start](#)
-- [Website](https://tsqpf.vortexdata.net/)
-- [Documentation](https://tsqpf.vortexdata.net/docs)
-- [Bugs and feature requests](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new/choose)
-- [Badges](https://vortexdata.net)
-- [Chat with us](#)
-- [Creators](https://vortexdata.net)
-- [Contributors](https://vortexdata.net)
-- [Backers](https://vortexdata.net)
-- [License](https://vortexdata.net)
-- [Copyright](https://vortexdata.net)
+- [Quick Start](#quick-start)
+- [Website](#website)
+- [Documentation](#documentation)
+- [Bugs and feature requests](#bugs-and-feature-requests)
+- [Badges](#badges)
+- [Chat with us](#chat-with-us)
+- [Creators](#creators)
+- [Contributors](#contributors)
+- [Backers](#backers)
+- [License](#license)
+- [Copyright](#copyright)
 
 ## Quick Start
 
