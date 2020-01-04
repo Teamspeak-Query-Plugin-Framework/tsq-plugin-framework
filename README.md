@@ -1,4 +1,7 @@
-![TSQPF Logo](https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png)
+
+<div style="width: 50%; margin: auto;">
+  ![TSQPF Logo](https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png)
+</div>
 
 <h3 align="center">Teamspeak Query Plugin Framework</h3>
 
