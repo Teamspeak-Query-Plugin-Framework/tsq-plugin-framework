@@ -113,6 +113,7 @@ public class FrameworkContainer {
     public void init() {
 
         frameworkLogger = new FrameworkLogger(framework);
+        rootLogger.setLevel(Level.INFO);
         parseArgs(frameworkStartParameters);
         frameworkLocalShell = new LocalShell(frameworkLogger, getBooleanParameter("-reset-root"));
         frameworkPluginManager = new PluginManager(this);
