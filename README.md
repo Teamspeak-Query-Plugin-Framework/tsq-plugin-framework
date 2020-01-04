@@ -16,7 +16,7 @@
   ·
   <a href="https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=">Request feature</a>
   ·
-  <a href="https://https://ko-fi.com/vortexdatanet">Donate</a>
+  <a href="https://ko-fi.com/vortexdatanet">Donate</a>
   ·
   <a href="https://blog.vortexdata.net">Blog</a>
 </p>
