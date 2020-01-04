@@ -55,7 +55,7 @@ public class CommandPlugins extends CommandInterface {
     /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
-        return "Controls loaded framework plugins.";
+        return "Lists all loaded plugins.";
     }
 
     /** {@inheritDoc} */
