@@ -127,6 +127,8 @@ public class FrameworkContainer {
         // Init Framework Status Reporter
         this.frameworkStatusReporter = new StatusReporter(this);
         frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
+        if (frameworkUuidManager.isWasUuidNewlyCreated())
+            getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
 
         globalEventHandler = new GlobalEventHandler(this);
         chatCommandListener = new ChatCommandListener(this);

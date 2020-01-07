@@ -18,6 +18,7 @@ public class UuidManager {
     private String path;
     private FrameworkContainer frameworkContainer;
     private String loadedUUID;
+    private boolean wasUuidNewlyCreated;
 
     /**
      * <p>Constructor for UuidManager.</p>
@@ -27,6 +28,7 @@ public class UuidManager {
     public UuidManager(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
         path = "sys//uuid.tsqpfd";
+        wasUuidNewlyCreated = false;
     }
 
     /**
@@ -74,7 +76,7 @@ public class UuidManager {
 
     private boolean createUuid(String newUuid) {
 
-        frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
+        wasUuidNewlyCreated = true;
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(path, false));
@@ -106,4 +108,7 @@ public class UuidManager {
         return loadedUUID;
     }
 
+    public boolean isWasUuidNewlyCreated() {
+        return wasUuidNewlyCreated;
+    }
 }
