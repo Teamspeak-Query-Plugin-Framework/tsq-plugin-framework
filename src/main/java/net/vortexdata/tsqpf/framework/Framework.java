@@ -88,13 +88,13 @@ public class Framework {
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
         updateFetcher.checkForUpdate();
 
-        // Check EULA
-        checkEula();
-
         // Load main config
         frameworkContainer.loadConfigs();
 
-
+        if (frameworkContainer.getFrameworkUuidManager().isWasUuidNewlyCreated()) {
+            frameworkContainer.getFrameworkLogger().printDebug("Pushing installation status to VortexdataNET analytics...");
+            frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
+        }
 
         // Create query
         frameworkContainer.setTs3Query(new TS3Query(frameworkContainer.generateTs3Config()));
@@ -159,23 +159,7 @@ public class Framework {
      */
     private void checkEula() {
 
-        Eula eula = new Eula(frameworkContainer.getFrameworkLogger());
-        try {
-            eula.init();
-        } catch (OutdatedEulaException e) {
-            frameworkContainer.getFrameworkLogger().printError("Your eula was outdated and has been updated. Please review it and run the framework again. By running the framework again you accept all changes done to the new eula version.");
-            shutdown();
-        }
 
-        try {
-            if (!Boolean.parseBoolean(frameworkContainer.getConfig("configs//main.properties").getProperty("acceptEula"))) {
-                frameworkContainer.getFrameworkLogger().printError("You have to accept the eula before running the framework. It is located in the frameworks root directory and can be accepted by changing the 'acceptEula' config value in the main.properties.");
-                shutdown();
-            }
-        } catch (Exception e) {
-            frameworkContainer.getFrameworkLogger().printError("Failed to parse 'acceptEula' config value.");
-            shutdown();
-        }
     }
 
     /**

@@ -30,8 +30,10 @@ import com.github.theholywaffle.teamspeak3.api.reconnect.*;
 import net.vortexdata.tsqpf.authenticator.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
+import net.vortexdata.tsqpf.exceptions.*;
 import net.vortexdata.tsqpf.listeners.*;
 import net.vortexdata.tsqpf.modules.boothandler.*;
+import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 import net.vortexdata.tsqpf.modules.uuid.UuidManager;
 import net.vortexdata.tsqpf.plugins.*;
@@ -120,6 +122,24 @@ public class FrameworkContainer {
 
         loadConfigs();
 
+        Eula eula = new Eula(getFrameworkLogger());
+        try {
+            eula.init();
+        } catch (OutdatedEulaException e) {
+            getFrameworkLogger().printError("Your eula was outdated and has been updated. Please review it and run the framework again. By running the framework again you accept all changes done to the new eula version.");
+            getFramework().shutdown();
+        }
+
+        try {
+            if (!Boolean.parseBoolean(getConfig("configs//main.properties").getProperty("acceptEula"))) {
+                getFrameworkLogger().printError("You have to accept the eula before running the framework. It is located in the frameworks root directory and can be accepted by changing the 'acceptEula' config value in the main.properties.");
+                getFramework().shutdown();
+            }
+        } catch (Exception e) {
+            getFrameworkLogger().printError("Failed to parse 'acceptEula' config value.");
+            getFramework().shutdown();
+        }
+
         // Init UUID Manager
         frameworkUuidManager = new UuidManager(this);
         frameworkUuidManager.init();
@@ -127,8 +147,6 @@ public class FrameworkContainer {
         // Init Framework Status Reporter
         this.frameworkStatusReporter = new StatusReporter(this);
         frameworkStatusReporter.logEvent(StatusEvents.STARTUP);
-        if (frameworkUuidManager.isWasUuidNewlyCreated())
-            getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);
 
         globalEventHandler = new GlobalEventHandler(this);
         chatCommandListener = new ChatCommandListener(this);
