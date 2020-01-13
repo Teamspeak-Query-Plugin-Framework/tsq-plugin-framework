@@ -284,11 +284,6 @@ public class Framework {
         frameworkContainer.getFrameworkPluginManager().disableAll();
         frameworkContainer.getFrameworkLogger().printDebug("All plugins disabled.");
 
-
-        //frameworkContainer.getTs3Api().unregisterAllEvents();
-        //frameworkContainer.getTs3Api().logout();
-
-        CommandContainer.reset();
         frameworkContainer.getChatCommandListener().reset();
     }
 
