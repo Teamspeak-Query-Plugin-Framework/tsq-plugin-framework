@@ -77,7 +77,7 @@ If you have a question or just want to chat with us, feel free to join our [Gitt
 ## Contributors
 
 <h4>Fabian Gurtner</h4>
-- Twitter: https://twitter.com/<br>
+- Twitter: https://twitter.com/profilufter<br>
 - GitHub: https://github.com/profiluefter<br>
 - Email: fabian@profiluefter.me<br>
 
