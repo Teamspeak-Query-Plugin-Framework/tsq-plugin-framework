@@ -31,7 +31,7 @@
 - [Chat with us](#chat-with-us)
 - [Creators](#creators)
 - [Contributors](#contributors)
-- [Backers](#backers)
+- [Donate](#donate)
 - [License](#license)
 - [Copyright](#copyright)
 
@@ -86,9 +86,9 @@ If you have a question or just want to chat with us, feel free to join our [Gitt
 - GitHub: https://github.com/Klausmd5<br>
 - Email: klaus@vortexdata.net<br>
 
-## Backers
+## Donate
 
-Unfortunately. we do not have any backers yet. [Become a backer](https://ko-fi.com/vortexdatanet)
+You can help us continue our work by donating via our [Ko-Fi page](https://ko-fi.com/vortexdatanet).
 
 ## License
 
