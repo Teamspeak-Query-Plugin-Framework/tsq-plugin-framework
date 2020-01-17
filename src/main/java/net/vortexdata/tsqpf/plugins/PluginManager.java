@@ -192,12 +192,11 @@ public class PluginManager {
                 cp.load();
                 String[] frameworkversionParts = cp.getProperty("version").split("\\.");
                 String[] versionParts = apiVersion.split("\\.");
-                frameworkContainer.getFrameworkLogger().printDebug(versionParts[0] + " - " + frameworkversionParts[0]);
                 if (Integer.parseInt(versionParts[0]) != Integer.parseInt(frameworkversionParts[0])) {
-                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an unsupported API version and therefore can not be loaded.");
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an unsupported mayor API version ("+apiVersion+") and therefore can not be loaded.");
                     return;
                 } else if (Integer.parseInt(versionParts[1]) > Integer.parseInt(frameworkversionParts[1])) {
-                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an API version with features not supported by your framework version, therefore it can not be loaded.");
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an API version ("+apiVersion+") with features not supported by your framework version, therefore it can not be loaded.");
                     return;
                 }
             }
