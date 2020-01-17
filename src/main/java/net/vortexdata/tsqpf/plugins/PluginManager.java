@@ -27,6 +27,7 @@ package net.vortexdata.tsqpf.plugins;
 
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlMapping;
+import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.framework.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
 
@@ -152,6 +153,7 @@ public class PluginManager {
             String main = yamlMapping.string("main");
             String name = yamlMapping.string("name");
             String version = yamlMapping.string("version");
+            String apiVersion = yamlMapping.string("api-version");
 
             for (PluginContainer loadedPlugin : loadedPlugins) {
                 if (loadedPlugin.getPluginName().equalsIgnoreCase(name)) {
@@ -181,6 +183,20 @@ public class PluginManager {
             if (name == null || name.length() < 1) {
                 frameworkContainer.getFrameworkLogger().printWarn("Name of plugin " + file.getName() + " is invalid.");
                 throw new Error("Invalid Name");
+            }
+
+            if (apiVersion == null || apiVersion.isEmpty()) {
+                frameworkContainer.getFrameworkLogger().printWarn("Plugin " + name + " does not provide an compatible API version description. If you are running into errors, please check for any compatibility issues.");
+            } else {
+                String[] frameworkversionParts = frameworkContainer.getFrameworkConfig(new ConfigProject()).getProperty("version").split("\\.");
+                String[] versionParts = apiVersion.split("\\.");
+                if (Integer.parseInt(versionParts[0]) != Integer.parseInt(frameworkversionParts[0])) {
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an unsupported API version and therefor can not be loaded.");
+                    throw new Error("Invalid API version");
+                } else if (Integer.parseInt(versionParts[1]) > Integer.parseInt(frameworkversionParts[1])) {
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an API version with features not supported by your framework version, therefor it can not be loaded.");
+                    throw new Error("Framework version incompatible");
+                }
             }
 
             PluginContainer pc = new PluginContainer(plugin, name, yamlMapping);
