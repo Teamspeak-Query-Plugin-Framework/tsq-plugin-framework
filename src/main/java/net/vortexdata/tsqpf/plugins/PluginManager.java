@@ -188,14 +188,17 @@ public class PluginManager {
             if (apiVersion == null || apiVersion.isEmpty()) {
                 frameworkContainer.getFrameworkLogger().printWarn("Plugin " + name + " does not provide an compatible API version description. If you are running into errors, please check for any compatibility issues.");
             } else {
-                String[] frameworkversionParts = frameworkContainer.getFrameworkConfig(new ConfigProject()).getProperty("version").split("\\.");
+                ConfigProject cp = new ConfigProject();
+                cp.load();
+                String[] frameworkversionParts = cp.getProperty("version").split("\\.");
                 String[] versionParts = apiVersion.split("\\.");
+                frameworkContainer.getFrameworkLogger().printDebug(versionParts[0] + " - " + frameworkversionParts[0]);
                 if (Integer.parseInt(versionParts[0]) != Integer.parseInt(frameworkversionParts[0])) {
-                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an unsupported API version and therefor can not be loaded.");
-                    throw new Error("Invalid API version");
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an unsupported API version and therefore can not be loaded.");
+                    return;
                 } else if (Integer.parseInt(versionParts[1]) > Integer.parseInt(frameworkversionParts[1])) {
-                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an API version with features not supported by your framework version, therefor it can not be loaded.");
-                    throw new Error("Framework version incompatible");
+                    frameworkContainer.getFrameworkLogger().printError("Plugin " + name + " is using an API version with features not supported by your framework version, therefore it can not be loaded.");
+                    return;
                 }
             }
 
@@ -209,6 +212,7 @@ public class PluginManager {
 
         } catch (Exception e) {
             frameworkContainer.getFrameworkLogger().printWarn("Plugin " + file.getName() + " failed to load. This is probably due to incorrect plugin setup. Dumping error details: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
