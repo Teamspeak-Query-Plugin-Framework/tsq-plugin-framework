@@ -73,6 +73,8 @@ public class CommandFramework extends CommandInterface {
                 frameworkContainer.getFramework().reload();
             } else if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("exit") || args[0].equalsIgnoreCase("shutdown")) {
                 frameworkContainer.getFramework().shutdown();
+            } else if (args[0].equalsIgnoreCase("crash")) {
+                throw new RuntimeException();
             } else if (args[0].equalsIgnoreCase("kill")) {
                 System.exit(0);
             } else if (args[0].equalsIgnoreCase("stats")) {

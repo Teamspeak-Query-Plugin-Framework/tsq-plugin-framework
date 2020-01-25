@@ -140,7 +140,6 @@ public class Framework {
             shutdown();
         }
 
-
         frameworkContainer.getFrameworkLogger().printDebug("Trying to register global events...");
         frameworkContainer.getTs3Api().registerAllEvents();
         frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
