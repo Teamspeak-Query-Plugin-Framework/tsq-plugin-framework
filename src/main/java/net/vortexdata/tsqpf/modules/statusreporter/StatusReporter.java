@@ -109,7 +109,7 @@ public class StatusReporter {
         requestData.put("thread", t.getName());
         requestData.put("exceptionMessage", e.toString());
         requestData.put("exceptionStack", e.fillInStackTrace().toString());
-        requestData.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+        requestData.put("date", LocalDate.now().format(DateTimeFormatter.ISO_DATE_TIME));
         sendData(requestData.toString());
 
     }
