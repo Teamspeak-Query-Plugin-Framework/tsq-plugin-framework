@@ -25,62 +25,63 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.console.CommandContainer;
+import net.vortexdata.tsqpf.authenticator.UserGroup;
+import net.vortexdata.tsqpf.authenticator.UserManager;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
- * Displays help on console
+ * <p>CommandDelUser class.</p>
  *
  * @author Sandro Kierner
- * @author Michael Wiesinger
- * @since 1.0.0
+ * @since 2.0.0
  * @version $Id: $Id
  */
-public class CommandHelp extends CommandInterface {
+public class CommandDelUser extends CommandInterface {
+
+    UserManager userManager;
 
     /**
-     * <p>Constructor for CommandHelp.</p>
+     * <p>Constructor for CommandDelUser.</p>
      *
      * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param userManager a {@link net.vortexdata.tsqpf.authenticator.UserManager} object.
      */
-    public CommandHelp(Logger logger) {
+    public CommandDelUser(Logger logger, UserManager userManager) {
         super(logger);
-        CommandInterface.allowAllGroups(this);
+        this.userManager = userManager;
+        groups.add(UserGroup.ROOT);
     }
 
     /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
-        return "You need help with help? That's kinda genius :)";
+        return "Deletes a user";
     }
 
     /** {@inheritDoc} */
+    @Override
     public void execute(String[] args, IShell shell) {
-
-        if (args.length > 0) {
-            for (CommandInterface cmd : CommandContainer.getCommands()) {
-                if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    shell.getPrinter().println(cmd.getHelpMessage());
-                    return;
-                }
-            }
-        } else if (args.length > 1) {
-            shell.getPrinter().println("Incremented help is not supported in this build.");
+        if (args.length == 0) {
+            shell.getPrinter().println("Please specify a username.");
+            return;
         } else {
-            for (CommandInterface command : CommandContainer.getCommands()) {
-                shell.getPrinter().println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
+            if (args[0].equalsIgnoreCase("ROOT")) {
+                shell.getPrinter().println("Root user can not be deleted.");
+                return;
             }
+            boolean success = userManager.deleteUser(args[0]);
+            if (success)
+                shell.getPrinter().println("User " + args[0] + " deleted.");
+            else
+                shell.getPrinter().println("User " + args[0] + " does not exist.");
         }
-
     }
 
-    /**
-     * <p>getName.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
+    /** {@inheritDoc} */
+    @Override
     public String getName() {
-        return "help";
+        return "deluser";
     }
+
 }

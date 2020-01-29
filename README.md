@@ -1,77 +1,102 @@
-   > ⚠️ **Important**: Version 1.0 Lite will be superseded by version 2.0 Mint, which is set to release sometime in December 2019. Therefore, we will not release any updates regarding this generation of the framework. You can already check out the latest development builds of Mint [on the v2.0 branch](https://github.com/Vortexdata/tsq-plugin-framework/tree/v2.0).
+<p align="center">
+  <a href="https://tsqpf.vortexdata.net/">
+    <img src="https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png" alt="TSQPF logo" width="350" height="350">
+  </a>
+</p>
 
+<h3 align="center">Teamspeak Query Plugin Framework</h3>
 
-# Teamspeak Query Plugin Framework
+<p align="center">
+  A java-based plugin framework for Teamspeak 3 servers.
+  <br>
+  <a href="https://tsqpf.vortexdata.net/"><strong>Visit Website »</strong></a>
+  <br>
+  <br>
+  <a href="https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new?assignees=&labels=bug&template=bug_report.md&title=">Report bug</a>
+  ·
+  <a href="https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=">Request feature</a>
+  ·
+  <a href="https://ko-fi.com/vortexdatanet">Donate</a>
+  ·
+  <a href="https://blog.vortexdata.net">Blog</a>
+</p>
 
-A java-based plugin framework for Teamspeak 3 servers.
+## List of Contents
 
-## Features
-- Setup wizard for easy-to-use installation
-- Detailed log files and console output
-- Plugin API to add more features to your Teamspeak server
+- [Quick Start](#quick-start)
+- [Website](#website)
+- [Documentation](#documentation)
+- [Bugs and feature requests](#bugs-and-feature-requests)
+- [Badges](#badges)
+- [Chat with us](#chat-with-us)
+- [Creators](#creators)
+- [Contributors](#contributors)
+- [Donate](#donate)
+- [License](#license)
+- [Copyright](#copyright)
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
+To get you started as fast as possible, please have a read trough our quick-start guide which can be found in the [TSQPF documentation](https://tsqpf.vortexdata.net/docs/docs/framework_welcome/).
 
-#### Cross-Platform
-- Java 8 or newer
-- Teamspeak 3/5 server with query access
+## Website
 
-#### Windows
-No additional software required.
+We've a dedicated website for this project with all resoureces, updates, documentation, news and more which can be found here: https://tsqpf.vortexdata.net
 
-#### Linux
-- **GNU Screen**
+## Documentation
 
-   Install using commands below
-   
-   ```
-   apt-get install screen
-   ```
+Regardless of whether you're just looking into how to get started or you're already planning on developing your own plugins, you may want to have a look into the frameworks documentation which can be found [here](https://tsqpf.vortexdata.net/docs). 
 
-#### OSX
-No additional software required.
+## Bugs and feature requests
 
-### Download
+If you've found a bug or have an idea for a new feature which you think should be included in a future update, do not hesitate to open a bug report or feature request in the [issue section](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new/choose).
 
-   Download the latest stable release [here](https://github.com/Vortexdata/tsq-plugin-framework/releases) and extract "net.vortexdata.tsqpf-X.X.X-jar-with-dependencies.jar" from the "dist" folder.
-   
-### Installation
+## Badges
 
-   Copy "tsq-plugin-framework.jar" to a folder you want the directory structure to get generated in. Then create a startup script. Here are some examples for different operating systems.
-   
-   #### Windows
-   
-   Create a file ending with '.bat', copy and paste the code below, then run the script.
-   
-   ```
-   @echo off
-   TITLE Teamspeak Query Plugin Framework
-   java -jar tsq-plugin-framework.jar -debug
-   PAUSE
-   ```
+[![Gitter](https://badges.gitter.im/Teamspeak-Query-Plugin-Framework/community.svg)](https://gitter.im/Teamspeak-Query-Plugin-Framework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)](https://travis-ci.org/Vortexdata/tsq-plugin-framework)
+[![Issues](https://img.shields.io/github/issues/Vortexdata/tsq-plugin-framework?label=Issues)](https://github.com/Vortexdata/tsq-plugin-framework/issues)
+[![Twitter](https://img.shields.io/twitter/url?color=1DA1F2&label=Twitter&logo=Twitter&logoColor=1DA1F2&style=flat-square&url=https%3A%2F%2Ftwitter.com%2FVortexdataNET)](https://twitter.com/VortexdataNET)
 
-   #### Linux
-   
-   Create a file ending with '.sh' (_touch launch.sh_), copy and paste the code below. If required, assign required permissions (chmod 755 launch.sh).
-   
-   ```
-   java -jar tsq-plugin-framework.jar -debug
-   ```
-   
-   Now, create a new screen session:
-   
-   ```
-   screen -S session_name
-   ```
-   
-   > ⚠️ **Important**: If you run the framework outside a screen session, it will terminate as soon as you disconnect from the terminal. Also, although it not really being an issue, it is recommended not to run the script as root user.
-   
-   Once you've created the session, it should automaticall be attached. Now run the launch script:
-   
-   ```
-   ./launch.sh
-   ```
-   
-   The framework will generate its directory structure and terminate after completion. Navigate to to the main properties file and adjust it to fit your servers prefferences. Once complete, run the script again (be sure you're runnning it using a screen session) and wait for the boot process to complete.
+## Chat with us
+
+If you have a question or just want to chat with us, feel free to join our [Gitter room](https://gitter.im/Teamspeak-Query-Plugin-Framework/community).
+
+## Creators
+
+<h4>Sandro Kierner</h4>
+- Twitter: https://twitter.com/OfficialTAXSET<br>
+- GitHub: https://github.com/TAXSET<br>
+- Email: sandro@vortexdata.net<br>
+
+<h4>Michael Wiesinger</h4>
+- Twitter: https://twitter.com/VarChar42<br>
+- GitHub: https://github.com/VarChar42<br>
+- Email: michael@vortexdata.net<br>
+
+## Contributors
+
+<h4>Fabian Gurtner</h4>
+- Twitter: https://twitter.com/profilufter<br>
+- GitHub: https://github.com/profiluefter<br>
+- Email: fabian@profiluefter.me<br>
+
+<h4>Klaus Scheiböck</h4>
+- Twitter: https://twitter.com/Klaus_md5<br>
+- GitHub: https://github.com/Klausmd5<br>
+- Email: klaus@vortexdata.net<br>
+
+## Donate
+
+You can help us continue our work by donating via our [Ko-Fi page](https://ko-fi.com/vortexdatanet).
+
+## License
+
+This project is released under the [MIT License](https://github.com/teamspeak-query-plugin-framework/tsq-plugin-framework/LICENSE).
+
+## Copyright
+
+Framework Core: Copyright (C) 2019 - 2020 VortexdataNET<br>
+Teamspeak 3 Java API: Copyright (C) 2019 Bert De Geyter, Roger Baumgartner<br>
+Documentation: Copyright (C) 2020 VortexdataNET<br>
+Website: Copyright (C) 2020 VortexdataNET

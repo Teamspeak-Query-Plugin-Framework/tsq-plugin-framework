@@ -25,62 +25,54 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.console.CommandContainer;
-import net.vortexdata.tsqpf.console.IShell;
-import net.vortexdata.tsqpf.console.Logger;
+import net.vortexdata.tsqpf.authenticator.*;
+import net.vortexdata.tsqpf.console.*;
+import net.vortexdata.tsqpf.framework.*;
+import net.vortexdata.tsqpf.plugins.PluginContainer;
+import net.vortexdata.tsqpf.plugins.PluginManager;
 
 /**
- * Displays help on console
+ * <p>CommandPlugins class.</p>
  *
  * @author Sandro Kierner
- * @author Michael Wiesinger
- * @since 1.0.0
+ * @since 2.0.0
  * @version $Id: $Id
  */
-public class CommandHelp extends CommandInterface {
+public class CommandPlugins extends CommandInterface {
+
+    private FrameworkContainer frameworkContainer;
 
     /**
-     * <p>Constructor for CommandHelp.</p>
+     * <p>Constructor for CommandPlugins.</p>
      *
-     * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
+     * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
      */
-    public CommandHelp(Logger logger) {
-        super(logger);
-        CommandInterface.allowAllGroups(this);
+    public CommandPlugins(FrameworkContainer frameworkContainer) {
+        super(frameworkContainer.getFrameworkLogger());
+        groups.add(UserGroup.ROOT);
     }
 
     /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
-        return "You need help with help? That's kinda genius :)";
+        return "Lists all loaded plugins.";
     }
 
     /** {@inheritDoc} */
+    @Override
     public void execute(String[] args, IShell shell) {
 
-        if (args.length > 0) {
-            for (CommandInterface cmd : CommandContainer.getCommands()) {
-                if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    shell.getPrinter().println(cmd.getHelpMessage());
-                    return;
-                }
-            }
-        } else if (args.length > 1) {
-            shell.getPrinter().println("Incremented help is not supported in this build.");
-        } else {
-            for (CommandInterface command : CommandContainer.getCommands()) {
-                shell.getPrinter().println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
-            }
+        shell.getPrinter().println("Loaded plugins: ");
+        for (PluginContainer pc : PluginManager.getLoadedPlugins()) {
+            shell.getPrinter().println(pc.getPluginName());
         }
 
     }
 
-    /**
-     * <p>getName.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
+    /** {@inheritDoc} */
+    @Override
     public String getName() {
-        return "help";
+        return "plugins";
     }
+
 }

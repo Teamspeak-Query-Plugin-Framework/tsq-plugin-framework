@@ -23,41 +23,31 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.configs;
+package net.vortexdata.tsqpf;
 
-import java.util.HashMap;
+import net.vortexdata.tsqpf.framework.*;
 
 /**
- * ConfigMain class
+ * The Teamspeak Query Plugin Framework was created in an effort to unify
+ * and make it more accessible for developers and server admins to
+ * enhance their servers with additional plugins.
  *
- * @author Sandro Kierner
- * @since 1.0.0
+ * @author Sandro Kierner (sandro@vortexdata.net): Project Lead, Core Development
+ * @author Michael Wiesinger (michael@vortexdata.net): Core Development, Senior Developer
+ * @author Fabian Gurtner (fabian@profiluefter.me): Remote Shell
+ * @author Klaus Scheiboek (klaus@vortexdata.net): External Systems
  * @version $Id: $Id
  */
-public class ConfigMain extends Config {
+public class Main {
 
     /**
-     * <p>Constructor for ConfigMain.</p>
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
      */
-    public ConfigMain() {
-        super("configs//main.properties");
-        // Creating HashMaps
-        defaultValues = new HashMap<String, String>();
-        values = new HashMap<String, String>();
-        // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
+    public static void main(String[] args) {
+        Framework frameworkInstance = new Framework(args);
+        frameworkInstance.launch();
     }
 
 }

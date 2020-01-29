@@ -25,26 +25,27 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
 /**
- * Displays help on console
+ * <p>CommandLogout class.</p>
  *
+ * @author Mchael Wiesinger
  * @author Sandro Kierner
- * @author Michael Wiesinger
- * @since 1.0.0
+ * @since 2.0.0
  * @version $Id: $Id
  */
-public class CommandHelp extends CommandInterface {
+public class CommandLogout extends CommandInterface {
+
+
 
     /**
-     * <p>Constructor for CommandHelp.</p>
+     * <p>Constructor for CommandLogout.</p>
      *
      * @param logger a {@link net.vortexdata.tsqpf.console.Logger} object.
      */
-    public CommandHelp(Logger logger) {
+    public CommandLogout(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
     }
@@ -52,35 +53,22 @@ public class CommandHelp extends CommandInterface {
     /** {@inheritDoc} */
     @Override
     public String getHelpMessage() {
-        return "You need help with help? That's kinda genius :)";
+        return "Invalidates your current session.";
     }
 
     /** {@inheritDoc} */
+    @Override
     public void execute(String[] args, IShell shell) {
+        shell.logout();
+        shell.getPrinter().println("Logged out");
 
-        if (args.length > 0) {
-            for (CommandInterface cmd : CommandContainer.getCommands()) {
-                if (cmd.getName().equalsIgnoreCase(args[0])) {
-                    shell.getPrinter().println(cmd.getHelpMessage());
-                    return;
-                }
-            }
-        } else if (args.length > 1) {
-            shell.getPrinter().println("Incremented help is not supported in this build.");
-        } else {
-            for (CommandInterface command : CommandContainer.getCommands()) {
-                shell.getPrinter().println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
-            }
-        }
-
+        //getLogger().printDebug("Invalidating console handler session.");
     }
 
-    /**
-     * <p>getName.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
+    /** {@inheritDoc} */
+    @Override
     public String getName() {
-        return "help";
+        return "logout";
     }
+
 }

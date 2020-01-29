@@ -23,41 +23,43 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.configs;
-
-import java.util.HashMap;
+package net.vortexdata.tsqpf.console;
 
 /**
- * ConfigMain class
+ * <p>VirtualTerminal interface.</p>
  *
- * @author Sandro Kierner
- * @since 1.0.0
+ * @deprecated Use {@link net.vortexdata.tsqpf.console.IShell} instead!
+ * @author TAXSET
  * @version $Id: $Id
  */
-public class ConfigMain extends Config {
+@Deprecated
+public interface VirtualTerminal {
 
     /**
-     * <p>Constructor for ConfigMain.</p>
+     * <p>println.</p>
+     *
+     * @param msg a {@link java.lang.String} object.
      */
-    public ConfigMain() {
-        super("configs//main.properties");
-        // Creating HashMaps
-        defaultValues = new HashMap<String, String>();
-        values = new HashMap<String, String>();
-        // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
-    }
+    void println(String msg);
+
+    /**
+     * <p>print.</p>
+     *
+     * @param msg a {@link java.lang.String} object.
+     */
+    void print(String msg);
+
+    /**
+     * <p>readln.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    String readln();
+
+    /**
+     * <p>logout.</p>
+     */
+    void logout();
+
 
 }

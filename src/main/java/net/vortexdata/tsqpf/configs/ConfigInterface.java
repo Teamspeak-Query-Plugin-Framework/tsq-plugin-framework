@@ -25,39 +25,44 @@
 
 package net.vortexdata.tsqpf.configs;
 
+
 import java.util.HashMap;
 
 /**
- * ConfigMain class
+ * Configuration parent class prototype
  *
  * @author Sandro Kierner
  * @since 1.0.0
  * @version $Id: $Id
  */
-public class ConfigMain extends Config {
+public interface ConfigInterface {
 
     /**
-     * <p>Constructor for ConfigMain.</p>
+     * <p>load.</p>
+     *
+     * @return a boolean.
      */
-    public ConfigMain() {
-        super("configs//main.properties");
-        // Creating HashMaps
-        defaultValues = new HashMap<String, String>();
-        values = new HashMap<String, String>();
-        // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
-    }
+    boolean load();
+
+    /**
+     * <p>getValues.</p>
+     *
+     * @return a {@link java.util.HashMap} object.
+     */
+    HashMap<String, String> getValues();
+
+    /**
+     * <p>getDefaultValues.</p>
+     *
+     * @return a {@link java.util.HashMap} object.
+     */
+    HashMap<String, String> getDefaultValues();
+
+    /**
+     * <p>getPath.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    String getPath();
 
 }

@@ -1,0 +1,66 @@
+#version:2.0.0
+
+! PREAMBLE !
+
+The VortexdataNET TSQPF End User License Agreement (EULA) sets rules for
+downloading and using the Teamspeak Query Plugin Framework (Later called
+TSPQF). A copy of the most recent version of the EULA can be found at
+"https://tsqpf.vortexdata.net/docs/docs/framework_eula".
+
+! WARRANTY !
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+! MAIN CONTENT !
+
+By accepting the TSQPF EULA, you verify that you agree to the collection
+of some data of your TSQPF instance, which is being sent to
+VortexdataNET. VortexdataNET will only use some of the collected
+information for display on their official websites
+(eg. https://tsqpf.vortexdata.net displays a total installs count) and
+to locate bugs and issues of the TSQPF (by sending stack traces and
+logs). The data is collected anonymously, with the exception of the
+frameworks UUID, which is used as an internal identifier.
+
+The following information will be collected:
+
+    - TSQPF Exceptions
+    - TSQPF Variables
+    - Various TSQPF operations
+    - TSQPF Logs
+	- Operating System Information
+
+The framework DOES NOT collect personal or confidential information about
+other services not related to the TSQPF.
+
+! WHY WE COLLECT INSTANCE DATA !
+
+By tracking unhandled exceptions, we can identify and fix bugs faster
+and more efficiently. You can opt-out of the exception reporting by
+changing the 'enableExceptionReporting' config value in the
+main.properties from 'true' to 'false'.
+
+On the other hand we track information about when your instance
+launches, when you install a new instance and more to have an idea
+of how many servers are using the framework. Additionally, the total
+count of installations, launches and co. is displayed on the TSQPF
+website (https://tsqpf.vortexdata.net).
+
+! ADDITIONAL INFORMATION !
+
+You can accept the EULA by changing the "acceptEula" config value in
+your main.properties file to "true".
+
+If the EULA has changed after updating your framework, it will stop
+the boot process and inform you about any changes.
+
+! CONTACT INFORMATION !
+
+Email: contact@vortexdata.net
+Live Support: https://gitter.im/Teamspeak-Query-Plugin-Framework/community

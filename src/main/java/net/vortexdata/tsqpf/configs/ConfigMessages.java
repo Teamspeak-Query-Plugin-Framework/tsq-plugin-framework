@@ -28,36 +28,27 @@ package net.vortexdata.tsqpf.configs;
 import java.util.HashMap;
 
 /**
- * ConfigMain class
+ * <p>ConfigMessages class.</p>
  *
- * @author Sandro Kierner
- * @since 1.0.0
+ * @author TAXSET
+ * @since 2.0.0
+ *
+ * This config contains all framework messages.
  * @version $Id: $Id
  */
-public class ConfigMain extends Config {
+public class ConfigMessages extends Config {
 
     /**
-     * <p>Constructor for ConfigMain.</p>
+     * <p>Constructor for ConfigMessages.</p>
      */
-    public ConfigMain() {
-        super("configs//main.properties");
+    public ConfigMessages() {
+        super("configs//messages.properties");
         // Creating HashMaps
         defaultValues = new HashMap<String, String>();
         values = new HashMap<String, String>();
         // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
+        defaultValues.put("chatCommandUnknown", "Command not found.");
+        defaultValues.put("shellMotd", "You are connected to the TSQPF remote shell. UNAUTHORIZED ACCESS IS PROHIBITED!");
     }
 
 }

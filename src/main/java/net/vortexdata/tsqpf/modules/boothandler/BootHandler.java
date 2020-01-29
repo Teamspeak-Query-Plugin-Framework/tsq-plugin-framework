@@ -23,41 +23,50 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.configs;
-
-import java.util.HashMap;
+package net.vortexdata.tsqpf.modules.boothandler;
 
 /**
- * ConfigMain class
+ * Records statistics during boot process
  *
  * @author Sandro Kierner
  * @since 1.0.0
  * @version $Id: $Id
  */
-public class ConfigMain extends Config {
+public class BootHandler {
+
+    private long bootStartTime = 0;
+    private long bootEndTime = 0;
 
     /**
-     * <p>Constructor for ConfigMain.</p>
+     * Sets the timestamp of when the boot process started.
      */
-    public ConfigMain() {
-        super("configs//main.properties");
-        // Creating HashMaps
-        defaultValues = new HashMap<String, String>();
-        values = new HashMap<String, String>();
-        // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
+    public void setBootStartTime() {
+        bootStartTime = System.currentTimeMillis();
+    }
+
+    /**
+     * Sets the timestamp of when the boot process finished.
+     */
+    public void setBootEndTime() {
+        bootEndTime = System.currentTimeMillis();
+    }
+
+    /**
+     * <p>getBootTime.</p>
+     *
+     * @return Returns the total time that passed during boot
+     */
+    public float getBootTime() {
+        return bootEndTime - bootStartTime;
+    }
+
+    /**
+     * <p>Getter for the field <code>bootStartTime</code>.</p>
+     *
+     * @return a float.
+     */
+    public float getBootStartTime() {
+        return bootStartTime;
     }
 
 }
