@@ -92,7 +92,7 @@ You can help us continue our work by donating via our [Ko-Fi page](https://ko-fi
 
 ## License
 
-This project is released under the [MIT License](https://github.com/teamspeak-query-plugin-framework/tsq-plugin-framework/LICENSE).
+This project is released under the [MIT License](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/blob/master/LICENSE).
 
 ## Copyright
 
