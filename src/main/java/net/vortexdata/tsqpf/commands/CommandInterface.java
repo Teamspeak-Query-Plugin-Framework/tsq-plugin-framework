@@ -25,12 +25,12 @@
 
 package net.vortexdata.tsqpf.commands;
 
+import javafx.scene.control.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Interface for Commands
@@ -43,7 +43,19 @@ public abstract class CommandInterface {
 
     protected ArrayList<UserGroup> groups;
     private Logger logger;
+    private HashMap<String, String> availableArgs;
 
+    public boolean setAvailableArgs(HashMap<String, String> availableArgs) {
+        this.availableArgs = availableArgs;
+        return true;
+    }
+
+    public boolean addAvailableArg(String name, String description) {
+        if (availableArgs == null)
+            availableArgs = new HashMap<>();
+        availableArgs.put(name, description);
+        return true;
+    }
 
     /**
      * <p>Constructor for CommandInterface.</p>
@@ -78,7 +90,34 @@ public abstract class CommandInterface {
      *
      * @return Desired help message.
      */
-    abstract public String getHelpMessage();
+    public String getHelpMessage() {
+        StringBuilder sb = new StringBuilder();
+
+        if (availableArgs == null || availableArgs.size() == 0)
+            return "Help message not available.";
+
+        sb.append("Usage: ");
+        sb.append(getName());
+        sb.append(" <");
+
+        String[] keys = (String[]) availableArgs.keySet().toArray();
+        for (int i = 0; i < availableArgs.size(); ++i) {
+            if (availableArgs.size() - i == 0) {
+                sb.append(keys[i] + ">\n\n");
+            } else if (i == 0) {
+                sb.append(sb.append(keys[i]));
+            } else {
+                sb.append(sb.append(" | " + keys[i]) + " | ");
+            }
+        }
+
+        sb.append("More information about all arguments:\n\n");
+        for (String key : availableArgs.keySet()) {
+            sb.append("- " + key + ": " + availableArgs.get(key) + "\n");
+        }
+
+        return sb.toString();
+    };
 
     /**
      * This method is run when the user runs the command.

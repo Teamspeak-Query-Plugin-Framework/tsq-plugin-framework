@@ -29,6 +29,8 @@ import net.vortexdata.tsqpf.console.CommandContainer;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
+import java.util.*;
+
 /**
  * Displays help on console
  *
@@ -47,12 +49,7 @@ public class CommandHelp extends CommandInterface {
     public CommandHelp(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "You need help with help? That's kinda genius :)";
+        addAvailableArg("command", "Shows more information about the command.");
     }
 
     /** {@inheritDoc} */
