@@ -98,18 +98,8 @@ public abstract class CommandInterface {
 
         sb.append("Usage: ");
         sb.append(getName());
-        sb.append(" <");
 
-        String[] keys = (String[]) availableArgs.keySet().toArray();
-        for (int i = 0; i < availableArgs.size(); ++i) {
-            if (availableArgs.size() - i == 0) {
-                sb.append(keys[i] + ">\n\n");
-            } else if (i == 0) {
-                sb.append(sb.append(keys[i]));
-            } else {
-                sb.append(sb.append(" | " + keys[i]) + " | ");
-            }
-        }
+        sb.append(generateArgsString() + "\n\n");
 
         sb.append("More information about all arguments:\n\n");
         for (String key : availableArgs.keySet()) {
@@ -118,6 +108,21 @@ public abstract class CommandInterface {
 
         return sb.toString();
     };
+
+    public String generateArgsString() {
+        String export = "<";
+        String[] keys = (String[]) availableArgs.keySet().toArray();
+        for (int i = 0; i < availableArgs.size(); ++i) {
+            if (availableArgs.size() - i == 0) {
+                export += keys[i] + ">";
+            } else if (i == 0) {
+                export += keys[i];
+            } else {
+                export += " | " + keys[i] + " | ";
+            }
+        }
+        return export;
+    }
 
     /**
      * This method is run when the user runs the command.
