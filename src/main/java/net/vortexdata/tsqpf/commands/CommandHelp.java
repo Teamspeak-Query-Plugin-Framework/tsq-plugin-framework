@@ -50,6 +50,7 @@ public class CommandHelp extends CommandInterface {
         super(logger);
         CommandInterface.allowAllGroups(this);
         addAvailableArg("command", "Shows more information about the command.");
+        setDescription("Displays an overview of commands and specific commands.");
     }
 
     /** {@inheritDoc} */
@@ -62,11 +63,9 @@ public class CommandHelp extends CommandInterface {
                     return;
                 }
             }
-        } else if (args.length > 1) {
-            shell.getPrinter().println("Incremented help is not supported in this build.");
         } else {
             for (CommandInterface command : CommandContainer.getCommands()) {
-                shell.getPrinter().println(command.getName() + ": \t\t\t\t" + command.getHelpMessage());
+                shell.getPrinter().println(command.getName() + " " + command.generateArgsString());
             }
         }
 

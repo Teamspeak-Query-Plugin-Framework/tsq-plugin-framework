@@ -46,12 +46,7 @@ public class CommandClear extends CommandInterface {
     public CommandClear(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Clears the console screen";
+        setDescription("Clears the terminal screen.");
     }
 
     private static final String clearString = new String(new char[50]).replace('\0','\n');

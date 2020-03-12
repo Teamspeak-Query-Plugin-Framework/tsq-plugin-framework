@@ -44,6 +44,7 @@ public abstract class CommandInterface {
     protected ArrayList<UserGroup> groups;
     private Logger logger;
     private HashMap<String, String> availableArgs;
+    private String description;
 
     public boolean setAvailableArgs(HashMap<String, String> availableArgs) {
         this.availableArgs = availableArgs;
@@ -94,10 +95,14 @@ public abstract class CommandInterface {
         StringBuilder sb = new StringBuilder();
 
         if (availableArgs == null || availableArgs.size() == 0)
-            return "Help message not available.";
+            if (description != null && description.isEmpty())
+                return description;
+            else
+                return "Help message unavailable.";
 
+        sb.append(description + "\n\n");
         sb.append("Usage: ");
-        sb.append(getName());
+        sb.append(getName() + " ");
 
         sb.append(generateArgsString() + "\n\n");
 
@@ -107,18 +112,22 @@ public abstract class CommandInterface {
         }
 
         return sb.toString();
-    };
+    }
 
     public String generateArgsString() {
+        if (availableArgs == null || availableArgs.size() == 0)
+            return "N/A";
+
         String export = "<";
-        String[] keys = (String[]) availableArgs.keySet().toArray();
-        for (int i = 0; i < availableArgs.size(); ++i) {
-            if (availableArgs.size() - i == 0) {
+        String[] keys = availableArgs.keySet().toArray(new String[availableArgs.size()]);
+        for (int i = 0; i < keys.length; i++) {
+            if (keys.length - i == 1) {
                 export += keys[i] + ">";
+                break;
             } else if (i == 0) {
-                export += keys[i];
+                export += keys[i] + " | ";
             } else {
-                export += " | " + keys[i] + " | ";
+                export += keys[i] + " | ";
             }
         }
         return export;
@@ -157,6 +166,11 @@ public abstract class CommandInterface {
         return false;
     }
 
+    public boolean setDescription(String description) {
+        this.description = description;
+        return true;
+    }
+
     /**
      * <p>allowAllGroups.</p>
      *
@@ -164,5 +178,13 @@ public abstract class CommandInterface {
      */
     protected static void allowAllGroups(CommandInterface command) {
         command.groups.addAll(Arrays.asList(UserGroup.values()));
+    }
+
+    public HashMap<String, String> getAvailableArgs() {
+        return availableArgs;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

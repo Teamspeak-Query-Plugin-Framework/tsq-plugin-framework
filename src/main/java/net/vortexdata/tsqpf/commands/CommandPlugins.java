@@ -50,17 +50,17 @@ public class CommandPlugins extends CommandInterface {
     public CommandPlugins(FrameworkContainer frameworkContainer) {
         super(frameworkContainer.getFrameworkLogger());
         groups.add(UserGroup.ROOT);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Lists all loaded plugins.";
+        setDescription("Lists all loaded plugins.");
     }
 
     /** {@inheritDoc} */
     @Override
     public void execute(String[] args, IShell shell) {
+
+        if (PluginManager.getLoadedPlugins().isEmpty()) {
+            shell.getPrinter().println("There are no plugins to show.");
+            return;
+        }
 
         shell.getPrinter().println("Loaded plugins: ");
         for (PluginContainer pc : PluginManager.getLoadedPlugins()) {
