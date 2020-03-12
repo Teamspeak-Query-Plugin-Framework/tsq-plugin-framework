@@ -48,12 +48,7 @@ public class CommandLogout extends CommandInterface {
     public CommandLogout(Logger logger) {
         super(logger);
         CommandInterface.allowAllGroups(this);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Invalidates your current session.";
+        setDescription("Logs out the currently logged in user.");
     }
 
     /** {@inheritDoc} */

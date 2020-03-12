@@ -52,12 +52,12 @@ public class CommandFramework extends CommandInterface {
         super(frameworkContainer.getFrameworkLogger());
         this.frameworkContainer = frameworkContainer;
         groups.add(UserGroup.ROOT);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Controls framework operations.";
+        addAvailableArg("reload", "Reloads the whole framework, including plugins.");
+        addAvailableArg("stop/exit/shutdown", "Shuts down the framework.");
+        addAvailableArg("crash", "Crashes the framework.");
+        addAvailableArg("stats", "Shows some stats about the framework.");
+        addAvailableArg("kill", "Kills the framework instantly.");
+        setDescription("Controls the framework.");
     }
 
     /** {@inheritDoc} */
