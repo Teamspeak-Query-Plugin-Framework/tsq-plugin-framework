@@ -226,8 +226,8 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Trying to sign into query...");
         try {
             frameworkContainer.getTs3Api().login(
-                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryUser"),
-                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryPassword")
+                    frameworkContainer.getConfig(new ConfigMain(getFrameworkContainer().getFrameworkLogger()).getPath()).getProperty("queryUser"),
+                    frameworkContainer.getConfig(new ConfigMain(getFrameworkContainer().getFrameworkLogger()).getPath()).getProperty("queryPassword")
             );
         } catch (Exception e) {
             frameworkContainer.getFrameworkLogger().printError("Failed to sign into query, dumping error details: ");

@@ -34,7 +34,7 @@ public class UpdateFetcher {
      */
     public UpdateFetcher(FrameworkContainer frameworkContainer) {
         this.frameworkContainer = frameworkContainer;
-        ConfigProject configProject = new ConfigProject();
+        ConfigProject configProject = new ConfigProject(frameworkContainer.getFrameworkLogger());
         configProject.load();
         updateUrl = configProject.getProperty("updateFetcherInterfaceUrl");
     }
@@ -65,7 +65,7 @@ public class UpdateFetcher {
 
 
     private boolean isUpdateAvailable() {
-        ConfigProject cp = new ConfigProject();
+        ConfigProject cp = new ConfigProject(frameworkContainer.getFrameworkLogger());
         cp.load();
         String curVersion = cp.getProperty("version");
         try {

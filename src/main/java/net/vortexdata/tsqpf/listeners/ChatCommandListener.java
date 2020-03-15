@@ -53,7 +53,7 @@ public class ChatCommandListener {
      * @param frameworkContainer a {@link net.vortexdata.tsqpf.framework.FrameworkContainer} object.
      */
     public ChatCommandListener(FrameworkContainer frameworkContainer) {
-        this.messageCommandNotFound = frameworkContainer.getConfig(new ConfigMessages().getPath()).getProperty("chatCommandUnknown");
+        this.messageCommandNotFound = frameworkContainer.getConfig(new ConfigMessages(frameworkContainer.getFrameworkLogger()).getPath()).getProperty("chatCommandUnknown");
         this.frameworkContainer = frameworkContainer;
     }
 

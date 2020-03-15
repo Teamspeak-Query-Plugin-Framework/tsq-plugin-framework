@@ -188,7 +188,7 @@ public class PluginManager {
             if (apiVersion == null || apiVersion.isEmpty()) {
                 frameworkContainer.getFrameworkLogger().printWarn("Plugin " + name + " does not provide an compatible API version description. If you are running into errors, please check for any compatibility issues.");
             } else {
-                ConfigProject cp = new ConfigProject();
+                ConfigProject cp = new ConfigProject(frameworkContainer.getFrameworkLogger());
                 cp.load();
                 String[] frameworkversionParts = cp.getProperty("version").split("\\.");
                 String[] versionParts = apiVersion.split("\\.");
