@@ -29,10 +29,7 @@ package net.vortexdata.tsqpf.configs;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Parent and wrapper of all framework configs.
@@ -44,8 +41,8 @@ import java.util.Set;
 public class Config implements ConfigInterface {
 
     protected String path = "";
-    protected HashMap<String, String> values;
-    protected HashMap<String, String> defaultValues;
+    protected ArrayList<ConfigValue> values;
+    protected ArrayList<ConfigValue> defaultValues;
 
     /**
      * <p>Constructor for Config.</p>
@@ -54,6 +51,8 @@ public class Config implements ConfigInterface {
      */
     public Config(String path) {
         this.path = path;
+        defaultValues = new ArrayList<>();
+        values = new ArrayList<>();
     }
 
     /**
@@ -63,7 +62,7 @@ public class Config implements ConfigInterface {
      */
     public boolean load() {
 
-        HashMap<String, String> values = new HashMap<String, String>();
+        HashMap<String, String> values = new HashMap<>();
         File file = new File(path);
         // net.vortexdata.tsqpf.Test if config exists
         if (!file.exists()) {
@@ -86,7 +85,7 @@ public class Config implements ConfigInterface {
             }
         }
 
-        this.values = values;
+        this.values = ConfigUtils.getArrayFromHashmap(defaultValues, values);
         return true;
 
     }
@@ -104,7 +103,7 @@ public class Config implements ConfigInterface {
         }
 
         Properties prop = new Properties();
-        prop.putAll(this.getDefaultValues());
+        prop.putAll(ConfigUtils.getHashmapFromArray(defaultValues));
 
         File configFile = new File(this.getPath());
         configFile.getParentFile().mkdirs();
@@ -134,13 +133,13 @@ public class Config implements ConfigInterface {
      * If none have yet been loaded, the default values are returned instead.
      */
     @Override
-    public HashMap<String, String> getValues() {
+    public ArrayList<ConfigValue> getValues() {
         return values;
     }
 
     /** {@inheritDoc} */
     @Override
-    public HashMap<String, String> getDefaultValues() {
+    public ArrayList<ConfigValue> getDefaultValues() {
         return defaultValues;
     }
 
@@ -157,12 +156,13 @@ public class Config implements ConfigInterface {
      * @return Value associated to key.
      */
     public String getProperty(String key) {
-        if (values == null || values.isEmpty())
-            return defaultValues.get(key);
-        else if (!values.keySet().contains(key))
-            return getDefaultProperty(key);
-        else
-            return values.get(key);
+        if (values == null)
+            return "";
+        for (ConfigValue value : values) {
+            if (value.getKey().equalsIgnoreCase(key))
+                return value.getValue();
+        }
+        return "";
     }
 
     /**
@@ -172,11 +172,20 @@ public class Config implements ConfigInterface {
      * @return Default value associated to key.
      */
     public String getDefaultProperty(String key) {
-        if (defaultValues == null || defaultValues.isEmpty())
+        if (defaultValues == null)
             return "";
-        else if (!defaultValues.keySet().contains(key))
-            return "";
-        else
-            return defaultValues.get(key);
+        for (ConfigValue value : defaultValues) {
+            if (value.getKey().equalsIgnoreCase(key))
+                return value.getValue();
+        }
+        return "";
+
+    }
+
+    public boolean addValue(String key, String value, CheckType type) {
+        defaultValues.add(
+                new ConfigValue(key, value, type)
+        );
+        return true;
     }
 }

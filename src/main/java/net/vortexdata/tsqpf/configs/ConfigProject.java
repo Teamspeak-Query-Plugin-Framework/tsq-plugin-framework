@@ -19,6 +19,8 @@ import java.util.Set;
  */
 public class ConfigProject extends Config {
 
+    HashMap<String, String> values;
+
     /**
      * <p>Constructor for ConfigProject.</p>
      */
