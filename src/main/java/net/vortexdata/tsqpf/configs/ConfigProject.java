@@ -1,5 +1,6 @@
 package net.vortexdata.tsqpf.configs;
 
+import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.OutdatedEulaException;
 import org.apache.logging.log4j.core.util.JsonUtils;
 
@@ -24,8 +25,8 @@ public class ConfigProject extends Config {
     /**
      * <p>Constructor for ConfigProject.</p>
      */
-    public ConfigProject() {
-        super("/project.properties");
+    public ConfigProject(Logger logger) {
+        super("/project.properties", logger);
     }
 
     /** {@inheritDoc} */

@@ -172,7 +172,7 @@ public class FrameworkContainer {
         frameworkLogger.printDebug("Server address assigned.");
 
         frameworkLogger.printDebug("Trying to assign reconnect strategy...");
-        String reconnectStrategy = getConfig(new ConfigMain().getPath()).getProperty("reconnectStrategy");
+        String reconnectStrategy = getConfig(new ConfigMain(getFrameworkLogger()).getPath()).getProperty("reconnectStrategy");
         if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
             localTs3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
             this.frameworkReconnectStrategy = ReconnectStrategy.exponentialBackoff();
@@ -228,15 +228,23 @@ public class FrameworkContainer {
     public void loadConfigs() {
 
         // Register configs
-        ConfigMain configMain = new ConfigMain();
+        ConfigMain configMain = new ConfigMain(getFrameworkLogger());
         boolean didConfigMainExist = configMain.load();
+        boolean didConfigMainThrowErrors = configMain.runCheck();
         frameworkConfigs.add(configMain);
 
-        ConfigMessages configMessages = new ConfigMessages();
+        ConfigMessages configMessages = new ConfigMessages(getFrameworkLogger());
         boolean didConfigMessagesExist = configMessages.load();
+        boolean didConfigMessagesThrowErrors = configMessages.runCheck();
         frameworkConfigs.add(configMessages);
 
-        ConfigProject configProject = new ConfigProject();
+        // Abort launch if errors were found
+        if (didConfigMainThrowErrors || didConfigMessagesThrowErrors) {
+            getFrameworkLogger().printError("Framework can not launch as some configs are configured incorrectly.");
+            getFramework().shutdown();
+        }
+
+        ConfigProject configProject = new ConfigProject(getFrameworkLogger());
         configProject.load();
         frameworkConfigs.add(configProject);
 

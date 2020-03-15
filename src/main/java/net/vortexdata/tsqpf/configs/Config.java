@@ -26,6 +26,8 @@
 package net.vortexdata.tsqpf.configs;
 
 
+import net.vortexdata.tsqpf.console.*;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,16 +45,18 @@ public class Config implements ConfigInterface {
     protected String path = "";
     protected ArrayList<ConfigValue> values;
     protected ArrayList<ConfigValue> defaultValues;
+    private Logger logger;
 
     /**
      * <p>Constructor for Config.</p>
      *
      * @param path a {@link java.lang.String} object.
      */
-    public Config(String path) {
+    public Config(String path, Logger logger) {
         this.path = path;
         defaultValues = new ArrayList<>();
         values = new ArrayList<>();
+        this.logger = logger;
     }
 
     /**
@@ -182,10 +186,22 @@ public class Config implements ConfigInterface {
 
     }
 
-    public boolean addValue(String key, String value, CheckType type) {
+    public boolean setDefaultValue(String key, String value, CheckType type) {
         defaultValues.add(
                 new ConfigValue(key, value, type)
         );
         return true;
     }
+
+    public boolean runCheck() {
+        boolean isValid = true;
+        for (ConfigValue value : values) {
+            if (!value.check()) {
+                logger.printError("Config check for value in config " + path + " failed. Key " + value.getKey() + " is not a(n) " + value.getType().toString() + ".");
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
 }

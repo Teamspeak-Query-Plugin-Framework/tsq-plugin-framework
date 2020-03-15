@@ -25,6 +25,8 @@
 
 package net.vortexdata.tsqpf.configs;
 
+import net.vortexdata.tsqpf.console.*;
+
 import java.util.HashMap;
 
 /**
@@ -39,23 +41,22 @@ public class ConfigMain extends Config {
     /**
      * <p>Constructor for ConfigMain.</p>
      */
-    public ConfigMain() {
-        super("configs//main.properties");
-        // Creating HashMaps
+    public ConfigMain(Logger logger) {
+        super("configs//main.properties", logger);
         // Setting Default Values
-        defaultValues.put("serverAddress", "127.0.0.1");
-        defaultValues.put("queryPort", "10011");
-        defaultValues.put("queryUser", "serveradmin");
-        defaultValues.put("queryPassword", "password");
-        defaultValues.put("virtualServerId", "1");
-        defaultValues.put("clientNickname", "TSQP Framework");
-        defaultValues.put("reconnectStrategy", "exponentialBackoff");
-        defaultValues.put("remoteShellPort", "12342");
-        defaultValues.put("heartbeatPort", "12343");
-        defaultValues.put("enableRemoteShell", "true");
-        defaultValues.put("enableHeartbeat", "true");
-        defaultValues.put("acceptEula", "false");
-        defaultValues.put("enableExceptionReporting", "true");
+        setDefaultValue("serverAddress", "127.0.0.1", CheckType.STRING);
+        setDefaultValue("queryPort", "10011", CheckType.INTEGER);
+        setDefaultValue("queryUser", "serveradmin", CheckType.STRING);
+        setDefaultValue("queryPassword", "password", CheckType.STRING);
+        setDefaultValue("virtualServerId", "1", CheckType.INTEGER);
+        setDefaultValue("clientNickname", "TSQP Framework", CheckType.STRING);
+        setDefaultValue("reconnectStrategy", "exponentialBackoff", CheckType.STRING);
+        setDefaultValue("remoteShellPort", "12342", CheckType.INTEGER);
+        setDefaultValue("heartbeatPort", "12343", CheckType.INTEGER);
+        setDefaultValue("enableRemoteShell", "false", CheckType.BOOLEAN);
+        setDefaultValue("enableHeartbeat", "false", CheckType.BOOLEAN);
+        setDefaultValue("acceptEula", "false", CheckType.BOOLEAN);
+        setDefaultValue("enableExceptionReporting", "true", CheckType.BOOLEAN);
     }
 
 }

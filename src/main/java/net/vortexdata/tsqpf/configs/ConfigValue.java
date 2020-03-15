@@ -34,6 +34,8 @@ public class ConfigValue {
                 Float.parseFloat(value);
             } else if (type == CheckType.INTEGER) {
                 Integer.parseInt(value);
+            } else if (type == CheckType.BOOLEAN) {
+                Boolean.parseBoolean(value);
             }
         } catch (Exception e) {
             return false;
