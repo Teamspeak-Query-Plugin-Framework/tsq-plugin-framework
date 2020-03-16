@@ -45,7 +45,7 @@ public class Config implements ConfigInterface {
     protected String path = "";
     protected ArrayList<ConfigValue> values;
     protected ArrayList<ConfigValue> defaultValues;
-    private Logger logger;
+    protected Logger logger;
 
     /**
      * <p>Constructor for Config.</p>

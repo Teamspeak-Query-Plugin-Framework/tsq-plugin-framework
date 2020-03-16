@@ -231,21 +231,21 @@ public class FrameworkContainer {
         // Register configs
         ConfigMain configMain = new ConfigMain(getFrameworkLogger());
         boolean didConfigMainExist = configMain.load();
-        boolean didConfigMainThrowErrors = false;
+        boolean didConfigMainNotThrowErrors = true;
         frameworkConfigs.add(configMain);
 
         ConfigMessages configMessages = new ConfigMessages(getFrameworkLogger());
         boolean didConfigMessagesExist = configMessages.load();
-        boolean didConfigMessagesThrowErrors = false;
+        boolean didConfigMessagesNotThrowErrors = true;
         frameworkConfigs.add(configMessages);
 
         if (!booleanParameters.containsKey("-skip-configcheck")) {
-            didConfigMainThrowErrors = configMessages.runCheck();
-            didConfigMessagesThrowErrors = configMain.runCheck();
+            didConfigMainNotThrowErrors = configMessages.runCheck();
+            didConfigMessagesNotThrowErrors = configMain.runCheck();
         }
 
         // Abort launch if errors were found
-        if (!didConfigMainThrowErrors || !didConfigMessagesThrowErrors) {
+        if (!didConfigMainNotThrowErrors || !didConfigMessagesNotThrowErrors) {
             getFrameworkLogger().printError("Framework can not launch as some configs are configured incorrectly.");
             getFramework().shutdown();
         }

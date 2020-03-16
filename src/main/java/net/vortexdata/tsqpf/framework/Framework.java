@@ -83,9 +83,6 @@ public class Framework {
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
         updateFetcher.checkForUpdate();
 
-        // Load main config
-        frameworkContainer.loadConfigs();
-
         if (frameworkContainer.getFrameworkUuidManager().isWasUuidNewlyCreated()) {
             frameworkContainer.getFrameworkLogger().printDebug("Pushing installation status to VortexdataNET analytics...");
             frameworkContainer.getFrameworkStatusReporter().logEvent(StatusEvents.UUIDGENERATION);

@@ -33,7 +33,7 @@ public class ConfigProject extends Config {
     @Override
     public boolean load() {
 
-        HashMap<String, String> values = new HashMap<String, String>();
+        values = new HashMap<>();
 
         try {
             Properties prop = new Properties();
@@ -42,24 +42,19 @@ public class ConfigProject extends Config {
             // Load all keys & values
             Set<Object> keys = prop.keySet();
             for (Object k : keys) {
-                values.put((String) k, prop.getProperty((String) k));
+                values.put(k.toString(), prop.getProperty(k.toString()));
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-
-        this.values = values;
 
         return true;
     }
 
     @Override
     public String getProperty(String key) {
-        for (String c : values.keySet()) {
-            if (c.equalsIgnoreCase("key"))
-                return values.get(c);
-        }
-        return "N/A";
+        return values.get(key);
     }
 
 }
