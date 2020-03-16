@@ -93,10 +93,6 @@ public class CommandFramework extends CommandInterface {
                 shell.getPrinter().println("Framework version: \t\t\t" + frameworkContainer.getConfig(new ConfigProject(frameworkContainer.getFrameworkLogger()).getPath()).getProperty("version"));
                 shell.getPrinter().println("Framework vendor: \t\t\t" + frameworkContainer.getConfig(new ConfigProject(frameworkContainer.getFrameworkLogger()).getPath()).getProperty("vendor"));
                 shell.getPrinter().println("Framework status: \t\t\t" + frameworkContainer.getFrameworkStatus());
-                float uptime = System.currentTimeMillis() - frameworkContainer.getBootHandler().getBootStartTime();
-                long uptimeMinutes = (long) (uptime / 1000) / 60;
-                long uptimeSeconds = (long) (uptime / 1000) % 60;
-                shell.getPrinter().println("Framework uptime: \t\t\t" + uptimeMinutes + " minutes " + uptimeSeconds + " seconds");
                 shell.getPrinter().println("========================================================================");
             }
             else {
