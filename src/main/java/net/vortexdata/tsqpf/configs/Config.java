@@ -194,6 +194,7 @@ public class Config implements ConfigInterface {
     }
 
     public boolean runCheck() {
+        logger.printDebug("Running check for config " + path + ".");
         boolean isValid = true;
         for (ConfigValue value : values) {
             if (!value.check()) {

@@ -72,17 +72,12 @@ public class Framework {
 
         Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
 
-
-
-
         // Print Startup Head
         printCopyHeader();
 
         // init framework container
         frameworkContainer.init();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
-
-
 
         // Check for updatefetcher
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
@@ -154,19 +149,10 @@ public class Framework {
     }
 
     /**
-     * Checks if current version of EULA is valid.
-     */
-    private void checkEula() {
-
-
-    }
-
-    /**
      * Prints the credits and copyright header on startup.
      */
     private void printCopyHeader() {
         BufferedReader headBr = null;
-
         try {
             InputStream headIs = getClass().getResourceAsStream("/startuphead.txt");
             headBr = new BufferedReader(new InputStreamReader(headIs));

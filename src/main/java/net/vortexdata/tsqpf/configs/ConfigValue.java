@@ -25,17 +25,19 @@ public class ConfigValue {
     }
 
     public boolean check() {
+        Object cache;
         try {
             if (type == CheckType.CHAR) {
-                value.charAt(0);
+                cache = value.charAt(0);
             } else if (type == CheckType.DOUBLE) {
-                Double.parseDouble(value);
+                cache = Double.parseDouble(value);
             } else if (type == CheckType.FLOAT) {
-                Float.parseFloat(value);
+                cache = Float.parseFloat(value);
             } else if (type == CheckType.INTEGER) {
-                Integer.parseInt(value);
+                cache = Integer.parseInt(value);
             } else if (type == CheckType.BOOLEAN) {
-                Boolean.parseBoolean(value);
+                if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false"))
+                    return false;
             }
         } catch (Exception e) {
             return false;

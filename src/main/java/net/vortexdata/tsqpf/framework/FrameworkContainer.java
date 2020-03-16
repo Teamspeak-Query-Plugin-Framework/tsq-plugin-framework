@@ -227,22 +227,29 @@ public class FrameworkContainer {
      */
     public void loadConfigs() {
 
+        getFrameworkLogger().printInfo("Checking configs for configuration errors...");
         // Register configs
         ConfigMain configMain = new ConfigMain(getFrameworkLogger());
         boolean didConfigMainExist = configMain.load();
-        boolean didConfigMainThrowErrors = configMain.runCheck();
+        boolean didConfigMainThrowErrors = false;
         frameworkConfigs.add(configMain);
 
         ConfigMessages configMessages = new ConfigMessages(getFrameworkLogger());
         boolean didConfigMessagesExist = configMessages.load();
-        boolean didConfigMessagesThrowErrors = configMessages.runCheck();
+        boolean didConfigMessagesThrowErrors = false;
         frameworkConfigs.add(configMessages);
 
+        if (!booleanParameters.containsKey("-skip-configcheck")) {
+            didConfigMainThrowErrors = configMessages.runCheck();
+            didConfigMessagesThrowErrors = configMain.runCheck();
+        }
+
         // Abort launch if errors were found
-        if (didConfigMainThrowErrors || didConfigMessagesThrowErrors) {
+        if (!didConfigMainThrowErrors || !didConfigMessagesThrowErrors) {
             getFrameworkLogger().printError("Framework can not launch as some configs are configured incorrectly.");
             getFramework().shutdown();
         }
+        getFrameworkLogger().printInfo("Configs checked, no issues were found.");
 
         ConfigProject configProject = new ConfigProject(getFrameworkLogger());
         configProject.load();
@@ -602,6 +609,10 @@ public class FrameworkContainer {
 
             else if (args[i].contains("-reset-root")) {
                 booleanParameters.put("-reset-root", true);
+            }
+
+            else if (args[i].contains("-skip-configcheck")) {
+                booleanParameters.put("-skip-configcheck", true);
             }
 
         }

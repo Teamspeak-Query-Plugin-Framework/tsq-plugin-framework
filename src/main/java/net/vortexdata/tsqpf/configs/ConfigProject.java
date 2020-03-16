@@ -53,4 +53,13 @@ public class ConfigProject extends Config {
         return true;
     }
 
+    @Override
+    public String getProperty(String key) {
+        for (String c : values.keySet()) {
+            if (c.equalsIgnoreCase("key"))
+                return values.get(c);
+        }
+        return "N/A";
+    }
+
 }
