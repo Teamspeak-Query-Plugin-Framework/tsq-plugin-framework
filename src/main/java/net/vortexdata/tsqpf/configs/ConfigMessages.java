@@ -25,6 +25,8 @@
 
 package net.vortexdata.tsqpf.configs;
 
+import net.vortexdata.tsqpf.console.*;
+
 import java.util.HashMap;
 
 /**
@@ -41,14 +43,11 @@ public class ConfigMessages extends Config {
     /**
      * <p>Constructor for ConfigMessages.</p>
      */
-    public ConfigMessages() {
-        super("configs//messages.properties");
-        // Creating HashMaps
-        defaultValues = new HashMap<String, String>();
-        values = new HashMap<String, String>();
+    public ConfigMessages(Logger logger) {
+        super("configs//messages.properties", logger);
         // Setting Default Values
-        defaultValues.put("chatCommandUnknown", "Command not found.");
-        defaultValues.put("shellMotd", "You are connected to the TSQPF remote shell. UNAUTHORIZED ACCESS IS PROHIBITED!");
+        setDefaultValue("chatCommandUnknown", "Command not found.", CheckType.STRING);
+        setDefaultValue("shellMotd", "You are connected to the TSQPF remote shell. UNAUTHORIZED ACCESS IS PROHIBITED!", CheckType.STRING);
     }
 
 }

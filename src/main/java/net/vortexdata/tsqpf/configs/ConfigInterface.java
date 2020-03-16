@@ -26,7 +26,7 @@
 package net.vortexdata.tsqpf.configs;
 
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Configuration parent class prototype
@@ -49,14 +49,14 @@ public interface ConfigInterface {
      *
      * @return a {@link java.util.HashMap} object.
      */
-    HashMap<String, String> getValues();
+    ArrayList<ConfigValue> getValues();
 
     /**
      * <p>getDefaultValues.</p>
      *
      * @return a {@link java.util.HashMap} object.
      */
-    HashMap<String, String> getDefaultValues();
+    ArrayList<ConfigValue> getDefaultValues();
 
     /**
      * <p>getPath.</p>

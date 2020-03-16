@@ -72,9 +72,6 @@ public class Framework {
 
         Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
 
-
-
-
         // Print Startup Head
         printCopyHeader();
 
@@ -82,14 +79,9 @@ public class Framework {
         frameworkContainer.init();
         frameworkContainer.setFrameworkStatus(FrameworkStatus.STARTING);
 
-
-
         // Check for updatefetcher
         UpdateFetcher updateFetcher = new UpdateFetcher(frameworkContainer);
         updateFetcher.checkForUpdate();
-
-        // Load main config
-        frameworkContainer.loadConfigs();
 
         if (frameworkContainer.getFrameworkUuidManager().isWasUuidNewlyCreated()) {
             frameworkContainer.getFrameworkLogger().printDebug("Pushing installation status to VortexdataNET analytics...");
@@ -154,19 +146,10 @@ public class Framework {
     }
 
     /**
-     * Checks if current version of EULA is valid.
-     */
-    private void checkEula() {
-
-
-    }
-
-    /**
      * Prints the credits and copyright header on startup.
      */
     private void printCopyHeader() {
         BufferedReader headBr = null;
-
         try {
             InputStream headIs = getClass().getResourceAsStream("/startuphead.txt");
             headBr = new BufferedReader(new InputStreamReader(headIs));
@@ -226,8 +209,8 @@ public class Framework {
         frameworkContainer.getFrameworkLogger().printDebug("Trying to sign into query...");
         try {
             frameworkContainer.getTs3Api().login(
-                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryUser"),
-                    frameworkContainer.getConfig(new ConfigMain().getPath()).getProperty("queryPassword")
+                    frameworkContainer.getConfig(new ConfigMain(getFrameworkContainer().getFrameworkLogger()).getPath()).getProperty("queryUser"),
+                    frameworkContainer.getConfig(new ConfigMain(getFrameworkContainer().getFrameworkLogger()).getPath()).getProperty("queryPassword")
             );
         } catch (Exception e) {
             frameworkContainer.getFrameworkLogger().printError("Failed to sign into query, dumping error details: ");

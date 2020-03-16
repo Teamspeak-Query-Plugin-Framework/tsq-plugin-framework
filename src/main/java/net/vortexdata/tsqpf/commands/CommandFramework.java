@@ -90,8 +90,8 @@ public class CommandFramework extends CommandInterface {
                 shell.getPrinter().println("Java version: \t\t\t\t" + System.getProperty("java.version"));
                 shell.getPrinter().println("Java vendor: \t\t\t\t" + System.getProperty("java.vendor"));
                 shell.getPrinter().println("------------------------------------------------------------------------");
-                shell.getPrinter().println("Framework version: \t\t\t" + frameworkContainer.getConfig(new ConfigProject().getPath()).getProperty("version"));
-                shell.getPrinter().println("Framework vendor: \t\t\t" + frameworkContainer.getConfig(new ConfigProject().getPath()).getProperty("vendor"));
+                shell.getPrinter().println("Framework version: \t\t\t" + frameworkContainer.getConfig(new ConfigProject(frameworkContainer.getFrameworkLogger()).getPath()).getProperty("version"));
+                shell.getPrinter().println("Framework vendor: \t\t\t" + frameworkContainer.getConfig(new ConfigProject(frameworkContainer.getFrameworkLogger()).getPath()).getProperty("vendor"));
                 shell.getPrinter().println("Framework status: \t\t\t" + frameworkContainer.getFrameworkStatus());
                 shell.getPrinter().println("========================================================================");
             }
