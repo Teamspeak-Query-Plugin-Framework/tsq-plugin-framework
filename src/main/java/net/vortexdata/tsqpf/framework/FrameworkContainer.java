@@ -171,6 +171,16 @@ public class FrameworkContainer {
         localTs3config.setHost(getConfig("configs//main.properties").getProperty("serverAddress"));
         frameworkLogger.printDebug("Server address assigned.");
 
+        String cfloodRate = getConfig(new ConfigMain(getFrameworkLogger()).getPath()).getProperty("floodRate");
+        if (cfloodRate.equalsIgnoreCase("UNLIMITED")) {
+            localTs3config.setFloodRate(TS3Query.FloodRate.UNLIMITED);
+            frameworkLogger.printDebug("Set flood rate to unlimited.");
+        } else if (cfloodRate.equalsIgnoreCase("DEFAULT")) {
+            frameworkLogger.printDebug("Set flood rate to default.");
+        } else {
+            frameworkLogger.printWarn("Config value for key floodRate could not be parsed, falling back to default.");
+        }
+
         frameworkLogger.printDebug("Trying to assign reconnect strategy...");
         String reconnectStrategy = getConfig(new ConfigMain(getFrameworkLogger()).getPath()).getProperty("reconnectStrategy");
         if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
