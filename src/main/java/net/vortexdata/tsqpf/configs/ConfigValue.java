@@ -1,5 +1,12 @@
 package net.vortexdata.tsqpf.configs;
 
+/**
+ * Wrapper for all values in framework configs.
+ *
+ * @author Sandro Kierner
+ * @since 2.1.0
+ * @version $Id: $Id
+ */
 public class ConfigValue {
 
     private CheckType type;

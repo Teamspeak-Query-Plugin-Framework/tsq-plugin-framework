@@ -187,6 +187,13 @@ public class Config implements ConfigInterface {
 
     }
 
+    /**
+     * Adds a new default value to defaultValues ConfigValue array.
+     * @param key       Key of value
+     * @param value     Value of key
+     * @param type      CheckType which the value will be checked by.
+     * @return          true if added successfully.
+     */
     public boolean setDefaultValue(String key, String value, CheckType type) {
         defaultValues.add(
                 new ConfigValue(key, value, type)
@@ -194,6 +201,10 @@ public class Config implements ConfigInterface {
         return true;
     }
 
+    /**
+     * Checks config for incorrect configuration
+     * @return false if config is configured incorrectly.
+     */
     public boolean runCheck() {
         logger.printDebug("Running check for config " + path + ".");
 
@@ -247,6 +258,11 @@ public class Config implements ConfigInterface {
         return true;
     }
 
+    /**
+     * Returns ConfigValue by key.
+     * @param key   Key of the ConfigValue
+     * @return  ConfigValue by key.
+     */
     public ConfigValue getConfigValueByKey(String key) {
         for (ConfigValue cv : values) {
             if (cv.getKey().equalsIgnoreCase(key))
@@ -255,6 +271,10 @@ public class Config implements ConfigInterface {
         return null;
     }
 
+    /**
+     * Returns if the config has been regenerated (eg. due to missing keys).
+     * @return  true if config has been regenerated.
+     */
     public boolean isRegenerated() {
         return isRegenerated;
     }

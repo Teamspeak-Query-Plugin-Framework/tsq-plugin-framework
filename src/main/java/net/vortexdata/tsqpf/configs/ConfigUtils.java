@@ -2,6 +2,13 @@ package net.vortexdata.tsqpf.configs;
 
 import java.util.*;
 
+/**
+ * Util class for configs
+ *
+ * @author Sandro Kierner
+ * @since 2.1.0
+ * @version $Id: $Id
+ */
 public class ConfigUtils {
 
     public static HashMap<String, String> getHashmapFromArray(ArrayList<ConfigValue> configValues) {
