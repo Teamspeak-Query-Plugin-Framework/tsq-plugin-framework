@@ -57,6 +57,7 @@ public class ConfigMain extends Config {
         setDefaultValue("enableHeartbeat", "false", CheckType.BOOLEAN);
         setDefaultValue("acceptEula", "false", CheckType.BOOLEAN);
         setDefaultValue("enableExceptionReporting", "true", CheckType.BOOLEAN);
+        setDefaultValue("floodRate", "default", CheckType.STRING);
     }
 
 }
