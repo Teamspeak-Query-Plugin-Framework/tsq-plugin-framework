@@ -239,9 +239,22 @@ public class FrameworkContainer {
         boolean didConfigMessagesNotThrowErrors = true;
         frameworkConfigs.add(configMessages);
 
+        if (!didConfigMessagesExist)
+            frameworkLogger.printWarn("Could not find message config file, therefor created a new one. You might want to review its values.");
+        if (!didConfigMainExist) {
+            frameworkLogger.printWarn("Could not find config file, therefor created a new one. Please review and adjust its values to avoid any issues.");
+            framework.shutdown();
+        }
+
         if (!booleanParameters.containsKey("-skip-configcheck")) {
             didConfigMainNotThrowErrors = configMessages.runCheck();
             didConfigMessagesNotThrowErrors = configMain.runCheck();
+        }
+
+        // Check if configs were regenerated
+        if (configMain.isRegenerated() || configMessages.isRegenerated()) {
+            getFrameworkLogger().printError("As some configs were missing keys, they got regenerated. Please review your configs and adjust any incorrect values.");
+            framework.shutdown();
         }
 
         // Abort launch if errors were found
@@ -255,12 +268,6 @@ public class FrameworkContainer {
         configProject.load();
         frameworkConfigs.add(configProject);
 
-        if (!didConfigMessagesExist)
-            frameworkLogger.printWarn("Could not find message config file, therefor created a new one. You might want to review its values.");
-        if (!didConfigMainExist) {
-            frameworkLogger.printWarn("Could not find config file, therefor created a new one. Please review and adjust its values to avoid any issues.");
-            framework.shutdown();
-        }
         frameworkLogger.printInfo("Configs registered and loaded.");
 
     }

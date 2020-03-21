@@ -42,6 +42,7 @@ import java.util.*;
  */
 public class Config implements ConfigInterface {
 
+    private boolean isRegenerated = false;
     protected String path = "";
     protected ArrayList<ConfigValue> values;
     protected ArrayList<ConfigValue> defaultValues;
@@ -117,7 +118,7 @@ public class Config implements ConfigInterface {
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             Date date = new Date();
 
-            prop.store(fileOut, "Generated at: " + dateFormat.format(date));
+            prop.store(fileOut, "Generated on: " + dateFormat.format(date));
             fileOut.flush();
             fileOut.close();
         } catch (FileNotFoundException e) {
@@ -195,6 +196,12 @@ public class Config implements ConfigInterface {
 
     public boolean runCheck() {
         logger.printDebug("Running check for config " + path + ".");
+
+        if (defaultValues.size() > values.size()) {
+            logger.printWarn("Config " + path + " seems to be missing keys, trying to regenerate...");
+            regenerate();
+        }
+
         boolean isValid = true;
         for (ConfigValue value : values) {
             if (!value.check()) {
@@ -203,6 +210,53 @@ public class Config implements ConfigInterface {
             }
         }
         return isValid;
+    }
+
+    /**
+     * Used to add missing config keys to existing config.
+     * @return  true if regeneration was successful, false if failed.
+     */
+    public boolean regenerate() {
+
+        isRegenerated = true;
+        ArrayList<ConfigValue> valuesToWrite = new ArrayList();
+
+        for (ConfigValue defaultValue : defaultValues) {
+            ConfigValue loadedConfigValue = getConfigValueByKey(defaultValue.getKey());
+            if (loadedConfigValue == null)
+                valuesToWrite.add(defaultValue);
+            else
+                valuesToWrite.add(loadedConfigValue);
+        }
+
+        Properties prop = new Properties();
+        prop.putAll(ConfigUtils.getHashmapFromArray(valuesToWrite));
+        try {
+            FileOutputStream fileOut = new FileOutputStream(new File(path), false);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            Date date = new Date();
+            prop.store(fileOut, "Regenerated on: " + dateFormat.format(date));
+            fileOut.flush();
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public ConfigValue getConfigValueByKey(String key) {
+        for (ConfigValue cv : values) {
+            if (cv.getKey().equalsIgnoreCase(key))
+                return cv;
+        }
+        return null;
+    }
+
+    public boolean isRegenerated() {
+        return isRegenerated;
     }
 
 }
