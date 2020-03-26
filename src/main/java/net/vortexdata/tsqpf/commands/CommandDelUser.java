@@ -51,12 +51,8 @@ public class CommandDelUser extends CommandInterface {
         super(logger);
         this.userManager = userManager;
         groups.add(UserGroup.ROOT);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Deletes a user";
+        addAvailableArg("username", "Deletes the specified user account.");
+        setDescription("Deletes a user account.");
     }
 
     /** {@inheritDoc} */

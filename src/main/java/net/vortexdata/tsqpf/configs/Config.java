@@ -26,13 +26,12 @@
 package net.vortexdata.tsqpf.configs;
 
 
+import net.vortexdata.tsqpf.console.*;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Parent and wrapper of all framework configs.
@@ -43,17 +42,22 @@ import java.util.Set;
  */
 public class Config implements ConfigInterface {
 
+    private boolean isRegenerated = false;
     protected String path = "";
-    protected HashMap<String, String> values;
-    protected HashMap<String, String> defaultValues;
+    protected ArrayList<ConfigValue> values;
+    protected ArrayList<ConfigValue> defaultValues;
+    protected Logger logger;
 
     /**
      * <p>Constructor for Config.</p>
      *
      * @param path a {@link java.lang.String} object.
      */
-    public Config(String path) {
+    public Config(String path, Logger logger) {
         this.path = path;
+        defaultValues = new ArrayList<>();
+        values = new ArrayList<>();
+        this.logger = logger;
     }
 
     /**
@@ -63,7 +67,7 @@ public class Config implements ConfigInterface {
      */
     public boolean load() {
 
-        HashMap<String, String> values = new HashMap<String, String>();
+        HashMap<String, String> values = new HashMap<>();
         File file = new File(path);
         // net.vortexdata.tsqpf.Test if config exists
         if (!file.exists()) {
@@ -86,7 +90,7 @@ public class Config implements ConfigInterface {
             }
         }
 
-        this.values = values;
+        this.values = ConfigUtils.getArrayFromHashmap(defaultValues, values);
         return true;
 
     }
@@ -104,7 +108,7 @@ public class Config implements ConfigInterface {
         }
 
         Properties prop = new Properties();
-        prop.putAll(this.getDefaultValues());
+        prop.putAll(ConfigUtils.getHashmapFromArray(defaultValues));
 
         File configFile = new File(this.getPath());
         configFile.getParentFile().mkdirs();
@@ -114,7 +118,7 @@ public class Config implements ConfigInterface {
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             Date date = new Date();
 
-            prop.store(fileOut, "Generated at: " + dateFormat.format(date));
+            prop.store(fileOut, "Generated on: " + dateFormat.format(date));
             fileOut.flush();
             fileOut.close();
         } catch (FileNotFoundException e) {
@@ -134,13 +138,13 @@ public class Config implements ConfigInterface {
      * If none have yet been loaded, the default values are returned instead.
      */
     @Override
-    public HashMap<String, String> getValues() {
+    public ArrayList<ConfigValue> getValues() {
         return values;
     }
 
     /** {@inheritDoc} */
     @Override
-    public HashMap<String, String> getDefaultValues() {
+    public ArrayList<ConfigValue> getDefaultValues() {
         return defaultValues;
     }
 
@@ -157,12 +161,13 @@ public class Config implements ConfigInterface {
      * @return Value associated to key.
      */
     public String getProperty(String key) {
-        if (values == null || values.isEmpty())
-            return defaultValues.get(key);
-        else if (!values.keySet().contains(key))
-            return getDefaultProperty(key);
-        else
-            return values.get(key);
+        if (values == null)
+            return "";
+        for (ConfigValue value : values) {
+            if (value.getKey().equalsIgnoreCase(key))
+                return value.getValue();
+        }
+        return "";
     }
 
     /**
@@ -172,11 +177,106 @@ public class Config implements ConfigInterface {
      * @return Default value associated to key.
      */
     public String getDefaultProperty(String key) {
-        if (defaultValues == null || defaultValues.isEmpty())
+        if (defaultValues == null)
             return "";
-        else if (!defaultValues.keySet().contains(key))
-            return "";
-        else
-            return defaultValues.get(key);
+        for (ConfigValue value : defaultValues) {
+            if (value.getKey().equalsIgnoreCase(key))
+                return value.getValue();
+        }
+        return "";
+
     }
+
+    /**
+     * Adds a new default value to defaultValues ConfigValue array.
+     * @param key       Key of value
+     * @param value     Value of key
+     * @param type      CheckType which the value will be checked by.
+     * @return          true if added successfully.
+     */
+    public boolean setDefaultValue(String key, String value, CheckType type) {
+        defaultValues.add(
+                new ConfigValue(key, value, type)
+        );
+        return true;
+    }
+
+    /**
+     * Checks config for incorrect configuration
+     * @return false if config is configured incorrectly.
+     */
+    public boolean runCheck() {
+        logger.printDebug("Running check for config " + path + ".");
+
+        if (defaultValues.size() > values.size()) {
+            logger.printWarn("Config " + path + " seems to be missing keys, trying to regenerate...");
+            regenerate();
+        }
+
+        boolean isValid = true;
+        for (ConfigValue value : values) {
+            if (!value.check()) {
+                logger.printError("Config check for value in config " + path + " failed. Key " + value.getKey() + " is not a(n) " + value.getType().toString() + ".");
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    /**
+     * Used to add missing config keys to existing config.
+     * @return  true if regeneration was successful, false if failed.
+     */
+    public boolean regenerate() {
+
+        isRegenerated = true;
+        ArrayList<ConfigValue> valuesToWrite = new ArrayList();
+
+        for (ConfigValue defaultValue : defaultValues) {
+            ConfigValue loadedConfigValue = getConfigValueByKey(defaultValue.getKey());
+            if (loadedConfigValue == null)
+                valuesToWrite.add(defaultValue);
+            else
+                valuesToWrite.add(loadedConfigValue);
+        }
+
+        Properties prop = new Properties();
+        prop.putAll(ConfigUtils.getHashmapFromArray(valuesToWrite));
+        try {
+            FileOutputStream fileOut = new FileOutputStream(new File(path), false);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            Date date = new Date();
+            prop.store(fileOut, "Regenerated on: " + dateFormat.format(date));
+            fileOut.flush();
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns ConfigValue by key.
+     * @param key   Key of the ConfigValue
+     * @return  ConfigValue by key.
+     */
+    public ConfigValue getConfigValueByKey(String key) {
+        for (ConfigValue cv : values) {
+            if (cv.getKey().equalsIgnoreCase(key))
+                return cv;
+        }
+        return null;
+    }
+
+    /**
+     * Returns if the config has been regenerated (eg. due to missing keys).
+     * @return  true if config has been regenerated.
+     */
+    public boolean isRegenerated() {
+        return isRegenerated;
+    }
+
 }

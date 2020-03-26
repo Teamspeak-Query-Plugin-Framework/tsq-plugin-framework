@@ -1,5 +1,6 @@
 package net.vortexdata.tsqpf.configs;
 
+import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.OutdatedEulaException;
 import org.apache.logging.log4j.core.util.JsonUtils;
 
@@ -19,18 +20,20 @@ import java.util.Set;
  */
 public class ConfigProject extends Config {
 
+    HashMap<String, String> values;
+
     /**
      * <p>Constructor for ConfigProject.</p>
      */
-    public ConfigProject() {
-        super("/project.properties");
+    public ConfigProject(Logger logger) {
+        super("/project.properties", logger);
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean load() {
 
-        HashMap<String, String> values = new HashMap<String, String>();
+        values = new HashMap<>();
 
         try {
             Properties prop = new Properties();
@@ -39,15 +42,19 @@ public class ConfigProject extends Config {
             // Load all keys & values
             Set<Object> keys = prop.keySet();
             for (Object k : keys) {
-                values.put((String) k, prop.getProperty((String) k));
+                values.put(k.toString(), prop.getProperty(k.toString()));
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
-        this.values = values;
-
         return true;
+    }
+
+    @Override
+    public String getProperty(String key) {
+        return values.get(key);
     }
 
 }

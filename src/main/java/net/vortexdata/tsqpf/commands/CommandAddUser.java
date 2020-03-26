@@ -53,12 +53,7 @@ public class CommandAddUser extends CommandInterface {
         this.userManager = userManager;
         groups.add(UserGroup.ROOT);
         groups.add(UserGroup.ADMINISTRATOR);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getHelpMessage() {
-        return "Adds a new user account";
+        setDescription("Creates a new user account.");
     }
 
     /** {@inheritDoc} */

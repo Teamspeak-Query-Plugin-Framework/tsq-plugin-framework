@@ -171,8 +171,18 @@ public class FrameworkContainer {
         localTs3config.setHost(getConfig("configs//main.properties").getProperty("serverAddress"));
         frameworkLogger.printDebug("Server address assigned.");
 
+        String cfloodRate = getConfig(new ConfigMain(getFrameworkLogger()).getPath()).getProperty("floodRate");
+        if (cfloodRate.equalsIgnoreCase("UNLIMITED")) {
+            localTs3config.setFloodRate(TS3Query.FloodRate.UNLIMITED);
+            frameworkLogger.printDebug("Set flood rate to unlimited.");
+        } else if (cfloodRate.equalsIgnoreCase("DEFAULT")) {
+            frameworkLogger.printDebug("Set flood rate to default.");
+        } else {
+            frameworkLogger.printWarn("Config value for key floodRate could not be parsed, falling back to default.");
+        }
+
         frameworkLogger.printDebug("Trying to assign reconnect strategy...");
-        String reconnectStrategy = getConfig(new ConfigMain().getPath()).getProperty("reconnectStrategy");
+        String reconnectStrategy = getConfig(new ConfigMain(getFrameworkLogger()).getPath()).getProperty("reconnectStrategy");
         if (reconnectStrategy.equalsIgnoreCase("exponentialBackoff") || reconnectStrategy.equalsIgnoreCase("") || reconnectStrategy.isEmpty()) {
             localTs3config.setReconnectStrategy(ReconnectStrategy.exponentialBackoff());
             this.frameworkReconnectStrategy = ReconnectStrategy.exponentialBackoff();
@@ -227,18 +237,17 @@ public class FrameworkContainer {
      */
     public void loadConfigs() {
 
+        getFrameworkLogger().printInfo("Checking configs for configuration errors...");
         // Register configs
-        ConfigMain configMain = new ConfigMain();
+        ConfigMain configMain = new ConfigMain(getFrameworkLogger());
         boolean didConfigMainExist = configMain.load();
+        boolean didConfigMainNotThrowErrors = true;
         frameworkConfigs.add(configMain);
 
-        ConfigMessages configMessages = new ConfigMessages();
+        ConfigMessages configMessages = new ConfigMessages(getFrameworkLogger());
         boolean didConfigMessagesExist = configMessages.load();
+        boolean didConfigMessagesNotThrowErrors = true;
         frameworkConfigs.add(configMessages);
-
-        ConfigProject configProject = new ConfigProject();
-        configProject.load();
-        frameworkConfigs.add(configProject);
 
         if (!didConfigMessagesExist)
             frameworkLogger.printWarn("Could not find message config file, therefor created a new one. You might want to review its values.");
@@ -246,6 +255,29 @@ public class FrameworkContainer {
             frameworkLogger.printWarn("Could not find config file, therefor created a new one. Please review and adjust its values to avoid any issues.");
             framework.shutdown();
         }
+
+        if (!booleanParameters.containsKey("-skip-configcheck")) {
+            didConfigMainNotThrowErrors = configMessages.runCheck();
+            didConfigMessagesNotThrowErrors = configMain.runCheck();
+        }
+
+        // Check if configs were regenerated
+        if (configMain.isRegenerated() || configMessages.isRegenerated()) {
+            getFrameworkLogger().printError("As some configs were missing keys, they got regenerated. Please review your configs and adjust any incorrect values.");
+            framework.shutdown();
+        }
+
+        // Abort launch if errors were found
+        if (!didConfigMainNotThrowErrors || !didConfigMessagesNotThrowErrors) {
+            getFrameworkLogger().printError("Framework can not launch as some configs are configured incorrectly.");
+            getFramework().shutdown();
+        }
+        getFrameworkLogger().printInfo("Configs checked, no issues were found.");
+
+        ConfigProject configProject = new ConfigProject(getFrameworkLogger());
+        configProject.load();
+        frameworkConfigs.add(configProject);
+
         frameworkLogger.printInfo("Configs registered and loaded.");
 
     }
@@ -594,6 +626,10 @@ public class FrameworkContainer {
 
             else if (args[i].contains("-reset-root")) {
                 booleanParameters.put("-reset-root", true);
+            }
+
+            else if (args[i].contains("-skip-configcheck")) {
+                booleanParameters.put("-skip-configcheck", true);
             }
 
         }

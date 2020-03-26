@@ -25,12 +25,12 @@
 
 package net.vortexdata.tsqpf.commands;
 
+import javafx.scene.control.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Interface for Commands
@@ -43,7 +43,20 @@ public abstract class CommandInterface {
 
     protected ArrayList<UserGroup> groups;
     private Logger logger;
+    private HashMap<String, String> availableArgs;
+    private String description;
 
+    public boolean setAvailableArgs(HashMap<String, String> availableArgs) {
+        this.availableArgs = availableArgs;
+        return true;
+    }
+
+    public boolean addAvailableArg(String name, String description) {
+        if (availableArgs == null)
+            availableArgs = new HashMap<>();
+        availableArgs.put(name, description);
+        return true;
+    }
 
     /**
      * <p>Constructor for CommandInterface.</p>
@@ -78,7 +91,47 @@ public abstract class CommandInterface {
      *
      * @return Desired help message.
      */
-    abstract public String getHelpMessage();
+    public String getHelpMessage() {
+        StringBuilder sb = new StringBuilder();
+
+        if (availableArgs == null || availableArgs.size() == 0)
+            if (description != null && description.isEmpty())
+                return description;
+            else
+                return "Help message unavailable.";
+
+        sb.append(description + "\n\n");
+        sb.append("Usage: ");
+        sb.append(getName() + " ");
+
+        sb.append(generateArgsString() + "\n\n");
+
+        sb.append("More information about all arguments:\n\n");
+        for (String key : availableArgs.keySet()) {
+            sb.append("- " + key + ": " + availableArgs.get(key) + "\n");
+        }
+
+        return sb.toString();
+    }
+
+    public String generateArgsString() {
+        if (availableArgs == null || availableArgs.size() == 0)
+            return "N/A";
+
+        String export = "<";
+        String[] keys = availableArgs.keySet().toArray(new String[availableArgs.size()]);
+        for (int i = 0; i < keys.length; i++) {
+            if (keys.length - i == 1) {
+                export += keys[i] + ">";
+                break;
+            } else if (i == 0) {
+                export += keys[i] + " | ";
+            } else {
+                export += keys[i] + " | ";
+            }
+        }
+        return export;
+    }
 
     /**
      * This method is run when the user runs the command.
@@ -113,6 +166,11 @@ public abstract class CommandInterface {
         return false;
     }
 
+    public boolean setDescription(String description) {
+        this.description = description;
+        return true;
+    }
+
     /**
      * <p>allowAllGroups.</p>
      *
@@ -120,5 +178,13 @@ public abstract class CommandInterface {
      */
     protected static void allowAllGroups(CommandInterface command) {
         command.groups.addAll(Arrays.asList(UserGroup.values()));
+    }
+
+    public HashMap<String, String> getAvailableArgs() {
+        return availableArgs;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
