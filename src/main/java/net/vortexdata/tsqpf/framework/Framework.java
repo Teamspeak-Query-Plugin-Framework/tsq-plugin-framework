@@ -32,6 +32,7 @@ import net.vortexdata.tsqpf.commands.*;
 import net.vortexdata.tsqpf.configs.*;
 import net.vortexdata.tsqpf.console.*;
 import net.vortexdata.tsqpf.exceptions.*;
+import net.vortexdata.tsqpf.modules.heartbeat.HeartBeatListener;
 import net.vortexdata.tsqpf.modules.uncaughtExceptionHandler.ExceptionHandler;
 import net.vortexdata.tsqpf.modules.eula.*;
 import net.vortexdata.tsqpf.modules.statusreporter.*;
@@ -136,6 +137,13 @@ public class Framework {
         frameworkContainer.getTs3Api().registerAllEvents();
         frameworkContainer.getTs3Api().addTS3Listeners(frameworkContainer.getGlobalEventHandler());
         frameworkContainer.getFrameworkLogger().printDebug("Successfully registered global events.");
+
+        if (frameworkContainer.getFrameworkConfig(new ConfigMain(frameworkContainer.getFrameworkLogger())).getConfigValueByKey("enableHeartbeat").getValue().equalsIgnoreCase("true"))
+            try {
+                new HeartBeatListener(frameworkContainer, getFrameworkContainer().getTs3Api(), Integer.parseInt(frameworkContainer.getFrameworkConfig(new ConfigMain(frameworkContainer.getFrameworkLogger())).getConfigValueByKey("heartbeatPort").getValue()));
+            } catch (Exception e) {
+                frameworkContainer.getFrameworkLogger().printError("Failed to open heartbeat port as the port value in main config could not be converted to an integer. Please check your configuration files.");
+            }
 
         frameworkContainer.getFrameworkLogger().printDebug("Console handler and console commands successfully initialized and registered.");
         frameworkContainer.getBootHandler().setBootEndTime();

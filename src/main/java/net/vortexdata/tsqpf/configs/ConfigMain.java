@@ -55,6 +55,7 @@ public class ConfigMain extends Config {
         setDefaultValue("heartbeatPort", "12343", CheckType.INTEGER);
         setDefaultValue("enableRemoteShell", "false", CheckType.BOOLEAN);
         setDefaultValue("enableHeartbeat", "false", CheckType.BOOLEAN);
+        setDefaultValue("heartbeatAllowedIPs", "127.0.0.1", CheckType.STRING);
         setDefaultValue("acceptEula", "false", CheckType.BOOLEAN);
         setDefaultValue("enableExceptionReporting", "true", CheckType.BOOLEAN);
         setDefaultValue("floodRate", "default", CheckType.STRING);

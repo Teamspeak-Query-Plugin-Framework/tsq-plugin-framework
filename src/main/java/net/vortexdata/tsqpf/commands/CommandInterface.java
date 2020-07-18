@@ -25,7 +25,6 @@
 
 package net.vortexdata.tsqpf.commands;
 
-import javafx.scene.control.*;
 import net.vortexdata.tsqpf.authenticator.UserGroup;
 import net.vortexdata.tsqpf.console.IShell;
 import net.vortexdata.tsqpf.console.Logger;

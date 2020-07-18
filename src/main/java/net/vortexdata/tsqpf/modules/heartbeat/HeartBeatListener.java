@@ -23,7 +23,7 @@
  *  THE SOFTWARE.
  */
 
-package net.vortexdata.tsqpf.heartbeat;
+package net.vortexdata.tsqpf.modules.heartbeat;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import net.vortexdata.tsqpf.framework.*;
@@ -33,15 +33,20 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * <p>HeartBeatListener class.</p>
  *
- * @author TAXSET
+ * @author Sandro Kierner
+ * @author Michael Wiesinger
  * @version $Id: $Id
  */
 public class HeartBeatListener implements Runnable {
 
+    private ArrayList<String> allowedIpAddresses;
     private static boolean running = false;
     private TS3Api api;
     private Thread thread;
@@ -59,6 +64,11 @@ public class HeartBeatListener implements Runnable {
         this.frameworkContainer = container;
         this.api = api;
         this.port = port;
+        allowedIpAddresses = new ArrayList<>();
+        Arrays.stream(container.getConfig("configs//main.properties").getConfigValueByKey("heartbeatAllowedIPs").getValue().split(",")).forEach(x -> {
+            allowedIpAddresses.add(x);
+            container.getFrameworkLogger().printDebug("Adding " + x + " to heartbeat IP whitelist.");
+        });
         start();
     }
 
@@ -78,22 +88,30 @@ public class HeartBeatListener implements Runnable {
         try {
             listener = new ServerSocket(port);
         } catch (IOException e) {
-            frameworkContainer.getFrameworkLogger().printError(e.getMessage());
+            frameworkContainer.getFrameworkLogger().printError("Failed to open heartbeat port, appending error details: " + e.getMessage());
         }
         while (true) {
             try {
-
                 Socket socket = listener.accept();
-                JSONObject response = new JSONObject();
-                response.put("type", "heartbeat");
-                response.put("ping", api.getConnectionInfo().getPing());
-                response.put("time", api.getConnectionInfo().getConnectedTime());
-                socket.getOutputStream().write(response.toJSONString().getBytes(StandardCharsets.UTF_8));
-                socket.getOutputStream().flush();
+                String ip = socket.getRemoteSocketAddress().toString().split(":")[0].replace("/", "");
+                if (allowedIpAddresses.contains(ip)) {
+                    frameworkContainer.getFrameworkLogger().printDebug("Sending heartbeat to " + socket.getRemoteSocketAddress() + ".");
+                    JSONObject response = new JSONObject();
+                    response.put("type", "heartbeat");
+                    response.put("ping", api.getConnectionInfo().getPing());
+                    response.put("time", api.getConnectionInfo().getConnectedTime());
+                    socket.getOutputStream().write(response.toJSONString().getBytes(StandardCharsets.UTF_8));
+                    socket.getOutputStream().flush();
+                    // Sleep in order to get receiver to close connection properly
+                    Thread.sleep(100);
+                    socket.getOutputStream().close();
+                } else {
+                    frameworkContainer.getFrameworkLogger().printDebug("Denied heartbeat to " + socket.getRemoteSocketAddress().toString() + " as they are not whitelisted.");
+                }
                 socket.close();
 
             } catch (Exception e) {
-                frameworkContainer.getFrameworkLogger().printError(e.getMessage());
+                frameworkContainer.getFrameworkLogger().printError("Failed to respond to heartbeat request, appending exception message: " + e.getMessage());
             }
         }
 
