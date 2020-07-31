@@ -25,7 +25,7 @@
 
 package net.vortexdata.tsqpf.plugins;
 
-import net.vortexdata.tsqpf.exceptions.InvalidConfigPropertyKeyException;
+import net.vortexdata.tsqpf.exceptions.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

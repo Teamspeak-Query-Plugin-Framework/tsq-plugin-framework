@@ -95,21 +95,12 @@ public class HeartBeatListener implements Runnable {
                 Socket socket = listener.accept();
                 String ip = socket.getRemoteSocketAddress().toString().split(":")[0].replace("/", "");
                 if (allowedIpAddresses.contains(ip)) {
-                    frameworkContainer.getFrameworkLogger().printDebug("Sending heartbeat to " + socket.getRemoteSocketAddress() + ".");
-                    JSONObject response = new JSONObject();
-                    response.put("type", "heartbeat");
-                    response.put("ping", api.getConnectionInfo().getPing());
-                    response.put("time", api.getConnectionInfo().getConnectedTime());
-                    socket.getOutputStream().write(response.toJSONString().getBytes(StandardCharsets.UTF_8));
-                    socket.getOutputStream().flush();
-                    // Sleep in order to get receiver to close connection properly
-                    Thread.sleep(100);
-                    socket.getOutputStream().close();
+                    frameworkContainer.getFrameworkLogger().printDebug("Creating heartbeat session...");
+                    new HeartbeatSession(socket, frameworkContainer).start();
+                    frameworkContainer.getFrameworkLogger().printDebug("Heartbeat session has started.");
                 } else {
                     frameworkContainer.getFrameworkLogger().printDebug("Denied heartbeat to " + socket.getRemoteSocketAddress().toString() + " as they are not whitelisted.");
                 }
-                socket.close();
-
             } catch (Exception e) {
                 frameworkContainer.getFrameworkLogger().printError("Failed to respond to heartbeat request, appending exception message: " + e.getMessage());
             }
