@@ -1,3 +1,5 @@
+> ⚠️ This project has been discontinued!
+
 <p align="center">
   <a href="https://tsqpf.vortexdata.net/">
     <img src="https://tsqpf.vortexdata.net/media/tsqpf-logo-trans.png" alt="TSQPF logo" width="350" height="350">
@@ -27,11 +29,8 @@
 - [Website](#website)
 - [Documentation](#documentation)
 - [Bugs and feature requests](#bugs-and-feature-requests)
-- [Badges](#badges)
-- [Chat with us](#chat-with-us)
 - [Creators](#creators)
 - [Contributors](#contributors)
-- [Donate](#donate)
 - [License](#license)
 - [Copyright](#copyright)
 
@@ -50,17 +49,6 @@ Regardless of whether you're just looking into how to get started or you're alre
 ## Bugs and feature requests
 
 If you've found a bug or have an idea for a new feature which you think should be included in a future update, do not hesitate to open a bug report or feature request in the [issue section](https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new/choose).
-
-## Badges
-
-[![Gitter](https://badges.gitter.im/Teamspeak-Query-Plugin-Framework/community.svg)](https://gitter.im/Teamspeak-Query-Plugin-Framework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Build Status](https://travis-ci.org/Vortexdata/tsq-plugin-framework.svg?branch=v2.0)](https://travis-ci.org/Vortexdata/tsq-plugin-framework)
-[![Issues](https://img.shields.io/github/issues/Vortexdata/tsq-plugin-framework?label=Issues)](https://github.com/Vortexdata/tsq-plugin-framework/issues)
-[![Twitter](https://img.shields.io/twitter/url?color=1DA1F2&label=Twitter&logo=Twitter&logoColor=1DA1F2&style=flat-square&url=https%3A%2F%2Ftwitter.com%2FVortexdataNET)](https://twitter.com/VortexdataNET)
-
-## Chat with us
-
-If you have a question or just want to chat with us, feel free to join our [Gitter room](https://gitter.im/Teamspeak-Query-Plugin-Framework/community).
 
 ## Creators
 
@@ -86,9 +74,6 @@ If you have a question or just want to chat with us, feel free to join our [Gitt
 - GitHub: https://github.com/Klausmd5<br>
 - Email: klaus@vortexdata.net<br>
 
-## Donate
-
-You can help us continue our work by donating via our [Ko-Fi page](https://ko-fi.com/vortexdatanet).
 
 ## License
 
