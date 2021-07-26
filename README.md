@@ -1,6 +1,6 @@
 
 <p align="center">
-  > ⚠️ Warning: This project has been discontinued!
+  ⚠️ Warning: This project has been discontinued!
 </p>
 
 <hr>
