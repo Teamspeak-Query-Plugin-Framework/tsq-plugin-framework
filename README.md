@@ -1,4 +1,9 @@
-> ⚠️ This project has been discontinued!
+
+<p align="center">
+  > ⚠️ Warning: This project has been discontinued!
+</p>
+
+<hr>
 
 <p align="center">
   <a href="https://tsqpf.vortexdata.net/">
@@ -17,10 +22,6 @@
   <a href="https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new?assignees=&labels=bug&template=bug_report.md&title=">Report bug</a>
   ·
   <a href="https://github.com/Teamspeak-Query-Plugin-Framework/tsq-plugin-framework/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=">Request feature</a>
-  ·
-  <a href="https://ko-fi.com/vortexdatanet">Donate</a>
-  ·
-  <a href="https://blog.vortexdata.net">Blog</a>
 </p>
 
 ## List of Contents
